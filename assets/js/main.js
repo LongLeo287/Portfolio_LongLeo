@@ -5,17 +5,19 @@ const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
     const sections = document.querySelectorAll('section[id]');
 
-    menuBtn.addEventListener("click", () => {
-      mobileNav.classList.toggle("open");
-      menuBtn.textContent = mobileNav.classList.contains("open") ? "×" : "☰";
-    });
-
-    mobileNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileNav.classList.remove("open");
-        menuBtn.textContent = "☰";
+    if (menuBtn && mobileNav) {
+      menuBtn.addEventListener("click", () => {
+        mobileNav.classList.toggle("open");
+        menuBtn.textContent = mobileNav.classList.contains("open") ? "×" : "☰";
       });
-    });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("open");
+          menuBtn.textContent = "☰";
+        });
+      });
+    }
 
     const filterButtons = document.querySelectorAll(".filter-btn");
     const portfolioCards = document.querySelectorAll(".portfolio-card");
@@ -43,32 +45,21 @@ const menuBtn = document.getElementById("menuBtn");
     const contactForm = document.getElementById("contactForm");
     const formNote = document.getElementById("formNote");
 
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const data = new FormData(contactForm);
-      const name = data.get("name") || "Khách liên hệ";
-      const email = data.get("email") || "";
-      const message = data.get("message") || "";
-      const subject = encodeURIComponent(`Liên hệ portfolio từ ${name}`);
-      const body = encodeURIComponent(`Tên: ${name}
-Email: ${email}
-
-Nội dung:
-${message}`);
-
-      window.location.href = `mailto:thanhvinhyb77@gmail.com?subject=${subject}&body=${body}`;
-      formNote.classList.add("show");
-      contactForm.reset();
-    });
+    if (contactForm && formNote) {
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        formNote.classList.add("show");
+        contactForm.reset();
+      });
+    }
 
     function updateScrollUI() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
-      scrollProgress.style.width = `${progress}%`;
-      backToTop.classList.toggle("show", scrollTop > 520);
+      if (scrollProgress) scrollProgress.style.width = `${progress}%`;
+      if (backToTop) backToTop.classList.toggle("show", scrollTop > 520);
 
       let currentSection = "home";
       sections.forEach((section) => {
@@ -81,9 +72,11 @@ ${message}`);
       });
     }
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    if (backToTop) {
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
 
     window.addEventListener("scroll", updateScrollUI, { passive: true });
     window.addEventListener("load", updateScrollUI);

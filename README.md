@@ -1,5 +1,12 @@
 # Portfolio_LongLeo
 
+Landing page portfolio cá nhân của Long Leo, dựng lại thành website tĩnh phù hợp để chạy trực tiếp trên GitHub Pages.
+
+## Nguồn nội dung hiện tại
+
+- Kênh YouTube: <https://www.youtube.com/@LongLeo287>
+- Playlist portfolio: <https://youtube.com/playlist?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9&si=9m9mT4jTO_rroCMa>
+- CV: đang chờ bổ sung ở vòng cập nhật tiếp theo.
 Landing page portfolio cá nhân của Phạm Thành Vinh, dựng lại từ file HTML ban đầu thành cấu trúc tĩnh phù hợp để chạy trực tiếp trên GitHub Pages.
 
 ## Cấu trúc
@@ -9,6 +16,7 @@ Landing page portfolio cá nhân của Phạm Thành Vinh, dựng lại từ fil
 ├── index.html              # Trang chính GitHub Pages sẽ tự nhận
 ├── assets/
 │   ├── css/styles.css      # Toàn bộ style của landing page
+│   └── js/main.js          # Menu mobile, filter portfolio, scroll UI
 │   └── js/main.js          # Menu mobile, filter portfolio, form mailto, scroll UI
 └── Portfolio Demo.html     # File HTML gốc để tham chiếu
 ```

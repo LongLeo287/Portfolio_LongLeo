@@ -1142,3 +1142,120 @@
         height: 48px;
       }
     }
+
+/* Long Leo portfolio overrides */
+.avatar-card {
+  min-height: 420px;
+}
+
+.avatar-panel {
+  min-height: 420px;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  border-radius: 40px;
+  background:
+    radial-gradient(circle at 28% 18%, rgba(252, 211, 77, .72), transparent 28%),
+    radial-gradient(circle at 75% 72%, rgba(249, 115, 22, .5), transparent 30%),
+    linear-gradient(135deg, rgba(28, 25, 23, .95), rgba(68, 64, 60, .88));
+  color: var(--white);
+  text-align: center;
+  box-shadow: inset 0 0 80px rgba(255, 255, 255, .08);
+}
+
+.avatar-panel span {
+  font-size: clamp(48px, 8vw, 104px);
+  font-weight: 950;
+  letter-spacing: -.08em;
+}
+
+.light-avatar .avatar-panel {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(252, 211, 77, .8), transparent 26%),
+    linear-gradient(135deg, #fff7ed, #fed7aa 48%, #0c0a09 49%, #292524);
+  color: var(--bg-dark);
+}
+
+.light-avatar .avatar-panel span {
+  max-width: 320px;
+  letter-spacing: -.06em;
+  line-height: .95;
+}
+
+.source-tile,
+.source-thumb {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(252, 211, 77, .45), transparent 32%),
+    linear-gradient(135deg, #1c1917, #44403c);
+  color: var(--white);
+}
+
+.playlist-tile,
+.playlist-thumb {
+  background:
+    radial-gradient(circle at 82% 28%, rgba(249, 115, 22, .5), transparent 30%),
+    linear-gradient(135deg, #0c0a09, #7c2d12);
+}
+
+.cv-thumb {
+  background:
+    radial-gradient(circle at 80% 25%, rgba(255, 255, 255, .22), transparent 30%),
+    linear-gradient(135deg, #57534e, #1c1917);
+}
+
+.source-icon {
+  font-size: 78px;
+  font-weight: 950;
+}
+
+.source-thumb strong {
+  position: relative;
+  z-index: 1;
+  max-width: 76%;
+  text-align: center;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -.045em;
+}
+
+.featured-video {
+  overflow: hidden;
+  margin: 0 auto 34px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background: var(--bg-dark);
+  box-shadow: var(--shadow);
+  aspect-ratio: 16 / 9;
+}
+
+.featured-video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.compact-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.single-social {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 720px) {
+  .avatar-card,
+  .avatar-panel {
+    min-height: 320px;
+  }
+
+  .compact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-video {
+    border-radius: 22px;
+  }
+}
