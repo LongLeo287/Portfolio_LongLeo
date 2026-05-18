@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phạm Thành Vinh | Portfolio</title>
+  <meta name="description" content="Portfolio cá nhân của Phạm Thành Vinh - Video Creator, Marketer, Visual Storyteller." />
+  <meta name="theme-color" content="#0c0a09" />
+  <meta property="og:title" content="Phạm Thành Vinh | Portfolio" />
+  <meta property="og:description" content="Video Creator, Marketer, Visual Storyteller." />
+  <meta property="og:image" content="https://ptvinh77.github.io/profile_ptv/assets/img/avt1.jpg" />
+  <style>
+    :root {
+      --bg-dark: #0c0a09;
+      --bg-soft: #fafaf9;
+      --text-dark: #1c1917;
+      --text-muted: #6b625d;
+      --line: #e7e5e4;
+      --amber: #fcd34d;
+      --amber-2: #f59e0b;
+      --orange: #f97316;
+      --cream: #ffd9b5;
+      --brown: #7a4c25;
+      --white: #ffffff;
+      --shadow: 0 24px 80px rgba(28, 25, 23, 0.12);
+      --radius-lg: 36px;
+      --radius-md: 24px;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    ::selection {
+      background: var(--amber);
+      color: var(--text-dark);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(12, 10, 9, .76);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-wrap {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--amber), var(--orange));
+      color: var(--bg-dark);
+      font-weight: 900;
+      box-shadow: 0 18px 45px rgba(249, 115, 22, .22);
+    }
+
+    .brand-title {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      display: block;
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .main-nav a {
+      color: rgba(255,255,255,.72);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 650;
+      transition: .25s ease;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+    }
+
+    .header-cta {
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--bg-dark);
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: .25s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background: var(--amber);
+      transform: translateY(-1px);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      color: var(--white);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+      border-top: 1px solid rgba(255,255,255,.1);
+      background: var(--bg-dark);
+      padding: 14px 0 18px;
+    }
+
+    .mobile-nav a {
+      display: block;
+      color: rgba(255,255,255,.76);
+      padding: 12px 18px;
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    .mobile-nav a:hover,
+    .mobile-nav a.active {
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+    }
+
+    .scroll-progress {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--amber), var(--orange));
+      box-shadow: 0 0 18px rgba(252,211,77,.5);
+      transition: width .08s linear;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background: var(--bg-dark);
+      color: var(--white);
+      padding-top: 118px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(251,191,36,.34), transparent 36%),
+        linear-gradient(115deg, rgba(12,10,9,.96), rgba(12,10,9,.68), rgba(12,10,9,.96)),
+        url("https://ptvinh77.github.io/profile_ptv/assets/img/bg1.jpg") center/cover no-repeat;
+    }
+
+    .hero-grid {
+      position: relative;
+      min-height: calc(100vh - 118px);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 48px;
+      align-items: center;
+      padding-bottom: 72px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(16px);
+      color: rgba(255,255,255,.76);
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .hero h1 {
+      margin-top: 24px;
+      max-width: 840px;
+      font-size: clamp(54px, 9vw, 104px);
+      line-height: .92;
+      letter-spacing: -.07em;
+      font-weight: 850;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #fde68a, #fdba74, #fda4af);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 680px;
+      margin-top: 26px;
+      color: rgba(255,255,255,.7);
+      font-size: 20px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 999px;
+      padding: 15px 24px;
+      font-size: 14px;
+      font-weight: 850;
+      transition: .25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: var(--bg-dark);
+      box-shadow: 0 18px 45px rgba(245, 158, 11, .22);
+    }
+
+    .btn-primary:hover,
+    .btn-glass:hover,
+    .btn-dark:hover,
+    .btn-light:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:hover {
+      background: #fde68a;
+    }
+
+    .btn-glass {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.1);
+      color: var(--white);
+      backdrop-filter: blur(16px);
+    }
+
+    .stats {
+      max-width: 660px;
+      margin-top: 46px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.1);
+      border-radius: 24px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+    }
+
+    .stat-number {
+      display: block;
+      color: var(--white);
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255,255,255,.68);
+      font-size: 14px;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      border-radius: 52px;
+      background: linear-gradient(135deg, rgba(251,191,36,.24), rgba(249,115,22,.08), rgba(255,255,255,.05));
+      filter: blur(26px);
+    }
+
+    .portrait-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 52px;
+      background: rgba(255,255,255,.1);
+      padding: 14px;
+      box-shadow: 0 35px 120px rgba(0,0,0,.35);
+      backdrop-filter: blur(16px);
+    }
+
+    .portrait-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 40px;
+    }
+
+    .floating-note {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 34px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 26px;
+      background: rgba(12,10,9,.68);
+      padding: 18px;
+      backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .floating-note small {
+      display: block;
+      color: rgba(255,255,255,.58);
+    }
+
+    .floating-note strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--white);
+    }
+
+    section {
+      scroll-margin-top: 78px;
+    }
+
+    .section-pad {
+      padding: 96px 0;
+    }
+
+    .bg-soft {
+      background: var(--bg-soft);
+    }
+
+    .bg-white {
+      background: var(--white);
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(252,211,77,.18);
+      color: #a16207;
+      padding: 5px 15px;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .section-title h2 {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+      font-weight: 850;
+    }
+
+    .section-title p {
+      margin-top: 18px;
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      left: -22px;
+      top: -22px;
+      border-radius: 999px;
+      background: #fde68a;
+      filter: blur(40px);
+    }
+
+    .about-image-inner {
+      position: relative;
+      overflow: hidden;
+      padding: 12px;
+      background: var(--white);
+      border-radius: 44px;
+      box-shadow: var(--shadow);
+    }
+
+    .about-image-inner img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 34px;
+    }
+
+    .about-content h2 {
+      font-size: clamp(36px, 5vw, 62px);
+      line-height: 1.03;
+      letter-spacing: -.055em;
+      font-weight: 850;
+    }
+
+    .about-text {
+      margin-top: 24px;
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .about-text p + p {
+      margin-top: 16px;
+    }
+
+    .skills {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .skill-card {
+      min-height: 148px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--white);
+      padding: 22px;
+      box-shadow: 0 8px 30px rgba(28,25,23,.04);
+    }
+
+    .skill-card .icon {
+      margin-bottom: 14px;
+      font-size: 24px;
+    }
+
+    .skill-card p {
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.65;
+      font-weight: 750;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background: var(--bg-soft);
+      padding: 28px;
+      transition: .28s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245, 158, 11, .5);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 26px;
+      border-radius: 19px;
+      background: var(--bg-dark);
+      color: var(--amber);
+      font-size: 25px;
+      transition: .28s ease;
+    }
+
+    .service-card:hover .service-icon {
+      transform: rotate(4deg);
+      background: var(--amber);
+      color: var(--bg-dark);
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .service-card p {
+      margin-top: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .experience {
+      background: var(--bg-dark);
+      color: var(--white);
+    }
+
+    .experience .eyebrow {
+      background: rgba(252,211,77,.12);
+      border: 1px solid rgba(252,211,77,.18);
+      color: var(--amber);
+    }
+
+    .experience .section-title h2 {
+      color: var(--white);
+    }
+
+    .experience .section-title p {
+      color: rgba(255,255,255,.62);
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .experience-card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 34px;
+      background: rgba(255,255,255,.04);
+      transition: .28s ease;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(252,211,77,.42);
+      background: rgba(255,255,255,.07);
+    }
+
+    .experience-card-inner {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      min-height: 300px;
+    }
+
+    .experience-image {
+      position: relative;
+      overflow: hidden;
+      min-height: 260px;
+    }
+
+    .experience-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .5s ease;
+    }
+
+    .experience-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .year {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: var(--bg-dark);
+      padding: 6px 14px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .experience-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .experience-body h3 {
+      margin-top: 12px;
+      font-size: 24px;
+      line-height: 1.25;
+      color: var(--white);
+    }
+
+    .experience-body p {
+      margin-top: 17px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.75;
+    }
+
+    .link-line {
+      margin-top: 24px;
+      color: var(--amber);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .filter-row {
+      margin-bottom: 38px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .22s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(245,158,11,.5);
+      color: var(--text-dark);
+    }
+
+    .filter-btn.active {
+      border-color: var(--bg-dark);
+      background: var(--bg-dark);
+      color: var(--white);
+      box-shadow: 0 12px 34px rgba(28,25,23,.18);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .portfolio-card {
+      display: block;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background: var(--white);
+      transition: .28s ease;
+    }
+
+    .portfolio-card.hide {
+      display: none;
+    }
+
+    .empty-state {
+      display: none;
+      margin-top: 22px;
+      border: 1px dashed rgba(120,113,108,.35);
+      border-radius: 28px;
+      background: rgba(255,255,255,.7);
+      color: var(--text-muted);
+      padding: 28px;
+      text-align: center;
+      font-weight: 750;
+    }
+
+    .empty-state.show {
+      display: block;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .portfolio-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #e7e5e4;
+    }
+
+    .portfolio-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .5s ease;
+    }
+
+    .portfolio-card:hover .portfolio-thumb img {
+      transform: scale(1.05);
+    }
+
+    .portfolio-thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(12,10,9,.82), rgba(12,10,9,.08), transparent);
+    }
+
+    .tag {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      z-index: 1;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: var(--bg-dark);
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 900;
+      backdrop-filter: blur(10px);
+    }
+
+    .open-icon {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--amber);
+      color: var(--bg-dark);
+      font-weight: 900;
+      box-shadow: 0 18px 40px rgba(0,0,0,.2);
+    }
+
+    .portfolio-body {
+      padding: 22px;
+    }
+
+    .client {
+      color: #a16207;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .portfolio-body h3 {
+      margin-top: 7px;
+      color: var(--text-dark);
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .contact-section {
+      background: var(--cream);
+      color: var(--brown);
+      padding: 96px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr .85fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .contact-copy h2 {
+      font-size: clamp(42px, 7vw, 74px);
+      line-height: .98;
+      letter-spacing: -.06em;
+      font-weight: 900;
+    }
+
+    .contact-copy p {
+      max-width: 680px;
+      margin-top: 24px;
+      color: rgba(122,76,37,.82);
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .contact-actions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-dark {
+      background: var(--bg-dark);
+      color: var(--white);
+    }
+
+    .btn-light {
+      border: 1px solid rgba(122,76,37,.18);
+      background: rgba(255,255,255,.58);
+      color: var(--brown);
+    }
+
+    .contact-card {
+      border: 1px solid rgba(122,76,37,.1);
+      border-radius: 42px;
+      background: rgba(255,255,255,.65);
+      padding: 28px;
+      box-shadow: 0 28px 80px rgba(185,133,83,.22);
+      backdrop-filter: blur(16px);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid rgba(122,76,37,.12);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--text-dark);
+      padding: 14px 16px;
+      outline: none;
+      font: inherit;
+      transition: .2s ease;
+    }
+
+    .contact-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--amber-2);
+      box-shadow: 0 0 0 4px rgba(245,158,11,.14);
+    }
+
+    .form-note {
+      display: none;
+      border-radius: 18px;
+      background: rgba(252,211,77,.36);
+      color: var(--brown);
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .form-note.show {
+      display: block;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 15px;
+      border-radius: 26px;
+      background: var(--white);
+      padding: 18px;
+      color: var(--text-dark);
+    }
+
+    .contact-item .ci-icon {
+      color: #b45309;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .contact-item small {
+      display: block;
+      color: #78716c;
+      font-weight: 800;
+    }
+
+    .contact-item strong,
+    .contact-item a {
+      display: block;
+      margin-top: 2px;
+      color: var(--text-dark);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .social-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .social-grid a {
+      border-radius: 18px;
+      background: var(--bg-dark);
+      color: var(--white);
+      text-align: center;
+      padding: 12px 10px;
+      font-size: 14px;
+      font-weight: 850;
+      transition: .25s ease;
+    }
+
+    .social-grid a:hover {
+      transform: translateY(-2px);
+      background: var(--amber-2);
+      color: var(--bg-dark);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 120;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: var(--bg-dark);
+      color: var(--amber);
+      box-shadow: 0 18px 50px rgba(12,10,9,.28);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px) scale(.96);
+      transition: .25s ease;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .back-to-top:hover {
+      background: var(--amber);
+      color: var(--bg-dark);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .site-footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,.6);
+      padding: 30px 0;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .main-nav,
+      .header-cta {
+        display: none;
+      }
+
+      .menu-btn {
+        display: grid;
+        place-items: center;
+      }
+
+      .mobile-nav.open {
+        display: block;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        padding-top: 44px;
+      }
+
+      .hero-visual {
+        max-width: 620px;
+        margin: 0 auto;
+      }
+
+      .services-grid,
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .skills {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-card-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 94px;
+      }
+
+      .hero-grid {
+        min-height: auto;
+      }
+
+      .hero h1 {
+        font-size: clamp(48px, 16vw, 72px);
+      }
+
+      .hero-copy,
+      .section-title p,
+      .about-text,
+      .contact-copy p {
+        font-size: 16px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-note {
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
+        align-items: flex-start;
+      }
+
+      .section-pad,
+      .contact-section {
+        padding: 72px 0;
+      }
+
+      .services-grid,
+      .portfolio-grid,
+      .experience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="PTV Portfolio">
+        <span class="brand-mark">PTV</span>
+        <span class="brand-text">
+          <span class="brand-title">Portfolio</span>
+          <span class="brand-subtitle">Visual storytelling</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home">Trang chủ</a>
+        <a href="#about">Về mình</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#experience">Kinh nghiệm</a>
+        <a href="#portfolio">Sản phẩm</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+
+      <a class="header-cta" href="mailto:thanhvinhyb77@gmail.com">Book dự án</a>
+
+      <button class="menu-btn" type="button" aria-label="Mở menu" id="menuBtn">☰</button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+      <div class="container">
+        <a href="#home">Trang chủ</a>
+        <a href="#about">Về mình</a>
+        <a href="#services">Dịch vụ</a>
+        <a href="#experience">Kinh nghiệm</a>
+        <a href="#portfolio">Sản phẩm</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-content fade-up">
+          <span class="pill">✦ Video Creator • Marketer • Visual Storyteller</span>
+          <h1>Phạm Thành <span class="gradient-text">Vinh</span></h1>
+          <p class="hero-copy">
+            Biến insight thương hiệu thành hình ảnh có nhịp điệu, cảm xúc và khả năng kết nối — từ TVC, social video, hình ảnh truyền thông đến storyboard.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#portfolio">Xem portfolio ↗</a>
+            <a class="btn btn-glass" href="mailto:thanhvinhyb77@gmail.com">Liên hệ hợp tác ✉</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <span class="stat-number">6+</span>
+              <span class="stat-label">nhóm dịch vụ</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">18</span>
+              <span class="stat-label">sản phẩm nổi bật</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">2020</span>
+              <span class="stat-label">bắt đầu hành trình</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual fade-up">
+          <div class="portrait-card">
+            <img src="https://ptvinh77.github.io/profile_ptv/assets/img/avt1.jpg" alt="Phạm Thành Vinh" />
+            <div class="floating-note">
+              <div>
+                <small>Available for</small>
+                <strong>Video • Design • Photo • AI workflow</strong>
+              </div>
+              <span>🎬</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-soft" id="about">
+      <div class="container about-grid">
+        <div class="about-image fade-up">
+          <div class="about-image-inner">
+            <img src="https://ptvinh77.github.io/profile_ptv/assets/img/avt1.jpg" alt="About Phạm Thành Vinh" />
+          </div>
+        </div>
+
+        <div class="about-content fade-up">
+          <span class="eyebrow">Một chút về mình</span>
+          <h2>Từ tài chính đến marketing, từ con số đến khung hình.</h2>
+          <div class="about-text">
+            <p>Chào bạn, mình là Thành Vinh. Xuất thân từ lĩnh vực Tài chính, nhưng chính những con số khô khan đã dẫn mình đến thế giới Marketing nhiều sắc màu.</p>
+            <p>Với mình, Marketing không chỉ là quảng bá. Đó là hành trình nhào nặn thông điệp, tìm kiếm rung cảm nguyên bản và chuyển hóa chúng thành ngôn ngữ hình ảnh có sức sống.</p>
+            <p>Mình dành tình yêu đặc biệt cho điện ảnh, TVC và sức hút vượt thời gian của từng khung hình. Nếu bạn cần một cộng sự để hiện thực hóa câu chuyện bằng hình ảnh, hãy kết nối với Vinh nhé.</p>
+          </div>
+
+          <div class="skills">
+            <div class="skill-card">
+              <div class="icon">◉</div>
+              <p>Adobe PS, AI, PR, AE, LR</p>
+            </div>
+            <div class="skill-card">
+              <div class="icon">◉</div>
+              <p>Canon, Sony, Gimbal, Blackmagic cơ bản</p>
+            </div>
+            <div class="skill-card">
+              <div class="icon">◉</div>
+              <p>ChatGPT, Freepik Space, NanoBanana, CapCut AI, Weavy, Adobe Firefly</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-white" id="services">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow">Dịch vụ</span>
+          <h2>Một người làm hình ảnh đa nhiệm cho chiến dịch truyền thông.</h2>
+          <p>Tập trung vào hình ảnh, nhịp kể và tính ứng dụng thực tế để sản phẩm có thể dùng ngay trong social, quảng cáo hoặc branding.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card fade-up">
+            <div class="service-icon">🎥</div>
+            <h3>Quay & Dựng</h3>
+            <p>Quay và dựng video TVC, quảng cáo, sự kiện, social media video và các định dạng truyền thông ngắn.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon">✒</div>
+            <h3>Thiết kế hình ảnh</h3>
+            <p>Thiết kế banner, poster, social media, key visual và ấn phẩm phục vụ chiến dịch truyền thông.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon">📷</div>
+            <h3>Chụp ảnh</h3>
+            <p>Chụp phong cảnh, sự kiện, sản phẩm và chân dung phục vụ mục tiêu thương hiệu.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon">🎞</div>
+            <h3>Storyboarding</h3>
+            <p>Phát triển ý tưởng, kịch bản và storyboard để hình dung mạch kể trước khi sản xuất.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon">🤖</div>
+            <h3>Ứng dụng AI</h3>
+            <p>Kết hợp AI trong lên ý tưởng, thiết kế và hậu kỳ để tối ưu tốc độ lẫn chất lượng đầu ra.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon">👤</div>
+            <h3>Model / Talent</h3>
+            <p>Tham gia làm mẫu ảnh hoặc diễn xuất trong các video truyền thông khi concept phù hợp.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad experience" id="experience">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow">Kinh nghiệm</span>
+          <h2>Những môi trường đã định hình tư duy kể chuyện.</h2>
+          <p>Từ cộng đồng sinh viên, agency, thương hiệu sản phẩm đến giáo dục — mỗi giai đoạn tạo thêm một góc nhìn về truyền thông và con người.</p>
+        </div>
+
+        <div class="experience-grid">
+          <a class="experience-card fade-up" href="https://www.facebook.com/bpthvtc?locale=vi_VN" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-image">
+                <img src="https://ptvinh77.github.io/profile_ptv/assets/img/blog/about-1.jpg" alt="Ban Phát Thanh Học Viện Tài Chính" />
+                <span class="year">2020</span>
+              </div>
+              <div class="experience-body">
+                <div>
+                  <span>💼</span>
+                  <h3>Ban Phát Thanh Học Viện Tài Chính</h3>
+                  <p>Marketing bước vào cuộc sống của mình khi vẫn còn ngồi trên ghế nhà trường, và đó là lần đầu tiên bản thân có cơ hội phát triển kỹ năng trong một tập thể, thay vì chỉ tập trung vào ý tưởng cá nhân.</p>
+                </div>
+                <div class="link-line">Xem đơn vị ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://www.facebook.com/timbrandingmarketingagency/?locale=vi_VN" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-image">
+                <img src="https://ptvinh77.github.io/profile_ptv/assets/img/blog/about-2.jpg" alt="Tím Branding" />
+                <span class="year">2023</span>
+              </div>
+              <div class="experience-body">
+                <div>
+                  <span>💼</span>
+                  <h3>Tím Branding - Marketing Agency & Công ty TNHH Đầu tư CCCP</h3>
+                  <p>Tại hai nơi này, mình học được rằng một không gian dịch vụ hoàn hảo luôn bắt đầu từ sự cộng hưởng của những cá nhân tài năng. Đây là nơi mình rèn luyện khả năng phối hợp để hiện thực hóa những ý tưởng thẩm mỹ vào thực tế. Và quan trọng nhất, mình đã gặp được người thầy đầu tiên. P/s: Mình đã mắc một sai lầm trong quá trình phát triển này, và vẫn nhớ đến tận bây giờ về người ấy.</p>
+                </div>
+                <div class="link-line">Xem đơn vị ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://layerfresh.vn/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-image">
+                <img src="https://ptvinh77.github.io/profile_ptv/assets/img/blog/about-3.jpg" alt="Layer Fresh" />
+                <span class="year">2024</span>
+              </div>
+              <div class="experience-body">
+                <div>
+                  <span>💼</span>
+                  <h3>Công ty CP Layer Fresh</h3>
+                  <p>Layer Fresh là hành trình đi sâu vào cốt lõi của thương hiệu để tìm kiếm những chất liệu cảm xúc. Mình học cách kể câu chuyện của Doanh nghiệp một cách chân thực nhất để kết nối với khách hàng.</p>
+                </div>
+                <div class="link-line">Xem đơn vị ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://ieltsarena.edu.vn/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-image">
+                <img src="https://ptvinh77.github.io/profile_ptv/assets/img/blog/about-4.jpg" alt="IELTS Arena" />
+                <span class="year">2025</span>
+              </div>
+              <div class="experience-body">
+                <div>
+                  <span>💼</span>
+                  <h3>Công ty CP Giáo dục Quốc tế IELTS Arena</h3>
+                  <p>Bước chân vào lĩnh vực giáo dục, mình nhận ra sức mạnh của truyền thông trong việc truyền tải tri thức. Tại đây, mình không chỉ làm nghề, mà còn học cách tạo ra những giá trị tích cực cho cộng đồng người học.</p>
+                </div>
+                <div class="link-line">Xem đơn vị ↗</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-soft" id="portfolio">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow">Portfolio</span>
+          <h2>Sản phẩm nổi bật</h2>
+          <p>Bộ lọc giúp xem nhanh theo loại dự án. Bạn có thể thay ảnh, client, năm và link trực tiếp trong từng thẻ sản phẩm.</p>
+        </div>
+
+        <div class="filter-row fade-up" aria-label="Portfolio filter">
+          <button class="filter-btn active" type="button" data-filter="all">Tất cả</button>
+          <button class="filter-btn" type="button" data-filter="TVC">TVC</button>
+          <button class="filter-btn" type="button" data-filter="Recap">Recap</button>
+          <button class="filter-btn" type="button" data-filter="Animated video">Animated video</button>
+          <button class="filter-btn" type="button" data-filter="Short Video">Short Video</button>
+          <button class="filter-btn" type="button" data-filter="Ảnh">Ảnh</button>
+          <button class="filter-btn" type="button" data-filter="Thiết kế">Thiết kế</button>
+        </div>
+
+        <div class="portfolio-grid">
+          <a class="portfolio-card fade-up" data-category="TVC" href="https://www.youtube.com/watch?v=KlOccTMz7WM" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/work-1.jpg" alt="Giải pháp lọc nước mặn cứu sống đồng bào" /><span class="tag">TVC</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">Layer Fresh, 2024</p><h3>Giải pháp lọc nước mặn cứu sống đồng bào</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="TVC" href="https://www.youtube.com/watch?v=jIP9T06-9OA" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_3.jpg" alt="Giải Tennis Tranh Cúp The Best Solution Law" /><span class="tag">TVC</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">Layer Fresh, 2024</p><h3>Giải Tennis Tranh Cúp The Best Solution Law</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Ảnh" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery3/10.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery3/10.jpg" alt="Chụp mẫu Thành Vinh" /><span class="tag">Ảnh</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">Portrait series</p><h3>Chụp mẫu Thành Vinh</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://www.youtube.com/watch?v=C_6I5FQn2Mw" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_5.png" alt="Địa điểm thi IELTS chính thức của IDP tại Cầu Giấy" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS Arena, 2025</p><h3>Địa điểm thi IELTS chính thức của IDP tại Cầu Giấy</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Animated video" href="https://www.youtube.com/watch?v=KfPK0Oy2hpo" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_12.png" alt="IELTS Arena: Niềm Say Mê" /><span class="tag">Animated video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS Arena, 2025</p><h3>IELTS Arena: Niềm Say Mê</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="TVC" href="https://www.youtube.com/watch?v=XcncURhBqNg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_4.png" alt="Sứ mệnh của IVIE - Bác sĩ ơi" /><span class="tag">TVC</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IVIE - Bác sĩ ơi, 2024</p><h3>Sứ mệnh của IVIE - Bác sĩ ơi</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Animated video" href="https://youtube.com/watch?v=45Nv40LPuHg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_11.png" alt="IDP Animated video" /><span class="tag">Animated video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS Arena, 2025</p><h3>IDP Animated video</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="TVC" href="https://www.youtube.com/watch?v=3T8fKPPk-QM&t=3s" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_5.jpg" alt="5 năm - 1 Hành trình mang sức khỏe đến toàn dân" /><span class="tag">TVC</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IVIE - Bác sĩ ơi, 2024</p><h3>5 năm - 1 Hành trình mang sức khỏe đến toàn dân</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://www.youtube.com/watch?v=Zj6XV4edh-E" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_6.jpg" alt="Câu chuyện về Máy lọc nước ION Kiềm" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">Layer Fresh, 2024</p><h3>Câu chuyện về Máy lọc nước ION Kiềm</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Ảnh" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery4/1.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery4/1.jpg" alt="Không gian nhà hàng Shibuya Paradaisu" /><span class="tag">Ảnh</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">CCCP, 2023</p><h3>Không gian nhà hàng Shibuya Paradaisu</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Ảnh" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery1/IMG_1.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery1/IMG_1.jpg" alt="Chụp mẫu Lê Hằng" /><span class="tag">Ảnh</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">Ban Phát Thanh, 2021</p><h3>Chụp mẫu Lê Hằng</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Ảnh" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery5/1.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery5/1.jpg" alt="Món phở tại Xin chào Cafe" /><span class="tag">Ảnh</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">CCCP, 2023</p><h3>Món phở tại Xin chào Cafe</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Thiết kế" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/MenuXinchaocafe.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/MenuXinchaocafe.jpg" alt="Menu Xin chào Cafe" /><span class="tag">Thiết kế</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">CCCP, 2023</p><h3>Menu Xin chào Cafe</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Ảnh" href="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery6/1.jpg" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/gallery6/1.jpg" alt="Khai trương Cafe Mộc Quỳnh cs Hải Dương" /><span class="tag">Ảnh</span><span class="open-icon">↗</span></div>
+            <div class="portfolio-body"><p class="client">Tím Agency, 2022</p><h3>Khai trương Cafe Mộc Quỳnh cs Hải Dương</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://www.youtube.com/watch?v=1QsqWmf87gI" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_8.png" alt="Học viên 7.0 IELTS lần đầu tiết lộ Phương pháp học thực chiến" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS, 2024</p><h3>Học viên 7.0 IELTS lần đầu tiết lộ Phương pháp học thực chiến</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://www.youtube.com/watch?v=kozIkv3ZY_0" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_9.png" alt="Sứ mệnh R&D là gì?" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS, 2024</p><h3>Sứ mệnh R&D là gì?</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://www.youtube.com/watch?v=ae_GQfjWX-E" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_10.png" alt="Học nhồi - quên nhanh. Và đây là cách giải quyết" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">IELTS, 2024</p><h3>Học nhồi - quên nhanh. Và đây là cách giải quyết</h3></div>
+          </a>
+
+          <a class="portfolio-card fade-up" data-category="Short Video" href="https://youtube.com/shorts/NkLbefTb65Q?si=BGc6HL_i25bwBgEj" target="_blank" rel="noreferrer">
+            <div class="portfolio-thumb"><img src="https://ptvinh77.github.io/profile_ptv/assets/img/work/Screenshot_15.jpg" alt="Cho kẹo hay Bị ghẹo" /><span class="tag">Short Video</span><span class="open-icon">▶</span></div>
+            <div class="portfolio-body"><p class="client">Layer Fresh, 2024</p><h3>Cho kẹo hay Bị ghẹo - Dù thế nào thì nhớ tạt qua gian hàng của chúng mình để chọn trang bị nhé</h3></div>
+          </a>
+        </div>
+        <div class="empty-state" id="emptyState">Danh mục này hiện chưa có sản phẩm. Bạn có thể thêm project mới bằng cách nhân bản một thẻ portfolio và đổi <strong>data-category</strong>.</div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy fade-up">
+          <span class="eyebrow">Liên hệ</span>
+          <h2>Cảm ơn bạn đã dành thời gian ghé thăm.</h2>
+          <p>Cần người quay dựng, thiết kế, chụp ảnh hoặc lên concept bằng hình ảnh? Gửi brief, timeline và mục tiêu truyền thông để bắt đầu trao đổi.</p>
+          <div class="contact-actions">
+            <a class="btn btn-dark" href="mailto:thanhvinhyb77@gmail.com">Gửi email ✉</a>
+            <a class="btn btn-light" href="tel:0383391841">Gọi ngay ☎</a>
+          </div>
+        </div>
+
+        <div class="contact-card fade-up">
+          <form class="contact-form" id="contactForm">
+            <input type="text" name="name" placeholder="Tên của bạn" required />
+            <input type="email" name="email" placeholder="Email liên hệ" required />
+            <textarea name="message" placeholder="Nội dung cần trao đổi" required></textarea>
+            <button class="btn btn-dark" type="submit">Gửi đi</button>
+            <div class="form-note" id="formNote">Email draft đã được mở. Nếu trình duyệt không tự mở mail app, bạn có thể gửi trực tiếp đến: thanhvinhyb77@gmail.com</div>
+          </form>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="ci-icon">✉</span>
+              <div>
+                <small>Email</small>
+                <a href="mailto:thanhvinhyb77@gmail.com">thanhvinhyb77@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="ci-icon">☎</span>
+              <div>
+                <small>SĐT</small>
+                <a href="tel:0383391841">0383 391 841</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="ci-icon">⌖</span>
+              <div>
+                <small>Địa chỉ</small>
+                <strong>307 Phạm Văn Đồng, Xuân Đỉnh, Hà Nội</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-grid">
+            <a href="https://www.facebook.com/vinh.phamthanh.946/" target="_blank" rel="noreferrer">Facebook</a>
+            <a href="https://www.behance.net/vinhphmthnh" target="_blank" rel="noreferrer">Behance</a>
+            <a href="https://www.instagram.com/adtl_nmwhd/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.youtube.com/@thanhvinh_marketer" target="_blank" rel="noreferrer">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>PTV - 2026 | All Rights Reserved.</p>
+      <p>Rebuilt landing page concept</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Quay lại đầu trang">↑</button>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileNav = document.getElementById("mobileNav");
+    const backToTop = document.getElementById("backToTop");
+    const scrollProgress = document.getElementById("scrollProgress");
+    const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
+    const sections = document.querySelectorAll('section[id]');
+
+    menuBtn.addEventListener("click", () => {
+      mobileNav.classList.toggle("open");
+      menuBtn.textContent = mobileNav.classList.contains("open") ? "×" : "☰";
+    });
+
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+        menuBtn.textContent = "☰";
+      });
+    });
+
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const portfolioCards = document.querySelectorAll(".portfolio-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        let visibleCount = 0;
+
+        portfolioCards.forEach((card) => {
+          const category = card.dataset.category;
+          const shouldShow = filter === "all" || category === filter;
+          card.classList.toggle("hide", !shouldShow);
+          if (shouldShow) visibleCount += 1;
+        });
+
+        document.getElementById("emptyState").classList.toggle("show", visibleCount === 0);
+      });
+    });
+
+    const contactForm = document.getElementById("contactForm");
+    const formNote = document.getElementById("formNote");
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const data = new FormData(contactForm);
+      const name = data.get("name") || "Khách liên hệ";
+      const email = data.get("email") || "";
+      const message = data.get("message") || "";
+      const subject = encodeURIComponent(`Liên hệ portfolio từ ${name}`);
+      const body = encodeURIComponent(`Tên: ${name}
+Email: ${email}
+
+Nội dung:
+${message}`);
+
+      window.location.href = `mailto:thanhvinhyb77@gmail.com?subject=${subject}&body=${body}`;
+      formNote.classList.add("show");
+      contactForm.reset();
+    });
+
+    function updateScrollUI() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+      scrollProgress.style.width = `${progress}%`;
+      backToTop.classList.toggle("show", scrollTop > 520);
+
+      let currentSection = "home";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 120;
+        if (scrollTop >= sectionTop) currentSection = section.id;
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${currentSection}`);
+      });
+    }
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("scroll", updateScrollUI, { passive: true });
+    window.addEventListener("load", updateScrollUI);
+    updateScrollUI();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
