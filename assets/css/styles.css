@@ -1596,9 +1596,6 @@
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .marquee-wrapper {
