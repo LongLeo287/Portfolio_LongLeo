@@ -212,3 +212,110 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
     }
   });
 }
+
+/* ── Showcase Slider ── */
+const slider = document.getElementById("showcaseSlider");
+if (slider) {
+  const slides = slider.querySelectorAll(".showcase-slide");
+  const prevBtn = document.getElementById("prevSlideBtn");
+  const nextBtn = document.getElementById("nextSlideBtn");
+  const dotsContainer = document.getElementById("sliderDots");
+  let currentSlideIndex = 0;
+  let slideInterval = null;
+  const intervalTime = 6000; // 6 giây đổi 1 lần
+
+  // Tạo các chấm chỉ số (dots)
+  if (dotsContainer) {
+    slides.forEach((_, index) => {
+      const dot = document.createElement("div");
+      dot.classList.add("slider-dot");
+      if (index === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => {
+        goToSlide(index);
+        resetInterval();
+      });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  const dots = dotsContainer ? dotsContainer.querySelectorAll(".slider-dot") : [];
+
+  function goToSlide(index) {
+    // Ẩn slide và chấm cũ
+    slides[currentSlideIndex].classList.remove("active");
+    if (dots.length > 0) dots[currentSlideIndex].classList.remove("active");
+
+    // Dừng video nếu slide hiện tại là video phát dở
+    const currentSlide = slides[currentSlideIndex];
+    if (currentSlide.dataset.type === "video") {
+      const iframe = currentSlide.querySelector("iframe");
+      if (iframe) {
+        const src = iframe.src;
+        iframe.src = src; // Reload src để dừng phát video
+      }
+    }
+
+    // Tính chỉ số mới
+    currentSlideIndex = (index + slides.length) % slides.length;
+
+    // Hiện slide và chấm mới
+    slides[currentSlideIndex].classList.add("active");
+    if (dots.length > 0) dots[currentSlideIndex].classList.add("active");
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlideIndex + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentSlideIndex - 1);
+  }
+
+  if (prevBtn) prevBtn.addEventListener("click", () => {
+    prevSlide();
+    resetInterval();
+  });
+  if (nextBtn) nextBtn.addEventListener("click", () => {
+    nextSlide();
+    resetInterval();
+  });
+
+  function startInterval() {
+    slideInterval = setInterval(nextSlide, intervalTime);
+  }
+
+  function resetInterval() {
+    clearInterval(slideInterval);
+    startInterval();
+  }
+
+  // Tạm dừng auto-play khi rê chuột vào slider
+  slider.addEventListener("mouseenter", () => {
+    clearInterval(slideInterval);
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    startInterval();
+  });
+
+  // Nhấp vào slide ảnh để mở xem ngay trong Lightbox
+  slides.forEach((slide) => {
+    if (slide.dataset.type === "image") {
+      const imgWrap = slide.querySelector(".showcase-img-wrap");
+      if (imgWrap) {
+        imgWrap.addEventListener("click", () => {
+          const imgSrc = slide.dataset.src;
+          if (lightboxModal && lightboxImage && lightboxLoader) {
+            lightboxLoader.style.display = "block";
+            lightboxImage.style.display = "none";
+            lightboxImage.src = "";
+            lightboxImage.src = imgSrc;
+            lightboxModal.classList.add("show");
+          }
+        });
+      }
+    }
+  });
+
+  startInterval();
+}

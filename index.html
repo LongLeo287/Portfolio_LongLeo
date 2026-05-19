@@ -265,14 +265,71 @@
           <p>Tổng hợp các sản phẩm video và nội dung sáng tạo từ kênh YouTube @LongLeo287 và các dự án thực tế.</p>
         </div>
 
-        <div class="featured-video fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/videoseries?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9"
-            title="Long Leo — Video Portfolio Playlist"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+        <div class="showcase-slider fade-up" id="showcaseSlider">
+          <div class="showcase-slides" id="showcaseSlides">
+            <!-- Slide 1: Video -->
+            <div class="showcase-slide active" data-type="video">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9"
+                title="Long Leo — Video Portfolio Playlist"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+              <div class="showcase-info">
+                <span class="tag">Video</span>
+                <h3>Dự án sản xuất Video & Creative Content</h3>
+              </div>
+            </div>
+            
+            <!-- Slide 2: Design -->
+            <div class="showcase-slide" data-type="image" data-src="https://drive.google.com/uc?id=1D6wKMdpUKu3Uc_ntlY40X3PnbYuPtK8U">
+              <div class="showcase-img-wrap">
+                <img src="https://drive.google.com/thumbnail?id=1D6wKMdpUKu3Uc_ntlY40X3PnbYuPtK8U&sz=w1600" alt="Banner PC Cyber" />
+              </div>
+              <div class="showcase-info">
+                <span class="tag">Thiết kế</span>
+                <h3>Banner PC Cyber — Thiết kế truyền thông MyGear</h3>
+              </div>
+            </div>
+            
+            <!-- Slide 3: Design -->
+            <div class="showcase-slide" data-type="image" data-src="https://drive.google.com/uc?id=1cW779mpSH0o71YaZs-60U-SphN8QrxGV">
+              <div class="showcase-img-wrap">
+                <img src="https://drive.google.com/thumbnail?id=1cW779mpSH0o71YaZs-60U-SphN8QrxGV&sz=w1600" alt="Labubu Collection" />
+              </div>
+              <div class="showcase-info">
+                <span class="tag">Thiết kế</span>
+                <h3>Labubu Collection — Ấn phẩm sáng tạo Photoshop</h3>
+              </div>
+            </div>
+            
+            <!-- Slide 4: Photo -->
+            <div class="showcase-slide" data-type="image" data-src="https://drive.google.com/uc?id=1oGbCV_f-_bjSnsqITgUNz0THxEc1QqEH">
+              <div class="showcase-img-wrap">
+                <img src="https://drive.google.com/thumbnail?id=1oGbCV_f-_bjSnsqITgUNz0THxEc1QqEH&sz=w1600" alt="Photography" />
+              </div>
+              <div class="showcase-info">
+                <span class="tag">Chụp ảnh</span>
+                <h3>Nhiếp ảnh sự kiện & Đời thường</h3>
+              </div>
+            </div>
+            
+            <!-- Slide 5: Photo -->
+            <div class="showcase-slide" data-type="image" data-src="https://drive.google.com/uc?id=1Bnazi0YDHlssWGkneZHbBjaIR19cP-cn">
+              <div class="showcase-img-wrap">
+                <img src="https://drive.google.com/thumbnail?id=1Bnazi0YDHlssWGkneZHbBjaIR19cP-cn&sz=w1600" alt="Photography" />
+              </div>
+              <div class="showcase-info">
+                <span class="tag">Chụp ảnh</span>
+                <h3>Nhiếp ảnh chân dung Studio</h3>
+              </div>
+            </div>
+          </div>
+          
+          <button class="slider-btn prev-btn" id="prevSlideBtn" aria-label="Slide trước">&lt;</button>
+          <button class="slider-btn next-btn" id="nextSlideBtn" aria-label="Slide sau">&gt;</button>
+          <div class="slider-dots" id="sliderDots"></div>
         </div>
 
         <div class="filter-row fade-up" aria-label="Portfolio filter">
