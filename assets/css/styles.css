@@ -1633,16 +1633,16 @@
 }
 
 .logo-item {
-  height: 50px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: grayscale(100%) opacity(35%);
+  filter: grayscale(100%) opacity(60%);
 }
 
 .logo-item:hover {
-  filter: grayscale(0%) opacity(90%) drop-shadow(0 4px 12px rgba(0,0,0,0.12));
+  filter: grayscale(0%) opacity(100%) drop-shadow(0 4px 12px rgba(0,0,0,0.12));
   transform: scale(1.08);
 }
 
@@ -1660,7 +1660,7 @@
     gap: 40px;
   }
   .logo-item {
-    height: 40px;
+    height: 60px;
   }
 }
 
