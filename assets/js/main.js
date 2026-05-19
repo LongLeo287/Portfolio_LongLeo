@@ -24,6 +24,53 @@ if (menuBtn && mobileNav) {
 const filterButtons = document.querySelectorAll(".filter-btn");
 const portfolioCards = document.querySelectorAll(".portfolio-card");
 
+function applyFilter(filter) {
+  let visibleCount = 0;
+
+  if (filter === "all") {
+    // Ẩn tất cả thẻ trước
+    portfolioCards.forEach((card) => card.classList.add("hide"));
+
+    // Lọc ra các thẻ tiêu biểu (data-featured="true")
+    const featuredCards = Array.from(portfolioCards).filter(
+      (card) => card.dataset.featured === "true"
+    );
+
+    // Trộn ngẫu nhiên (Fisher-Yates Shuffle)
+    for (let i = featuredCards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [featuredCards[i], featuredCards[j]] = [featuredCards[j], featuredCards[i]];
+    }
+
+    // Hiển thị tối đa 6 sản phẩm và sắp xếp theo thứ tự ngẫu nhiên
+    const limit = 6;
+    featuredCards.forEach((card, index) => {
+      if (index < limit) {
+        card.classList.remove("hide");
+        visibleCount += 1;
+      } else {
+        card.classList.add("hide");
+      }
+      card.style.order = index;
+    });
+  } else {
+    // Reset order và lọc theo category bình thường
+    portfolioCards.forEach((card) => {
+      card.style.order = "";
+      const category = card.dataset.category;
+      const shouldShow = category === filter;
+      card.classList.toggle("hide", !shouldShow);
+      if (shouldShow) visibleCount += 1;
+    });
+  }
+
+  const emptyState = document.getElementById("emptyState");
+  if (emptyState) {
+    emptyState.classList.toggle("show", visibleCount === 0);
+  }
+}
+
+// Bắt sự kiện click bộ lọc
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const filter = button.dataset.filter;
@@ -31,27 +78,12 @@ filterButtons.forEach((button) => {
     filterButtons.forEach((btn) => btn.classList.remove("active"));
     button.classList.add("active");
 
-    let visibleCount = 0;
-
-    portfolioCards.forEach((card) => {
-      const category = card.dataset.category;
-      let shouldShow = false;
-
-      if (filter === "all") {
-        // Tab Tất cả: Chỉ hiển thị các sản phẩm tiêu biểu (data-featured="true")
-        shouldShow = card.dataset.featured === "true";
-      } else {
-        // Tab cụ thể (Design, Photography, Video, YouTube): Hiển thị tất cả sản phẩm thuộc danh mục đó
-        shouldShow = category === filter;
-      }
-
-      card.classList.toggle("hide", !shouldShow);
-      if (shouldShow) visibleCount += 1;
-    });
-
-    document.getElementById("emptyState").classList.toggle("show", visibleCount === 0);
+    applyFilter(filter);
   });
 });
+
+// Chạy bộ lọc "Nổi bật" (all) lần đầu tiên khi tải trang
+applyFilter("all");
 
 /* ── Contact form → mailto ── */
 const contactForm = document.getElementById("contactForm");
