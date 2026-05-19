@@ -119,12 +119,18 @@ if (lightboxModal && lightboxImage && lightboxClose) {
       card.addEventListener("click", function(e) {
         e.preventDefault(); // Ngăn mở tab mới
         
-        // Lấy link hình ảnh chất lượng cao
-        const imgSrc = this.getAttribute("href");
+        // Lấy link hình ảnh từ thẻ img bên trong (dùng Google Drive thumbnail thay vì link gốc /uc)
+        const imgEl = this.querySelector("img");
+        let imgSrc = "";
         
-        // Nếu dùng Google Drive thumbnail thì thay &sz=w1000 bằng ảnh gốc hoặc giữ nguyên
-        // Hiện tại href đang là dạng /uc?id=... (link gốc)
-        // Mình sẽ gán href vào src của lightbox (để xem full HD)
+        if (imgEl) {
+          imgSrc = imgEl.getAttribute("src");
+          // Tăng độ phân giải lên w2500 để xem trong popup nét hơn
+          imgSrc = imgSrc.replace("sz=w1000", "sz=w2500");
+        } else {
+          imgSrc = this.getAttribute("href");
+        }
+        
         lightboxImage.src = imgSrc;
         lightboxModal.classList.add("show");
       });
