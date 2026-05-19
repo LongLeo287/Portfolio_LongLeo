@@ -1629,16 +1629,16 @@
 
 @keyframes scrollMarquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-33.33333%); }
+  100% { transform: translateX(-16.66667%); }
 }
 
 .logo-item {
-  height: 80px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: grayscale(100%) opacity(60%);
+  filter: grayscale(100%) opacity(80%);
 }
 
 .logo-item:hover {
@@ -1660,7 +1660,7 @@
     gap: 40px;
   }
   .logo-item {
-    height: 60px;
+    height: 80px;
   }
 }
 
