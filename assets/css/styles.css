@@ -202,8 +202,9 @@
       inset: 0;
       background:
         radial-gradient(circle at 15% 10%, rgba(251,191,36,.34), transparent 36%),
-        linear-gradient(115deg, rgba(12,10,9,.96), rgba(12,10,9,.68), rgba(12,10,9,.96)),
-        url("https://ptvinh77.github.io/profile_ptv/assets/img/bg1.jpg") center/cover no-repeat;
+        radial-gradient(circle at 85% 80%, rgba(249,115,22,.18), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(252,211,77,.08), transparent 60%),
+        linear-gradient(135deg, #0c0a09, #1c1917 40%, #292524 70%, #0c0a09);
     }
 
     .hero-grid {

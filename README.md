@@ -1,29 +1,32 @@
-# Portfolio_LongLeo
+# Portfolio — Hà Đình Long (Long Leo)
 
-Landing page portfolio cá nhân của Long Leo, dựng lại thành website tĩnh phù hợp để chạy trực tiếp trên GitHub Pages.
+Landing page portfolio cá nhân của **Hà Đình Long** (Long Leo) — Video Editor chuyên nghiệp với 7+ năm kinh nghiệm.
 
-## Nguồn nội dung hiện tại
+## Thông tin
 
-- Kênh YouTube: <https://www.youtube.com/@LongLeo287>
-- Playlist portfolio: <https://youtube.com/playlist?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9&si=9m9mT4jTO_rroCMa>
-- CV: đang chờ bổ sung ở vòng cập nhật tiếp theo.
-Landing page portfolio cá nhân của Phạm Thành Vinh, dựng lại từ file HTML ban đầu thành cấu trúc tĩnh phù hợp để chạy trực tiếp trên GitHub Pages.
+- **Họ tên:** Hà Đình Long
+- **Vai trò:** Video Editor / Motion Graphic / UI-UX Designer
+- **Email:** Longdragon287@gmail.com
+- **SĐT:** 0906 964 451
+- **Kênh YouTube:** <https://www.youtube.com/@LongLeo287>
+- **Facebook:** <https://www.facebook.com/LongLeo97>
+- **Khu vực:** Tân Phú, Hồ Chí Minh
 
 ## Cấu trúc
 
 ```text
 .
-├── index.html              # Trang chính GitHub Pages sẽ tự nhận
+├── index.html              # Trang chính (GitHub Pages / Vercel)
 ├── assets/
-│   ├── css/styles.css      # Toàn bộ style của landing page
-│   └── js/main.js          # Menu mobile, filter portfolio, scroll UI
+│   ├── css/styles.css      # Toàn bộ style
 │   └── js/main.js          # Menu mobile, filter portfolio, form mailto, scroll UI
-└── Portfolio Demo.html     # File HTML gốc để tham chiếu
+├── Portfolio Demo.html     # File HTML gốc để tham chiếu
+└── README.md
 ```
 
 ## Xem local
 
-Có thể mở trực tiếp `index.html` trong trình duyệt, hoặc chạy server tĩnh:
+Mở trực tiếp `index.html` trong trình duyệt, hoặc chạy server tĩnh:
 
 ```bash
 python3 -m http.server 8000
@@ -31,10 +34,7 @@ python3 -m http.server 8000
 
 Sau đó truy cập `http://localhost:8000`.
 
-## Deploy GitHub Pages
+## Deploy
 
-1. Push repository lên GitHub.
-2. Vào **Settings → Pages**.
-3. Ở **Build and deployment**, chọn **Deploy from a branch**.
-4. Chọn branch đang dùng và thư mục `/ (root)`.
-5. GitHub Pages sẽ phục vụ trang từ `index.html`.
+- **Vercel:** <https://portfolio-long-leo.vercel.app>
+- **GitHub Pages:** Settings → Pages → Deploy from branch → `main` / `/ (root)`
