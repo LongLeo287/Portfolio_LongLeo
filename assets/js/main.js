@@ -383,6 +383,7 @@ if (slider && slidesContainer) {
     slidesHtml += `
       <div class="showcase-slide" data-type="image" data-src="${hdSrc}">
         <div class="showcase-img-wrap">
+          <div class="showcase-bg-blur" style="background-image: url('${hdSrc}');"></div>
           <img src="${hdSrc}" alt="${title}" />
         </div>
         <div class="showcase-info">
