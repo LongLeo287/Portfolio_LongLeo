@@ -175,22 +175,51 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
 
-/* ── Lightbox for Images ── */
+/* ── Lightbox for Images & Videos ── */
 const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxClose = document.querySelector(".lightbox-close");
 const lightboxLoader = document.getElementById("lightboxLoader");
 
+function getYouTubeEmbedUrl(url) {
+  let videoId = "";
+  if (url.includes("youtube.com/watch")) {
+    const urlParams = new URLSearchParams(new URL(url).search);
+    videoId = urlParams.get("v");
+  } else if (url.includes("youtu.be/")) {
+    videoId = url.split("youtu.be/")[1]?.split("?")[0];
+  } else if (url.includes("youtube.com/shorts/")) {
+    videoId = url.split("youtube.com/shorts/")[1]?.split("?")[0];
+  } else if (url.includes("youtube.com/playlist")) {
+    const urlParams = new URLSearchParams(new URL(url).search);
+    const listId = urlParams.get("list");
+    if (listId) {
+      return `https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1`;
+    }
+  }
+  
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  }
+  return null;
+}
+
 if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
+  const lightboxVideoWrapper = document.getElementById("lightboxVideoWrapper");
+  const lightboxVideo = document.getElementById("lightboxVideo");
+
   portfolioCards.forEach(card => {
     const category = card.dataset.category;
+    
     if (category === "Design" || category === "Photography") {
       card.addEventListener("click", function(e) {
         e.preventDefault(); // Ngăn mở tab mới
         
-        // Hiện loader và ẩn ảnh cũ đi để chuẩn bị load ảnh mới
+        // Hiện loader và ẩn ảnh/video cũ đi
         lightboxLoader.style.display = "block";
         lightboxImage.style.display = "none";
+        if (lightboxVideoWrapper) lightboxVideoWrapper.style.display = "none";
+        if (lightboxVideo) lightboxVideo.src = "";
         lightboxImage.src = ""; // Xoá src cũ
         
         // Lấy link hình ảnh từ thẻ img bên trong
@@ -199,7 +228,6 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
         
         if (imgEl) {
           imgSrc = imgEl.getAttribute("src");
-          // Tăng độ phân giải lên w1600 (vừa đủ nét, vừa load nhanh hơn w2500)
           imgSrc = imgSrc.replace("sz=w1000", "sz=w1600");
         } else {
           imgSrc = this.getAttribute("href");
@@ -207,6 +235,23 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
         
         lightboxImage.src = imgSrc;
         lightboxModal.classList.add("show");
+      });
+    } else if (category === "Video") {
+      card.addEventListener("click", function(e) {
+        const href = this.getAttribute("href");
+        const embedUrl = getYouTubeEmbedUrl(href);
+        
+        if (embedUrl && lightboxVideoWrapper && lightboxVideo) {
+          e.preventDefault(); // Ngăn mở tab mới
+          
+          lightboxLoader.style.display = "none";
+          lightboxImage.style.display = "none";
+          lightboxImage.src = "";
+          
+          lightboxVideo.src = embedUrl;
+          lightboxVideoWrapper.style.display = "block";
+          lightboxModal.classList.add("show");
+        }
       });
     }
   });
@@ -217,25 +262,27 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
     lightboxImage.style.display = "block";
   });
 
-  // Đóng lightbox khi click vào dấu X
-  lightboxClose.addEventListener("click", () => {
+  function closeLightbox() {
     lightboxModal.classList.remove("show");
     lightboxImage.src = ""; // Clear để giải phóng bộ nhớ
-  });
+    if (lightboxVideo) lightboxVideo.src = ""; // Stop video playback
+    if (lightboxVideoWrapper) lightboxVideoWrapper.style.display = "none";
+  }
 
-  // Đóng lightbox khi click ra ngoài hình ảnh
+  // Đóng lightbox khi click vào dấu X
+  lightboxClose.addEventListener("click", closeLightbox);
+
+  // Đóng lightbox khi click ra ngoài hình ảnh/video
   lightboxModal.addEventListener("click", (e) => {
     if (e.target === lightboxModal) {
-      lightboxModal.classList.remove("show");
-      lightboxImage.src = "";
+      closeLightbox();
     }
   });
 
   // Đóng bằng phím ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightboxModal.classList.contains("show")) {
-      lightboxModal.classList.remove("show");
-      lightboxImage.src = "";
+      closeLightbox();
     }
   });
 }
