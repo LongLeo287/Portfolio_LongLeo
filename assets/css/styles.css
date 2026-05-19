@@ -705,8 +705,9 @@
     }
 
     .experience-card:hover .experience-logo-box {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(252, 211, 77, 0.28);
+      background: #ffffff;
+      border-color: rgba(252, 211, 77, 0.8);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
     }
 
     .experience-card:hover .experience-logo-box img {
