@@ -308,9 +308,10 @@ if (slider && slidesContainer) {
     </div>
   `;
 
-  // 2. Lấy danh sách tất cả các thẻ portfolio-card có chứa ảnh
+  // 2. Lấy danh sách tất cả các thẻ portfolio-card chứa hình ảnh (chỉ chọn Thiết kế & Chụp ảnh)
   const imageCards = Array.from(portfolioCards).filter(card => {
-    return card.querySelector("img") !== null;
+    const category = card.dataset.category;
+    return (category === "Design" || category === "Photography") && card.querySelector("img") !== null;
   });
 
   // 3. Trộn ngẫu nhiên danh sách thẻ ảnh này (Fisher-Yates Shuffle)
