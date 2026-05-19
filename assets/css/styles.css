@@ -1626,6 +1626,7 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   filter: grayscale(100%);
   opacity: 0.8;
+  flex: 0 0 auto;
 }
 
 .logo-item:hover {
