@@ -26,11 +26,10 @@ const portfolioCards = document.querySelectorAll(".portfolio-card");
 
 function applyFilter(filter) {
   let visibleCount = 0;
+  const cardsToShow = [];
+  const cardsToHide = [];
 
   if (filter === "all") {
-    // Ẩn tất cả thẻ trước
-    portfolioCards.forEach((card) => card.classList.add("hide"));
-
     // Lọc ra các thẻ tiêu biểu (data-featured="true")
     const featuredCards = Array.from(portfolioCards).filter(
       (card) => card.dataset.featured === "true"
@@ -44,14 +43,16 @@ function applyFilter(filter) {
 
     // Hiển thị tối đa 6 sản phẩm và sắp xếp theo thứ tự ngẫu nhiên
     const limit = 6;
-    featuredCards.forEach((card, index) => {
-      if (index < limit) {
-        card.classList.remove("hide");
+    portfolioCards.forEach((card) => {
+      const featuredIndex = featuredCards.indexOf(card);
+      if (featuredIndex !== -1 && featuredIndex < limit) {
+        card.style.order = featuredIndex;
+        cardsToShow.push(card);
         visibleCount += 1;
       } else {
-        card.classList.add("hide");
+        card.style.order = "";
+        cardsToHide.push(card);
       }
-      card.style.order = index;
     });
   } else {
     // Reset order và lọc theo category bình thường
@@ -59,8 +60,34 @@ function applyFilter(filter) {
       card.style.order = "";
       const category = card.dataset.category;
       const shouldShow = category === filter;
-      card.classList.toggle("hide", !shouldShow);
-      if (shouldShow) visibleCount += 1;
+      if (shouldShow) {
+        cardsToShow.push(card);
+        visibleCount += 1;
+      } else {
+        cardsToHide.push(card);
+      }
+    });
+  }
+
+  // 1. Thực hiện ẩn các thẻ trước
+  cardsToHide.forEach((card) => {
+    card.classList.add("hide");
+    card.classList.remove("show");
+  });
+
+  // 2. Hiển thị các thẻ cần hiển thị với animation fade-up mượt mà
+  cardsToShow.forEach((card) => {
+    card.classList.remove("hide");
+  });
+
+  // Sử dụng double requestAnimationFrame để đảm bảo trình duyệt nhận biết được thay đổi display trước khi add class show
+  if (cardsToShow.length > 0) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        cardsToShow.forEach((card) => {
+          card.classList.add("show");
+        });
+      });
     });
   }
 

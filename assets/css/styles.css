@@ -717,7 +717,7 @@
       border: 1px solid var(--line);
       border-radius: 32px;
       background: var(--white);
-      transition: .28s ease;
+      transition: transform .28s ease, box-shadow .28s ease;
     }
 
     .portfolio-card.hide {
@@ -1416,6 +1416,9 @@
 }
 
 .showcase-info .tag {
+  position: relative;
+  top: auto;
+  left: auto;
   display: inline-block;
   font-size: 11px;
   font-weight: 700;
