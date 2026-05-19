@@ -111,22 +111,28 @@ document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
 const lightboxModal = document.getElementById("lightboxModal");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxClose = document.querySelector(".lightbox-close");
+const lightboxLoader = document.getElementById("lightboxLoader");
 
-if (lightboxModal && lightboxImage && lightboxClose) {
+if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
   portfolioCards.forEach(card => {
     const category = card.dataset.category;
     if (category === "Design" || category === "Photography") {
       card.addEventListener("click", function(e) {
         e.preventDefault(); // Ngăn mở tab mới
         
-        // Lấy link hình ảnh từ thẻ img bên trong (dùng Google Drive thumbnail thay vì link gốc /uc)
+        // Hiện loader và ẩn ảnh cũ đi để chuẩn bị load ảnh mới
+        lightboxLoader.style.display = "block";
+        lightboxImage.style.display = "none";
+        lightboxImage.src = ""; // Xoá src cũ
+        
+        // Lấy link hình ảnh từ thẻ img bên trong
         const imgEl = this.querySelector("img");
         let imgSrc = "";
         
         if (imgEl) {
           imgSrc = imgEl.getAttribute("src");
-          // Tăng độ phân giải lên w2500 để xem trong popup nét hơn
-          imgSrc = imgSrc.replace("sz=w1000", "sz=w2500");
+          // Tăng độ phân giải lên w1600 (vừa đủ nét, vừa load nhanh hơn w2500)
+          imgSrc = imgSrc.replace("sz=w1000", "sz=w1600");
         } else {
           imgSrc = this.getAttribute("href");
         }
@@ -137,15 +143,23 @@ if (lightboxModal && lightboxImage && lightboxClose) {
     }
   });
 
+  // Khi ảnh tải xong, ẩn loader và hiện ảnh
+  lightboxImage.addEventListener("load", () => {
+    lightboxLoader.style.display = "none";
+    lightboxImage.style.display = "block";
+  });
+
   // Đóng lightbox khi click vào dấu X
   lightboxClose.addEventListener("click", () => {
     lightboxModal.classList.remove("show");
+    lightboxImage.src = ""; // Clear để giải phóng bộ nhớ
   });
 
   // Đóng lightbox khi click ra ngoài hình ảnh
   lightboxModal.addEventListener("click", (e) => {
     if (e.target === lightboxModal) {
       lightboxModal.classList.remove("show");
+      lightboxImage.src = "";
     }
   });
 
@@ -153,6 +167,7 @@ if (lightboxModal && lightboxImage && lightboxClose) {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightboxModal.classList.contains("show")) {
       lightboxModal.classList.remove("show");
+      lightboxImage.src = "";
     }
   });
 }
