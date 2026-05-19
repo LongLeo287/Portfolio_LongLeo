@@ -1208,6 +1208,13 @@
   color: var(--white);
   text-align: center;
   box-shadow: inset 0 0 80px rgba(255, 255, 255, .08);
+  overflow: hidden;
+}
+
+.avatar-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatar-panel span {
