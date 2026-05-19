@@ -1719,11 +1719,12 @@
   box-shadow: 0 12px 30px rgba(28, 25, 23, 0.08);
 }
 
+.tool-item img,
 .tool-item svg {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-  border-radius: 10px;
+  object-fit: contain;
 }
 
 .tool-info {
