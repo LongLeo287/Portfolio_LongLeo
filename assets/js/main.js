@@ -222,7 +222,7 @@ if (slider) {
   const dotsContainer = document.getElementById("sliderDots");
   let currentSlideIndex = 0;
   let slideInterval = null;
-  const intervalTime = 6000; // 6 giây đổi 1 lần
+  const intervalTime = 10000; // 10 giây đổi 1 lần
 
   // Tạo các chấm chỉ số (dots)
   if (dotsContainer) {
