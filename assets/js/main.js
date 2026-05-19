@@ -106,3 +106,47 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+
+/* ── Lightbox for Images ── */
+const lightboxModal = document.getElementById("lightboxModal");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxClose = document.querySelector(".lightbox-close");
+
+if (lightboxModal && lightboxImage && lightboxClose) {
+  portfolioCards.forEach(card => {
+    const category = card.dataset.category;
+    if (category === "Design" || category === "Photography") {
+      card.addEventListener("click", function(e) {
+        e.preventDefault(); // Ngăn mở tab mới
+        
+        // Lấy link hình ảnh chất lượng cao
+        const imgSrc = this.getAttribute("href");
+        
+        // Nếu dùng Google Drive thumbnail thì thay &sz=w1000 bằng ảnh gốc hoặc giữ nguyên
+        // Hiện tại href đang là dạng /uc?id=... (link gốc)
+        // Mình sẽ gán href vào src của lightbox (để xem full HD)
+        lightboxImage.src = imgSrc;
+        lightboxModal.classList.add("show");
+      });
+    }
+  });
+
+  // Đóng lightbox khi click vào dấu X
+  lightboxClose.addEventListener("click", () => {
+    lightboxModal.classList.remove("show");
+  });
+
+  // Đóng lightbox khi click ra ngoài hình ảnh
+  lightboxModal.addEventListener("click", (e) => {
+    if (e.target === lightboxModal) {
+      lightboxModal.classList.remove("show");
+    }
+  });
+
+  // Đóng bằng phím ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightboxModal.classList.contains("show")) {
+      lightboxModal.classList.remove("show");
+    }
+  });
+}
