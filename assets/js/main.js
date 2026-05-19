@@ -218,19 +218,45 @@ const slider = document.getElementById("showcaseSlider");
 const slidesContainer = document.getElementById("showcaseSlides");
 
 if (slider && slidesContainer) {
-  // 1. Tạo slide Video mặc định (YouTube Playlist)
+  // 1. Tạo danh sách các video/playlist chất lượng để chọn ngẫu nhiên
+  const videoPool = [
+    {
+      src: "https://www.youtube.com/embed/videoseries?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9",
+      title: "Dự án sản xuất Video & Creative Content",
+      tag: "Video Playlist"
+    },
+    {
+      src: "https://www.youtube.com/embed/r-n8Wl_S2M0",
+      title: "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️ #shorts",
+      tag: "Video Shorts"
+    },
+    {
+      src: "https://www.youtube.com/embed/Jdb6pRir754",
+      title: "Unboxing & Review Thiết Bị Công Nghệ",
+      tag: "Video Shorts"
+    },
+    {
+      src: "https://www.youtube.com/embed/1GWYZHBwH00",
+      title: "Sáng Tạo Nội Dung & Sản Xuất Video",
+      tag: "Video Shorts"
+    }
+  ];
+
+  // Chọn ngẫu nhiên 1 video từ pool
+  const randomVideo = videoPool[Math.floor(Math.random() * videoPool.length)];
+
   let slidesHtml = `
     <div class="showcase-slide active" data-type="video">
       <iframe
-        src="https://www.youtube.com/embed/videoseries?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9"
-        title="Long Leo — Video Portfolio Playlist"
+        src="${randomVideo.src}"
+        title="${randomVideo.title}"
         loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>
       </iframe>
       <div class="showcase-info">
-        <span class="tag">Video</span>
-        <h3>Dự án sản xuất Video & Creative Content</h3>
+        <span class="tag">${randomVideo.tag}</span>
+        <h3>${randomVideo.title}</h3>
       </div>
     </div>
   `;
