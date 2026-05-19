@@ -226,19 +226,39 @@ if (slider && slidesContainer) {
       tag: "Video Playlist"
     },
     {
-      src: "https://www.youtube.com/embed/r-n8Wl_S2M0",
-      title: "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️ #shorts",
-      tag: "Video Shorts"
+      src: "https://www.youtube.com/embed/lEibZKODe8M",
+      title: "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️",
+      tag: "Setup Showcase"
     },
     {
-      src: "https://www.youtube.com/embed/Jdb6pRir754",
-      title: "Unboxing & Review Thiết Bị Công Nghệ",
-      tag: "Video Shorts"
+      src: "https://www.youtube.com/embed/6sSoxzakgEE",
+      title: "CASE QUỐC DÂN KÈM 6 FAN: MSI MAG Forge 120A ❄️",
+      tag: "Review Công Nghệ"
     },
     {
-      src: "https://www.youtube.com/embed/1GWYZHBwH00",
-      title: "Sáng Tạo Nội Dung & Sản Xuất Video",
-      tag: "Video Shorts"
+      src: "https://www.youtube.com/embed/noGA2i3-rl4",
+      title: "CASE DỊ 8 MẶT: Thermaltake Tower 300 Lùa Gà Hay Đẳng Cấp? 🤔",
+      tag: "Review Tech"
+    },
+    {
+      src: "https://www.youtube.com/embed/jlcoFXEGbQQ",
+      title: "QUÁI VẬT 4K: ASUS ROG Strix RTX 5080 🚀",
+      tag: "Unboxing & Review"
+    },
+    {
+      src: "https://www.youtube.com/embed/2-3nB7gtom8",
+      title: "PC CHUẨN \"BACK TO SCHOOL\": Học Giỏi - Quẩy Game 🎒",
+      tag: "Build PC"
+    },
+    {
+      src: "https://www.youtube.com/embed/bF01LIaiS6s",
+      title: "PROJECT BTF ASUS X MYGEAR",
+      tag: "Dự Án Hợp Tác"
+    },
+    {
+      src: "https://www.youtube.com/embed/c-dl9-LHZLU",
+      title: "Dự án Golden Crown Hải Phòng - Unicons",
+      tag: "Corporate Video"
     }
   ];
 
