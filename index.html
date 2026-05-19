@@ -10,6 +10,7 @@
   <meta property="og:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 7+ năm kinh nghiệm." />
   <meta property="og:url" content="https://portfolio-long-leo.vercel.app/" />
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
 </head>
 <body>
   <header class="site-header">
@@ -51,7 +52,11 @@
 
   <main>
     <section class="hero" id="home">
-      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
       <div class="container hero-grid">
         <div class="hero-content fade-up">
           <span class="pill">✦ Video Editor • Motion Graphic • Visual Storyteller</span>
@@ -164,7 +169,7 @@
             <p><strong>Mục tiêu dài hạn:</strong> Trở thành Chuyên gia hoạch định Chiến lược nội dung (Content Strategist), dẫn dắt đội ngũ sáng tạo và quản lý các dự án truyền&nbsp;thông đa phương tiện quy mô lớn.</p>
           </div>
 
-          <div class="skills">
+          <div class="skills stagger">
             <div class="skill-card">
               <div class="icon">🎬</div>
               <p>Adobe Premiere, After&nbsp;Effects, Photoshop, Illustrator, Lightroom</p>
@@ -339,7 +344,7 @@
           <p>Tập trung vào chất lượng hình ảnh, nhịp kể và tính ứng dụng thực tế —<br>từ video, thiết kế đến UI/UX cho các chiến dịch truyền thông.</p>
         </div>
 
-        <div class="services-grid">
+        <div class="services-grid stagger">
           <article class="service-card fade-up">
             <div class="service-icon">🎥</div>
             <h3>Quay & Dựng Video</h3>
@@ -382,7 +387,7 @@
           <p>Từ in ấn, đào tạo, freelance, đến thương hiệu công nghệ —<br>mỗi môi trường tạo thêm một góc&nbsp;nhìn mới về truyền thông và sáng&nbsp;tạo.</p>
         </div>
 
-        <div class="experience-grid">
+        <div class="experience-grid stagger">
           <a class="experience-card fade-up" href="https://www.facebook.com/Vua2Hand" target="_blank" rel="noreferrer">
             <div class="experience-card-inner">
               <div class="experience-header">
@@ -1676,6 +1681,10 @@
     <img class="lightbox-content" id="lightboxImage" alt="Phóng to" style="display: none;">
   </div>
 
+  <!-- Cursor Spotlight -->
+  <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
+
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/animations.js" defer></script>
 </body>
 </html>

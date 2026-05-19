@@ -1,0 +1,499 @@
+/* ============================================================
+   LONGLEO PORTFOLIO — ANIMATIONS & EFFECTS
+   ============================================================ */
+
+/* ── 1. KEYFRAMES ── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
+  50%       { box-shadow: 0 0 0 14px rgba(252, 211, 77, 0.18); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(252,211,77,.15); }
+  50%       { border-color: rgba(252,211,77,.55); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50%       { border-color: rgba(252,211,77,.9); }
+}
+
+@keyframes heroOrb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.1); }
+  66%       { transform: translate(-15px, 15px) scale(0.95); }
+}
+
+@keyframes heroOrb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-25px, 15px) scale(1.08); }
+  66%       { transform: translate(20px, -25px) scale(0.9); }
+}
+
+@keyframes statCount {
+  from { opacity: 0; transform: translateY(20px) scale(0.85); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pillFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50%       { transform: translateY(-5px) rotate(0.5deg); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes skillBarFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ── 2. SCROLL-TRIGGERED BASE ── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(36px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for children */
+.stagger > *:nth-child(1)  { transition-delay: 0.00s; }
+.stagger > *:nth-child(2)  { transition-delay: 0.08s; }
+.stagger > *:nth-child(3)  { transition-delay: 0.16s; }
+.stagger > *:nth-child(4)  { transition-delay: 0.24s; }
+.stagger > *:nth-child(5)  { transition-delay: 0.32s; }
+.stagger > *:nth-child(6)  { transition-delay: 0.40s; }
+.stagger > *:nth-child(7)  { transition-delay: 0.48s; }
+.stagger > *:nth-child(8)  { transition-delay: 0.56s; }
+.stagger > *:nth-child(9)  { transition-delay: 0.64s; }
+.stagger > *:nth-child(10) { transition-delay: 0.72s; }
+.stagger > *:nth-child(11) { transition-delay: 0.80s; }
+.stagger > *:nth-child(12) { transition-delay: 0.88s; }
+
+/* ── 3. HERO SECTION ── */
+
+/* Animated orbs in hero background */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(72px);
+}
+
+.hero-orb-1 {
+  width: 520px;
+  height: 520px;
+  top: -80px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.28), transparent 70%);
+  animation: heroOrb1 12s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 420px;
+  height: 420px;
+  bottom: -60px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.22), transparent 70%);
+  animation: heroOrb2 15s ease-in-out infinite;
+}
+
+.hero-orb-3 {
+  width: 280px;
+  height: 280px;
+  top: 40%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(252, 211, 77, 0.12), transparent 70%);
+  animation: heroOrb1 18s ease-in-out infinite reverse;
+}
+
+/* Hero content entrance animation */
+.hero-content {
+  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.1s;
+}
+
+.hero-visual {
+  animation: slideInRight 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.3s;
+}
+
+/* Pill floating animation */
+.pill {
+  animation: pillFloat 4s ease-in-out infinite;
+}
+
+/* Hero h1 letter spacing animation on load */
+.hero h1 {
+  animation: fadeIn 1.2s ease both;
+  animation-delay: 0.25s;
+}
+
+/* Floating note gentle bob */
+.floating-note {
+  animation: floatY 5s ease-in-out infinite;
+}
+
+/* Stat cards staggered entrance */
+.stat-card {
+  animation: statCount 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stat-card:nth-child(1) { animation-delay: 0.5s; }
+.stat-card:nth-child(2) { animation-delay: 0.65s; }
+.stat-card:nth-child(3) { animation-delay: 0.8s; }
+
+/* Pulse glow on brand mark */
+.brand-mark {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ── 4. CARD HOVER UPGRADES ── */
+
+/* Service card tilt + glow on hover */
+.service-card {
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background 0.35s ease;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(252,211,77,0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.service-card:hover::after {
+  opacity: 1;
+}
+
+/* Experience card glow border */
+.experience-card {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              background 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.experience-card:hover {
+  box-shadow: 0 0 0 1px rgba(252,211,77,.35),
+              0 20px 60px rgba(0,0,0,.35),
+              0 0 40px rgba(252,211,77,.08);
+}
+
+/* Portfolio card: image zoom + overlay reveal */
+.portfolio-card {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease;
+}
+
+.portfolio-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(12,10,9,.55) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.portfolio-card:hover::before {
+  opacity: 1;
+}
+
+/* Tool item shimmer on hover */
+.tool-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.tool-item:hover::before {
+  left: 150%;
+}
+
+/* ── 5. SECTION TITLE UNDERLINE ANIMATION ── */
+
+.section-title h2 {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── 6. CONTACT SECTION HOVER UPGRADES ── */
+
+.contact-item {
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(122,76,37,.12);
+}
+
+.btn-dark,
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-dark::before,
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transition: left 0.4s ease;
+}
+
+.btn-dark:hover::before,
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+/* ── 7. CURSOR SPOTLIGHT ── */
+
+.cursor-spotlight {
+  pointer-events: none;
+  position: fixed;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(252,211,77,0.055) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+/* ── 8. SKILLS + TOOLS ENTRANCE ── */
+
+.skill-card {
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 40px rgba(28,25,23,.1);
+  border-color: rgba(245,158,11,.4);
+}
+
+/* ── 9. SCROLL PROGRESS GLOW ── */
+
+.scroll-progress {
+  box-shadow: 0 0 12px rgba(252,211,77,.6), 0 0 4px rgba(252,211,77,.8);
+}
+
+/* ── 10. EYEBROW TAG SHIMMER ── */
+
+.eyebrow {
+  position: relative;
+  overflow: hidden;
+}
+
+.eyebrow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* ── 11. AVATAR CARD GLOW RING ── */
+
+.about-image-inner {
+  position: relative;
+}
+
+.about-image-inner::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 46px;
+  background: linear-gradient(135deg, rgba(252,211,77,.7), rgba(249,115,22,.4), transparent 60%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.about-image-inner:hover::before {
+  opacity: 1;
+}
+
+/* ── 12. BACK TO TOP ROTATION ── */
+
+.back-to-top:hover {
+  animation: rotateSlow 0.4s ease;
+}
+
+/* ── 13. HERO GRAIN TEXTURE ── */
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ── 14. LINK LINE ARROW SLIDE ── */
+
+.link-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.28s ease, color 0.28s ease;
+}
+
+.experience-card:hover .link-line {
+  gap: 10px;
+}
+
+/* ── 15. REDUCED MOTION SAFETY ── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
