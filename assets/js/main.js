@@ -211,7 +211,7 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
   portfolioCards.forEach(card => {
     const category = card.dataset.category;
     
-    if (category === "Design" || category === "Photography") {
+    if (category === "Design" || category === "Photography" || category === "Thumbnail") {
       card.addEventListener("click", function(e) {
         e.preventDefault(); // Ngăn mở tab mới
         
