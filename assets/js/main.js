@@ -215,7 +215,67 @@ if (lightboxModal && lightboxImage && lightboxClose && lightboxLoader) {
 
 /* ── Showcase Slider ── */
 const slider = document.getElementById("showcaseSlider");
-if (slider) {
+const slidesContainer = document.getElementById("showcaseSlides");
+
+if (slider && slidesContainer) {
+  // 1. Tạo slide Video mặc định (YouTube Playlist)
+  let slidesHtml = `
+    <div class="showcase-slide active" data-type="video">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLhc6e124Y3Jw4qQYPAkfWcuIO-C3BsuG9"
+        title="Long Leo — Video Portfolio Playlist"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+      <div class="showcase-info">
+        <span class="tag">Video</span>
+        <h3>Dự án sản xuất Video & Creative Content</h3>
+      </div>
+    </div>
+  `;
+
+  // 2. Lấy danh sách tất cả các thẻ portfolio-card có chứa ảnh
+  const imageCards = Array.from(portfolioCards).filter(card => {
+    return card.querySelector("img") !== null;
+  });
+
+  // 3. Trộn ngẫu nhiên danh sách thẻ ảnh này (Fisher-Yates Shuffle)
+  for (let i = imageCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [imageCards[i], imageCards[j]] = [imageCards[j], imageCards[i]];
+  }
+
+  // 4. Lấy ra 4 thẻ ảnh ngẫu nhiên từ toàn bộ portfolio để tạo slide sinh động
+  const randomImageCards = imageCards.slice(0, 4);
+  randomImageCards.forEach(card => {
+    const imgEl = card.querySelector("img");
+    const titleEl = card.querySelector("h3");
+    const tagEl = card.querySelector(".tag");
+
+    const rawSrc = imgEl ? imgEl.getAttribute("src") : "";
+    // Tải ảnh chất lượng cao w1600 cho slide
+    const hdSrc = rawSrc.replace("sz=w1000", "sz=w1600");
+    const title = titleEl ? titleEl.textContent : "Sản phẩm sáng tạo";
+    const tagText = tagEl ? tagEl.textContent : (card.dataset.category === "Design" ? "Thiết kế" : "Chụp ảnh");
+
+    slidesHtml += `
+      <div class="showcase-slide" data-type="image" data-src="${hdSrc}">
+        <div class="showcase-img-wrap">
+          <img src="${hdSrc}" alt="${title}" />
+        </div>
+        <div class="showcase-info">
+          <span class="tag">${tagText}</span>
+          <h3>${title}</h3>
+        </div>
+      </div>
+    `;
+  });
+
+  // Ghi đè HTML động vào container
+  slidesContainer.innerHTML = slidesHtml;
+
+  // 5. Khởi tạo slider logic điều khiển
   const slides = slider.querySelectorAll(".showcase-slide");
   const prevBtn = document.getElementById("prevSlideBtn");
   const nextBtn = document.getElementById("nextSlideBtn");
@@ -226,6 +286,7 @@ if (slider) {
 
   // Tạo các chấm chỉ số (dots)
   if (dotsContainer) {
+    dotsContainer.innerHTML = ""; // Xoá chấm tĩnh
     slides.forEach((_, index) => {
       const dot = document.createElement("div");
       dot.classList.add("slider-dot");
