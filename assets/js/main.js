@@ -35,7 +35,16 @@ filterButtons.forEach((button) => {
 
     portfolioCards.forEach((card) => {
       const category = card.dataset.category;
-      const shouldShow = filter === "all" || category === filter;
+      let shouldShow = false;
+
+      if (filter === "all") {
+        // Tab Tất cả: Chỉ hiển thị các sản phẩm tiêu biểu (data-featured="true")
+        shouldShow = card.dataset.featured === "true";
+      } else {
+        // Tab cụ thể (Design, Photography, Video, YouTube): Hiển thị tất cả sản phẩm thuộc danh mục đó
+        shouldShow = category === filter;
+      }
+
       card.classList.toggle("hide", !shouldShow);
       if (shouldShow) visibleCount += 1;
     });
