@@ -1579,34 +1579,54 @@
 }
 }
 
-/* Partners & Brands Section */
-.partners-section {
-  padding: 45px 0;
-  background: #0f1015;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  position: relative;
-}
-
 .partners-title {
   text-align: center;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: rgba(255, 255, 255, 0.35);
-  margin-bottom: 25px;
+  margin-bottom: 25px; /* Back to original, let padding balance it */
   font-weight: 600;
 }
 
-.partners-container {
+/* Partners & Brands Section */
+.partners-section {
+  padding: 40px 0 65px 0; /* Increased bottom padding to offset the title's height + margin, centering the logos vertically */
+  background: #0f1015;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+  position: relative;
+  /* Soft fade at edges for premium look */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
   align-items: center;
   gap: 80px;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  width: max-content;
+  padding-right: 80px; /* critical for exact 1/3 math */
+  animation: scrollMarquee 25s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.33333%); }
 }
 
 .logo-item {
