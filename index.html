@@ -35,6 +35,21 @@
       document.documentElement.classList.add('light-theme');
     }
   </script>
+<style>
+    * {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-user-drag: none !important;
+    }
+    input, textarea {
+      -webkit-user-select: auto !important;
+      -moz-user-select: auto !important;
+      -ms-user-select: auto !important;
+      user-select: auto !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Cinematic Loader -->
@@ -680,5 +695,19 @@
   <script src="assets/js/app.js?v=1.9" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
+<script>
+    // Aggressive Anti-Theft
+    document.addEventListener('contextmenu', e => e.preventDefault(), {passive: false});
+    document.addEventListener('selectstart', e => e.preventDefault(), {passive: false});
+    document.addEventListener('dragstart', e => e.preventDefault(), {passive: false});
+    document.addEventListener('copy', e => e.preventDefault(), {passive: false});
+    document.addEventListener('cut', e => e.preventDefault(), {passive: false});
+    document.addEventListener('paste', e => e.preventDefault(), {passive: false});
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12') e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) e.preventDefault();
+      if (e.ctrlKey && ['U','u','S','s','P','p','C','c','A','a'].includes(e.key)) e.preventDefault();
+    }, {passive: false});
+  </script>
 </body>
 </html>
