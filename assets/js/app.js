@@ -134,7 +134,7 @@ const translations = {
     tool_codex: 'Hỗ trợ Kỹ thuật &&nbsp;Code',
     services_eyebrow: 'Dịch&nbsp;vụ',
     services_title: 'giải&nbsp;pháp hình&nbsp;ảnh & truyền&nbsp;thông toàn&nbsp;diện.',
-    services_desc: 'Tập trung vào chất&nbsp;lượng hình&nbsp;ảnh, nhịp kể và tính ứng dụng thực&nbsp;tế — từ video, thiết&nbsp;kế đến UI/UX cho các chiến&nbsp;dịch&nbsp;truyền&nbsp;thông.',
+    services_desc: 'Tập trung vào chất&nbsp;lượng hình&nbsp;ảnh, nhịp kể và tính ứng dụng thực&nbsp;tế <br>— từ video, thiết&nbsp;kế đến UI/UX cho các chiến&nbsp;dịch&nbsp;truyền&nbsp;thông.',
     srv_vid_title: 'Quay & Dựng&nbsp;Video',
     srv_vid_desc: 'Sản&nbsp;xuất video chuyên&nbsp;nghiệp: TVC, quảng&nbsp;cáo, unboxing, review sản&nbsp;phẩm, video sự&nbsp;kiện và các định&nbsp;dạng&nbsp;social&nbsp;media.',
     srv_motion_title: 'Motion&nbsp;Graphic',
