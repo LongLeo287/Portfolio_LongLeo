@@ -14,7 +14,7 @@
   /* DARK THEME (Default) */
   --bg-main: #0c0a09;
   --bg-surface: #1c1917;
-  --bg-card: #292524;
+  --bg-card: #262220;
   --text-main: #fafaf9;
   --text-muted: #a8a29e;
   --text-light: #ffffff;
@@ -92,7 +92,7 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg-surface);
+      background: #141210;
       border-left: 1px solid var(--line);
     }
 
@@ -689,7 +689,7 @@
     }
 
     .experience {
-      background: var(--bg-surface);
+      background: var(--bg-main);
       color: var(--text-light);
       border-bottom: 1px solid var(--line);
     }
@@ -980,7 +980,7 @@
     }
 
     .contact-section {
-      background: #150d06; /* slightly darker, richer */
+      background: #0a0806; /* Very dark rich brown */
       color: var(--cream);
       padding: 96px 0;
       border-top: 1px solid rgba(252, 211, 77, 0.15);
@@ -1890,7 +1890,7 @@
 /* Partners & Brands Section */
 .partners-section {
   padding: 25px 0 35px 0;
-  background: var(--bg-card);
+  background: #12100e;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   position: relative;
