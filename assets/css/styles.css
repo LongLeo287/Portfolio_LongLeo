@@ -332,6 +332,7 @@
       line-height: .92;
       letter-spacing: -.04em;
       font-weight: 850;
+      text-wrap: balance;
     }
 
     /* Fix #3: hero content above grain texture z-index */
@@ -596,6 +597,7 @@
       line-height: 1.03;
       letter-spacing: -.03em;
       font-weight: 850;
+      text-wrap: balance;
     }
 
     .about-text {
@@ -681,6 +683,7 @@
     .service-card h3 {
       font-size: 22px;
       line-height: 1.2;
+      text-wrap: balance;
     }
 
     .service-card p {
@@ -704,6 +707,7 @@
 
     .experience .section-title h2 {
       color: var(--text-light);
+      text-wrap: balance;
     }
 
     .experience .section-title p {
@@ -783,6 +787,7 @@
       color: var(--text-light);
       margin: 0 ;
       line-height: 1.3;
+      text-wrap: balance;
     }
 
     .experience-role {
@@ -979,6 +984,7 @@
       color: var(--text-main);
       font-size: 20px;
       line-height: 1.35;
+      text-wrap: balance;
     }
 
     .contact-section {
@@ -1008,6 +1014,7 @@
       line-height: .98;
       letter-spacing: -.06em;
       font-weight: 900;
+      text-wrap: balance;
     }
 
     .contact-copy p {
@@ -1355,6 +1362,7 @@
 
       .hero h1 {
         font-size: clamp(48px, 16vw, 72px);
+      text-wrap: balance;
       }
 
       .hero-copy,
@@ -1426,14 +1434,17 @@
 
       .section-title h2 {
         font-size: clamp(28px, 9vw, 44px);
+      text-wrap: balance;
       }
 
       .contact-copy h2 {
         font-size: clamp(36px, 12vw, 56px);
+      text-wrap: balance;
       }
 
       .about-content h2 {
         font-size: clamp(30px, 10vw, 50px);
+      text-wrap: balance;
       }
 
       .pill {
@@ -1798,6 +1809,7 @@
   font-size: 18px;
   font-weight: 600;
   margin: 0;
+      text-wrap: balance;
 }
 
 /* Controls */
@@ -1871,6 +1883,7 @@
   }
   .showcase-info h3 {
     font-size: 14px;
+      text-wrap: balance;
   }
   .slider-btn {
     width: 35px;
@@ -2268,6 +2281,7 @@
   font-size: 2rem;
   margin-bottom: 0.5rem;
   color: var(--text-light);
+      text-wrap: balance;
 }
 .modal-client {
   color: var(--orange);
@@ -2394,6 +2408,7 @@
 }
 :root.light-theme .hero h1 {
   color: var(--text-main) ;
+      text-wrap: balance;
 }
 :root.light-theme .stat-card {
   background: var(--bg-card) ;
@@ -2462,6 +2477,7 @@
 }
 :root.light-theme .experience .section-title h2 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .experience .section-title p {
   color: var(--text-muted);
@@ -2478,6 +2494,7 @@
 }
 :root.light-theme .experience-title-area h3 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .experience-role {
   color: var(--text-muted);
@@ -2537,6 +2554,7 @@
 }
 :root.light-theme .service-card h3 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .service-card p {
   color: var(--text-muted);
@@ -2625,6 +2643,7 @@
 /* ── Section Titles (global) ── */
 :root.light-theme .section-title h2 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .section-title p {
   color: var(--text-muted);
@@ -2791,6 +2810,7 @@
 }
 :root.light-theme .modal-info h2 {
   color: var(--text-main) ;
+      text-wrap: balance;
 }
 :root.light-theme .modal-body h4 {
   color: var(--text-main) ;
@@ -2893,6 +2913,7 @@
 }
 :root.light-theme .showcase-info h3 {
   color: #1c1917;
+      text-wrap: balance;
 }
 :root.light-theme .showcase-info .tag {
   background: var(--orange);
@@ -2937,6 +2958,7 @@
 /* Portfolio section (bg-soft) section title */
 :root.light-theme #portfolio .section-title h2 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme #portfolio .section-title p {
   color: var(--text-muted);
@@ -2956,6 +2978,7 @@
 }
 :root.light-theme .portfolio-body h3 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .client {
   color: #a16207;
@@ -2974,6 +2997,7 @@
 /* ── About section full light mode ── */
 :root.light-theme .about-content h2 {
   color: var(--text-main);
+      text-wrap: balance;
 }
 :root.light-theme .about-text {
   color: var(--text-muted);

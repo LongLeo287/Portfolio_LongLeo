@@ -170,7 +170,7 @@ const translations = {
     port_title: 'Sản phẩm nổi bật',
     port_desc: 'Tổng hợp các sản phẩm video và nội dung sáng tạo từ kênh YouTube @LongLeo287 và các dự&nbsp;án thực&nbsp;tế.',
     contact_eyebrow: 'Liên hệ',
-    contact_title: 'Cảm ơn bạn đã dành thời gian ghé thăm.',
+    contact_title: 'Cảm ơn bạn đã dành thời&nbsp;gian ghé&nbsp;thăm.',
     contact_desc: 'Cần người quay dựng, thiết kế, làm motion graphic hoặc tối ưu UI/UX? Hãy liên&nbsp;hệ để bắt&nbsp;đầu trao&nbsp;đổi về dự&nbsp;án của&nbsp;bạn.',
     contact_email_btn: 'Gửi email ✉',
     contact_phone_btn: 'Gọi ngay ☎',
