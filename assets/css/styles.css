@@ -2608,14 +2608,7 @@
 :root.light-theme .showcase-slide-meta {
   color: var(--text-muted);
 }
-:root.light-theme .slider-btn {
-  background: rgba(28, 25, 23, 0.08);
-  color: var(--text-main);
-  border-color: rgba(28, 25, 23, 0.12);
-}
-:root.light-theme .slider-btn:hover {
-  background: rgba(28, 25, 23, 0.14);
-}
+/* slider-btn light override moved to extended showcase block below */
 :root.light-theme .slider-dot {
   background: rgba(28, 25, 23, 0.2);
 }
@@ -2875,16 +2868,40 @@
 
 /* Showcase slider light theme extended */
 :root.light-theme .showcase-slide-overlay {
-  background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+  background: linear-gradient(to top, rgba(240,237,232,0.9), transparent);
 }
 :root.light-theme .showcase-info {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1c1917;
+  border: 1px solid rgba(28, 25, 23, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+}
+:root.light-theme .showcase-info h3 {
+  color: #1c1917;
+}
+:root.light-theme .showcase-info .tag {
+  background: var(--orange);
+  color: #ffffff;
 }
 :root.light-theme .showcase-slide-title {
   color: var(--text-main);
 }
 :root.light-theme .showcase-slide-category {
   color: var(--text-muted);
+}
+:root.light-theme .showcase-bg-blur {
+  filter: blur(24px) brightness(0.85) saturate(0.8);
+  opacity: 0.4;
+}
+:root.light-theme .slider-btn {
+  background: rgba(255, 255, 255, 0.85);
+  color: #1c1917;
+  border: 1px solid rgba(28, 25, 23, 0.15);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+:root.light-theme .slider-btn:hover {
+  background: #ffffff;
+  color: #1c1917;
 }
 
 /* Skills/about section badges light theme */
