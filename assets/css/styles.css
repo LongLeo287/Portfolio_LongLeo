@@ -1025,7 +1025,7 @@
     .contact-copy p {
       max-width: 680px;
       margin-top: 24px;
-      color: rgba(122,76,37,.82);
+      color: var(--text-muted);
       font-size: 18px;
       line-height: 1.85;
     }
