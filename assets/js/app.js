@@ -99,97 +99,97 @@ const translations = {
     nav_services: 'Dịch vụ',
     nav_exp: 'Kinh nghiệm',
     nav_port: 'Portfolio',
-    nav_contact: 'Liên hệ',
-    nav_collab: 'Liên hệ hợp tác',
+    nav_contact: 'liên&nbsp;hệ',
+    nav_collab: 'liên&nbsp;hệ hợp tác',
     hero_pill: '✦ Video Editor • Motion Graphic • Visual Storyteller',
-    hero_desc: 'Biến ý tưởng thành hình&nbsp;ảnh sống&nbsp;động — từ quay dựng video, motion graphic, thiết&nbsp;kế đồ&nbsp;họa đến tối&nbsp;ưu UI/UX.<br>Hơn 7 năm kinh nghiệm tạo ra các sản phẩm truyền thông chất lượng cao.',
+    hero_desc: 'Biến ý&nbsp;tưởng thành hình&nbsp;ảnh sống&nbsp;động — từ quay&nbsp;dựng video, motion graphic, thiết&nbsp;kế đồ&nbsp;họa đến tối&nbsp;ưu UI/UX.<br>Hơn 7 năm kinh nghiệm tạo ra các sản&nbsp;phẩm truyền&nbsp;thông chất&nbsp;lượng cao.',
     hero_btn1: 'Xem portfolio ↗',
-    hero_btn2: 'Liên hệ hợp tác ✉',
+    hero_btn2: 'liên&nbsp;hệ hợp tác ✉',
     stat_exp: 'năm kinh nghiệm',
-    stat_proj: 'công ty & dự án',
-    stat_start: 'bắt đầu hành trình',
+    stat_proj: 'công ty & dự&nbsp;án',
+    stat_start: 'bắt&nbsp;đầu hành trình',
     available_for: 'Sẵn sàng hợp tác',
     about_eyebrow: 'Một chút về mình',
-    about_title: 'Từ Arena Multimedia đến hành trình sáng tạo hình ảnh chuyên nghiệp.',
-    about_p1: 'Chào bạn, mình là <strong>Hà Đình Long</strong> — hay còn được biết đến với tên <strong>Long Leo</strong>. Tốt nghiệp ngành Multimedia tại Arena Multimedia, mình bắt đầu hành trình sáng tạo từ năm 2015.',
-    about_p2: 'Với hơn 7 năm kinh nghiệm trong lĩnh vực sản xuất video, thiết kế đồ họa và truyền thông đa phương tiện, mình đã trải qua nhiều môi trường làm việc từ agency, in-house đến freelance — mỗi chặng đường đều giúp mình tích lũy thêm những góc nhìn và kỹ năng mới.',
-    about_p3: '<strong>Mục tiêu dài hạn:</strong> Trở thành Chuyên gia hoạch định Chiến lược nội dung (Content Strategist), dẫn dắt đội ngũ sáng tạo và quản lý các dự án truyền thông đa phương tiện quy mô lớn.',
+    about_title: 'Từ Arena Multimedia đến hành trình sáng&nbsp;tạo hình&nbsp;ảnh chuyên&nbsp;nghiệp.',
+    about_p1: 'Chào bạn, mình là <strong>Hà Đình Long</strong> — hay còn được biết đến với tên <strong>Long Leo</strong>. Tốt nghiệp ngành Multimedia tại Arena Multimedia, mình bắt&nbsp;đầu hành trình sáng&nbsp;tạo từ năm 2015.',
+    about_p2: 'Với hơn 7 năm kinh nghiệm trong lĩnh vực Sản&nbsp;xuất video, thiết&nbsp;kế đồ họa và truyền&nbsp;thông đa phương tiện, mình đã trải&nbsp;qua nhiều môi&nbsp;trường làm&nbsp;việc từ agency, in-house đến freelance — mỗi chặng đường đều giúp mình tích&nbsp;lũy thêm những góc&nbsp;nhìn và kỹ năng mới.',
+    about_p3: '<strong>mục&nbsp;tiêu dài&nbsp;hạn:</strong> Trở thành Chuyên gia hoạch định Chiến lược nội&nbsp;dung (Content Strategist), dẫn dắt đội ngũ sáng&nbsp;tạo và quản&nbsp;lý các dự&nbsp;án truyền&nbsp;thông đa phương tiện quy&nbsp;mô lớn.',
     about_skill2: 'Motion Graphic, Color Grading, UI/UX Design, Photography',
-    about_skill3: 'Sáng tạo Ý tưởng (Ideation), SEO Video, Thiết kế đồ họa đa phương tiện',
-    tools_title: 'Công cụ & Trợ lý AI sáng tạo',
-    tools_group1_title: 'Phần mềm sáng tạo chuyên nghiệp',
+    about_skill3: 'sáng&nbsp;tạo ý&nbsp;tưởng (Ideation), SEO Video, thiết&nbsp;kế đồ họa đa phương tiện',
+    tools_title: 'Công cụ & Trợ lý AI sáng&nbsp;tạo',
+    tools_group1_title: 'Phần mềm sáng&nbsp;tạo chuyên&nbsp;nghiệp',
     tool_prem: 'Dựng phim & Màu sắc',
-    tool_ae: 'Motion & Hậu kỳ kỹ xảo',
+    tool_ae: 'Motion & hậu&nbsp;kỳ kỹ xảo',
     tool_ps: 'Chỉnh ảnh & Cắt ghép',
-    tool_ai: 'Thiết kế Vector & Ấn phẩm',
-    tool_lr: 'Blend màu & Hậu kỳ ảnh',
-    tool_figma: 'Thiết kế giao diện UI/UX',
-    tool_capcut: 'Dựng video nhanh & Tiện lợi',
-    tool_canva: 'Thiết kế đồ họa trực tuyến',
-    tools_group2_title: 'Trợ lý AI & Tối ưu hiệu suất',
-    tool_gemini: 'Lên ý tưởng & Lịch trình',
+    tool_ai: 'thiết&nbsp;kế Vector & ấn&nbsp;phẩm',
+    tool_lr: 'Blend màu & hậu&nbsp;kỳ ảnh',
+    tool_figma: 'thiết&nbsp;kế giao&nbsp;diện UI/UX',
+    tool_capcut: 'Dựng video nhanh & tiện&nbsp;lợi',
+    tool_canva: 'thiết&nbsp;kế đồ họa trực tuyến',
+    tools_group2_title: 'Trợ lý AI & tối&nbsp;ưu hiệu suất',
+    tool_gemini: 'Lên ý&nbsp;tưởng & Lịch trình',
     tool_ai_studio: 'Thử nghiệm Prompt & API',
     tool_antigravity: 'Tự động hóa & Coding',
-    tool_claude: 'Phân tích & Viết nội dung',
+    tool_claude: 'Phân tích & Viết nội&nbsp;dung',
     tool_codex: 'Hỗ trợ Kỹ thuật & Code',
     services_eyebrow: 'Dịch vụ',
-    services_title: 'Giải pháp hình ảnh & truyền thông toàn diện.',
-    services_desc: 'Tập trung vào chất lượng hình ảnh, nhịp kể và tính ứng dụng thực tế — từ video, thiết kế đến UI/UX cho các chiến dịch truyền thông.',
+    services_title: 'giải&nbsp;pháp hình&nbsp;ảnh & truyền&nbsp;thông toàn diện.',
+    services_desc: 'Tập trung vào chất&nbsp;lượng hình&nbsp;ảnh, nhịp kể và tính ứng dụng thực&nbsp;tế — từ video, thiết&nbsp;kế đến UI/UX cho các chiến&nbsp;dịch truyền&nbsp;thông.',
     srv_vid_title: 'Quay & Dựng Video',
-    srv_vid_desc: 'Sản xuất video chuyên nghiệp: TVC, quảng cáo, unboxing, review sản&nbsp;phẩm, video sự&nbsp;kiện và các định dạng social&nbsp;media.',
+    srv_vid_desc: 'Sản&nbsp;xuất video chuyên&nbsp;nghiệp: TVC, quảng&nbsp;cáo, unboxing, review sản&nbsp;phẩm, video sự&nbsp;kiện và các định&nbsp;dạng social&nbsp;media.',
     srv_motion_title: 'Motion Graphic',
-    srv_motion_desc: 'Tạo hiệu ứng chuyển động bắt mắt, title animation, infographic động và các visual effects chuyên&nbsp;nghiệp bằng After&nbsp;Effects.',
-    srv_design_title: 'Thiết kế đồ họa',
-    srv_design_desc: 'Thiết kế banner, poster, thumbnail, key visual và ấn phẩm truyền&nbsp;thông phục vụ các chiến dịch marketing trên mọi nền&nbsp;tảng.',
-    srv_photo_title: 'Chụp ảnh sản phẩm',
-    srv_photo_desc: 'Chụp ảnh sản&nbsp;phẩm, sự&nbsp;kiện, không gian thương&nbsp;hiệu — chỉnh sửa hậu&nbsp;kỳ chất lượng cao phục vụ quảng&nbsp;bá.',
-    srv_uiux_title: 'Thiết kế UI/UX',
-    srv_uiux_desc: 'Thiết kế giao diện & trải nghiệm người dùng cho landing page, website — đảm bảo tính thẩm&nbsp;mỹ hiện đại và thân&nbsp;thiện với người&nbsp;dùng.',
-    srv_idea_title: 'Sáng tạo Ý tưởng',
-    srv_idea_desc: 'Đề xuất và phát triển các concept sáng tạo, lên ý&nbsp;tưởng hình&nbsp;ảnh và định&nbsp;hướng nội&nbsp;dung trước khi sản&nbsp;xuất.',
+    srv_motion_desc: 'Tạo hiệu&nbsp;ứng chuyển&nbsp;động bắt&nbsp;mắt, title animation, infographic động và các visual effects chuyên&nbsp;nghiệp bằng After&nbsp;Effects.',
+    srv_design_title: 'thiết&nbsp;kế đồ họa',
+    srv_design_desc: 'thiết&nbsp;kế banner, poster, thumbnail, key visual và ấn&nbsp;phẩm truyền&nbsp;thông phục&nbsp;vụ các chiến&nbsp;dịch marketing trên mọi nền&nbsp;tảng.',
+    srv_photo_title: 'Chụp&nbsp;ảnh sản&nbsp;phẩm',
+    srv_photo_desc: 'Chụp&nbsp;ảnh sản&nbsp;phẩm, sự&nbsp;kiện, không&nbsp;gian thương&nbsp;hiệu — chỉnh&nbsp;sửa hậu&nbsp;kỳ chất&nbsp;lượng cao phục&nbsp;vụ quảng&nbsp;bá.',
+    srv_uiux_title: 'thiết&nbsp;kế UI/UX',
+    srv_uiux_desc: 'thiết&nbsp;kế giao&nbsp;diện & trải&nbsp;nghiệm người&nbsp;dùng cho landing page, website — đảm&nbsp;bảo tính thẩm&nbsp;mỹ hiện&nbsp;đại và thân&nbsp;thiện với người&nbsp;dùng.',
+    srv_idea_title: 'sáng&nbsp;tạo ý&nbsp;tưởng',
+    srv_idea_desc: 'đề&nbsp;xuất và phát&nbsp;triển các concept sáng&nbsp;tạo, lên ý&nbsp;tưởng hình&nbsp;ảnh và định&nbsp;hướng nội&nbsp;dung trước khi sản&nbsp;xuất.',
     exp_eyebrow: 'Kinh nghiệm',
-    exp_title: 'Hành trình 7+ năm trong ngành sáng tạo.',
-    exp_desc: 'Từ in ấn, đào tạo, freelance, đến thương hiệu công nghệ —<br>mỗi môi trường đều mang đến một góc nhìn mới về truyền&nbsp;thông và sáng&nbsp;tạo.',
-    exp_v2h_role: 'Nhân viên Media',
+    exp_title: 'Hành trình 7+ năm trong ngành sáng&nbsp;tạo.',
+    exp_desc: 'Từ in&nbsp;ấn, đào&nbsp;tạo, freelance, đến thương&nbsp;hiệu công&nbsp;nghệ —<br>mỗi môi&nbsp;trường đều mang đến một góc&nbsp;nhìn mới về truyền&nbsp;thông và sáng&nbsp;tạo.',
+    exp_v2h_role: 'nhân&nbsp;viên Media',
     exp_v2h_time: '2025 – nay',
-    exp_v2h_desc: 'Quay dựng video review thiết bị âm thanh & công nghệ (JBL, Bose, Sony, Marshall). Quản lý kênh YouTube, thiết&nbsp;kế thumbnail, tối&nbsp;ưu&nbsp;SEO.',
-    exp_v2h_btn: 'Ghé thăm Vua2Hand ↗',
-    exp_mygear_role: 'Nhân viên Media',
-    exp_mygear_desc: 'Thiết kế UI/UX landing page & website. Sản xuất video, thiết kế banner/poster, chụp ảnh sản phẩm. Đóng góp xây dựng ý tưởng hình ảnh cùng đội ngũ sáng tạo.',
-    exp_mygear_btn: 'Ghé thăm MyGear ↗',
+    exp_v2h_desc: 'quay&nbsp;dựng video review thiết&nbsp;bị âm&nbsp;thanh & công&nbsp;nghệ (JBL, Bose, Sony, Marshall). Quản&nbsp;lý kênh YouTube, thiết&nbsp;kế thumbnail, tối&nbsp;ưu&nbsp;SEO.',
+    exp_v2h_btn: 'ghé&nbsp;thăm Vua2Hand ↗',
+    exp_mygear_role: 'nhân&nbsp;viên Media',
+    exp_mygear_desc: 'thiết&nbsp;kế UI/UX landing page & website. Sản&nbsp;xuất video, thiết&nbsp;kế banner/poster, Chụp&nbsp;ảnh sản&nbsp;phẩm. đóng&nbsp;góp xây dựng ý&nbsp;tưởng hình&nbsp;ảnh cùng đội ngũ sáng&nbsp;tạo.',
+    exp_mygear_btn: 'ghé&nbsp;thăm MyGear ↗',
     exp_vie_role: 'Editor Tự do',
-    exp_vie_desc: 'Hậu kỳ chuyên nghiệp: xử lý file thô, cắt ghép, color grading, đồng bộ âm thanh. Tư vấn giải&nbsp;pháp hình&nbsp;ảnh trực tiếp với khách&nbsp;hàng.',
-    exp_vie_btn: 'Ghé thăm Vie Channel ↗',
-    exp_topskills_role: 'Nhân viên Media',
-    exp_topskills_desc: 'Sản xuất & hậu kỳ video đào tạo. Thiết kế ấn phẩm thương hiệu (banner, poster). Phối hợp phát triển các ý tưởng sáng tạo cho dự án.',
-    exp_topskills_btn: 'Ghé thăm TopSkills ↗',
-    exp_tgia_role: 'Nhân viên Media',
-    exp_tgia_desc: 'Thiết kế và xử lý file in ấn. Hỗ trợ sản xuất nội dung truyền thông, quay dựng video cơ bản và chụp ảnh sản phẩm cho các chiến dịch của công ty.',
-    exp_tgia_btn: 'Ghé thăm Thế Giới In Ấn ↗',
+    exp_vie_desc: 'hậu&nbsp;kỳ chuyên&nbsp;nghiệp: xử lý file thô, cắt ghép, color grading, đồng bộ âm&nbsp;thanh. Tư&nbsp;vấn giải&nbsp;pháp hình&nbsp;ảnh trực&nbsp;tiếp với khách&nbsp;hàng.',
+    exp_vie_btn: 'ghé&nbsp;thăm Vie Channel ↗',
+    exp_topskills_role: 'nhân&nbsp;viên Media',
+    exp_topskills_desc: 'sản&nbsp;xuất & hậu&nbsp;kỳ video đào&nbsp;tạo. thiết&nbsp;kế ấn&nbsp;phẩm thương&nbsp;hiệu (banner, poster). Phối&nbsp;hợp phát&nbsp;triển các ý&nbsp;tưởng sáng&nbsp;tạo cho dự&nbsp;án.',
+    exp_topskills_btn: 'ghé&nbsp;thăm TopSkills ↗',
+    exp_tgia_role: 'nhân&nbsp;viên Media',
+    exp_tgia_desc: 'Thiết&nbsp;kế và xử lý file in&nbsp;ấn. Hỗ trợ sản&nbsp;xuất nội&nbsp;dung truyền&nbsp;thông, quay&nbsp;dựng video cơ bản và Chụp&nbsp;ảnh sản&nbsp;phẩm cho các chiến&nbsp;dịch của công ty.',
+    exp_tgia_btn: 'ghé&nbsp;thăm Thế Giới In Ấn ↗',
     port_eyebrow: 'Portfolio',
-    port_title: 'Sản phẩm nổi bật',
-    port_desc: 'Tổng hợp các sản phẩm video và nội dung sáng tạo từ kênh YouTube @LongLeo287 và các dự&nbsp;án thực&nbsp;tế.',
-    contact_eyebrow: 'Liên hệ',
-    contact_title: 'Cảm ơn bạn đã dành thời&nbsp;gian ghé&nbsp;thăm.',
-    contact_desc: 'Cần người quay dựng, thiết kế, làm motion graphic hoặc tối ưu UI/UX? Hãy liên&nbsp;hệ để bắt&nbsp;đầu trao&nbsp;đổi về dự&nbsp;án của&nbsp;bạn.',
+    port_title: 'sản&nbsp;phẩm nổi&nbsp;bật',
+    port_desc: 'Tổng&nbsp;hợp các sản&nbsp;phẩm video và nội&nbsp;dung sáng&nbsp;tạo từ kênh YouTube @LongLeo287 và các dự&nbsp;án thực&nbsp;tế.',
+    contact_eyebrow: 'liên&nbsp;hệ',
+    contact_title: 'cảm&nbsp;ơn bạn đã dành thời&nbsp;gian ghé&nbsp;thăm.',
+    contact_desc: 'Cần&nbsp;người quay&nbsp;dựng, thiết&nbsp;kế, làm motion graphic hoặc tối&nbsp;ưu UI/UX? Hãy liên&nbsp;hệ để bắt&nbsp;đầu trao&nbsp;đổi về dự&nbsp;án của&nbsp;bạn.',
     contact_email_btn: 'Gửi email ✉',
     contact_phone_btn: 'Gọi ngay ☎',
     contact_addr_label: 'Địa chỉ',
     contact_addr_val: 'Tân Phú, Hồ Chí Minh',
     footer_copy: 'Hà Đình Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
-    modal_view_link: 'Xem dự án ↗',
+    modal_view_link: 'Xem dự&nbsp;án ↗',
     lang_label: 'Ngôn ngữ',
     theme_aria: 'Chuyển chế độ sáng/tối',
-    filter_all: 'Nổi bật',
-    filter_vid: 'Sản xuất Video',
-    filter_des: 'Thiết kế',
-    filter_photo: 'Chụp ảnh',
+    filter_all: 'nổi&nbsp;bật',
+    filter_vid: 'sản&nbsp;xuất Video',
+    filter_des: 'thiết&nbsp;kế',
+    filter_photo: 'chụp&nbsp;ảnh',
     filter_thumb: 'YouTube Thumbnail',
     categories: {
-      video: 'Sản xuất Video',
-      design: 'Thiết kế',
-      photography: 'Chụp ảnh'
+      video: 'sản&nbsp;xuất Video',
+      design: 'thiết&nbsp;kế',
+      photography: 'chụp&nbsp;ảnh'
     }
   },
   en: {
@@ -336,12 +336,12 @@ function updateStaticTranslations() {
       formNote.textContent = "Enter details and click Send Message to email me directly.";
     }
   } else {
-    if (nameInput) nameInput.placeholder = "Tên của bạn";
-    if (emailInput) emailInput.placeholder = "Email liên hệ";
-    if (msgInput) msgInput.placeholder = "Nội dung cần trao đổi";
+    if (nameInput) nameInput.placeholder = "Tên của&nbsp;bạn";
+    if (emailInput) emailInput.placeholder = "Email liên&nbsp;hệ";
+    if (msgInput) msgInput.placeholder = "nội&nbsp;dung cần trao&nbsp;đổi";
     if (formBtn) formBtn.textContent = "Gửi đi";
     if (formNote && formNote.className === "form-note") {
-      formNote.textContent = "Nhập thông tin và nhấn Gửi đi để gửi email trực tiếp cho mình.";
+      formNote.textContent = "Nhập thông tin và nhấn Gửi đi để gửi email trực&nbsp;tiếp cho mình.";
     }
   }
 }
@@ -388,8 +388,8 @@ function renderPortfolio(filter = 'all') {
     const thumbDiv = document.createElement('div');
     thumbDiv.className = 'portfolio-thumb';
     
-    const tagText = p.category === 'Design' ? (currentLang === 'vi' ? 'Thiết kế' : 'Design') : 
-                    p.category === 'Photography' ? (currentLang === 'vi' ? 'Chụp ảnh' : 'Photography') : p.category;
+    const tagText = p.category === 'Design' ? (currentLang === 'vi' ? 'thiết&nbsp;kế' : 'Design') : 
+                    p.category === 'Photography' ? (currentLang === 'vi' ? 'chụp&nbsp;ảnh' : 'Photography') : p.category;
                     
     thumbDiv.innerHTML = `
       <img src="${p.imgSrc}" alt="${p.alt || title}" loading="lazy" />
@@ -549,9 +549,9 @@ function openCaseStudyModal(project) {
     const headings = {
       vi: {
         role: 'Vai trò',
-        concept: 'Ý tưởng & Concept',
-        challenge: 'Thách thức sản xuất',
-        solution: 'Giải pháp thực hiện'
+        concept: 'ý&nbsp;tưởng & Concept',
+        challenge: 'Thách thức sản&nbsp;xuất',
+        solution: 'giải&nbsp;pháp thực hiện'
       },
       en: {
         role: 'Role',
@@ -626,7 +626,7 @@ function openLightbox(project) {
   if (lightboxVideo) lightboxVideo.src = "";
   lightboxImage.src = "";
   
-  const title = typeof project.title === 'object' ? project.title[currentLang] : (project.title || "Sản phẩm");
+  const title = typeof project.title === 'object' ? project.title[currentLang] : (project.title || "sản&nbsp;phẩm");
   
   if (project.category === "Video") {
     const embedUrl = getYouTubeEmbedUrl(project.href || project.imgSrc);
