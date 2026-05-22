@@ -294,12 +294,26 @@ const translations = {
 };
 
 function updateStaticTranslations() {
+  // FIX: Cancel any running pill typing animation first to prevent text duplication
+  if (window._pillTypingInterval) {
+    clearInterval(window._pillTypingInterval);
+    window._pillTypingInterval = null;
+  }
+
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     if (translations[currentLang] && translations[currentLang][key]) {
+      // FIX: Skip hero_pill — handled by typing animation below
+      if (key === 'hero_pill') return;
       el.innerHTML = translations[currentLang][key];
     }
   });
+
+  // Restart pill typing animation with correct translated text
+  const pillText = translations[currentLang] && translations[currentLang]['hero_pill'];
+  if (pillText && typeof window.startPillTyping === 'function') {
+    window.startPillTyping(pillText);
+  }
 
   const themeToggle = document.getElementById('themeToggle');
   if (themeToggle && translations[currentLang] && translations[currentLang].theme_aria) {

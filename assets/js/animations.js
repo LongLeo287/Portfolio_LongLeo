@@ -76,6 +76,16 @@
             });
             return fragment;
           } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // FIX: Don't split gradient-text spans — background-clip:text breaks on nested spans
+            if (node.classList && node.classList.contains('gradient-text')) {
+              const mask = document.createElement('span');
+              mask.className = 'reveal-word-mask';
+              const inner = document.createElement('span');
+              inner.className = 'reveal-word';
+              inner.innerHTML = node.outerHTML;
+              mask.appendChild(inner);
+              return mask;
+            }
             const newNode = node.cloneNode(false);
             Array.from(node.childNodes).forEach(child => {
               newNode.appendChild(processNode(child));
@@ -223,21 +233,33 @@
   /* ── 6. TYPING EFFECT on hero pill ── */
   const pill = document.querySelector('.pill');
   if (pill) {
-    const originalText = pill.textContent.trim();
-    pill.textContent = '';
-    pill.style.opacity = '1';
-    // Remove float animation while typing to avoid empty-pill flash
-    pill.style.animation = 'none';
-    let charIndex = 0;
-    const typeInterval = setInterval(() => {
-      pill.textContent += originalText[charIndex];
-      charIndex++;
-      if (charIndex >= originalText.length) {
-        clearInterval(typeInterval);
-        // Restore float animation after typing completes
-        pill.classList.add('pill-float');
+    // FIX: expose interval so updateStaticTranslations() can cancel it before it appends extra chars
+    const startPillTyping = (text) => {
+      if (window._pillTypingInterval) {
+        clearInterval(window._pillTypingInterval);
+        window._pillTypingInterval = null;
       }
-    }, 45);
+      pill.textContent = '';
+      pill.style.opacity = '1';
+      pill.style.animation = 'none';
+      let charIndex = 0;
+      window._pillTypingInterval = setInterval(() => {
+        if (charIndex < text.length) {
+          pill.textContent += text[charIndex];
+          charIndex++;
+        } else {
+          clearInterval(window._pillTypingInterval);
+          window._pillTypingInterval = null;
+          pill.classList.add('pill-float');
+        }
+      }, 45);
+    };
+
+    // Expose so app.js can restart animation after language change
+    window.startPillTyping = startPillTyping;
+
+    const originalText = pill.textContent.trim();
+    startPillTyping(originalText);
   }
 
   /* ── 7. SECTION NAV HIGHLIGHT ── */
