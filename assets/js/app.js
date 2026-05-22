@@ -336,9 +336,9 @@ function updateStaticTranslations() {
       formNote.textContent = "Enter details and click Send Message to email me directly.";
     }
   } else {
-    if (nameInput) nameInput.placeholder = "Tên của&nbsp;bạn";
-    if (emailInput) emailInput.placeholder = "Email liên&nbsp;hệ";
-    if (msgInput) msgInput.placeholder = "nội&nbsp;dung cần trao&nbsp;đổi";
+    if (nameInput) nameInput.placeholder = "Tên của bạn";
+    if (emailInput) emailInput.placeholder = "Email liên hệ";
+    if (msgInput) msgInput.placeholder = "Nội dung cần trao đổi";
     if (formBtn) formBtn.textContent = "Gửi đi";
     if (formNote && formNote.className === "form-note") {
       formNote.textContent = "Nhập thông tin và nhấn Gửi đi để gửi email trực&nbsp;tiếp cho mình.";
