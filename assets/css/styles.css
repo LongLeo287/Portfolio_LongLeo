@@ -2235,3 +2235,398 @@
     justify-content: center;
   }
 }
+
+/* ==========================================================================
+   PHASE 2 UPGRADES: LIGHT/DARK MODE & CINEMATIC LOADER & DYNAMIC EFFECTS
+   ========================================================================== */
+
+:root {
+  /* Dynamic Theme Variables - Default is Dark Mode */
+  --body-bg: #0c0a09;
+  --section-bg-white: #0c0a09;
+  --section-bg-soft: #12100e;
+  --card-bg: #181513;
+  --text-main: #fafaf9;
+  --text-sub: #a8a29e;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-dynamic: 0 12px 40px rgba(0, 0, 0, 0.4);
+  
+  /* Additional Missing Variables */
+  --primary: #ff7a00;
+  --text-light: #ffffff;
+}
+
+:root.light-theme {
+  --body-bg: #ffffff;
+  --section-bg-white: #ffffff;
+  --section-bg-soft: #fafaf9;
+  --card-bg: #ffffff;
+  --text-main: #1c1917;
+  --text-sub: #6b625d;
+  --border-color: #e7e5e4;
+  --shadow-dynamic: 0 4px 6px -1px rgba(28, 25, 23, 0.05), 0 10px 15px -3px rgba(28, 25, 23, 0.08);
+}
+
+/* Apply Theme variables dynamically to override light components */
+body {
+  background: var(--body-bg) !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.bg-white {
+  background: var(--section-bg-white) !important;
+  transition: background-color 0.4s ease;
+}
+
+.bg-soft {
+  background: var(--section-bg-soft) !important;
+  transition: background-color 0.4s ease;
+}
+
+.section-title p,
+.about-text,
+.tool-item p,
+.experience-card p,
+.contact-item p {
+  color: var(--text-sub) !important;
+  transition: color 0.4s ease;
+}
+
+.section-title h2,
+.about-content h2,
+.skills h3,
+.experience-card h3,
+.portfolio-body h3,
+.contact-info h2,
+.contact-info h3 {
+  color: var(--text-main) !important;
+  transition: color 0.4s ease;
+}
+
+.skill-card,
+.experience-card,
+.portfolio-card,
+.contact-item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-dynamic) !important;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.filter-btn {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-sub) !important;
+  transition: all 0.3s ease;
+}
+.filter-btn:hover {
+  color: var(--text-main) !important;
+  border-color: var(--primary) !important;
+}
+.filter-btn.active {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+/* Form inputs styling */
+.contact-form input,
+.contact-form textarea {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-main) !important;
+  transition: all 0.3s ease;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary) !important;
+  outline: none;
+}
+
+/* Header & Navigation theme switcher support */
+:root.light-theme .site-header {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+:root.light-theme .brand {
+  color: #1c1917 !important;
+}
+:root.light-theme .brand-subtitle {
+  color: rgba(28, 25, 23, 0.6) !important;
+}
+:root.light-theme .main-nav a {
+  color: rgba(28, 25, 23, 0.7) !important;
+}
+:root.light-theme .main-nav a:hover,
+:root.light-theme .main-nav a.active {
+  color: #1c1917 !important;
+  background: rgba(28, 25, 23, 0.08) !important;
+}
+:root.light-theme .header-cta {
+  background: #1c1917 !important;
+  color: #ffffff !important;
+}
+:root.light-theme .header-cta:hover {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+:root.light-theme .menu-btn {
+  color: #1c1917 !important;
+  border-color: rgba(28, 25, 23, 0.15) !important;
+}
+:root.light-theme .mobile-nav {
+  background: var(--body-bg) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+:root.light-theme .mobile-nav a {
+  color: var(--text-sub) !important;
+}
+:root.light-theme .mobile-nav a:hover,
+:root.light-theme .mobile-nav a.active {
+  background: rgba(28, 25, 23, 0.05) !important;
+  color: var(--text-main) !important;
+}
+
+/* Hero Section adjustments in light theme */
+:root.light-theme .hero {
+  background: var(--body-bg) !important;
+  color: var(--text-main) !important;
+}
+:root.light-theme .hero-bg {
+  background: linear-gradient(135deg, #fafaf9, #f5f5f4 40%, #e7e5e4 70%, #fafaf9) !important;
+}
+:root.light-theme .hero-bg::before {
+  background: radial-gradient(circle, rgba(251,191,36,0.12) 0%, rgba(249,115,22,0.04) 70%, transparent 100%) !important;
+}
+:root.light-theme .hero-bg::after {
+  background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, rgba(252,211,77,0.03) 70%, transparent 100%) !important;
+}
+:root.light-theme .hero-copy {
+  color: var(--text-sub) !important;
+}
+:root.light-theme .hero h1 {
+  color: var(--text-main) !important;
+}
+:root.light-theme .stat-card {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-dynamic) !important;
+}
+:root.light-theme .stat-number {
+  color: var(--text-main) !important;
+}
+:root.light-theme .stat-label {
+  color: var(--text-sub) !important;
+}
+:root.light-theme .pill {
+  background: rgba(28, 25, 23, 0.05) !important;
+  border: 1px solid rgba(28, 25, 23, 0.1) !important;
+  color: var(--text-sub) !important;
+}
+:root.light-theme .btn-glass {
+  background: rgba(28, 25, 23, 0.05) !important;
+  border: 1px solid rgba(28, 25, 23, 0.1) !important;
+  color: var(--text-main) !important;
+}
+:root.light-theme .btn-glass:hover {
+  background: rgba(28, 25, 23, 0.1) !important;
+}
+:root.light-theme .floating-note {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-dynamic) !important;
+}
+:root.light-theme .floating-note strong {
+  color: var(--text-main) !important;
+}
+:root.light-theme .floating-note small {
+  color: var(--text-sub) !important;
+}
+:root.light-theme .about-image-inner {
+  background: var(--card-bg) !important;
+}
+:root.light-theme .portrait-card {
+  background: rgba(28, 25, 23, 0.05) !important;
+  border-color: rgba(28, 25, 23, 0.1) !important;
+}
+:root.light-theme .empty-state {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+:root.light-theme .site-footer {
+  background: var(--body-bg) !important;
+  color: var(--text-sub) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* ── Cinematic Loader Styles ── */
+.cinematic-loader {
+  position: fixed;
+  inset: 0;
+  background: #0c0a09;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+  visibility: visible;
+  opacity: 1;
+}
+.cinematic-loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader-logo-wrap {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader-logo-svg {
+  width: 100%;
+  height: 100%;
+}
+.logo-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: strokeAnim 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes strokeAnim {
+  0% {
+    stroke-dashoffset: 400;
+    fill: rgba(255, 122, 0, 0);
+  }
+  60% {
+    stroke-dashoffset: 0;
+    fill: rgba(255, 122, 0, 0);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: rgba(255, 122, 0, 0.12);
+  }
+}
+
+/* ── Theme Switcher Navigation Button ── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  margin-right: 1rem;
+}
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+:root.light-theme .theme-toggle {
+  background: rgba(28, 25, 23, 0.05);
+  border: 1px solid rgba(28, 25, 23, 0.1);
+  color: var(--text-dark);
+}
+:root.light-theme .theme-toggle:hover {
+  background: rgba(28, 25, 23, 0.1);
+}
+.theme-toggle .sun-icon {
+  display: block;
+}
+.theme-toggle .moon-icon {
+  display: none;
+}
+:root.light-theme .theme-toggle .sun-icon {
+  display: none;
+}
+:root.light-theme .theme-toggle .moon-icon {
+  display: block;
+}
+
+/* ── Mesh Aurora Dynamic Hero Background ── */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0c0a09, #1c1917 40%, #292524 70%, #0c0a09) !important;
+  overflow: hidden;
+}
+.hero-bg::before,
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.45;
+  will-change: transform;
+}
+.hero-bg::before {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(251,191,36,0.3) 0%, rgba(249,115,22,0.1) 70%, transparent 100%) !important;
+  top: -10%;
+  left: -10%;
+  animation: auroraMove1 25s infinite alternate ease-in-out;
+}
+.hero-bg::after {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(249,115,22,0.2) 0%, rgba(252,211,77,0.05) 70%, transparent 100%) !important;
+  bottom: -15%;
+  right: -10%;
+  animation: auroraMove2 30s infinite alternate ease-in-out;
+}
+
+@keyframes auroraMove1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(150px, 80px) scale(1.1); }
+  100% { transform: translate(70px, 150px) scale(0.95); }
+}
+@keyframes auroraMove2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-120px, -100px) scale(0.9); }
+  100% { transform: translate(-50px, -200px) scale(1.05); }
+}
+
+/* ── Scroll Text Reveal Classes ── */
+.reveal-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  margin-right: 0.28em;
+}
+.reveal-word {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Case Study Modal light theme extra fixes */
+:root.light-theme .modal-content-wrapper {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+:root.light-theme .close-modal-btn {
+  background: rgba(28, 25, 23, 0.05) !important;
+  border: 1px solid rgba(28, 25, 23, 0.1) !important;
+  color: var(--text-main) !important;
+}
+:root.light-theme .close-modal-btn:hover {
+  background: rgba(28, 25, 23, 0.15) !important;
+}
+:root.light-theme .modal-info h2 {
+  color: var(--text-main) !important;
+}
+:root.light-theme .modal-body h4 {
+  color: var(--text-main) !important;
+}
+:root.light-theme .modal-info {
+  border-left: 1px solid var(--border-color) !important;
+}

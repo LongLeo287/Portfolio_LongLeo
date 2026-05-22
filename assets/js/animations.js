@@ -20,8 +20,9 @@
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
 
-  // Upgrade existing fade-up elements to use reveal system
+  // Upgrade existing fade-up elements (except headings) to use reveal system
   document.querySelectorAll('.fade-up').forEach((el, i) => {
+    if (el.tagName === 'H1' || el.tagName === 'H2') return;
     el.classList.add('reveal');
     el.style.transitionDelay = `${Math.min(i * 0.04, 0.3)}s`;
     revealObserver.observe(el);
@@ -36,6 +37,80 @@
       revealObserver.observe(child);
     });
   });
+
+  /* ── 1b. PREMIUM SCROLL TEXT REVEAL (SPLIT WORDS) ── */
+  function initTextReveal() {
+    const revealTargets = document.querySelectorAll('.hero h1, .section-title h2, .about-content h2');
+    
+    revealTargets.forEach(target => {
+      if (target.classList.contains('text-reveal-processed')) return;
+      target.classList.add('text-reveal-processed');
+      
+      const lines = target.innerHTML.split(/<br\s*\/?>/i);
+      let newHTML = '';
+      
+      lines.forEach((line, lineIdx) => {
+        if (lineIdx > 0) newHTML += '<br>';
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = line;
+        
+        const processNode = (node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent.split(/(\s+)/);
+            const fragment = document.createDocumentFragment();
+            words.forEach(word => {
+              if (word.trim() === '') {
+                fragment.appendChild(document.createTextNode(word));
+              } else {
+                const mask = document.createElement('span');
+                mask.className = 'reveal-word-mask';
+                
+                const inner = document.createElement('span');
+                inner.className = 'reveal-word';
+                inner.textContent = word;
+                
+                mask.appendChild(inner);
+                fragment.appendChild(mask);
+              }
+            });
+            return fragment;
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const newNode = node.cloneNode(false);
+            Array.from(node.childNodes).forEach(child => {
+              newNode.appendChild(processNode(child));
+            });
+            return newNode;
+          }
+          return node.cloneNode(true);
+        };
+        
+        const processedFragment = processNode(tempDiv);
+        const wrapper = document.createElement('div');
+        wrapper.appendChild(processedFragment);
+        newHTML += wrapper.innerHTML;
+      });
+      
+      target.innerHTML = newHTML;
+      
+      const textObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const words = entry.target.querySelectorAll('.reveal-word');
+            words.forEach((word, idx) => {
+              word.style.transitionDelay = `${idx * 0.025}s`;
+              word.style.transform = 'translateY(0)';
+            });
+            textObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      
+      textObserver.observe(target);
+    });
+  }
+
+  initTextReveal();
 
   /* ── 2. CURSOR SPOTLIGHT ── */
   const spotlight = document.getElementById('cursorSpotlight');

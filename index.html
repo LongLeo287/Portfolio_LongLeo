@@ -17,6 +17,15 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+  <!-- Cinematic Loader -->
+  <div class="cinematic-loader" id="cinematicLoader">
+    <div class="loader-logo-wrap">
+      <svg class="loader-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="logo-path" d="M 30 25 L 30 75 M 30 50 L 50 50 M 50 25 L 50 75 L 70 75" stroke="#ff7a00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
     <div class="container nav-wrap">
@@ -43,6 +52,12 @@
         <span class="lang-sep">|</span>
         <button class="lang-btn" data-lang="en">EN</button>
       </div>
+      
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng/tối">
+        <i data-lucide="sun" class="sun-icon"></i>
+        <i data-lucide="moon" class="moon-icon"></i>
+      </button>
+
       <a class="header-cta" href="mailto:Longdragon287@gmail.com" data-i18n="nav_collab">Liên hệ hợp tác</a>
 
       <button class="menu-btn" type="button" aria-label="Mở menu" id="menuBtn">☰</button>
@@ -596,6 +611,28 @@
 
   <button class="back-to-top" id="backToTop" type="button" aria-label="Quay lại đầu trang">↑</button>
 
+  <!-- Case Study Modal -->
+  <div id="caseStudyModal" class="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div id="modalBackdrop" class="modal-backdrop"></div>
+    <div class="modal-content-wrapper">
+      <button id="closeModalBtn" class="close-modal-btn" type="button" aria-label="Đóng">&times;</button>
+      <div class="modal-layout">
+        <div id="modalMedia" class="modal-media">
+          <!-- Dynamic media content -->
+        </div>
+        <div class="modal-info">
+          <p id="modalClient" class="modal-client"></p>
+          <h2 id="modalTitle"></h2>
+          <div id="modalTags" class="modal-tags"></div>
+          <div id="modalBody" class="modal-body"></div>
+          <div style="margin-top: 2rem;">
+            <a id="modalLink" class="btn btn-primary" href="#" target="_blank" data-i18n="modal_view_link">Xem dự án ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Lightbox Modal -->
   <div id="lightboxModal" class="lightbox-modal">
     <span class="lightbox-close">&times;</span>
@@ -610,6 +647,7 @@
   <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="assets/js/app.js" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
 </body>
