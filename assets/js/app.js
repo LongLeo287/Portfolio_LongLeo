@@ -601,6 +601,8 @@ function openCaseStudyModal(project) {
     elements.modalMedia.innerHTML = `<img src="${project.imgSrc}" alt="${title}" />`;
   }
   
+  const layout = document.querySelector('.modal-layout');
+  if (layout) layout.classList.remove('info-hidden');
   elements.modal.classList.add('active');
   if (window.lenis) window.lenis.stop();
 }
@@ -613,6 +615,14 @@ function closeCaseStudyModal() {
 
 elements.closeModalBtn?.addEventListener('click', closeCaseStudyModal);
 elements.modalBackdrop?.addEventListener('click', closeCaseStudyModal);
+
+const toggleInfoBtn = document.getElementById('toggleInfoBtn');
+if (toggleInfoBtn) {
+  toggleInfoBtn.addEventListener('click', () => {
+    const layout = document.querySelector('.modal-layout');
+    if (layout) layout.classList.toggle('info-hidden');
+  });
+}
 
 // ==========================================
 // Lightbox Implementation
