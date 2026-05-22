@@ -171,7 +171,7 @@ const translations = {
     port_desc: 'Tổng&nbsp;hợp các sản&nbsp;phẩm video và nội&nbsp;dung sáng&nbsp;tạo từ kênh YouTube @LongLeo287 và các dự&nbsp;án&nbsp;thực&nbsp;tế.',
     contact_eyebrow: 'liên&nbsp;hệ',
     contact_title: 'cảm&nbsp;ơn bạn đã dành thời&nbsp;gian&nbsp;ghé&nbsp;thăm.',
-    contact_desc: 'Cần&nbsp;người quay&nbsp;dựng, thiết&nbsp;kế, làm motion graphic hoặc tối&nbsp;ưu UI/UX? Hãy liên&nbsp;hệ để bắt&nbsp;đầu trao&nbsp;đổi về dự&nbsp;án&nbsp;của&nbsp;bạn.',
+    contact_desc: 'Cần&nbsp;người quay&nbsp;dựng, thiết&nbsp;kế, làm motion graphic hoặc tối&nbsp;ưu UI/UX? Hãy&nbsp;liên&nbsp;hệ để bắt&nbsp;đầu trao&nbsp;đổi về dự&nbsp;án&nbsp;của&nbsp;bạn.',
     contact_email_btn: 'Gửi email&nbsp;✉',
     contact_phone_btn: 'Gọi ngay&nbsp;☎',
     contact_addr_label: 'Địa&nbsp;chỉ',
