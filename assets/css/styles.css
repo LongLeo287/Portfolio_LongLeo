@@ -687,7 +687,7 @@
     }
 
     .experience {
-      background: var(--bg-main);
+      background: var(--bg-surface);
       color: var(--text-light);
     }
 
@@ -1030,7 +1030,17 @@
       color: var(--brown);
     }
 
-    :root.light-theme .contact-section .btn-dark {
+    
+/* Global btn-dark light-theme override */
+:root.light-theme .btn-dark {
+  background: #1c1917;
+  color: #ffffff;
+}
+:root.light-theme .btn-dark:hover {
+  background: #292524;
+  transform: translateY(-2px);
+}
+:root.light-theme .contact-section .btn-dark {
       background: var(--brown);
       color: #ffffff;
     }
@@ -2436,7 +2446,7 @@
 
 /* ── Experience Section ── */
 :root.light-theme .experience {
-  background: var(--bg-surface);
+  background: #f5f5f4;
   color: var(--text-main);
 }
 :root.light-theme .experience .eyebrow {
@@ -2833,3 +2843,69 @@
   }
 }
 
+
+/* Social grid light theme */
+:root.light-theme .social-grid a {
+  background: #f5f5f4;
+  color: var(--text-main);
+  border: 1px solid rgba(28, 25, 23, 0.1);
+}
+:root.light-theme .social-grid a:hover {
+  background: #e7e5e4;
+}
+
+/* Lang btn light theme */
+:root.light-theme .lang-btn {
+  color: var(--text-muted);
+}
+:root.light-theme .lang-btn:hover {
+  color: var(--text-main);
+}
+:root.light-theme .lang-btn.active {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+/* Back to top light theme */
+:root.light-theme #backToTop {
+  background: #1c1917;
+  color: #ffffff;
+  border-color: #1c1917;
+}
+
+/* Showcase slider light theme extended */
+:root.light-theme .showcase-slide-overlay {
+  background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+}
+:root.light-theme .showcase-info {
+  background: rgba(255, 255, 255, 0.9);
+}
+:root.light-theme .showcase-slide-title {
+  color: var(--text-main);
+}
+:root.light-theme .showcase-slide-category {
+  color: var(--text-muted);
+}
+
+/* Skills/about section badges light theme */
+:root.light-theme .skills-list span,
+:root.light-theme .skill-tag {
+  background: rgba(28, 25, 23, 0.06);
+  color: var(--text-main);
+  border-color: rgba(28, 25, 23, 0.12);
+}
+
+/* Section eyebrow in dark sections (experience, contact) */
+:root.light-theme .contact-section .eyebrow {
+  background: rgba(122, 76, 37, 0.12);
+  border-color: rgba(122, 76, 37, 0.2);
+  color: var(--brown);
+}
+
+/* Portfolio section (bg-soft) section title */
+:root.light-theme #portfolio .section-title h2 {
+  color: var(--text-main);
+}
+:root.light-theme #portfolio .section-title p {
+  color: var(--text-muted);
+}
