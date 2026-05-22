@@ -951,3 +951,31 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
   }
 });
+
+
+// CV Modal Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const openCvBtn = document.getElementById('openCvBtn');
+  const cvModal = document.getElementById('cvModal');
+  const closeCvBtn = document.getElementById('closeCvBtn');
+
+  if (openCvBtn && cvModal && closeCvBtn) {
+    openCvBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      cvModal.classList.add('active');
+      if (window.lenis) window.lenis.stop();
+    });
+
+    closeCvBtn.addEventListener('click', () => {
+      cvModal.classList.remove('active');
+      if (window.lenis) window.lenis.start();
+    });
+
+    cvModal.addEventListener('click', (e) => {
+      if (e.target === cvModal) {
+        cvModal.classList.remove('active');
+        if (window.lenis) window.lenis.start();
+      }
+    });
+  }
+});

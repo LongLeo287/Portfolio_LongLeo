@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=1.18" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.19" />
   <link rel="stylesheet" href="assets/css/animations.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
   <script type="application/ld+json">
@@ -135,7 +135,7 @@
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#portfolio" data-i18n="hero_btn1">Xem portfolio ↗</a>
-            <a class="btn btn-glass" href="cv.html" data-i18n="hero_btn_cv">Xem CV 📄</a>
+            <a class="btn btn-glass" href="#" id="openCvBtn" data-i18n="hero_btn_cv">Xem CV 📄</a>
             <a class="btn btn-glass" href="mailto:Longdragon287@gmail.com" data-i18n="hero_btn2">Liên hệ hợp tác ✉</a>
           </div>
 
@@ -688,11 +688,19 @@
     <img class="lightbox-content" id="lightboxImage" alt="Phóng to" style="display: none;">
   </div>
 
+  <!-- CV Modal -->
+  <div id="cvModal" class="lightbox-modal">
+    <span class="lightbox-close" id="closeCvBtn">&times;</span>
+    <div class="cv-modal-content">
+      <iframe src="cv.html"></iframe>
+    </div>
+  </div>
+
   <!-- Cursor Spotlight -->
   <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
 
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="assets/js/app.js?v=1.18" defer></script>
+  <script src="assets/js/app.js?v=1.19" defer></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
 <script>
