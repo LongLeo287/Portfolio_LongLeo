@@ -1936,7 +1936,7 @@
 }
 
 .logo-item:hover {
-  filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+  filter: none;
   opacity: 1;
   transform: scale(1.08);
 }
