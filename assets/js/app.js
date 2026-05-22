@@ -493,12 +493,7 @@ function initFilters() {
 // ==========================================
 function handleCardClick(e, project) {
   e.preventDefault();
-  
-  if (project.caseStudy) {
-    openCaseStudyModal(project);
-  } else {
-    openLightbox(project);
-  }
+  openCaseStudyModal(project);
 }
 
 // ==========================================
