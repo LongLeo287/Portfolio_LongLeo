@@ -593,8 +593,9 @@ function openCaseStudyModal(project) {
       elements.modalMedia.innerHTML = `<iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
   } else {
+    const safeImgSrc = project.imgSrc.replace(/'/g, "%27");
     elements.modalMedia.innerHTML = `
-      <div class="modal-media-blur" style="background-image: url('${project.imgSrc}')"></div>
+      <div class="modal-media-blur" style="background-image: url('${safeImgSrc}')"></div>
       <img src="${project.imgSrc}" alt="${title}" style="position:relative; z-index:2;" />
     `;
   }
