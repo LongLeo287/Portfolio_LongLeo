@@ -560,7 +560,7 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
       gap: 56px;
       align-items: center;
     }
@@ -1011,7 +1011,7 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr .85fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, .85fr);
       gap: 42px;
       align-items: center;
     }
