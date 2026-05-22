@@ -1,0 +1,3095 @@
+[
+  {
+    "id": "proj_001",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_34.webp",
+    "href": "assets/img/thumbnails/thumbnail_34.webp",
+    "alt": "BÉ, KHỎE",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_002",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_33.webp",
+    "href": "assets/img/thumbnails/thumbnail_33.webp",
+    "alt": "LOA QUỐC DÂN",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_003",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_32.webp",
+    "href": "assets/img/thumbnails/thumbnail_32.webp",
+    "alt": "'VUA' PHÁT LIVE!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_004",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_31.webp",
+    "href": "assets/img/thumbnails/thumbnail_31.webp",
+    "alt": "AI LÀ VUA ÂM THANH 360?",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_005",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_30.webp",
+    "href": "assets/img/thumbnails/thumbnail_30.webp",
+    "alt": "LOA RETRO",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_006",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_29.webp",
+    "href": "assets/img/thumbnails/thumbnail_29.webp",
+    "alt": "VUA CHỐNG ỒN?",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_007",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_28.webp",
+    "href": "assets/img/thumbnails/thumbnail_28.webp",
+    "alt": "QUÁ NHANH, CẤM CỒN",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_008",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_27.webp",
+    "href": "assets/img/thumbnails/thumbnail_27.webp",
+    "alt": "ECOFLOW: TÂN BINH HAY LÃO LÀNG",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_009",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_26.webp",
+    "href": "assets/img/thumbnails/thumbnail_26.webp",
+    "alt": "JBL BOOMBOX 3: ĐÁNG NGHE KHÔNG?",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_010",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_25.webp",
+    "href": "assets/img/thumbnails/thumbnail_25.webp",
+    "alt": "CỰC NHỎ, NGON!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_011",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_24.webp",
+    "href": "assets/img/thumbnails/thumbnail_24.webp",
+    "alt": "PARAMAX, VỪA...",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_012",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_23.webp",
+    "href": "assets/img/thumbnails/thumbnail_23.webp",
+    "alt": "HÉ LỘ SẢN PHẨM SẮP RA MẮT",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_013",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_22.webp",
+    "href": "assets/img/thumbnails/thumbnail_22.webp",
+    "alt": "ECOFLOW: 2 NĂM SỬ DỤNG",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_014",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_21.webp",
+    "href": "assets/img/thumbnails/thumbnail_21.webp",
+    "alt": "CỰC XỊN THẾ!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_015",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_20.webp",
+    "href": "assets/img/thumbnails/thumbnail_20.webp",
+    "alt": "NGON, SANG, CHẤT!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_016",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_19.webp",
+    "href": "assets/img/thumbnails/thumbnail_19.webp",
+    "alt": "JBL PartyBox Club 120 - 2026",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_017",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_18.webp",
+    "href": "assets/img/thumbnails/thumbnail_18.webp",
+    "alt": "KẾT NỐI KARAOKE",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_018",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_17.webp",
+    "href": "assets/img/thumbnails/thumbnail_17.webp",
+    "alt": "VUA DI ĐỘNG? BOSE vs JBL",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_019",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_16.webp",
+    "href": "assets/img/thumbnails/thumbnail_16.webp",
+    "alt": "LOA BÉ HÁT QUÁ ĐÃ",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_020",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_15.webp",
+    "href": "assets/img/thumbnails/thumbnail_15.webp",
+    "alt": "MICRO NÀO HÁT ĐỈNH HƠN?",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_021",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_14.webp",
+    "href": "assets/img/thumbnails/thumbnail_14.webp",
+    "alt": "CHỐNG NƯỚC LÀ ĐÂY!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_022",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_13.webp",
+    "href": "assets/img/thumbnails/thumbnail_13.webp",
+    "alt": "SẠC 70 PHÚT, DÙNG 10 NĂM",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_023",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_12.webp",
+    "href": "assets/img/thumbnails/thumbnail_12.webp",
+    "alt": "LAS VEGAS CHẤT LỪ",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_024",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_11.webp",
+    "href": "assets/img/thumbnails/thumbnail_11.webp",
+    "alt": "Loa Di Động Kèm Micro",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_025",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_10.webp",
+    "href": "assets/img/thumbnails/thumbnail_10.webp",
+    "alt": "MIC CỰC PHIÊU",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_026",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_9.webp",
+    "href": "assets/img/thumbnails/thumbnail_9.webp",
+    "alt": "JBL GO 5: CHẠM LÀ NGHE",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_027",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_8.webp",
+    "href": "assets/img/thumbnails/thumbnail_8.webp",
+    "alt": "RESO PILOT NEO: UNBOX & REVIEW!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_028",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_7.webp",
+    "href": "assets/img/thumbnails/thumbnail_7.webp",
+    "alt": "JBL XTREME 5",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_029",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_6.webp",
+    "href": "assets/img/thumbnails/thumbnail_6.webp",
+    "alt": "VEGAS: ÂM & OKE!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_030",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_5.webp",
+    "href": "assets/img/thumbnails/thumbnail_5.webp",
+    "alt": "KCBOX CS160 PRO: KARAOKE CỰC CHẤT",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_031",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_4.webp",
+    "href": "assets/img/thumbnails/thumbnail_4.webp",
+    "alt": "ECOFLOW: TRẠM NÀO...",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_032",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_3.webp",
+    "href": "assets/img/thumbnails/thumbnail_3.webp",
+    "alt": "VẤP MARSHALL",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_033",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_2.webp",
+    "href": "assets/img/thumbnails/thumbnail_2.webp",
+    "alt": "CỰC NÓNG NHỈ!",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_034",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/thumbnail_1.webp",
+    "href": "assets/img/thumbnails/thumbnail_1.webp",
+    "alt": "VẤP MARSHALL",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_035",
+    "title": {
+      "vi": "",
+      "en": ""
+    },
+    "category": "Thumbnail",
+    "client": {
+      "vi": "",
+      "en": ""
+    },
+    "imgSrc": "assets/img/thumbnails/drive_image_18ejpuq5cjigb7_2pjfg5vlj8i0ed9ypw.webp",
+    "href": "assets/img/thumbnails/drive_image_18ejpuq5cjigb7_2pjfg5vlj8i0ed9ypw.webp",
+    "alt": "Thumbnail: Top 5 Loa Bluetooth Đáng Mua Nhất",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_036",
+    "title": {
+      "vi": "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️",
+      "en": "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Setup",
+      "en": "MyGear Setup"
+    },
+    "imgSrc": "assets/img/thumbnails/lEibZKODe8M.jpg",
+    "href": "https://www.youtube.com/watch?v=lEibZKODe8M",
+    "alt": "SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️ #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án SETUP GÓC MÁY CỰC CHILL: Segotep Slath Mini 🖥️.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_037",
+    "title": {
+      "vi": "CASE QUỐC DÂN KÈM 6 FAN: MSI MAG Forge 120A ❄️",
+      "en": "CASE QUỐC DÂN KÈM 6 FAN: MSI MAG Forge 120A ❄️"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Product",
+      "en": "MyGear Product"
+    },
+    "imgSrc": "assets/img/thumbnails/6sSoxzakgEE.jpg",
+    "href": "https://www.youtube.com/watch?v=6sSoxzakgEE",
+    "alt": "CASE QUỐC DÂN KÈM 6 FAN: MSI MAG Forge 120A ❄️ #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án CASE QUỐC DÂN KÈM 6 FAN: MSI MAG Forge 120A ❄️.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_038",
+    "title": {
+      "vi": "CASE DỊ 8 MẶT: Thermaltake Tower 300 Lùa Gà Hay Đẳng Cấp? 🤔",
+      "en": "CASE DỊ 8 MẶT: Thermaltake Tower 300 Lùa Gà Hay Đẳng Cấp? 🤔"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Review",
+      "en": "MyGear Review"
+    },
+    "imgSrc": "assets/img/thumbnails/noGA2i3-rl4.jpg",
+    "href": "https://www.youtube.com/watch?v=noGA2i3-rl4",
+    "alt": "CASE DỊ 8 MẶT: Thermaltake Tower 300 Lùa Gà Hay Đẳng Cấp? 🤔 #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án CASE DỊ 8 MẶT: Thermaltake Tower 300 Lùa Gà Hay Đẳng Cấp? 🤔.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_039",
+    "title": {
+      "vi": "PC WAIFU: Dàn Máy Trong Mơ Của Wibu 😍",
+      "en": "PC WAIFU: Dàn Máy Trong Mơ Của Wibu 😍"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Setup",
+      "en": "MyGear Setup"
+    },
+    "imgSrc": "assets/img/thumbnails/-m--O3wuOAU.jpg",
+    "href": "https://www.youtube.com/watch?v=-m--O3wuOAU",
+    "alt": "PC WAIFU: Dàn Máy Trong Mơ Của Wibu 😍 #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án PC WAIFU: Dàn Máy Trong Mơ Của Wibu 😍.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_040",
+    "title": {
+      "vi": "BUILD PC MÙA EURO: Soi VAR Cực Nét ⚽",
+      "en": "BUILD PC MÙA EURO: Soi VAR Cực Nét ⚽"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Tech",
+      "en": "MyGear Tech"
+    },
+    "imgSrc": "assets/img/thumbnails/FFs4bqjNmjU.jpg",
+    "href": "https://www.youtube.com/watch?v=FFs4bqjNmjU",
+    "alt": "BUILD PC MÙA EURO: Soi VAR Cực Nét ⚽ #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án BUILD PC MÙA EURO: Soi VAR Cực Nét ⚽.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_041",
+    "title": {
+      "vi": "QUÁI VẬT 4K: ASUS ROG Strix RTX 5080 🚀",
+      "en": "QUÁI VẬT 4K: ASUS ROG Strix RTX 5080 🚀"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Review",
+      "en": "MyGear Review"
+    },
+    "imgSrc": "assets/img/thumbnails/jlcoFXEGbQQ.jpg",
+    "href": "https://www.youtube.com/watch?v=jlcoFXEGbQQ",
+    "alt": "QUÁI VẬT 4K: ASUS ROG Strix RTX 5080 🚀",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án QUÁI VẬT 4K: ASUS ROG Strix RTX 5080 🚀.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_042",
+    "title": {
+      "vi": "GÓC MÁY GỌN GÀNG: ASUS ROG Pegboard Cực Ngầu 😎",
+      "en": "GÓC MÁY GỌN GÀNG: ASUS ROG Pegboard Cực Ngầu 😎"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Setup",
+      "en": "MyGear Setup"
+    },
+    "imgSrc": "assets/img/thumbnails/u82Z8cjp-DA.jpg",
+    "href": "https://www.youtube.com/watch?v=u82Z8cjp-DA",
+    "alt": "GÓC MÁY GỌN GÀNG: ASUS ROG Pegboard Cực Ngầu 😎 #shorts",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án GÓC MÁY GỌN GÀNG: ASUS ROG Pegboard Cực Ngầu 😎.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_043",
+    "title": {
+      "vi": "PC CHUẨN \"BACK TO SCHOOL\": Học Giỏi - Quẩy Game 🎒",
+      "en": "PC CHUẨN \"BACK TO SCHOOL\": Học Giỏi - Quẩy Game 🎒"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Tech",
+      "en": "MyGear Tech"
+    },
+    "imgSrc": "assets/img/thumbnails/2-3nB7gtom8.jpg",
+    "href": "https://www.youtube.com/watch?v=2-3nB7gtom8",
+    "alt": "PC CHUẨN ",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án PC CHUẨN \"BACK TO SCHOOL\": Học Giỏi - Quẩy Game 🎒.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Premiere Pro",
+        "After Effects",
+        "Photoshop"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_044",
+    "title": {
+      "vi": "PROJECT BTF ASUS X MYGEAR",
+      "en": "PROJECT BTF ASUS X MYGEAR"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "ASUS x MyGear",
+      "en": "ASUS x MyGear"
+    },
+    "imgSrc": "assets/img/thumbnails/bF01LIaiS6s.jpg",
+    "href": "https://www.youtube.com/watch?v=bF01LIaiS6s",
+    "alt": "PROJECT BTF ASUS X MYGEAR",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_045",
+    "title": {
+      "vi": "BenQ Zowie XL2566K_Shopee - MYGEAR",
+      "en": "BenQ Zowie XL2566K_Shopee - MYGEAR"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "MyGear Shopee",
+      "en": "MyGear Shopee"
+    },
+    "imgSrc": "assets/img/thumbnails/uaM7R0lGPKI.jpg",
+    "href": "https://www.youtube.com/watch?v=uaM7R0lGPKI",
+    "alt": "BenQ Zowie XL2566K_Shopee - MYGEAR",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_046",
+    "title": {
+      "vi": "Dự án Golden Crown Hải Phòng - Unicons",
+      "en": "Dự án Golden Crown Hải Phòng - Unicons"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Unicons",
+      "en": "Unicons"
+    },
+    "imgSrc": "assets/img/thumbnails/c-dl9-LHZLU.jpg",
+    "href": "https://www.youtube.com/watch?v=c-dl9-LHZLU",
+    "alt": "Dự án Golden Crown Hải Phòng - Unicons",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_047",
+    "title": {
+      "vi": "NHỮNG ĐỨA CON TRONG GIA ĐÌNH - VAS",
+      "en": "NHỮNG ĐỨA CON TRONG GIA ĐÌNH - VAS"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "VAS Education",
+      "en": "VAS Education"
+    },
+    "imgSrc": "assets/img/thumbnails/xvwZ2N27E8Q.jpg",
+    "href": "https://www.youtube.com/watch?v=xvwZ2N27E8Q",
+    "alt": "NHỮNG ĐỨA CON TRONG GIA ĐÌNH - VAS",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_048",
+    "title": {
+      "vi": "Chiếc Thuyền Ngoài Xa - Tác phẩm văn học - VAS",
+      "en": "Chiếc Thuyền Ngoài Xa - Tác phẩm văn học - VAS"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "VAS Education",
+      "en": "VAS Education"
+    },
+    "imgSrc": "assets/img/thumbnails/J9GQHDGtOHY.jpg",
+    "href": "https://www.youtube.com/watch?v=J9GQHDGtOHY",
+    "alt": "Chiếc Thuyền Ngoài Xa - Tác phẩm văn học - VAS",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_049",
+    "title": {
+      "vi": "Sweet Line - New World Saigon Hotel",
+      "en": "Sweet Line - New World Saigon Hotel"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "New World Hotel",
+      "en": "New World Hotel"
+    },
+    "imgSrc": "assets/img/thumbnails/5qcONiESfVk.jpg",
+    "href": "https://www.youtube.com/watch?v=5qcONiESfVk",
+    "alt": "Sweet Line - New World Saigon Hotel",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_050",
+    "title": {
+      "vi": "NHÌN LẠI 2023 - TECHPRO",
+      "en": "NHÌN LẠI 2023 - TECHPRO"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TECHPRO",
+      "en": "TECHPRO"
+    },
+    "imgSrc": "assets/img/thumbnails/JWhm8faDUno.jpg",
+    "href": "https://www.youtube.com/watch?v=JWhm8faDUno",
+    "alt": "NHÌN LẠI 2023 - TECHPRO",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_051",
+    "title": {
+      "vi": "RECAP: Khóa Huấn Luyện PHONG THÁI LÃNH ĐẠO - TopSkills 🌟",
+      "en": "RECAP: Khóa Huấn Luyện PHONG THÁI LÃNH ĐẠO - TopSkills 🌟"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TopSkills",
+      "en": "TopSkills"
+    },
+    "imgSrc": "assets/img/thumbnails/PYG-pDFNEX4.jpg",
+    "href": "https://www.youtube.com/watch?v=PYG-pDFNEX4",
+    "alt": "RECAP: Khóa Huấn Luyện PHONG THÁI LÃNH ĐẠO - TopSkills 🌟",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_052",
+    "title": {
+      "vi": "TSS RECAP: Vững Bước Vươn Xa - 6 Tháng Đầu Năm 2023 🚀",
+      "en": "TSS RECAP: Vững Bước Vươn Xa - 6 Tháng Đầu Năm 2023 🚀"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TopSkills",
+      "en": "TopSkills"
+    },
+    "imgSrc": "assets/img/thumbnails/5TaWs5K6LoI.jpg",
+    "href": "https://www.youtube.com/watch?v=5TaWs5K6LoI",
+    "alt": "TSS RECAP: Vững Bước Vươn Xa - 6 Tháng Đầu Năm 2023 🚀",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_053",
+    "title": {
+      "vi": "BÍ MẬT 21.09: BAEMIN Đang \"Ủ Mưu\" Gì Thế? 🤔",
+      "en": "BÍ MẬT 21.09: BAEMIN Đang \"Ủ Mưu\" Gì Thế? 🤔"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "BAEMIN",
+      "en": "BAEMIN"
+    },
+    "imgSrc": "assets/img/thumbnails/esEPnagQA_4.jpg",
+    "href": "https://www.youtube.com/watch?v=esEPnagQA_4",
+    "alt": "BÍ MẬT 21.09: BAEMIN Đang ",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_054",
+    "title": {
+      "vi": "CEN GROUP - YEP 2023",
+      "en": "CEN GROUP - YEP 2023"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Cen Group",
+      "en": "Cen Group"
+    },
+    "imgSrc": "assets/img/thumbnails/VBRvN2dE99w.jpg",
+    "href": "https://www.youtube.com/watch?v=VBRvN2dE99w",
+    "alt": "CEN GROUP - YEP 2023",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_055",
+    "title": {
+      "vi": "TSS YEP 2022: Hành Trình Vươn Tới Đỉnh Cao 🚀",
+      "en": "TSS YEP 2022: Hành Trình Vươn Tới Đỉnh Cao 🚀"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TopSkills",
+      "en": "TopSkills"
+    },
+    "imgSrc": "assets/img/thumbnails/uYJ1qibQ6Vk.jpg",
+    "href": "https://www.youtube.com/watch?v=uYJ1qibQ6Vk",
+    "alt": "TSS YEP 2022: Hành Trình Vươn Tới Đỉnh Cao 🚀",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_056",
+    "title": {
+      "vi": "Amity Key visual",
+      "en": "Amity Key visual"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Amity",
+      "en": "Amity"
+    },
+    "imgSrc": "assets/img/thumbnails/LDz9e5MjJec.jpg",
+    "href": "https://www.youtube.com/watch?v=LDz9e5MjJec",
+    "alt": "Amity Key visual",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_057",
+    "title": {
+      "vi": "LAGOONA",
+      "en": "LAGOONA"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Lagoona",
+      "en": "Lagoona"
+    },
+    "imgSrc": "assets/img/thumbnails/vWdvBY_HCRY.jpg",
+    "href": "https://www.youtube.com/watch?v=vWdvBY_HCRY",
+    "alt": "LAGOONA",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_058",
+    "title": {
+      "vi": "TINH HOA ĐIỀU HÀNH P.2 - TOPPION",
+      "en": "TINH HOA ĐIỀU HÀNH P.2 - TOPPION"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Toppion Group",
+      "en": "Toppion Group"
+    },
+    "imgSrc": "assets/img/thumbnails/zBqQNyJM4iM.jpg",
+    "href": "https://www.youtube.com/watch?v=zBqQNyJM4iM",
+    "alt": "TINH HOA ĐIỀU HÀNH P.2 - TOPPION",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_059",
+    "title": {
+      "vi": "Khóa đào tạo: Những con số vẽ cuộc đời",
+      "en": "Khóa đào tạo: Những con số vẽ cuộc đời"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Education",
+      "en": "Education"
+    },
+    "imgSrc": "assets/img/thumbnails/xV3bv-OnwmM.jpg",
+    "href": "https://www.youtube.com/watch?v=xV3bv-OnwmM",
+    "alt": "Khóa đào tạo: Những con số vẽ cuộc đời",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_060",
+    "title": {
+      "vi": "VĂN HÓA TOPPION GROUP",
+      "en": "VĂN HÓA TOPPION GROUP"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Toppion Group",
+      "en": "Toppion Group"
+    },
+    "imgSrc": "assets/img/thumbnails/o3LYEknHJQU.jpg",
+    "href": "https://www.youtube.com/watch?v=o3LYEknHJQU",
+    "alt": "VĂN HÓA TOPPION GROUP",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_061",
+    "title": {
+      "vi": "SSI RECAP",
+      "en": "SSI RECAP"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "SSI",
+      "en": "SSI"
+    },
+    "imgSrc": "assets/img/thumbnails/Hxt8WRCYMzE.jpg",
+    "href": "https://www.youtube.com/watch?v=Hxt8WRCYMzE",
+    "alt": "SSI RECAP",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_062",
+    "title": {
+      "vi": "YAMAHA MUSIC",
+      "en": "YAMAHA MUSIC"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Yamaha Music",
+      "en": "Yamaha Music"
+    },
+    "imgSrc": "assets/img/thumbnails/xBnIbIupCwo.jpg",
+    "href": "https://www.youtube.com/watch?v=xBnIbIupCwo",
+    "alt": "YAMAHA MUSIC",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_063",
+    "title": {
+      "vi": "WEBINAR #3",
+      "en": "WEBINAR #3"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Webinar",
+      "en": "Webinar"
+    },
+    "imgSrc": "assets/img/thumbnails/KU0uOgc-i7k.jpg",
+    "href": "https://www.youtube.com/watch?v=KU0uOgc-i7k",
+    "alt": "WEBINAR #3",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_064",
+    "title": {
+      "vi": "TSS RECAP 2022",
+      "en": "TSS RECAP 2022"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TopSkills",
+      "en": "TopSkills"
+    },
+    "imgSrc": "assets/img/thumbnails/YaEaSoqu1Dc.jpg",
+    "href": "https://www.youtube.com/watch?v=YaEaSoqu1Dc",
+    "alt": "TSS RECAP 2022",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_065",
+    "title": {
+      "vi": "1 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM D",
+      "en": "1 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM D"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "DISC Series",
+      "en": "DISC Series"
+    },
+    "imgSrc": "assets/img/thumbnails/2Lf0c4gNnaM.jpg",
+    "href": "https://www.youtube.com/watch?v=2Lf0c4gNnaM",
+    "alt": "1 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM D",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_066",
+    "title": {
+      "vi": "2 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM I",
+      "en": "2 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM I"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "DISC Series",
+      "en": "DISC Series"
+    },
+    "imgSrc": "assets/img/thumbnails/APw_747Z8Ks.jpg",
+    "href": "https://www.youtube.com/watch?v=APw_747Z8Ks",
+    "alt": "2 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM I",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_067",
+    "title": {
+      "vi": "3 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM S",
+      "en": "3 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM S"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "DISC Series",
+      "en": "DISC Series"
+    },
+    "imgSrc": "assets/img/thumbnails/6FIhaQQRgII.jpg",
+    "href": "https://www.youtube.com/watch?v=6FIhaQQRgII",
+    "alt": "3 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM S",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_068",
+    "title": {
+      "vi": "4 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM C",
+      "en": "4 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM C"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "DISC Series",
+      "en": "DISC Series"
+    },
+    "imgSrc": "assets/img/thumbnails/cNFUoTfEP-M.jpg",
+    "href": "https://www.youtube.com/watch?v=cNFUoTfEP-M",
+    "alt": "4 - DISC PHONG CÁCH LÃNH ĐẠO NHÓM C",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_069",
+    "title": {
+      "vi": "YUANTA",
+      "en": "YUANTA"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Yuanta",
+      "en": "Yuanta"
+    },
+    "imgSrc": "assets/img/thumbnails/W-wi8XeWPjY.jpg",
+    "href": "https://www.youtube.com/watch?v=W-wi8XeWPjY",
+    "alt": "YUANTA",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_070",
+    "title": {
+      "vi": "2 - CÁC CẤP ĐỘ LÃNH ĐẠO",
+      "en": "2 - CÁC CẤP ĐỘ LÃNH ĐẠO"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/QlE_t2BPrjE.jpg",
+    "href": "https://www.youtube.com/watch?v=QlE_t2BPrjE",
+    "alt": "2 - CÁC CẤP ĐỘ LÃNH ĐẠO",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_071",
+    "title": {
+      "vi": "3 - CẤP ĐỘ 2 SỰ CHẤP THUẬN",
+      "en": "3 - CẤP ĐỘ 2 SỰ CHẤP THUẬN"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/CfcsH0j8eNo.jpg",
+    "href": "https://www.youtube.com/watch?v=CfcsH0j8eNo",
+    "alt": "3 - CẤP ĐỘ 2 SỰ CHẤP THUẬN",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_072",
+    "title": {
+      "vi": "4 - CẤP ĐỘ THỨ 3 HIỆU SUẤT",
+      "en": "4 - CẤP ĐỘ THỨ 3 HIỆU SUẤT"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/RjF1d7EQ6qM.jpg",
+    "href": "https://www.youtube.com/watch?v=RjF1d7EQ6qM",
+    "alt": "4 - CẤP ĐỘ THỨ 3 HIỆU SUẤT",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_073",
+    "title": {
+      "vi": "1 - LÃNH ĐẠO LÀ GÌ?",
+      "en": "1 - LÃNH ĐẠO LÀ GÌ?"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/D07dVZNpVz8.jpg",
+    "href": "https://www.youtube.com/watch?v=D07dVZNpVz8",
+    "alt": "1 - LÃNH ĐẠO LÀ GÌ?",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_074",
+    "title": {
+      "vi": "5 - CẤP ĐỘ THỨ 4 PHÁT TRIỂN",
+      "en": "5 - CẤP ĐỘ THỨ 4 PHÁT TRIỂN"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/7kE5qQ5G-d0.jpg",
+    "href": "https://www.youtube.com/watch?v=7kE5qQ5G-d0",
+    "alt": "5 - CẤP ĐỘ THỨ 4 PHÁT TRIỂN",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_075",
+    "title": {
+      "vi": "6 - CẤP ĐỘ THỨ 5 ĐỈNH CAO",
+      "en": "6 - CẤP ĐỘ THỨ 5 ĐỈNH CAO"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Leadership",
+      "en": "Leadership"
+    },
+    "imgSrc": "assets/img/thumbnails/7Z8f4bjSSqo.jpg",
+    "href": "https://www.youtube.com/watch?v=7Z8f4bjSSqo",
+    "alt": "6 - CẤP ĐỘ THỨ 5 ĐỈNH CAO",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_076",
+    "title": {
+      "vi": "TEASTER CTY TUANLE",
+      "en": "TEASTER CTY TUANLE"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Tuan Le",
+      "en": "Tuan Le"
+    },
+    "imgSrc": "assets/img/thumbnails/wc7anDRoNLc.jpg",
+    "href": "https://www.youtube.com/watch?v=wc7anDRoNLc",
+    "alt": "TEASTER CTY TUANLE",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_077",
+    "title": {
+      "vi": "SỐ HÓA SỔ TAY VĂN HÓA DOANH NGHIỆP",
+      "en": "SỐ HÓA SỔ TAY VĂN HÓA DOANH NGHIỆP"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Corporate",
+      "en": "Corporate"
+    },
+    "imgSrc": "assets/img/thumbnails/qZ7vx7ye1_g.jpg",
+    "href": "https://www.youtube.com/watch?v=qZ7vx7ye1_g",
+    "alt": "SỐ HÓA SỔ TAY VĂN HÓA DOANH NGHIỆP",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_078",
+    "title": {
+      "vi": "WORKSHOP #1",
+      "en": "WORKSHOP #1"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Workshop",
+      "en": "Workshop"
+    },
+    "imgSrc": "assets/img/thumbnails/09GPSUDmBZ8.jpg",
+    "href": "https://www.youtube.com/watch?v=09GPSUDmBZ8",
+    "alt": "WORKSHOP #1",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_079",
+    "title": {
+      "vi": "TINH HOA ĐIỀU HÀNH P.1 - TOPPION",
+      "en": "TINH HOA ĐIỀU HÀNH P.1 - TOPPION"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Toppion Group",
+      "en": "Toppion Group"
+    },
+    "imgSrc": "assets/img/thumbnails/fj08E8_H_mQ.jpg",
+    "href": "https://www.youtube.com/watch?v=fj08E8_H_mQ",
+    "alt": "TINH HOA ĐIỀU HÀNH P.1 - TOPPION",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_080",
+    "title": {
+      "vi": "HAPPY BIRTH DAY CEO LOAN VĂN SƠN",
+      "en": "HAPPY BIRTH DAY CEO LOAN VĂN SƠN"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Birthday",
+      "en": "Birthday"
+    },
+    "imgSrc": "assets/img/thumbnails/kChC-1kW7eI.jpg",
+    "href": "https://www.youtube.com/watch?v=kChC-1kW7eI",
+    "alt": "HAPPY BIRTH DAY CEO LOAN VĂN SƠN",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_081",
+    "title": {
+      "vi": "Rastaclat Review 2 1",
+      "en": "Rastaclat Review 2 1"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Rastaclat",
+      "en": "Rastaclat"
+    },
+    "imgSrc": "assets/img/thumbnails/St357STCUPo.jpg",
+    "href": "https://www.youtube.com/watch?v=St357STCUPo",
+    "alt": "Rastaclat Review 2 1",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_082",
+    "title": {
+      "vi": "Demo SeaVillaWorld",
+      "en": "Demo SeaVillaWorld"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "SeaVillaWorld",
+      "en": "SeaVillaWorld"
+    },
+    "imgSrc": "assets/img/thumbnails/ebxap6859H4.jpg",
+    "href": "https://www.youtube.com/watch?v=ebxap6859H4",
+    "alt": "Demo SeaVillaWorld",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_083",
+    "title": {
+      "vi": "Project 3 TVC",
+      "en": "Project 3 TVC"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TVC Project",
+      "en": "TVC Project"
+    },
+    "imgSrc": "assets/img/thumbnails/zaUSayrop2g.jpg",
+    "href": "https://www.youtube.com/watch?v=zaUSayrop2g",
+    "alt": "Project 3 TVC",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_084",
+    "title": {
+      "vi": "Project 3 ( behind the scenes)",
+      "en": "Project 3 ( behind the scenes)"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Behind The Scenes",
+      "en": "Behind The Scenes"
+    },
+    "imgSrc": "assets/img/thumbnails/G0ynHektR0A.jpg",
+    "href": "https://www.youtube.com/watch?v=G0ynHektR0A",
+    "alt": "Project 3 ( behind the scenes)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_085",
+    "title": {
+      "vi": "LỬA THIỆN NHÂN: Hành Trình Của Những Điều Tử Tế",
+      "en": "LỬA THIỆN NHÂN: Hành Trình Của Những Điều Tử Tế"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Documentary",
+      "en": "Documentary"
+    },
+    "imgSrc": "assets/img/thumbnails/6YPXweaaUyE.jpg",
+    "href": "https://www.youtube.com/watch?v=6YPXweaaUyE",
+    "alt": "LỬA THIỆN NHÂN: Hành Trình Của Những Điều Tử Tế",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_086",
+    "title": {
+      "vi": "Project TVC Footage",
+      "en": "Project TVC Footage"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "TVC Footage",
+      "en": "TVC Footage"
+    },
+    "imgSrc": "assets/img/thumbnails/rcyqu2bPyRc.jpg",
+    "href": "https://www.youtube.com/watch?v=rcyqu2bPyRc",
+    "alt": "Project TVC Footage",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_087",
+    "title": {
+      "vi": "Project 2 - Rastaclat",
+      "en": "Project 2 - Rastaclat"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Rastaclat",
+      "en": "Rastaclat"
+    },
+    "imgSrc": "assets/img/thumbnails/iVfZ42Vio8o.jpg",
+    "href": "https://www.youtube.com/watch?v=iVfZ42Vio8o",
+    "alt": "Project 2 - Rastaclat",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_088",
+    "title": {
+      "vi": "Project 3 - Sound + Effect (Thor)",
+      "en": "Project 3 - Sound + Effect (Thor)"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "VFX & Sound Design",
+      "en": "VFX & Sound Design"
+    },
+    "imgSrc": "assets/img/thumbnails/B4cb7gMNepY.jpg",
+    "href": "https://www.youtube.com/watch?v=B4cb7gMNepY",
+    "alt": "Project 3 - Sound + Effect (Thor)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_089",
+    "title": {
+      "vi": "Project 2 - Footage Website",
+      "en": "Project 2 - Footage Website"
+    },
+    "category": "Video",
+    "client": {
+      "vi": "Footage Website",
+      "en": "Footage Website"
+    },
+    "imgSrc": "assets/img/thumbnails/X151CXpzoLg.jpg",
+    "href": "https://www.youtube.com/watch?v=X151CXpzoLg",
+    "alt": "Project 2 - Footage Website",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_090",
+    "title": {
+      "vi": "Banner Gaming Gear Razer",
+      "en": "Banner Gaming Gear Razer"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/04_gaming_gear_razer.webp",
+    "href": "assets/img/design/MYGEAR/04_gaming_gear_razer.webp",
+    "alt": "Banner Gaming Gear Razer",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_091",
+    "title": {
+      "vi": "Poster Màn Hình 27 Inch 2K",
+      "en": "Poster Màn Hình 27 Inch 2K"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/27inch_2k.webp",
+    "href": "assets/img/design/VPET'S/27inch_2k.webp",
+    "alt": "Poster Màn Hình 27 Inch 2K",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_092",
+    "title": {
+      "vi": "Banner: Cấu Hình PC Gaming ADATA XPG",
+      "en": "Banner: Cấu Hình PC Gaming ADATA XPG"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/adata_xpg_4k.webp",
+    "href": "assets/img/design/MYGEAR/adata_xpg_4k.webp",
+    "alt": "Banner: Cấu Hình PC Gaming ADATA XPG",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_093",
+    "title": {
+      "vi": "Banner Màn Hình ASUS VY279HF (Mẫu 1)",
+      "en": "Banner Màn Hình ASUS VY279HF (Mẫu 1)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/asus_vy279hf_1.webp",
+    "href": "assets/img/design/MYGEAR/asus_vy279hf_1.webp",
+    "alt": "Banner Màn Hình ASUS VY279HF (Mẫu 1)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_094",
+    "title": {
+      "vi": "Banner Màn Hình ASUS VY279HF (Mẫu 2)",
+      "en": "Banner Màn Hình ASUS VY279HF (Mẫu 2)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/asus_vy279hf.webp",
+    "href": "assets/img/design/MYGEAR/asus_vy279hf.webp",
+    "alt": "Banner Màn Hình ASUS VY279HF (Mẫu 2)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_095",
+    "title": {
+      "vi": "Banner Màn Hình MSI 100Hz Best Seller",
+      "en": "Banner Màn Hình MSI 100Hz Best Seller"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/banner_lcd_100hz_best_seller_msi.webp",
+    "href": "assets/img/design/MYGEAR/banner_lcd_100hz_best_seller_msi.webp",
+    "alt": "Banner Màn Hình MSI 100Hz Best Seller",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Banner Màn Hình MSI 100Hz Best Seller.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_096",
+    "title": {
+      "vi": "Banner Màn Hình 100Hz Best Seller",
+      "en": "Banner Màn Hình 100Hz Best Seller"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_lcd_100hz_best_seller.webp",
+    "href": "assets/img/design/VPET'S/banner_lcd_100hz_best_seller.webp",
+    "alt": "Banner Màn Hình 100Hz Best Seller",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_097",
+    "title": {
+      "vi": "Banner Màn Hình ViewSonic LCD",
+      "en": "Banner Màn Hình ViewSonic LCD"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/banner_lcd_viewsonic.webp",
+    "href": "assets/img/design/MYGEAR/banner_lcd_viewsonic.webp",
+    "alt": "Banner Màn Hình ViewSonic LCD",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_098",
+    "title": {
+      "vi": "Banner PC Cyber Gaming",
+      "en": "Banner PC Cyber Gaming"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/banner_pc_cyber.webp",
+    "href": "assets/img/design/MYGEAR/banner_pc_cyber.webp",
+    "alt": "Banner PC Cyber Gaming",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Banner PC Cyber Gaming.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_099",
+    "title": {
+      "vi": "Banner Giáng Sinh 2025 (Phụ)",
+      "en": "Banner Giáng Sinh 2025 (Phụ)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_phu_noel_2025.webp",
+    "href": "assets/img/design/VPET'S/banner_phu_noel_2025.webp",
+    "alt": "Banner Giáng Sinh 2025 (Phụ)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_100",
+    "title": {
+      "vi": "Banner Giáng Sinh 2025 (Chính)",
+      "en": "Banner Giáng Sinh 2025 (Chính)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_tong_noel_2025.webp",
+    "href": "assets/img/design/VPET'S/banner_tong_noel_2025.webp",
+    "alt": "Banner Giáng Sinh 2025 (Chính)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_101",
+    "title": {
+      "vi": "Banner: Combo Mainboard Z890 & CPU Intel Core Ultra",
+      "en": "Banner: Combo Mainboard Z890 & CPU Intel Core Ultra"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/combomain_cpuintelz890_coreultra.webp",
+    "href": "assets/img/design/MYGEAR/combomain_cpuintelz890_coreultra.webp",
+    "alt": "Banner: Combo Mainboard Z890 & CPU Intel Core Ultra",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_102",
+    "title": {
+      "vi": "Khung Ảnh Giáng Sinh",
+      "en": "Khung Ảnh Giáng Sinh"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/frame_noel_2025.webp",
+    "href": "assets/img/design/VPET'S/frame_noel_2025.webp",
+    "alt": "Khung Ảnh Giáng Sinh",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_103",
+    "title": {
+      "vi": "Khung Ảnh Flash Sale Giáng Sinh",
+      "en": "Khung Ảnh Flash Sale Giáng Sinh"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/frame_noel_flashsale_2025.webp",
+    "href": "assets/img/design/VPET'S/frame_noel_flashsale_2025.webp",
+    "alt": "Khung Ảnh Flash Sale Giáng Sinh",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_104",
+    "title": {
+      "vi": "Banner Màn Hình GALAX Vivance-32Q",
+      "en": "Banner Màn Hình GALAX Vivance-32Q"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/galax_vivance_32q.webp",
+    "href": "assets/img/design/MYGEAR/galax_vivance_32q.webp",
+    "alt": "Banner Màn Hình GALAX Vivance-32Q",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_105",
+    "title": {
+      "vi": "Banner Năm Mới 2025 (Phụ)",
+      "en": "Banner Năm Mới 2025 (Phụ)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/hpny_2025_banner_phu.webp",
+    "href": "assets/img/design/VPET'S/hpny_2025_banner_phu.webp",
+    "alt": "Banner Năm Mới 2025 (Phụ)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_106",
+    "title": {
+      "vi": "Banner Năm Mới 2025 (Chính)",
+      "en": "Banner Năm Mới 2025 (Chính)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/hpny_2025_banner_tong.webp",
+    "href": "assets/img/design/VPET'S/hpny_2025_banner_tong.webp",
+    "alt": "Banner Năm Mới 2025 (Chính)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_107",
+    "title": {
+      "vi": "Khung Ảnh Năm Mới Hot Deal",
+      "en": "Khung Ảnh Năm Mới Hot Deal"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/hpny_frame_hot_deal.webp",
+    "href": "assets/img/design/VPET'S/hpny_frame_hot_deal.webp",
+    "alt": "Khung Ảnh Năm Mới Hot Deal",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_108",
+    "title": {
+      "vi": "Khung Ảnh Chúc Mừng Năm Mới",
+      "en": "Khung Ảnh Chúc Mừng Năm Mới"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/hpny_frame.webp",
+    "href": "assets/img/design/VPET'S/hpny_frame.webp",
+    "alt": "Khung Ảnh Chúc Mừng Năm Mới",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_109",
+    "title": {
+      "vi": "Banner Khuyến Mãi Gaming Gear 70%",
+      "en": "Banner Khuyến Mãi Gaming Gear 70%"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/khuyen_mai_gaming_gear_len_toi_70.webp",
+    "href": "assets/img/design/VPET'S/khuyen_mai_gaming_gear_len_toi_70.webp",
+    "alt": "Banner Khuyến Mãi Gaming Gear 70%",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_110",
+    "title": {
+      "vi": "Banner Màn Hình Văn Phòng 2K",
+      "en": "Banner Màn Hình Văn Phòng 2K"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/lcd_van_phong_2k_100hz_120hz.webp",
+    "href": "assets/img/design/VPET'S/lcd_van_phong_2k_100hz_120hz.webp",
+    "alt": "Banner Màn Hình Văn Phòng 2K",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_111",
+    "title": {
+      "vi": "Banner Màn Hình Văn Phòng ViewSonic 2K",
+      "en": "Banner Màn Hình Văn Phòng ViewSonic 2K"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/lcd_van_phong_2k_100hz_120hzviewsonic.webp",
+    "href": "assets/img/design/MYGEAR/lcd_van_phong_2k_100hz_120hzviewsonic.webp",
+    "alt": "Banner Màn Hình Văn Phòng ViewSonic 2K",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_112",
+    "title": {
+      "vi": "Banner Màn Hình MSI MAG 275QF (Mẫu 1)",
+      "en": "Banner Màn Hình MSI MAG 275QF (Mẫu 1)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/mag_275qf_2.webp",
+    "href": "assets/img/design/MYGEAR/mag_275qf_2.webp",
+    "alt": "Banner Màn Hình MSI MAG 275QF (Mẫu 1)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_113",
+    "title": {
+      "vi": "Banner Web Màn Hình MSI MAG 275QF",
+      "en": "Banner Web Màn Hình MSI MAG 275QF"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/mag_275qf_web_2.webp",
+    "href": "assets/img/design/MYGEAR/mag_275qf_web_2.webp",
+    "alt": "Banner Web Màn Hình MSI MAG 275QF",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_114",
+    "title": {
+      "vi": "Banner Màn Hình Samsung OLED",
+      "en": "Banner Màn Hình Samsung OLED"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/man_hinh_oled_samsung.webp",
+    "href": "assets/img/design/VPET'S/man_hinh_oled_samsung.webp",
+    "alt": "Banner Màn Hình Samsung OLED",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_115",
+    "title": {
+      "vi": "Banner Màn Hình OLED",
+      "en": "Banner Màn Hình OLED"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/man_hinh_oled.webp",
+    "href": "assets/img/design/VPET'S/man_hinh_oled.webp",
+    "alt": "Banner Màn Hình OLED",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_116",
+    "title": {
+      "vi": "Banner Màn Hình Gaming ViewSonic 180Hz",
+      "en": "Banner Màn Hình Gaming ViewSonic 180Hz"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/man_hinh_gaming_fullhd_180hz_viewsonic.webp",
+    "href": "assets/img/design/MYGEAR/man_hinh_gaming_fullhd_180hz_viewsonic.webp",
+    "alt": "Banner Màn Hình Gaming ViewSonic 180Hz",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_117",
+    "title": {
+      "vi": "Banner Màn Hình Gaming 180Hz",
+      "en": "Banner Màn Hình Gaming 180Hz"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/man_hinh_gaming_fullhd_180hz.webp",
+    "href": "assets/img/design/VPET'S/man_hinh_gaming_fullhd_180hz.webp",
+    "alt": "Banner Màn Hình Gaming 180Hz",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_118",
+    "title": {
+      "vi": "Banner Màn Hình Ultrawide",
+      "en": "Banner Màn Hình Ultrawide"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/man_hinh_ultrawide.webp",
+    "href": "assets/img/design/VPET'S/man_hinh_ultrawide.webp",
+    "alt": "Banner Màn Hình Ultrawide",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_119",
+    "title": {
+      "vi": "Banner Khuyến Mãi PC Gaming & Màn Hình",
+      "en": "Banner Khuyến Mãi PC Gaming & Màn Hình"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/pc_gaming_man_hinh_chinh_hang_sale_off_len_toi_50.webp",
+    "href": "assets/img/design/MYGEAR/pc_gaming_man_hinh_chinh_hang_sale_off_len_toi_50.webp",
+    "alt": "Banner Khuyến Mãi PC Gaming & Màn Hình",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_120",
+    "title": {
+      "vi": "Banner PC Tự Build (Bản 2)",
+      "en": "Banner PC Tự Build (Bản 2)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/pc_tu_build_2.webp",
+    "href": "assets/img/design/MYGEAR/pc_tu_build_2.webp",
+    "alt": "Banner PC Tự Build (Bản 2)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_121",
+    "title": {
+      "vi": "Banner PC Tự Build (Bản 1)",
+      "en": "Banner PC Tự Build (Bản 1)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/pc_tu_build.webp",
+    "href": "assets/img/design/MYGEAR/pc_tu_build.webp",
+    "alt": "Banner PC Tự Build (Bản 1)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_122",
+    "title": {
+      "vi": "Banner Web Philips Innovation Festival",
+      "en": "Banner Web Philips Innovation Festival"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/philips_innovation_festival_banner_web.webp",
+    "href": "assets/img/design/MYGEAR/philips_innovation_festival_banner_web.webp",
+    "alt": "Banner Web Philips Innovation Festival",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_123",
+    "title": {
+      "vi": "Banner Chuột Razer DeathAdder",
+      "en": "Banner Chuột Razer DeathAdder"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/razer_deathadder.webp",
+    "href": "assets/img/design/MYGEAR/razer_deathadder.webp",
+    "alt": "Banner Chuột Razer DeathAdder",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_124",
+    "title": {
+      "vi": "Banner Chuột Razer Viper",
+      "en": "Banner Chuột Razer Viper"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/razer_viper.webp",
+    "href": "assets/img/design/MYGEAR/razer_viper.webp",
+    "alt": "Banner Chuột Razer Viper",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_125",
+    "title": {
+      "vi": "Banner: Màn Hình Đa Dụng ViewSonic VA240-H",
+      "en": "Banner: Màn Hình Đa Dụng ViewSonic VA240-H"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/viewsonic_va240_h.webp",
+    "href": "assets/img/design/MYGEAR/viewsonic_va240_h.webp",
+    "alt": "Banner: Màn Hình Đa Dụng ViewSonic VA240-H",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_126",
+    "title": {
+      "vi": "Banner Web ViewSonic VA240-H",
+      "en": "Banner Web ViewSonic VA240-H"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/MYGEAR/viewsonic_va240_h_web.webp",
+    "href": "assets/img/design/MYGEAR/viewsonic_va240_h_web.webp",
+    "alt": "Banner Web ViewSonic VA240-H",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_127",
+    "title": {
+      "vi": "Banner: Màn Hình 2K Gaming Galax Vivance-01",
+      "en": "Banner: Màn Hình 2K Gaming Galax Vivance-01"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/vivance_01.webp",
+    "href": "assets/img/design/VPET'S/vivance_01.webp",
+    "alt": "Banner: Màn Hình 2K Gaming Galax Vivance-01",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_128",
+    "title": {
+      "vi": "Poster Bộ Sưu Tập Labubu",
+      "en": "Poster Bộ Sưu Tập Labubu"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/PROJECTS/27_12_24_labubu_collection.webp",
+    "href": "assets/img/design/PROJECTS/27_12_24_labubu_collection.webp",
+    "alt": "Poster Bộ Sưu Tập Labubu",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Poster Bộ Sưu Tập Labubu.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_129",
+    "title": {
+      "vi": "Banner Quảng Cáo Sự Kiện (Mẫu 1)",
+      "en": "Banner Quảng Cáo Sự Kiện (Mẫu 1)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/drive_image_1_q0hq4rnfs_vyhe7kekv_wsgkr_8hjuo.webp",
+    "href": "assets/img/design/VPET'S/drive_image_1_q0hq4rnfs_vyhe7kekv_wsgkr_8hjuo.webp",
+    "alt": "338309422_877369133359512_706987.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_130",
+    "title": {
+      "vi": "LÃNH ĐẠO: NÊN TRỞ THÀNH NGƯỜI MÀ NGƯỜI KHÁC MUỐN NOI THEO",
+      "en": "LÃNH ĐẠO: NÊN TRỞ THÀNH NGƯỜI MÀ NGƯỜI KHÁC MUỐN NOI THEO"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/340082900_247040477742770_651010.webp",
+    "href": "assets/img/design/VPET'S/340082900_247040477742770_651010.webp",
+    "alt": "LÃNH ĐẠO: NÊN TRỞ THÀNH NGƯỜI MÀ NGƯỜI KHÁC MUỐN NOI THEO",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_131",
+    "title": {
+      "vi": "Background BAEMIN (21.09.2023)",
+      "en": "Background BAEMIN (21.09.2023)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/bg_baemin_2_21_09_2023.webp",
+    "href": "assets/img/design/VPET'S/bg_baemin_2_21_09_2023.webp",
+    "alt": "Background BAEMIN (21.09.2023)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_132",
+    "title": {
+      "vi": "26   Pet Grooming & Hotel",
+      "en": "26   Pet Grooming & Hotel"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/26_pet_grooming_hotel.webp",
+    "href": "assets/img/design/VPET'S/26_pet_grooming_hotel.webp",
+    "alt": "26   Pet Grooming & Hotel",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_133",
+    "title": {
+      "vi": "Avatar Fb Vpet'S 8",
+      "en": "Avatar Fb Vpet'S 8"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/avatar_fb_vpet_s_8.webp",
+    "href": "assets/img/design/VPET'S/avatar_fb_vpet_s_8.webp",
+    "alt": "Avatar Fb Vpet'S 8",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_134",
+    "title": {
+      "vi": "Avatar FB: Phòng Khám Thú Y VPET'S - Grooming & Hotel",
+      "en": "Avatar FB: Phòng Khám Thú Y VPET'S - Grooming & Hotel"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/avatar_fb_vpet_s.webp",
+    "href": "assets/img/design/VPET'S/avatar_fb_vpet_s.webp",
+    "alt": "Avatar FB: Phòng Khám Thú Y VPET'S - Grooming & Hotel",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_135",
+    "title": {
+      "vi": "Bravecto & Drontal: Đánh Bay Lũ Bọ Chét Ve Rận (Mẫu Mèo)",
+      "en": "Bravecto & Drontal: Đánh Bay Lũ Bọ Chét Ve Rận (Mẫu Mèo)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_bravecto_drontal_1.webp",
+    "href": "assets/img/design/VPET'S/banner_bravecto_drontal_1.webp",
+    "alt": "Bravecto & Drontal: Đánh Bay Lũ Bọ Chét Ve Rận (Mẫu Mèo)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_136",
+    "title": {
+      "vi": "Bravecto & Drontal: Đánh Đuổi Lũ Ký Sinh Phiền Toái (Mẫu Chó)",
+      "en": "Bravecto & Drontal: Đánh Đuổi Lũ Ký Sinh Phiền Toái (Mẫu Chó)"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_bravecto_drontal_2.webp",
+    "href": "assets/img/design/VPET'S/banner_bravecto_drontal_2.webp",
+    "alt": "Bravecto & Drontal: Đánh Đuổi Lũ Ký Sinh Phiền Toái (Mẫu Chó)",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_137",
+    "title": {
+      "vi": "Bravecto & Drontal: Drontal Tẩy Giun Sán",
+      "en": "Bravecto & Drontal: Drontal Tẩy Giun Sán"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_bravecto_drontal_3.webp",
+    "href": "assets/img/design/VPET'S/banner_bravecto_drontal_3.webp",
+    "alt": "Bravecto & Drontal: Drontal Tẩy Giun Sán",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_138",
+    "title": {
+      "vi": "Bravecto & Drontal: Boss Khỏe Re, Sen Khỏe Theo",
+      "en": "Bravecto & Drontal: Boss Khỏe Re, Sen Khỏe Theo"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/banner_bravecto_drontal_1_1.webp",
+    "href": "assets/img/design/VPET'S/banner_bravecto_drontal_1_1.webp",
+    "alt": "Bravecto & Drontal: Boss Khỏe Re, Sen Khỏe Theo",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_139",
+    "title": {
+      "vi": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen 2",
+      "en": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen 2"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/boss_di_spa_khach_san_trai_nghiem_nhu_sen_2.webp",
+    "href": "assets/img/design/VPET'S/boss_di_spa_khach_san_trai_nghiem_nhu_sen_2.webp",
+    "alt": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen 2",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_140",
+    "title": {
+      "vi": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen",
+      "en": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/boss_di_spa_khach_san_trai_nghiem_nhu_sen.webp",
+    "href": "assets/img/design/VPET'S/boss_di_spa_khach_san_trai_nghiem_nhu_sen.webp",
+    "alt": "Boss Đi Spa & Khách Sạn – Trải Nghiệm Như Sen",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_141",
+    "title": {
+      "vi": "Happy Day: Khách Sạn Thú Cưng Chuẩn 5 Sao",
+      "en": "Happy Day: Khách Sạn Thú Cưng Chuẩn 5 Sao"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/happy_day_1.webp",
+    "href": "assets/img/design/VPET'S/happy_day_1.webp",
+    "alt": "Happy Day: Khách Sạn Thú Cưng Chuẩn 5 Sao",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_142",
+    "title": {
+      "vi": "Happy Day: Spa & Grooming",
+      "en": "Happy Day: Spa & Grooming"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/happy_day_2.webp",
+    "href": "assets/img/design/VPET'S/happy_day_2.webp",
+    "alt": "Happy Day: Spa & Grooming",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_143",
+    "title": {
+      "vi": "Happy Day: Triệt Sản Thú Cưng",
+      "en": "Happy Day: Triệt Sản Thú Cưng"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/happy_day_3.webp",
+    "href": "assets/img/design/VPET'S/happy_day_3.webp",
+    "alt": "Happy Day: Triệt Sản Thú Cưng",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_144",
+    "title": {
+      "vi": "Happy Wednesday: Dành Cho Sen & Boss",
+      "en": "Happy Wednesday: Dành Cho Sen & Boss"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/happy_day.webp",
+    "href": "assets/img/design/VPET'S/happy_day.webp",
+    "alt": "Happy Wednesday: Dành Cho Sen & Boss",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Happy Wednesday: Dành Cho Sen & Boss.",
+      "role": "Video Editor / Motion Designer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_145",
+    "title": {
+      "vi": "Pet Grooming & Hotel",
+      "en": "Pet Grooming & Hotel"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/pet_grooming_hotel.webp",
+    "href": "assets/img/design/VPET'S/pet_grooming_hotel.webp",
+    "alt": "Pet Grooming & Hotel",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_146",
+    "title": {
+      "vi": "Poster 8/3: Rực Rỡ Quà Tặng Ngập Tràn Tại VPET'S",
+      "en": "Poster 8/3: Rực Rỡ Quà Tặng Ngập Tràn Tại VPET'S"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/poster_8_3.webp",
+    "href": "assets/img/design/VPET'S/poster_8_3.webp",
+    "alt": "Poster 8/3: Rực Rỡ Quà Tặng Ngập Tràn Tại VPET'S",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_147",
+    "title": {
+      "vi": "Vpet'S Cover Fb 8.3",
+      "en": "Vpet'S Cover Fb 8.3"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/vpet_s_cover_fb_8_3.webp",
+    "href": "assets/img/design/VPET'S/vpet_s_cover_fb_8_3.webp",
+    "alt": "Vpet'S Cover Fb 8.3",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_148",
+    "title": {
+      "vi": "Ưu Đãi Thành Viên",
+      "en": "Ưu Đãi Thành Viên"
+    },
+    "category": "Design",
+    "client": {
+      "vi": "Thiết kế",
+      "en": "Thiết kế"
+    },
+    "imgSrc": "assets/img/design/VPET'S/uu_dai_thanh_vien.webp",
+    "href": "assets/img/design/VPET'S/uu_dai_thanh_vien.webp",
+    "alt": "Ưu Đãi Thành Viên",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_149",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 1)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 1)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1rbigsgpmuz9vob8g2jb2d35_xob_vka.webp",
+    "href": "assets/img/photography/drive_image_1rbigsgpmuz9vob8g2jb2d35_xob_vka.webp",
+    "alt": "17936426665_9a6a1c2e99_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_150",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 2)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 2)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1fkk4igpt2jcrkqrjpncihgkvgudrkzvh.webp",
+    "href": "assets/img/photography/drive_image_1fkk4igpt2jcrkqrjpncihgkvgudrkzvh.webp",
+    "alt": "20206526396_bab68b9c0e_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_151",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 3)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 3)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_17g2ahbrcjdcjocjynl7g0n_rjv0m9hjo.webp",
+    "href": "assets/img/photography/drive_image_17g2ahbrcjdcjocjynl7g0n_rjv0m9hjo.webp",
+    "alt": "20573404096_678f81dba1_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_152",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 4)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 4)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1jtp_3oartx9mvyuxjs_manid2o7ubzjr.webp",
+    "href": "assets/img/photography/drive_image_1jtp_3oartx9mvyuxjs_manid2o7ubzjr.webp",
+    "alt": "20946762359_f56eacc966_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_153",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 5)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 5)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1cv2qob2kylc3tmcympwnuwoo4to7w9b3.webp",
+    "href": "assets/img/photography/drive_image_1cv2qob2kylc3tmcympwnuwoo4to7w9b3.webp",
+    "alt": "21106781196_a9f0d5648c_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_154",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 6)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 6)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1in5tvswioz164iptuoazwdift8p1c6ca.webp",
+    "href": "assets/img/photography/drive_image_1in5tvswioz164iptuoazwdift8p1c6ca.webp",
+    "alt": "21133255925_9a6139ff62_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_155",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 7)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 7)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1o3g36qdw56wfwroc_klmqgw_w6a_fqkh.webp",
+    "href": "assets/img/photography/drive_image_1o3g36qdw56wfwroc_klmqgw_w6a_fqkh.webp",
+    "alt": "24418545264_363c456e5f_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_156",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 8)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 8)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_13dltxbydwn3xyb0fuhxpey09qbkousns.webp",
+    "href": "assets/img/photography/drive_image_13dltxbydwn3xyb0fuhxpey09qbkousns.webp",
+    "alt": "24422325963_2afe78034d_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_157",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 9)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 9)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1bvnv6gh9ugd5t85ckjihv19qymwznfec.webp",
+    "href": "assets/img/photography/drive_image_1bvnv6gh9ugd5t85ckjihv19qymwznfec.webp",
+    "alt": "24422329913_3c5a7863da_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_158",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 10)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 10)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1vygpzrgifmibidgvqxszgtm6ca_muadp.webp",
+    "href": "assets/img/photography/drive_image_1vygpzrgifmibidgvqxszgtm6ca_muadp.webp",
+    "alt": "24681632339_4a89284de2_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_159",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 11)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 11)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1vjzy_tdqec4m54pspvgqxoojpmlb9gbh.webp",
+    "href": "assets/img/photography/drive_image_1vjzy_tdqec4m54pspvgqxoojpmlb9gbh.webp",
+    "alt": "33758877192_02bbbc59c3_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_160",
+    "title": {
+      "vi": "Ảnh Sản Phẩm Đặc Trưng",
+      "en": "Ảnh Sản Phẩm Đặc Trưng"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1tvvdnofkrjifz9gvjdmorkz6qm7fidqc.webp",
+    "href": "assets/img/photography/drive_image_1tvvdnofkrjifz9gvjdmorkz6qm7fidqc.webp",
+    "alt": "358ed537-0319-47ce-9c4b-965ea52c780b-compressed.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_161",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 12)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 12)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1_217zqqwgwdbphvn4qxqws3nh7vh8xmg.webp",
+    "href": "assets/img/photography/drive_image_1_217zqqwgwdbphvn4qxqws3nh7vh8xmg.webp",
+    "alt": "36152395453_1b9f25c33f_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_162",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 13)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 13)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1npty8mz3f9nxq5rz_mzavavcezvcacti.webp",
+    "href": "assets/img/photography/drive_image_1npty8mz3f9nxq5rz_mzavavcezvcacti.webp",
+    "alt": "36152398043_d5104f2dbf_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_163",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 14)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 14)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1geefldy9pookk9zbe8dtnyrppi4k5kws.webp",
+    "href": "assets/img/photography/drive_image_1geefldy9pookk9zbe8dtnyrppi4k5kws.webp",
+    "alt": "36152405003_7792e73b5c_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_164",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 15)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 15)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1z4asitvvwgf9f_ilztiqwevvapovzirj.webp",
+    "href": "assets/img/photography/drive_image_1z4asitvvwgf9f_ilztiqwevvapovzirj.webp",
+    "alt": "36961097465_6563c0e9c1_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_165",
+    "title": {
+      "vi": "Ảnh Chân Dung / Sự Kiện (Bộ 16)",
+      "en": "Ảnh Chân Dung / Sự Kiện (Bộ 16)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1okmh0qu1zwkcsskx2xjjkn0dsk0ispwr.webp",
+    "href": "assets/img/photography/drive_image_1okmh0qu1zwkcsskx2xjjkn0dsk0ispwr.webp",
+    "alt": "36961099185_0c0a60bcab_o.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_166",
+    "title": {
+      "vi": "Hình Ảnh Lưu Trữ (Archive)",
+      "en": "Hình Ảnh Lưu Trữ (Archive)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1tb0mx6ncsdbo0slpffo1s4o8cmvv4ux1.webp",
+    "href": "assets/img/photography/drive_image_1tb0mx6ncsdbo0slpffo1s4o8cmvv4ux1.webp",
+    "alt": "FB_IMG_1559963917462-compressed.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_167",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 1)",
+      "en": "Ảnh Nghệ Thuật (Bộ 1)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1ogbcv_f_bjsnsqitgunz0thxec1qqeh.webp",
+    "href": "assets/img/photography/drive_image_1ogbcv_f_bjsnsqitgunz0thxec1qqeh.webp",
+    "alt": "IMG_0072.JPG",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Ảnh Nghệ Thuật (Bộ 1).",
+      "role": "Photographer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_168",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 2)",
+      "en": "Ảnh Nghệ Thuật (Bộ 2)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1bnazi0ydhlsswgknezhbbjair19cp_cn.webp",
+    "href": "assets/img/photography/drive_image_1bnazi0ydhlsswgknezhbbjair19cp_cn.webp",
+    "alt": "IMG_0398.JPG",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Ảnh Nghệ Thuật (Bộ 2).",
+      "role": "Photographer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_169",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 3)",
+      "en": "Ảnh Nghệ Thuật (Bộ 3)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_13v3uimrrjsqqxkbtvpycyk_ifk5h9qky.webp",
+    "href": "assets/img/photography/drive_image_13v3uimrrjsqqxkbtvpycyk_ifk5h9qky.webp",
+    "alt": "IMG_0754.JPG",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Ảnh Nghệ Thuật (Bộ 3).",
+      "role": "Photographer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  },
+  {
+    "id": "proj_170",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 4)",
+      "en": "Ảnh Nghệ Thuật (Bộ 4)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1qurv5wjocwipnkqcci842jaoqw0zwm_u.webp",
+    "href": "assets/img/photography/drive_image_1qurv5wjocwipnkqcci842jaoqw0zwm_u.webp",
+    "alt": "IMG_1098.JPG",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_171",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 5)",
+      "en": "Ảnh Nghệ Thuật (Bộ 5)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1gme3cds35p_qp4orvmi8caubcrnsrwqa.webp",
+    "href": "assets/img/photography/drive_image_1gme3cds35p_qp4orvmi8caubcrnsrwqa.webp",
+    "alt": "IMG_5125_jpg.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_172",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 6)",
+      "en": "Ảnh Nghệ Thuật (Bộ 6)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1s_ugwq9w_zsiblvcjn1ztvvygdpeuept.webp",
+    "href": "assets/img/photography/drive_image_1s_ugwq9w_zsiblvcjn1ztvvygdpeuept.webp",
+    "alt": "IMG_5129_jpg.jpg",
+    "isFeatured": false,
+    "caseStudy": null
+  },
+  {
+    "id": "proj_173",
+    "title": {
+      "vi": "Ảnh Nghệ Thuật (Bộ 7)",
+      "en": "Ảnh Nghệ Thuật (Bộ 7)"
+    },
+    "category": "Photography",
+    "client": {
+      "vi": "Nhiếp ảnh",
+      "en": "Nhiếp ảnh"
+    },
+    "imgSrc": "assets/img/photography/drive_image_1srvmx3meexkj_nh4oxb36r41_menegda.webp",
+    "href": "assets/img/photography/drive_image_1srvmx3meexkj_nh4oxb36r41_menegda.webp",
+    "alt": "IMG_9944.JPG",
+    "isFeatured": true,
+    "caseStudy": {
+      "concept": "Ý tưởng phát triển và thực hiện visual cho dự án Ảnh Nghệ Thuật (Bộ 7).",
+      "role": "Photographer",
+      "tools": [
+        "Photoshop",
+        "Lightroom"
+      ],
+      "challenge": "Tối ưu hóa thời gian sản xuất và nâng cao hiệu quả truyền tải thông điệp nghệ thuật của sản phẩm.",
+      "solution": "Áp dụng kỹ thuật chuyển cảnh mượt mà và phối màu điện ảnh để làm nổi bật chủ thể chính."
+    }
+  }
+]
