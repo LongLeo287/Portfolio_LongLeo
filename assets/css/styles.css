@@ -2321,6 +2321,17 @@
   position: relative;
   overflow: hidden;
 }
+.modal-media-blur {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(50px) brightness(0.4);
+  z-index: 1;
+}
 .modal-media iframe, .modal-media img {
   width: 100%;
   height: 100%;

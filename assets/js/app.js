@@ -34,7 +34,7 @@ async function initApp() {
   initLangToggle();
   
   try {
-    const res = await fetch('assets/data/projects.json?v=1.15');
+    const res = await fetch('assets/data/projects.json?v=1.16');
     if (!res.ok) throw new Error("Failed to fetch data");
     projectsData = await res.json();
     
@@ -593,7 +593,10 @@ function openCaseStudyModal(project) {
       elements.modalMedia.innerHTML = `<iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
   } else {
-    elements.modalMedia.innerHTML = `<img src="${project.imgSrc}" alt="${title}" />`;
+    elements.modalMedia.innerHTML = `
+      <div class="modal-media-blur" style="background-image: url('${project.imgSrc}')"></div>
+      <img src="${project.imgSrc}" alt="${title}" style="position:relative; z-index:2;" />
+    `;
   }
   
   const layout = document.querySelector('.modal-layout');
