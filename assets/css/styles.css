@@ -952,7 +952,7 @@
       z-index: 1;
       border-radius: 999px;
       background: rgba(255,255,255,.92);
-      color: var(--bg-main);
+      color: #1c1917;
       padding: 5px 11px;
       font-size: 12px;
       font-weight: 900;
@@ -1249,7 +1249,7 @@
 
     .site-footer {
       background: var(--bg-main);
-      color: rgba(255,255,255,.6);
+      color: var(--text-muted);
       padding: 30px 0;
       font-size: 14px;
     }
@@ -2908,4 +2908,160 @@
 }
 :root.light-theme #portfolio .section-title p {
   color: var(--text-muted);
+}
+
+/* ── Portfolio light mode ── */
+:root.light-theme .portfolio-thumb::after {
+  background: linear-gradient(to top, rgba(28,25,23,0.7), rgba(28,25,23,0.04), transparent);
+}
+:root.light-theme .tag {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1c1917;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+:root.light-theme .portfolio-body {
+  background: #ffffff;
+}
+:root.light-theme .portfolio-body h3 {
+  color: var(--text-main);
+}
+:root.light-theme .client {
+  color: #a16207;
+}
+
+/* ── Skill cards light mode ── */
+:root.light-theme .skill-card {
+  background: #ffffff;
+  border-color: rgba(28, 25, 23, 0.09);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+}
+:root.light-theme .skill-card p {
+  color: var(--text-main);
+}
+
+/* ── About section full light mode ── */
+:root.light-theme .about-content h2 {
+  color: var(--text-main);
+}
+:root.light-theme .about-text {
+  color: var(--text-muted);
+}
+:root.light-theme .about-image-inner {
+  background: #ffffff;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+}
+
+/* ── Contact items light mode ── */
+:root.light-theme .contact-item {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(28,25,23,0.08);
+}
+:root.light-theme .contact-item .ci-icon {
+  color: var(--brown);
+}
+:root.light-theme .contact-item small {
+  color: #92400e;
+}
+:root.light-theme .contact-item strong,
+:root.light-theme .contact-item a {
+  color: var(--brown);
+}
+
+/* ── Social grid full light mode ── */
+:root.light-theme .social-grid a {
+  background: rgba(255,255,255,0.6);
+  color: var(--brown);
+  border: 1px solid rgba(122,76,37,0.15);
+}
+:root.light-theme .social-grid a:hover {
+  background: var(--amber);
+  color: #1c1917;
+  border-color: transparent;
+}
+
+/* ── Back to top light ── */
+:root.light-theme .back-to-top {
+  background: #1c1917;
+  color: #fcd34d;
+  border-color: #1c1917;
+}
+:root.light-theme .back-to-top:hover {
+  background: var(--brown);
+}
+
+/* ── Eyebrow in services/tools section ── */
+:root.light-theme #services .eyebrow,
+:root.light-theme #about .eyebrow,
+:root.light-theme #tools .eyebrow,
+:root.light-theme #portfolio .eyebrow {
+  background: rgba(252, 211, 77, 0.2);
+  border-color: rgba(252, 211, 77, 0.35);
+  color: #92400e;
+}
+
+/* ── Cursor spotlight light ── */
+:root.light-theme .cursor-spotlight {
+  background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+}
+
+/* ── Scroll progress bar ── */
+:root.light-theme .scroll-progress {
+  background: var(--orange);
+}
+
+/* ── Hero actions btn-primary light ── */
+:root.light-theme .btn-primary {
+  background: #1c1917;
+  color: #ffffff;
+}
+:root.light-theme .btn-primary:hover {
+  background: #292524;
+}
+
+/* ── Empty state light ── */
+:root.light-theme .empty-state {
+  background: rgba(28,25,23,0.04);
+  border-color: rgba(28,25,23,0.15);
+  color: var(--text-muted);
+}
+
+/* ── Portfolio filter section wrapper ── */
+:root.light-theme #portfolio {
+  background: #f5f5f4;
+}
+
+/* ── Showcase slide overlay gradient ── */
+:root.light-theme .showcase-slide-wrapper {
+  background: #f5f5f4;
+}
+
+/* ── Tools section wrapper ── */
+:root.light-theme .tools-grid-wrapper {
+  background: transparent;
+}
+:root.light-theme .tools-group-title {
+  color: var(--text-muted);
+  border-bottom-color: rgba(28,25,23,0.1);
+}
+
+/* ── Form label text ── */
+:root.light-theme label {
+  color: var(--brown);
+}
+
+/* ── Contact form area ── */
+:root.light-theme .contact-form input,
+:root.light-theme .contact-form textarea {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(122,76,37,0.2);
+  color: var(--brown);
+}
+:root.light-theme .contact-form input::placeholder,
+:root.light-theme .contact-form textarea::placeholder {
+  color: rgba(122,76,37,0.5);
+}
+:root.light-theme .contact-form input:focus,
+:root.light-theme .contact-form textarea:focus {
+  border-color: var(--brown);
+  background: #ffffff;
 }
