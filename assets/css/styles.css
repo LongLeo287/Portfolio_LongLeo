@@ -541,6 +541,7 @@
       line-height: 1.02;
       letter-spacing: -.045em;
       font-weight: 850;
+      text-wrap: balance;
     }
 
     .section-title p {
@@ -548,6 +549,7 @@
       color: var(--text-muted);
       font-size: 18px;
       line-height: 1.8;
+      text-wrap: pretty;
     }
 
     .about-grid {
