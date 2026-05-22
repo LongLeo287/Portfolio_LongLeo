@@ -2039,6 +2039,7 @@
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 16px 20px;
+  min-height: 92px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 15px rgba(28, 25, 23, 0.015);
 }
