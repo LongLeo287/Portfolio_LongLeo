@@ -34,7 +34,7 @@ async function initApp() {
   initLangToggle();
   
   try {
-    const res = await fetch('assets/data/projects.json?v=1.13');
+    const res = await fetch('assets/data/projects.json?v=1.14');
     if (!res.ok) throw new Error("Failed to fetch data");
     projectsData = await res.json();
     
