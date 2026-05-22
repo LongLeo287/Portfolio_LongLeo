@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://portfolio-long-leo.vercel.app/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/animations.css" />
 </head>
@@ -1625,11 +1625,16 @@
 
         <div class="contact-card fade-up">
           <form class="contact-form" id="contactForm">
+            <!-- Web3Forms Configuration -->
+            <input type="hidden" name="access_key" value="a582c035-779d-4762-b9cf-c79ee898b958" />
+            <input type="hidden" name="from_name" value="Long Leo Portfolio" />
+            <input type="hidden" name="subject" value="Tin nhắn liên hệ mới từ Portfolio" />
+            
             <input type="text" name="name" placeholder="Tên của bạn" required />
             <input type="email" name="email" placeholder="Email liên hệ" required />
             <textarea name="message" placeholder="Nội dung cần trao đổi" required></textarea>
             <button class="btn btn-dark" type="submit">Gửi đi</button>
-            <div class="form-note" id="formNote">Email draft đã được mở. Nếu trình duyệt không tự mở mail app, bạn có thể gửi trực tiếp đến: Longdragon287@gmail.com</div>
+            <div class="form-note" id="formNote">Nhập thông tin và nhấn Gửi đi để gửi email trực tiếp cho mình.</div>
           </form>
 
           <div class="contact-list">
@@ -1687,6 +1692,7 @@
   <!-- Cursor Spotlight -->
   <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
 
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/animations.js" defer></script>
 </body>

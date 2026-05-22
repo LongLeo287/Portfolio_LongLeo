@@ -1,3 +1,22 @@
+/* ── Initialize Lenis Smooth Scroll ── */
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  orientation: 'vertical',
+  gestureOrientation: 'vertical',
+  smoothWheel: true,
+  smoothTouch: false,
+  touchMultiplier: 1.5,
+});
+
+window.lenis = lenis;
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
 const menuBtn = document.getElementById("menuBtn");
 const mobileNav = document.getElementById("mobileNav");
 const backToTop = document.getElementById("backToTop");
@@ -5,26 +24,33 @@ const scrollProgress = document.getElementById("scrollProgress");
 const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
 const sections = document.querySelectorAll('section[id]');
 
-/* ── Mobile menu toggle ── */
+/* ── Mobile menu toggle (Interacts with Lenis scroll) ── */
 if (menuBtn && mobileNav) {
   menuBtn.addEventListener("click", () => {
     mobileNav.classList.toggle("open");
-    menuBtn.textContent = mobileNav.classList.contains("open") ? "×" : "☰";
+    const isOpen = mobileNav.classList.contains("open");
+    menuBtn.textContent = isOpen ? "×" : "☰";
+    if (isOpen) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
   });
 
   mobileNav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       mobileNav.classList.remove("open");
       menuBtn.textContent = "☰";
+      lenis.start();
     });
   });
 }
 
-/* ── Portfolio filter ── */
+/* ── Portfolio filter (Staggered transition) ── */
 const filterButtons = document.querySelectorAll(".filter-btn");
 const portfolioCards = document.querySelectorAll(".portfolio-card");
 
-function applyFilter(filter) {
+function applyFilter(filter, immediate = false) {
   let visibleCount = 0;
   const cardsToShow = [];
   const cardsToHide = [];
@@ -69,26 +95,46 @@ function applyFilter(filter) {
     });
   }
 
-  // 1. Thực hiện ẩn các thẻ trước
-  cardsToHide.forEach((card) => {
-    card.classList.add("hide");
-    card.classList.remove("show");
-  });
+  if (immediate) {
+    cardsToHide.forEach((card) => {
+      card.classList.add("hide");
+      card.classList.remove("show");
+      card.classList.remove("hide-anim");
+    });
+    cardsToShow.forEach((card) => {
+      card.classList.remove("hide");
+      card.classList.remove("hide-anim");
+      card.classList.add("show");
+    });
+  } else {
+    // Giai đoạn 1: Co nhỏ và mờ dần các thẻ cần ẩn
+    cardsToHide.forEach((card) => {
+      card.classList.remove("show");
+      card.classList.add("hide-anim");
+    });
 
-  // 2. Hiển thị các thẻ cần hiển thị với animation fade-up mượt mà
-  cardsToShow.forEach((card) => {
-    card.classList.remove("hide");
-  });
+    // Giai đoạn 2: Đợi hiệu ứng kết thúc, chuyển layout và hiện dần các thẻ cần hiển thị
+    setTimeout(() => {
+      cardsToHide.forEach((card) => {
+        if (card.classList.contains("hide-anim")) {
+          card.classList.add("hide");
+          card.classList.remove("hide-anim");
+        }
+      });
 
-  // Sử dụng double requestAnimationFrame để đảm bảo trình duyệt nhận biết được thay đổi display trước khi add class show
-  if (cardsToShow.length > 0) {
-    requestAnimationFrame(() => {
+      cardsToShow.forEach((card) => {
+        card.classList.remove("hide");
+        card.classList.remove("hide-anim");
+      });
+
       requestAnimationFrame(() => {
-        cardsToShow.forEach((card) => {
-          card.classList.add("show");
+        requestAnimationFrame(() => {
+          cardsToShow.forEach((card) => {
+            card.classList.add("show");
+          });
         });
       });
-    });
+    }, 300);
   }
 
   const emptyState = document.getElementById("emptyState");
@@ -109,27 +155,62 @@ filterButtons.forEach((button) => {
   });
 });
 
-// Chạy bộ lọc "Nổi bật" (all) lần đầu tiên khi tải trang
-applyFilter("all");
+// Chạy bộ lọc "Nổi bật" (all) lập tức khi tải trang lần đầu
+applyFilter("all", true);
 
-/* ── Contact form → mailto ── */
+/* ── Contact form → Web3Forms AJAX ── */
 const contactForm = document.getElementById("contactForm");
 const formNote = document.getElementById("formNote");
 
 if (contactForm && formNote) {
-  contactForm.addEventListener("submit", (event) => {
+  contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const data = new FormData(contactForm);
-    const name = data.get("name") || "Khách liên hệ";
-    const email = data.get("email") || "";
-    const message = data.get("message") || "";
-    const subject = encodeURIComponent(`Liên hệ portfolio từ ${name}`);
-    const body = encodeURIComponent(`Tên: ${name}\nEmail: ${email}\n\nNội dung:\n${message}`);
+    // Disable button to prevent double submit
+    const submitBtn = contactForm.querySelector("button[type='submit']");
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = "Đang gửi...";
+    submitBtn.disabled = true;
 
-    window.location.href = `mailto:Longdragon287@gmail.com?subject=${subject}&body=${body}`;
-    formNote.classList.add("show");
-    contactForm.reset();
+    // Reset alert styles
+    formNote.className = "form-note";
+    formNote.textContent = "";
+
+    const formData = new FormData(contactForm);
+    
+    // Ensure access key is present, default is set here but can be overridden in HTML
+    if (!formData.has("access_key")) {
+      formData.append("access_key", "a582c035-779d-4762-b9cf-c79ee898b958");
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        formNote.textContent = "Tin nhắn của bạn đã được gửi đi thành công. Mình sẽ liên hệ lại sớm nhất!";
+        formNote.classList.add("success", "show");
+        contactForm.reset();
+      } else {
+        formNote.textContent = `Lỗi: ${result.message || "Không thể gửi tin nhắn lúc này. Vui lòng thử lại sau."}`;
+        formNote.classList.add("error", "show");
+      }
+    } catch (error) {
+      formNote.textContent = "Không thể kết nối máy chủ. Vui lòng kiểm tra kết nối mạng của bạn.";
+      formNote.classList.add("error", "show");
+    } finally {
+      submitBtn.textContent = originalBtnText;
+      submitBtn.disabled = false;
+
+      // Automatically hide the status notification after 8 seconds
+      setTimeout(() => {
+        formNote.classList.remove("show");
+      }, 8000);
+    }
   });
 }
 
@@ -153,12 +234,43 @@ function updateScrollUI() {
   });
 }
 
+// Lắng nghe sự kiện cuộn từ Lenis
+lenis.on('scroll', () => {
+  updateScrollUI();
+});
+
+// Intercept click liên kết nội bộ để cuộn mượt bằng Lenis
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href === '#' || href === '') return;
+    
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      
+      // Đóng menu mobile nếu đang mở
+      if (mobileNav && mobileNav.classList.contains("open")) {
+        mobileNav.classList.remove("open");
+        menuBtn.textContent = "☰";
+        lenis.start();
+      }
+      
+      lenis.scrollTo(target, {
+        offset: -78, // header height is 78px
+        duration: 1.2
+      });
+    }
+  });
+});
+
 if (backToTop) {
   backToTop.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    lenis.scrollTo(0, { duration: 1.5 });
   });
 }
 
+// Fallback listeners
 window.addEventListener("scroll", updateScrollUI, { passive: true });
 window.addEventListener("load", updateScrollUI);
 updateScrollUI();
@@ -284,6 +396,19 @@ const slider = document.getElementById("showcaseSlider");
 const slidesContainer = document.getElementById("showcaseSlides");
 
 if (slider && slidesContainer) {
+  // Helper to extract YouTube video ID and get thumbnail
+  function getYouTubeThumbnail(src) {
+    if (src.includes("videoseries?list=")) {
+      // Playlist: Fallback to Golden Crown video thumbnail
+      return "https://img.youtube.com/vi/c-dl9-LHZLU/maxresdefault.jpg";
+    }
+    const match = src.match(/embed\/([^?]+)/);
+    if (match && match[1]) {
+      return `https://img.youtube.com/vi/${match[1]}/maxresdefault.jpg`;
+    }
+    return "";
+  }
+
   // 1. Tạo danh sách các video/playlist chất lượng để chọn ngẫu nhiên
   const videoPool = [
     {
@@ -330,16 +455,15 @@ if (slider && slidesContainer) {
 
   // Chọn ngẫu nhiên 1 video từ pool
   const randomVideo = videoPool[Math.floor(Math.random() * videoPool.length)];
+  const videoThumb = getYouTubeThumbnail(randomVideo.src);
 
   let slidesHtml = `
-    <div class="showcase-slide active" data-type="video">
-      <iframe
-        src="${randomVideo.src}"
-        title="${randomVideo.title}"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
+    <div class="showcase-slide active" data-type="video" data-video-src="${randomVideo.src}">
+      <div class="yt-facade" style="background-image: url('${videoThumb}');" aria-label="Phát video: ${randomVideo.title}">
+        <div class="yt-play-btn" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
       <div class="showcase-info">
         <span class="tag">${randomVideo.tag}</span>
         <h3>${randomVideo.title}</h3>
@@ -415,12 +539,33 @@ if (slider && slidesContainer) {
 
   const dots = dotsContainer ? dotsContainer.querySelectorAll(".slider-dot") : [];
 
+  // Setup click event for YouTube Facade to load iframe on demand
+  slider.addEventListener("click", (e) => {
+    const facade = e.target.closest(".yt-facade");
+    if (facade) {
+      const slide = facade.closest(".showcase-slide");
+      const videoSrc = slide.dataset.videoSrc;
+      if (videoSrc) {
+        // Build autoplay iframe
+        const iframe = document.createElement("iframe");
+        const autoplaySrc = videoSrc.includes("?") ? `${videoSrc}&autoplay=1` : `${videoSrc}?autoplay=1`;
+        iframe.src = autoplaySrc;
+        iframe.title = slide.querySelector("h3").textContent;
+        iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+        iframe.setAttribute("allowfullscreen", "");
+        
+        // Replace facade with iframe
+        facade.replaceWith(iframe);
+      }
+    }
+  });
+
   function goToSlide(index) {
     // Ẩn slide và chấm cũ
     slides[currentSlideIndex].classList.remove("active");
     if (dots.length > 0) dots[currentSlideIndex].classList.remove("active");
 
-    // Dừng video nếu slide hiện tại là video phát dở
+    // Dừng video nếu slide hiện tại là video phát dở (chỉ hoạt động nếu iframe đã được inject)
     const currentSlide = slides[currentSlideIndex];
     if (currentSlide.dataset.type === "video") {
       const iframe = currentSlide.querySelector("iframe");
@@ -491,6 +636,32 @@ if (slider && slidesContainer) {
       }
     }
   });
+
+  // Bổ sung sự kiện vuốt chạm (Touch Swipe) cho slider trên thiết bị di động
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  slider.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipeGesture();
+  }, { passive: true });
+
+  function handleSwipeGesture() {
+    const threshold = 60; // minimum distance in px
+    if (touchStartX - touchEndX > threshold) {
+      // Swiped left -> next
+      nextSlide();
+      resetInterval();
+    } else if (touchEndX - touchStartX > threshold) {
+      // Swiped right -> prev
+      prevSlide();
+      resetInterval();
+    }
+  }
 
   startInterval();
 }
