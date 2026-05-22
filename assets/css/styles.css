@@ -2786,6 +2786,8 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 .reveal-word {
   display: inline-block;
