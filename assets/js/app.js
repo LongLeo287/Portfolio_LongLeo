@@ -67,8 +67,13 @@ function initLangToggle() {
       const selectedBtn = e.target.closest('.lang-btn');
       if (!selectedBtn) return;
       
-      elements.langBtns.forEach(b => b.classList.remove('active'));
-      selectedBtn.classList.add('active');
+      elements.langBtns.forEach(b => {
+        if (b.dataset.lang === selectedBtn.dataset.lang) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
       currentLang = selectedBtn.dataset.lang;
       localStorage.setItem('portfolio_lang', currentLang);
       
@@ -173,6 +178,8 @@ const translations = {
     footer_copy: 'Hà Đình Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'Xem dự án ↗',
+    lang_label: 'Ngôn ngữ',
+    theme_aria: 'Chuyển chế độ sáng/tối',
     categories: {
       video: 'Sản xuất Video',
       design: 'Thiết kế',
@@ -264,6 +271,8 @@ const translations = {
     footer_copy: 'Ha Dinh Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'View Project ↗',
+    lang_label: 'Language',
+    theme_aria: 'Toggle Light/Dark Mode',
     categories: {
       video: 'Video Production',
       design: 'Design',
@@ -279,6 +288,11 @@ function updateStaticTranslations() {
       el.innerHTML = translations[currentLang][key];
     }
   });
+
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle && translations[currentLang] && translations[currentLang].theme_aria) {
+    themeToggle.setAttribute('aria-label', translations[currentLang].theme_aria);
+  }
   
   // Re-translate placeholder in inputs
   const nameInput = document.querySelector('input[name="name"]');
