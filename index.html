@@ -30,6 +30,11 @@
     "knowsAbout": ["Video Editing", "Motion Graphics", "Graphic Design", "UI/UX Design", "Visual Storytelling"]
   }
   </script>
+  <script>
+    if (localStorage.getItem('portfolio_theme') === 'light') {
+      document.documentElement.classList.add('light-theme');
+    }
+  </script>
 </head>
 <body>
   <!-- Cinematic Loader -->
@@ -61,17 +66,18 @@
         <a href="#contact" data-i18n="nav_contact">Liên hệ</a>
       </nav>
 
-      
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="vi">VN</button>
-        <span class="lang-sep">|</span>
-        <button class="lang-btn" data-lang="en">EN</button>
+      <div class="header-controls">
+        <div class="lang-toggle desktop-lang">
+          <button class="lang-btn active" data-lang="vi">VN</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng/tối">
+          <i data-lucide="sun" class="sun-icon"></i>
+          <i data-lucide="moon" class="moon-icon"></i>
+        </button>
       </div>
-      
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng/tối">
-        <i data-lucide="sun" class="sun-icon"></i>
-        <i data-lucide="moon" class="moon-icon"></i>
-      </button>
 
       <a class="header-cta" href="mailto:Longdragon287@gmail.com" data-i18n="nav_collab">Liên hệ hợp tác</a>
 
@@ -80,6 +86,14 @@
 
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
       <div class="container">
+        <div class="mobile-lang-row">
+          <span style="font-size: 13px; color: var(--text-muted); font-weight: 700;">Ngôn ngữ / Language:</span>
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="vi">VN</button>
+            <span class="lang-sep">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
         <a href="#home" data-i18n="nav_home">Trang chủ</a>
         <a href="#about" data-i18n="nav_about">Về mình</a>
         <a href="#services" data-i18n="nav_services">Dịch vụ</a>
