@@ -164,16 +164,8 @@ window.addEventListener("load", updateScrollUI);
 updateScrollUI();
 
 /* ── Fade-up on scroll ── */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+/* NOTE: Handled by animations.js via .reveal / .revealed system (Fix #2) */
+/* Keeping this observer removed to prevent double-observation conflicts */
 
 /* ── Lightbox for Images & Videos ── */
 const lightboxModal = document.getElementById("lightboxModal");

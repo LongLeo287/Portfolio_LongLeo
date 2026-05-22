@@ -214,16 +214,16 @@
 /* Hero content entrance animation */
 .hero-content {
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 0.1s;
+  animation-delay: 0.2s;
 }
 
 .hero-visual {
   animation: slideInRight 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 0.3s;
+  animation-delay: 0.5s;
 }
 
-/* Pill floating animation */
-.pill {
+/* Pill: only float AFTER JS adds pill-float class (typing complete) */
+.pill-float {
   animation: pillFloat 4s ease-in-out infinite;
 }
 
@@ -238,13 +238,13 @@
   animation: floatY 5s ease-in-out infinite;
 }
 
-/* Stat cards staggered entrance */
+/* Stat cards staggered entrance — start later so hero text appears first */
 .stat-card {
   animation: statCount 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.stat-card:nth-child(1) { animation-delay: 0.5s; }
-.stat-card:nth-child(2) { animation-delay: 0.65s; }
-.stat-card:nth-child(3) { animation-delay: 0.8s; }
+.stat-card:nth-child(1) { animation-delay: 1.0s; }
+.stat-card:nth-child(2) { animation-delay: 1.15s; }
+.stat-card:nth-child(3) { animation-delay: 1.3s; }
 
 /* Pulse glow on brand mark */
 .brand-mark {
@@ -291,27 +291,8 @@
               0 0 40px rgba(252,211,77,.08);
 }
 
-/* Portfolio card: image zoom + overlay reveal */
-.portfolio-card {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.4s ease;
-}
-
-.portfolio-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(12,10,9,.55) 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 1;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.portfolio-card:hover::before {
-  opacity: 1;
-}
+/* Portfolio thumb already has gradient overlay via .portfolio-thumb::after in styles.css */
+/* Removed redundant ::before to avoid double-darkening on hover (Fix #18) */
 
 /* Tool item shimmer on hover */
 .tool-item {
@@ -387,14 +368,15 @@
 .cursor-spotlight {
   pointer-events: none;
   position: fixed;
-  width: 360px;
-  height: 360px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(252,211,77,0.055) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(252,211,77,0.045) 0%, transparent 70%);
   transform: translate(-50%, -50%);
-  z-index: 0;
+  z-index: 9998;
   transition: opacity 0.3s ease;
   mix-blend-mode: screen;
+  will-change: left, top;
 }
 
 /* ── 8. SKILLS + TOOLS ENTRANCE ── */
@@ -455,11 +437,8 @@
   opacity: 1;
 }
 
-/* ── 12. BACK TO TOP ROTATION ── */
-
-.back-to-top:hover {
-  animation: rotateSlow 0.4s ease;
-}
+/* ── 12. BACK TO TOP ── */
+/* Hover handled by styles.css transform only — no rotation conflict (Fix #16) */
 
 /* ── 13. HERO GRAIN TEXTURE ── */
 

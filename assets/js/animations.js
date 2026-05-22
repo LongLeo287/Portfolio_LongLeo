@@ -78,6 +78,14 @@
 
         const target = parseFloat(numMatch[0].replace(',', '.'));
         const suffix = raw.replace(numMatch[0], '');
+
+        // Fix #5: Skip counter for year/large numbers — just fade in
+        if (target > 999) {
+          el.style.animation = 'statCount 0.8s cubic-bezier(0.22, 1, 0.36, 1) both';
+          counterObserver.unobserve(el);
+          return;
+        }
+
         const isDecimal = numMatch[0].includes('.');
         const duration = 1600;
         const start = performance.now();
@@ -143,33 +151,22 @@
     const originalText = pill.textContent.trim();
     pill.textContent = '';
     pill.style.opacity = '1';
+    // Remove float animation while typing to avoid empty-pill flash
+    pill.style.animation = 'none';
     let charIndex = 0;
     const typeInterval = setInterval(() => {
       pill.textContent += originalText[charIndex];
       charIndex++;
-      if (charIndex >= originalText.length) clearInterval(typeInterval);
+      if (charIndex >= originalText.length) {
+        clearInterval(typeInterval);
+        // Restore float animation after typing completes
+        pill.classList.add('pill-float');
+      }
     }, 45);
   }
 
-  /* ── 7. SECTION NAV HIGHLIGHT on scroll ── */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
-
-  const sectionObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-          navLinks.forEach((link) => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-          });
-        }
-      });
-    },
-    { threshold: 0.35, rootMargin: '-80px 0px 0px 0px' }
-  );
-
-  sections.forEach((s) => sectionObserver.observe(s));
+  /* ── 7. SECTION NAV HIGHLIGHT ── */
+  /* Handled by main.js — removed duplicate observer here (Fix #6) */
 
   /* ── 8. SMOOTH REVEAL for tool items with stagger ── */
   const toolItemObserver = new IntersectionObserver(
