@@ -110,7 +110,7 @@ const translations = {
     stat_exp: 'Năm&nbsp;kinh&nbsp;nghiệm',
     stat_proj: 'Công ty &&nbsp;dự&nbsp;án',
     stat_start: 'Bắt&nbsp;đầu hành&nbsp;trình',
-    partners_title: 'ĐỐI TÁC HỢP TÁC • TRUSTED BY',
+    partners_title: 'ĐỐI TÁC HỢP TÁC',
     available_for: 'Sẵn sàng hợp&nbsp;tác',
     about_eyebrow: 'Một chút về&nbsp;mình',
     about_title: 'Từ&nbsp;Arena Multimedia đến&nbsp;hành trình sáng&nbsp;tạo hình&nbsp;ảnh&nbsp;chuyên&nbsp;nghiệp.',
