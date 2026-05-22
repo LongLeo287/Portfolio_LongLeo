@@ -13,8 +13,8 @@
 
   /* DARK THEME (Default) */
   --bg-main: #0c0a09;
-  --bg-surface: #12100e;
-  --bg-card: #181513;
+  --bg-surface: #1c1917;
+  --bg-card: #292524;
   --text-main: #fafaf9;
   --text-muted: #a8a29e;
   --text-light: #ffffff;
@@ -504,10 +504,12 @@
 
     .bg-soft {
       background: var(--bg-surface);
+      border-bottom: 1px solid var(--line);
     }
 
     .bg-white {
       background: var(--bg-card);
+      border-bottom: 1px solid var(--line);
     }
 
     .section-title {
@@ -689,6 +691,7 @@
     .experience {
       background: var(--bg-surface);
       color: var(--text-light);
+      border-bottom: 1px solid var(--line);
     }
 
     .experience .eyebrow {
@@ -977,10 +980,11 @@
     }
 
     .contact-section {
-      background: #18110b;
+      background: #150d06; /* slightly darker, richer */
       color: var(--cream);
       padding: 96px 0;
-      border-top: 1px solid rgba(252, 211, 77, 0.1);
+      border-top: 1px solid rgba(252, 211, 77, 0.15);
+      border-bottom: 1px solid rgba(252, 211, 77, 0.05);
       transition: background-color 0.4s ease, color 0.4s ease;
     }
     
