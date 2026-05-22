@@ -72,6 +72,14 @@
       background: var(--bg-main);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    img, a {
+      -webkit-user-drag: none;
     }
 
     h1, h2, h3, h4, h5, h6,

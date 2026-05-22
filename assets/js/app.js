@@ -925,3 +925,23 @@ function initShowcaseSlider() {
 
 // Start Application
 document.addEventListener('DOMContentLoaded', initApp);
+
+// --- Anti-Theft / Portfolio Lock ---
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('paste', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12') {
+    e.preventDefault();
+  }
+  if (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
+    e.preventDefault();
+  }
+  if (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p', 'C', 'c', 'A', 'a'].includes(e.key)) {
+    e.preventDefault();
+  }
+});
