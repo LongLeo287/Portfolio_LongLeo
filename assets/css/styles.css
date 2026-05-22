@@ -3,7 +3,7 @@
       --bg-soft: #fafaf9;
       --text-dark: #1c1917;
       --text-muted: #6b625d;
-      --line: #e7e5e4;
+      --line: rgba(255, 255, 255, 0.1);
       --amber: #fcd34d;
       --amber-2: #f59e0b;
       --orange: #f97316;
@@ -2264,6 +2264,7 @@
   --text-main: #1c1917;
   --text-sub: #6b625d;
   --border-color: #e7e5e4;
+  --line: #e7e5e4;
   --shadow-dynamic: 0 4px 6px -1px rgba(28, 25, 23, 0.05), 0 10px 15px -3px rgba(28, 25, 23, 0.08);
 }
 

@@ -103,12 +103,81 @@ const translations = {
     stat_exp: 'năm kinh nghiệm',
     stat_proj: 'công ty & dự án',
     stat_start: 'bắt đầu hành trình',
-    filter_all: 'Nổi bật',
-    filter_vid: 'Sản xuất Video',
-    filter_des: 'Thiết kế',
-    filter_photo: 'Chụp ảnh',
-    filter_thumb: 'YouTube Thumbnail',
-    modal_view_link: 'Xem dự án ↗'
+    available_for: 'Sẵn sàng hợp tác',
+    about_eyebrow: 'Một chút về mình',
+    about_title: 'Từ Arena Multimedia đến hành trình sáng tạo hình ảnh chuyên nghiệp.',
+    about_p1: 'Chào bạn, mình là <strong>Hà Đình Long</strong> — hay còn được biết đến với tên <strong>Long Leo</strong>. Tốt nghiệp ngành Multimedia tại Arena Multimedia, mình bắt đầu hành trình sáng tạo từ năm 2015.',
+    about_p2: 'Với hơn 7 năm kinh nghiệm trong lĩnh vực sản xuất video, thiết kế đồ họa và truyền thông đa phương tiện, mình đã đi qua nhiều môi trường từ agency, công ty sản phẩm đến freelance — mỗi giai đoạn giúp mình tích lũy thêm góc nhìn và kỹ năng mới.',
+    about_p3: '<strong>Mục tiêu dài hạn:</strong> Trở thành Chuyên gia hoạch định Chiến lược nội dung (Content Strategist), dẫn dắt đội ngũ sáng tạo và quản lý các dự án truyền thông đa phương tiện quy mô lớn.',
+    about_skill2: 'Motion Graphic, Color Grading, UI/UX Design, Photography',
+    about_skill3: 'Sáng tạo Ý tưởng (Ideation), SEO Video, Thiết kế đồ họa đa phương tiện',
+    tools_title: 'Công cụ & Trợ lý AI sáng tạo',
+    tools_group1_title: 'Phần mềm sáng tạo chuyên nghiệp',
+    tool_prem: 'Dựng phim & Màu sắc',
+    tool_ae: 'Motion & Hậu kỳ kỹ xảo',
+    tool_ps: 'Chỉnh ảnh & Cắt ghép',
+    tool_ai: 'Thiết kế Vector & Ấn phẩm',
+    tool_lr: 'Blend màu & Hậu kỳ ảnh',
+    tool_figma: 'Thiết kế giao diện UI/UX',
+    tool_capcut: 'Dựng video nhanh & Tiện lợi',
+    tool_canva: 'Thiết kế đồ họa trực tuyến',
+    tools_group2_title: 'Trợ lý AI & Tối ưu hiệu suất',
+    tool_gemini: 'Lên ý tưởng & Lịch trình',
+    tool_ai_studio: 'Thử nghiệm Prompt & API',
+    tool_antigravity: 'Tự động hóa & Coding',
+    tool_claude: 'Phân tích & Viết nội dung',
+    tool_codex: 'Hỗ trợ Kỹ thuật & Code',
+    services_eyebrow: 'Dịch vụ',
+    services_title: 'Giải pháp hình ảnh & truyền thông toàn diện.',
+    services_desc: 'Tập trung vào chất lượng hình ảnh, nhịp kể và tính ứng dụng thực tế — từ video, thiết kế đến UI/UX cho các chiến dịch truyền thông.',
+    srv_vid_title: 'Quay & Dựng Video',
+    srv_vid_desc: 'Sản xuất video chuyên nghiệp: TVC, quảng cáo, unboxing, review sản phẩm, video sự kiện và các định dạng social media.',
+    srv_motion_title: 'Motion Graphic',
+    srv_motion_desc: 'Tạo hiệu ứng chuyển động bắt mắt, title animation, infographic động và các visual effects chuyên nghiệp bằng After Effects.',
+    srv_design_title: 'Thiết kế đồ họa',
+    srv_design_desc: 'Thiết kế banner, poster, thumbnail, key visual và ấn phẩm truyền thông phục vụ chiến dịch marketing trên mọi nền tảng.',
+    srv_photo_title: 'Chụp ảnh sản phẩm',
+    srv_photo_desc: 'Chụp ảnh sản phẩm, sự kiện, không gian thương hiệu — chỉnh sửa hậu kỳ chất lượng cao phục vụ quảng bá.',
+    srv_uiux_desc: 'Thiết kế giao diện & trải nghiệm người dùng cho landing page, website — đảm bảo thẩm mỹ hiện đại và thân thiện.',
+    srv_idea_title: 'Sáng tạo Ý tưởng',
+    srv_idea_desc: 'Đề xuất và phát triển các concept sáng tạo, lên ý tưởng hình ảnh và định hướng nội dung trước khi sản xuất.',
+    exp_eyebrow: 'Kinh nghiệm',
+    exp_title: 'Hành trình 7+ năm trong ngành sáng tạo.',
+    exp_desc: 'Từ in ấn, đào tạo, freelance, đến thương hiệu công nghệ — mỗi môi trường tạo thêm một góc nhìn mới về truyền thông và sáng tạo.',
+    exp_v2h_role: 'Nhân viên Media',
+    exp_v2h_time: '2025 – nay',
+    exp_v2h_desc: 'Quay dựng video review thiết bị âm thanh & công nghệ (JBL, Bose, Sony, Marshall). Quản lý kênh YouTube, thiết kế thumbnail, tối ưu SEO.',
+    exp_v2h_btn: 'Ghé thăm Vua2Hand ↗',
+    exp_mygear_role: 'Nhân viên Media',
+    exp_mygear_desc: 'Thiết kế UI/UX landing page & website. Sản xuất video, thiết kế banner/poster, chụp ảnh sản phẩm. Đóng góp xây dựng ý tưởng hình ảnh cùng đội ngũ sáng tạo.',
+    exp_mygear_btn: 'Ghé thăm MyGear ↗',
+    exp_vie_role: 'Editor Tự do',
+    exp_vie_desc: 'Hậu kỳ chuyên nghiệp: xử lý file thô, cắt ghép, color grading, đồng bộ âm thanh. Tư vấn giải pháp hình ảnh trực tiếp với khách hàng.',
+    exp_vie_btn: 'Ghé thăm Vie Channel ↗',
+    exp_topskills_role: 'Nhân viên Media',
+    exp_topskills_desc: 'Sản xuất & hậu kỳ video đào tạo. Thiết kế ấn phẩm thương hiệu (banner, poster). Phối hợp phát triển các ý tưởng sáng tạo cho dự án.',
+    exp_topskills_btn: 'Ghé thăm TopSkills ↗',
+    exp_tgia_role: 'Nhân viên Media',
+    exp_tgia_desc: 'Thiết kế và xử lý file in ấn. Hỗ trợ sản xuất nội dung truyền thông, quay dựng video cơ bản và chụp ảnh sản phẩm cho các chiến dịch của công ty.',
+    exp_tgia_btn: 'Ghé thăm Thế Giới In Ấn ↗',
+    port_eyebrow: 'Portfolio',
+    port_title: 'Sản phẩm nổi bật',
+    port_desc: 'Tổng hợp các sản phẩm video và nội dung sáng tạo từ kênh YouTube @LongLeo287 và các dự án thực tế.',
+    contact_eyebrow: 'Liên hệ',
+    contact_title: 'Cảm ơn bạn đã dành thời gian ghé thăm.',
+    contact_desc: 'Cần người quay dựng, thiết kế, làm motion graphic hoặc tối ưu UI/UX? Hãy liên hệ để bắt đầu trao đổi về dự án của bạn.',
+    contact_email_btn: 'Gửi email ✉',
+    contact_phone_btn: 'Gọi ngay ☎',
+    contact_addr_label: 'Địa chỉ',
+    contact_addr_val: 'Tân Phú, Hồ Chí Minh',
+    footer_copy: 'Hà Đình Long © 2026 | All Rights Reserved.',
+    footer_sub: 'Video Editor Portfolio',
+    modal_view_link: 'Xem dự án ↗',
+    categories: {
+      video: 'Sản xuất Video',
+      design: 'Thiết kế',
+      photography: 'Chụp ảnh'
+    }
   },
   en: {
     nav_home: 'Home',
@@ -125,12 +194,81 @@ const translations = {
     stat_exp: 'years of experience',
     stat_proj: 'companies & projects',
     stat_start: 'started journey',
-    filter_all: 'Featured',
-    filter_vid: 'Video Production',
-    filter_des: 'Design',
-    filter_photo: 'Photography',
-    filter_thumb: 'YouTube Thumbnail',
-    modal_view_link: 'View Project ↗'
+    available_for: 'Available for',
+    about_eyebrow: 'A little about me',
+    about_title: 'From Arena Multimedia to a professional visual creation journey.',
+    about_p1: 'Hello, I\'m <strong>Ha Dinh Long</strong> — also known as <strong>Long Leo</strong>. Graduated in Multimedia from Arena Multimedia, I started my creative journey in 2015.',
+    about_p2: 'With over 7 years of experience in video production, graphic design, and multimedia communications, I have worked across various environments from agencies and product companies to freelancing — each stage helping me gain new perspectives and skills.',
+    about_p3: '<strong>Long-term Goal:</strong> Become a Content Strategist, leading creative teams and managing large-scale multimedia communication projects.',
+    about_skill2: 'Motion Graphics, Color Grading, UI/UX Design, Photography',
+    about_skill3: 'Ideation, Video SEO, Multimedia Graphic Design',
+    tools_title: 'Tools & Creative AI Assistants',
+    tools_group1_title: 'Professional Creative Software',
+    tool_prem: 'Video Editing & Color Grading',
+    tool_ae: 'Motion Graphics & Visual Effects',
+    tool_ps: 'Photo Editing & Compositing',
+    tool_ai: 'Vector Design & Print Publications',
+    tool_lr: 'Color Grading & Photo Post-processing',
+    tool_figma: 'UI/UX Interface Design',
+    tool_capcut: 'Fast & Convenient Video Editing',
+    tool_canva: 'Online Graphic Design',
+    tools_group2_title: 'AI Assistants & Performance Optimization',
+    tool_gemini: 'Brainstorming & Scheduling',
+    tool_ai_studio: 'Prompting & API Experimentation',
+    tool_antigravity: 'Automation & Coding',
+    tool_claude: 'Analysis & Content Writing',
+    tool_codex: 'Technical Support & Code',
+    services_eyebrow: 'Services',
+    services_title: 'Comprehensive Video & Media Solutions.',
+    services_desc: 'Focusing on visual quality, storytelling rhythm, and practical application — from video, design to UI/UX for media campaigns.',
+    srv_vid_title: 'Video Production',
+    srv_vid_desc: 'Professional video production: TVCs, commercials, unboxing, product reviews, event videos, and social media formats.',
+    srv_motion_title: 'Motion Graphics',
+    srv_motion_desc: 'Creating eye-catching motion graphics, title animations, animated infographics, and professional visual effects with After Effects.',
+    srv_design_title: 'Graphic Design',
+    srv_design_desc: 'Designing banners, posters, thumbnails, key visuals, and marketing assets for all digital platforms.',
+    srv_photo_title: 'Product Photography',
+    srv_photo_desc: 'Capturing products, events, and brand spaces — high-quality post-processing for promotional use.',
+    srv_uiux_desc: 'Designing user interfaces & experiences for landing pages and websites — ensuring modern aesthetics and user-friendliness.',
+    srv_idea_title: 'Creative Ideation',
+    srv_idea_desc: 'Proposing and developing creative concepts, visual ideas, and content direction prior to production.',
+    exp_eyebrow: 'Experience',
+    exp_title: 'A 7+ year journey in the creative industry.',
+    exp_desc: 'From printing, training, and freelancing to technology brands — each environment shapes a new perspective on media and creativity.',
+    exp_v2h_role: 'Media Specialist',
+    exp_v2h_time: '2025 – Present',
+    exp_v2h_desc: 'Filming and editing video reviews for audio & tech gear (JBL, Bose, Sony, Marshall). Managing YouTube channels, designing thumbnails, and optimizing SEO.',
+    exp_v2h_btn: 'Visit Vua2Hand ↗',
+    exp_mygear_role: 'Media Specialist',
+    exp_mygear_desc: 'Designing landing page & website UI/UX. Producing videos, designing banners/posters, and shooting product photography. Contributing visual ideas with the creative team.',
+    exp_mygear_btn: 'Visit MyGear ↗',
+    exp_vie_role: 'Freelance Video Editor',
+    exp_vie_desc: 'Professional post-production: processing raw files, editing, color grading, and audio syncing. Consulting visual solutions directly with clients.',
+    exp_vie_btn: 'Visit Vie Channel ↗',
+    exp_topskills_role: 'Media Specialist',
+    exp_topskills_desc: 'Producing & editing training videos. Designing brand identity assets (banners, posters). Collaborating to develop creative ideas for projects.',
+    exp_topskills_btn: 'Visit TopSkills ↗',
+    exp_tgia_role: 'Media Specialist',
+    exp_tgia_desc: 'Designing and processing print files. Supporting media content creation, basic videography, and product photography for company campaigns.',
+    exp_tgia_btn: 'Visit Thế Giới In Ấn ↗',
+    port_eyebrow: 'Portfolio',
+    port_title: 'Featured Work',
+    port_desc: 'A compilation of video productions and creative content from YouTube channel @LongLeo287 and real-world projects.',
+    contact_eyebrow: 'Contact',
+    contact_title: 'Thank you for taking the time to visit.',
+    contact_desc: 'Need someone for video editing, design, motion graphics, or UI/UX optimization? Let\'s get in touch to discuss your project.',
+    contact_email_btn: 'Email Me ✉',
+    contact_phone_btn: 'Call Now ☎',
+    contact_addr_label: 'Address',
+    contact_addr_val: 'Tan Phu, Ho Chi Minh City',
+    footer_copy: 'Ha Dinh Long © 2026 | All Rights Reserved.',
+    footer_sub: 'Video Editor Portfolio',
+    modal_view_link: 'View Project ↗',
+    categories: {
+      video: 'Video Production',
+      design: 'Design',
+      photography: 'Photography'
+    }
   }
 };
 
@@ -323,45 +461,21 @@ function getTranslatedCaseStudy(project, lang) {
   const cs = project.caseStudy;
   if (!cs) return null;
   
-  if (lang === 'vi') {
-    return {
-      role: cs.role || 'Dựng phim & Kỹ xảo',
-      concept: cs.concept || '',
-      challenge: cs.challenge || '',
-      solution: cs.solution || '',
-      tools: cs.tools || []
-    };
-  } else {
-    const titleEn = typeof project.title === 'object' ? project.title.en : project.title;
-    
-    let conceptEn = '';
-    if (cs.concept) {
-      conceptEn = `Concept development and visual execution for the project: ${titleEn}.`;
+  const getVal = (field) => {
+    if (!field) return '';
+    if (typeof field === 'object') {
+      return field[lang] || field['vi'] || '';
     }
-    
-    let challengeEn = cs.challenge;
-    if (cs.challenge && cs.challenge.includes('Tối ưu hóa thời gian sản xuất')) {
-      challengeEn = 'Optimize production time and enhance the effectiveness of delivering the product\'s artistic message.';
-    }
-    
-    let solutionEn = cs.solution;
-    if (cs.solution && cs.solution.includes('Áp dụng kỹ thuật chuyển cảnh')) {
-      solutionEn = 'Apply smooth transitions and cinematic color grading to emphasize the main subject.';
-    }
-    
-    let roleEn = cs.role || 'Video Editor / Motion Designer';
-    if (roleEn === 'Nhân viên Media' || roleEn === 'Dựng phim & Kỹ xảo') {
-      roleEn = 'Video Editor / Visual Artist';
-    }
-    
-    return {
-      role: roleEn,
-      concept: conceptEn,
-      challenge: challengeEn,
-      solution: solutionEn,
-      tools: cs.tools || []
-    };
-  }
+    return field;
+  };
+
+  return {
+    role: getVal(cs.role),
+    concept: getVal(cs.concept),
+    challenge: getVal(cs.challenge),
+    solution: getVal(cs.solution),
+    tools: cs.tools || []
+  };
 }
 
 // ==========================================
@@ -525,6 +639,7 @@ function getYouTubeEmbedUrl(url) {
 // ==========================================
 // Dynamic Showcase Slider
 // ==========================================
+let selectedSliderItems = null;
 let sliderInterval = null;
 let currentSlideIndex = 0;
 
@@ -536,12 +651,30 @@ function initShowcaseSlider() {
   
   if (!slidesContainer || projectsData.length === 0) return;
   
-  // 1. Choose 1 random featured video
-  const featuredVideos = projectsData.filter(p => p.category === 'Video' && p.isFeatured);
-  const selectedVideo = featuredVideos.length > 0 
-    ? featuredVideos[Math.floor(Math.random() * featuredVideos.length)]
-    : projectsData.find(p => p.category === 'Video');
+  let selectedVideo;
+  let selectedImages;
+
+  if (selectedSliderItems) {
+    selectedVideo = selectedSliderItems.video;
+    selectedImages = selectedSliderItems.images;
+  } else {
+    // 1. Choose 1 random featured video
+    const featuredVideos = projectsData.filter(p => p.category === 'Video' && p.isFeatured);
+    selectedVideo = featuredVideos.length > 0 
+      ? featuredVideos[Math.floor(Math.random() * featuredVideos.length)]
+      : projectsData.find(p => p.category === 'Video');
+      
+    // 2. Select 4 random image projects
+    const imageProjects = projectsData.filter(p => (p.category === 'Design' || p.category === 'Photography') && p.imgSrc);
+    const shuffledImages = [...imageProjects].sort(() => 0.5 - Math.random());
+    selectedImages = shuffledImages.slice(0, 4);
     
+    selectedSliderItems = {
+      video: selectedVideo,
+      images: selectedImages
+    };
+  }
+  
   const getYouTubeThumbnail = (url) => {
     if (!url) return '';
     let videoId = "";
@@ -561,13 +694,15 @@ function initShowcaseSlider() {
   };
   
   let slidesHtml = '';
+  let slideIndexCounter = 0;
   
   if (selectedVideo) {
+    const isActive = slideIndexCounter === currentSlideIndex;
     const videoThumb = getYouTubeThumbnail(selectedVideo.href);
     const videoTitle = typeof selectedVideo.title === 'object' ? selectedVideo.title[currentLang] : selectedVideo.title;
-    const tagText = currentLang === 'vi' ? 'Sản xuất Video' : 'Video Production';
+    const tagText = translations[currentLang].categories.video;
     slidesHtml += `
-      <div class="showcase-slide active" data-type="video" data-video-src="${selectedVideo.href}">
+      <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="video" data-video-src="${selectedVideo.href}">
         <div class="yt-facade" style="background-image: url('${videoThumb}');" aria-label="Phát video: ${videoTitle}">
           <div class="yt-play-btn" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
@@ -579,18 +714,15 @@ function initShowcaseSlider() {
         </div>
       </div>
     `;
+    slideIndexCounter++;
   }
   
-  // 2. Select 4 random image projects
-  const imageProjects = projectsData.filter(p => (p.category === 'Design' || p.category === 'Photography') && p.imgSrc);
-  const shuffledImages = [...imageProjects].sort(() => 0.5 - Math.random());
-  const selectedImages = shuffledImages.slice(0, 4);
-  
   selectedImages.forEach(imgProj => {
+    const isActive = slideIndexCounter === currentSlideIndex;
     const title = typeof imgProj.title === 'object' ? imgProj.title[currentLang] : imgProj.title;
-    const tagText = imgProj.category === 'Design' ? (currentLang === 'vi' ? 'Thiết kế' : 'Design') : (currentLang === 'vi' ? 'Chụp ảnh' : 'Photography');
+    const tagText = imgProj.category === 'Design' ? translations[currentLang].categories.design : translations[currentLang].categories.photography;
     slidesHtml += `
-      <div class="showcase-slide" data-type="image" data-src="${imgProj.imgSrc}">
+      <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="image" data-src="${imgProj.imgSrc}">
         <div class="showcase-img-wrap">
           <div class="showcase-bg-blur" style="background-image: url('${imgProj.imgSrc}');"></div>
           <img src="${imgProj.imgSrc}" alt="${title}" />
@@ -601,19 +733,19 @@ function initShowcaseSlider() {
         </div>
       </div>
     `;
+    slideIndexCounter++;
   });
   
   slidesContainer.innerHTML = slidesHtml;
   
   const slides = slidesContainer.querySelectorAll('.showcase-slide');
-  currentSlideIndex = 0;
   
   // Render dots
   if (dotsContainer) {
     dotsContainer.innerHTML = '';
     slides.forEach((_, idx) => {
       const dot = document.createElement('div');
-      dot.className = `slider-dot ${idx === 0 ? 'active' : ''}`;
+      dot.className = `slider-dot ${idx === currentSlideIndex ? 'active' : ''}`;
       dot.addEventListener('click', () => {
         goToSlide(idx);
         resetInterval();
@@ -710,24 +842,32 @@ function initShowcaseSlider() {
   }
   
   // Swipe support
-  let touchStartX = 0;
-  let touchEndX = 0;
+  slidesContainer.nextSlide = nextSlide;
+  slidesContainer.prevSlide = prevSlide;
+  slidesContainer.resetInterval = resetInterval;
   
-  slidesContainer.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
-  
-  slidesContainer.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    const threshold = 55;
-    if (touchStartX - touchEndX > threshold) {
-      nextSlide();
-      resetInterval();
-    } else if (touchEndX - touchStartX > threshold) {
-      prevSlide();
-      resetInterval();
-    }
-  }, { passive: true });
+  if (!slidesContainer.dataset.swipeBound) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    slidesContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    slidesContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const threshold = 55;
+      if (touchStartX - touchEndX > threshold) {
+        if (typeof slidesContainer.nextSlide === 'function') slidesContainer.nextSlide();
+        if (typeof slidesContainer.resetInterval === 'function') slidesContainer.resetInterval();
+      } else if (touchEndX - touchStartX > threshold) {
+        if (typeof slidesContainer.prevSlide === 'function') slidesContainer.prevSlide();
+        if (typeof slidesContainer.resetInterval === 'function') slidesContainer.resetInterval();
+      }
+    }, { passive: true });
+    
+    slidesContainer.dataset.swipeBound = 'true';
+  }
   
   startInterval();
 }
