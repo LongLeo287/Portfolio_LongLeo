@@ -18,8 +18,7 @@ const elements = {
   modalClient: document.getElementById('modalClient'),
   modalTags: document.getElementById('modalTags'),
   modalBody: document.getElementById('modalBody'),
-  modalLink: document.getElementById('modalLink'),
-  closeModalBtn: document.getElementById('closeModalBtn'),
+    closeModalBtn: document.getElementById('closeModalBtn'),
   modalBackdrop: document.getElementById('modalBackdrop')
 };
 
@@ -535,8 +534,7 @@ function openCaseStudyModal(project) {
   
   elements.modalTitle.textContent = title;
   elements.modalClient.textContent = client;
-  elements.modalLink.href = project.href || project.imgSrc;
-  
+    
   // Update view project translation
   if (elements.modalLink) {
     elements.modalLink.innerHTML = translations[currentLang]['modal_view_link'];
@@ -570,24 +568,24 @@ function openCaseStudyModal(project) {
     };
     const h = headings[currentLang];
     
-    elements.modalBody.innerHTML = `
-      <div class="cs-section" style="margin-bottom:1.25rem;">
-        <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${h.role}</h4>
-        <p style="margin:0;font-size:0.95rem;">${cs.role}</p>
-      </div>
-      <div class="cs-section" style="margin-bottom:1.25rem;">
-        <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${h.concept}</h4>
-        <p style="margin:0;font-size:0.95rem;">${cs.concept}</p>
-      </div>
-      <div class="cs-section" style="margin-bottom:1.25rem;">
-        <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${h.challenge}</h4>
-        <p style="margin:0;font-size:0.95rem;">${cs.challenge}</p>
-      </div>
-      <div class="cs-section" style="margin-bottom:1.25rem;">
-        <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${h.solution}</h4>
-        <p style="margin:0;font-size:0.95rem;">${cs.solution}</p>
-      </div>
-    `;
+    let bodyHtml = '';
+    const addSection = (title, content) => {
+      if (content && content.trim() !== '') {
+        bodyHtml += `
+          <div class="cs-section" style="margin-bottom:1.25rem;">
+            <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${title}</h4>
+            <p style="margin:0;font-size:0.95rem;">${content}</p>
+          </div>
+        `;
+      }
+    };
+    
+    addSection(h.role, cs.role);
+    addSection(h.concept, cs.concept);
+    addSection(h.challenge, cs.challenge);
+    addSection(h.solution, cs.solution);
+    
+    elements.modalBody.innerHTML = bodyHtml;
   } else {
     elements.modalBody.innerHTML = '';
   }
