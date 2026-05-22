@@ -749,9 +749,12 @@ function initShowcaseSlider() {
     const tagText = translations[currentLang].categories.video;
     slidesHtml += `
       <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="video" data-video-src="${selectedVideo.href}">
-        <div class="yt-facade" style="background-image: url('${videoThumb}');" aria-label="Phát video: ${videoTitle}">
-          <div class="yt-play-btn" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <div class="showcase-img-wrap">
+          <div class="showcase-bg-blur" style="background-image: url('${videoThumb}');"></div>
+          <div class="yt-facade" style="background-image: url('${videoThumb}');" aria-label="Phát video: ${videoTitle}">
+            <div class="yt-play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            </div>
           </div>
         </div>
         <div class="showcase-info">
@@ -770,7 +773,7 @@ function initShowcaseSlider() {
     slidesHtml += `
       <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="image" data-src="${imgProj.imgSrc}">
         <div class="showcase-img-wrap">
-          <div class="showcase-bg-blur" style="background-image: url('${imgProj.imgSrc}');"></div>
+          <div class="showcase-bg-blur" style="background-image: url('${imgProj.imgSrc.replace(/'/g, "%27")}');"></div>
           <img src="${imgProj.imgSrc}" alt="${title}" />
         </div>
         <div class="showcase-info">
