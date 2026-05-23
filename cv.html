@@ -192,3 +192,20 @@
   </script>
 </body>
 </html>
+
+  <!-- Modal Scripts -->
+  <script>
+    if (window.location.search.includes('modal=1')) {
+      const backBtn = document.querySelector('.cv-back');
+      if (backBtn) backBtn.style.display = 'none';
+      const controls = document.querySelector('.cv-controls');
+      if (controls) controls.style.justifyContent = 'flex-end';
+      const cvPage = document.querySelector('.cv-page');
+      if (cvPage) {
+        cvPage.style.padding = '20px';
+        cvPage.style.minHeight = 'auto';
+      }
+    }
+  </script>
+</body>
+</html>
