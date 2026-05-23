@@ -395,8 +395,8 @@ function renderPortfolio(filter = 'all') {
     const thumbDiv = document.createElement('div');
     thumbDiv.className = 'portfolio-thumb';
     
-    const tagText = p.category === 'Design' ? (currentLang === 'vi' ? 'thiết&nbsp;kế' : 'Design') : 
-                    p.category === 'Photography' ? (currentLang === 'vi' ? 'chụp&nbsp;ảnh' : 'Photography') : p.category;
+    const tagText = p.category === 'Design' ? (currentLang === 'vi' ? 'Thiết&nbsp;kế' : 'Design') : 
+                    p.category === 'Photography' ? (currentLang === 'vi' ? 'Chụp&nbsp;ảnh' : 'Photography') : p.category;
                     
     thumbDiv.innerHTML = `
       <img src="${p.imgSrc}" alt="${p.alt || title}" loading="lazy" />
@@ -550,9 +550,9 @@ function openCaseStudyModal(project) {
     const headings = {
       vi: {
         role: 'Vai&nbsp;trò',
-        concept: 'ý&nbsp;tưởng &&nbsp;Concept',
+        concept: 'Ý&nbsp;tưởng &&nbsp;Concept',
         challenge: 'Thách thức&nbsp;sản&nbsp;xuất',
-        solution: 'giải&nbsp;pháp thực&nbsp;hiện'
+        solution: 'Giải&nbsp;pháp thực&nbsp;hiện'
       },
       en: {
         role: 'Role',
