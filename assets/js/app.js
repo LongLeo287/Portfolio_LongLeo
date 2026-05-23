@@ -76,6 +76,11 @@ function initLangToggle() {
       currentLang = selectedBtn.dataset.lang;
       localStorage.setItem('portfolio_lang', currentLang);
       
+      const cvIframe = document.querySelector("#cvModal iframe");
+      if (cvIframe && cvIframe.contentWindow) {
+        cvIframe.contentWindow.postMessage({ type: "LANG_TOGGLE", lang: currentLang }, "*");
+      }
+
       renderPortfolio(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
       updateStaticTranslations();
       

@@ -34,6 +34,11 @@ if (themeToggle) {
     document.documentElement.classList.toggle("light-theme");
     const isLight = document.documentElement.classList.contains("light-theme");
     localStorage.setItem("portfolio_theme", isLight ? "light" : "dark");
+  
+    const cvIframe = document.querySelector("#cvModal iframe");
+    if (cvIframe && cvIframe.contentWindow) {
+      cvIframe.contentWindow.postMessage({ type: "THEME_TOGGLE", isLight: isLight }, "*");
+    }
   });
 }
 
