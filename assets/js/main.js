@@ -50,11 +50,11 @@ if (loader) {
   lenis.stop();
   
   // Safety timeout in case window load event fires late
-  const forceCloseLoader = setTimeout(closeLoaderSequence, 3500);
+  const forceCloseLoader = setTimeout(closeLoaderSequence, 400);
   
   window.addEventListener("load", () => {
     clearTimeout(forceCloseLoader);
-    setTimeout(closeLoaderSequence, 1600);
+    setTimeout(closeLoaderSequence, 400);
   });
 }
 
