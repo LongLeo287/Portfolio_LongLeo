@@ -17,7 +17,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="dark-theme">
+<body>
 
   <div class="cv-page">
     <div class="cv-controls">
@@ -311,9 +311,6 @@
       }
     });
   </script>
-</body>
-
-</html>
 
   <!-- Modal Scripts -->
   <script>
@@ -371,113 +368,5 @@
       document.head.appendChild(style);
     }
   </script>
-
-  <!-- Translation and Theme Sync Script -->
-  <script>
-    const cvTranslations = {
-      address: { vi: "Tân Phú, Hồ Chí Minh", en: "Tan Phu, Ho Chi Minh City" },
-      edu_desc: { vi: "Tốt nghiệp ngành Multimedia với kỹ năng chuyên sâu trong quay dựng video, thiết kế đồ họa, motion graphic và thành thạo các phần mềm Adobe như Premiere, After Effects, Photoshop, Illustrator.", en: "Graduated in Multimedia with advanced skills in video editing, graphic design, motion graphics, and proficient in Adobe software such as Premiere, After Effects, Photoshop, Illustrator." },
-      skill_video: { vi: "Quay dựng video", en: "Video Production" },
-      skill_uiux: { vi: "Thiết kế UI/UX", en: "UI/UX Design" },
-
-      vie_name: { vi: "Vie Production", en: "Vie Production" },
-      topskills_name: { vi: "Topskills - Đào Tạo Kỹ Năng Lãnh Đạo", en: "Topskills - Leadership Skills Training" },
-      tgia_name: { vi: "Thế Giới In Ấn", en: "The Gioi In An" },
-      freelance_editor_subtitle: { vi: "Video Editor Freelance", en: "Freelance Video Editor" },
-      mg_ui_ux_title: { vi: "Thiết kế UI/UX:", en: "UI/UX Design:" },
-      mg_ui_ux_desc: { vi: "Phụ trách thiết kế các trang landing page và tối ưu hóa giao diện website.", en: "In charge of designing landing pages and optimizing website interfaces." },
-      mg_video_title: { vi: "Sản xuất video:", en: "Video Production:" },
-      mg_video_desc: { vi: "Trực tiếp quay, dựng và hậu kỳ video; linh hoạt phối hợp các hiệu ứng hình ảnh, âm thanh chuyên nghiệp.", en: "Directly film, edit, and post-produce videos; flexibly coordinate professional visual and audio effects." },
-      mg_creative_title: { vi: "Sáng tạo ấn phẩm:", en: "Creative Assets:" },
-      mg_creative_desc: { vi: "Thiết kế banner, poster, hình ảnh quảng cáo và trực tiếp chụp ảnh phục vụ chiến dịch.", en: "Design banners, posters, advertising images, and directly photograph for campaigns." },
-      mg_idea_title: { vi: "Phát triển ý tưởng:", en: "Concept Development:" },
-      mg_idea_desc: { vi: "Xây dựng kịch bản chi tiết, góp phần tối ưu hóa chất lượng sản phẩm truyền thông.", en: "Develop detailed scripts, contributing to optimizing the quality of media products." },
-      vie_pro_title: { vi: "Hậu kỳ chuyên nghiệp:", en: "Professional Post-Production:" },
-      vie_pro_desc: { vi: "Đảm nhiệm quy trình xử lý file thô, cắt ghép, chỉnh màu (grading) đến đồng bộ âm thanh.", en: "Handle raw file processing, editing, color grading, and audio synchronization." },
-      vie_pacing_title: { vi: "Tối ưu nhịp điệu (Pacing):", en: "Pacing Optimization:" },
-      vie_pacing_desc: { vi: "Kiểm soát nhịp điệu video, lồng ghép hiệu ứng và chuyển cảnh linh hoạt giúp tối ưu trải nghiệm thị giác.", en: "Control video pacing, integrate flexible effects and transitions to optimize the visual experience." },
-      vie_client_title: { vi: "Làm việc với khách hàng:", en: "Client Interaction:" },
-      vie_client_desc: { vi: "Trực tiếp trao đổi để làm rõ mục tiêu, đề xuất giải pháp hình ảnh sáng tạo và điều chỉnh đáp ứng kỳ vọng.", en: "Communicate directly to clarify goals, propose creative visual solutions, and adjust to meet expectations." },
-      ts_prod_title: { vi: "Sản xuất & Hậu kỳ:", en: "Production & Post-Production:" },
-      ts_prod_desc: { vi: "Trực tiếp quay, dựng và biên tập video chất lượng cao thu hút khán giả mục tiêu.", en: "Directly film, construct, and edit high-quality videos to attract the target audience." },
-      ts_design_title: { vi: "Thiết kế hình ảnh:", en: "Visual Design:" },
-      ts_design_desc: { vi: "Phụ trách chụp ảnh và thiết kế các ấn phẩm trực quan (banner, poster) đồng bộ với nhận diện thương hiệu.", en: "In charge of photography and designing visual assets (banners, posters) consistent with brand identity." },
-      ts_script_title: { vi: "Xây dựng kịch bản:", en: "Scriptwriting:" },
-      ts_script_desc: { vi: "Phối hợp cùng đội ngũ sáng tạo lên ý tưởng kịch bản chi tiết đột phá.", en: "Collaborate with the creative team to brainstorm breakthrough detailed scripts." },
-      tgia_prod_title: { vi: "Hình ảnh/video sản phẩm:", en: "Product Photos/Videos:" },
-      tgia_prod_desc: { vi: "Phụ trách từ chụp ảnh, quay phim đến chỉnh sửa clip sản phẩm sắc nét.", en: "Responsible for everything from photography and filming to editing sharp product clips." },
-      tgia_multi_title: { vi: "Thiết kế đa phương tiện:", en: "Multimedia Design:" },
-      tgia_multi_desc: { vi: "Thiết kế ấn phẩm truyền thông, hỗ trợ tối ưu giao diện website (UI/UX) và ứng dụng Motion Graphic tạo tương tác.", en: "Design media publications, support website interface optimization (UI/UX), and apply Motion Graphics to create interaction." },
-
-      back_to_portfolio: { vi: "Trở về Portfolio", en: "Back to Portfolio" },
-      print_pdf: { vi: "In / Lưu PDF", en: "Print / Save PDF" },
-      contact_title: { vi: "Liên hệ", en: "Contact" },
-      education_title: { vi: "HỌC VẤN", en: "EDUCATION" },
-      multimedia_major: { vi: "Chuyên ngành Multimedia", en: "Multimedia Major" },
-      skills_title: { vi: "KỸ NĂNG", en: "SKILLS" },
-      tools_title: { vi: "Công cụ sử dụng", en: "Tools Used" },
-      career_objective: { vi: "MỤC TIÊU NGHỀ NGHIỆP", en: "CAREER OBJECTIVE" },
-      short_term: { vi: "Ngắn hạn:", en: "Short-term:" },
-      short_term_desc: { vi: "Tối ưu hóa kỹ năng sản xuất hình ảnh/video chuyên sâu và ứng dụng tư duy sáng tạo để tạo ra các sản phẩm truyền thông chất lượng cao, thúc đẩy hiệu suất các chiến dịch marketing.", en: "Optimize advanced photo/video production skills and apply creative thinking to produce high-quality media products, boosting the performance of marketing campaigns." },
-      long_term: { vi: "Dài hạn:", en: "Long-term:" },
-      long_term_desc: { vi: "Trở thành Chuyên gia Hậu kỳ (Post-Production Specialist), không ngừng nâng cấp bộ kỹ năng chuyên môn và ứng dụng các công cụ công nghệ mới (AI, Automation) để tối ưu hóa tốc độ dựng phim và nâng cao chất lượng đầu ra.", en: "Become a Post-Production Specialist, continuously upgrading professional skills and applying new technological tools (AI, Automation) to optimize video editing speed and enhance output quality." },
-      
-      v2h_name: { vi: "Công ty TNHH Thương mại & Dịch vụ Vua2Hand", en: "Vua2Hand Trading & Services Co., Ltd" },
-      mygear_name: { vi: "Công ty TNHH MyGear", en: "MyGear Co., Ltd" },
-      arena_name: { vi: "Arena Multimedia", en: "Arena Multimedia" },
-      experience_title: { vi: "Kinh nghiệm làm việc", en: "WORK EXPERIENCE" },
-
-      present: { vi: "Hiện tại", en: "Present" },
-      media_staff: { vi: "Nhân viên Media", en: "Media Specialist" },
-      v2h_desc1: { vi: "Lên ý tưởng kịch bản, trực tiếp quay và dựng các sản phẩm video chất lượng cao (Unboxing, Review, So sánh) chuyên sâu về các dòng thiết bị âm thanh và công nghệ chính hãng (JBL, Bose, Sony, Marshall...)", en: "Brainstorm scripts, directly film and edit high-quality videos (Unboxing, Review, Comparison) focusing on authentic audio equipment and technology (JBL, Bose, Sony, Marshall...)." },
-      v2h_desc2: { vi: "Quản lý và phát triển nội dung kênh YouTube cùng các nền tảng mạng xã hội; thiết kế hình ảnh đại diện (thumbnail) thu hút, tối ưu hóa tiêu đề và mô tả chuẩn SEO để tăng trưởng lượt tiếp cận tự nhiên.", en: "Manage and develop content for the YouTube channel and social media platforms; design engaging thumbnails, optimize SEO titles and descriptions to increase organic reach." },
-      mygear_desc1: { vi: "Đảm nhiệm toàn bộ quy trình quay dựng video nội dung công nghệ (PC, Laptop, Gear, Phụ kiện); kiểm soát chất lượng hình ảnh, âm thanh và hiệu ứng chuyển cảnh để video đạt tiêu chuẩn chuyên nghiệp.", en: "Handle the entire video production process for tech content (PC, Laptop, Gear, Accessories); control image quality, audio, and transition effects to ensure professional standards." },
-      mygear_desc2: { vi: "Phối hợp nhịp nhàng với đội ngũ Content và Reviewer để lên concept, chuẩn bị thiết bị quay (máy ảnh, đèn, mic), setup bối cảnh và xử lý hậu kỳ hoàn thiện.", en: "Coordinate smoothly with the Content team and Reviewers to develop concepts, prepare filming equipment (cameras, lights, mics), set up scenes, and complete post-production." },
-      mygear_desc3: { vi: "Thiết kế ấn phẩm truyền thông (Thumbnail YouTube, Banner, Poster, Ảnh sản phẩm) tuân thủ chặt chẽ brand guidelines.", en: "Design media publications (YouTube Thumbnails, Banners, Posters, Product Photos) strictly adhering to brand guidelines." },
-      freelance_editor: { vi: "Editor Tự do", en: "Freelance Video Editor" },
-      vie_desc1: { vi: "Cộng tác độc lập nhận dự án edit video từ đa dạng khách hàng, đối tác bên ngoài (doanh nghiệp, cá nhân, agency).", en: "Independently collaborate on video editing projects from various external clients and partners (businesses, individuals, agencies)." },
-      vie_desc2: { vi: "Trực tiếp trao đổi, tư vấn ý tưởng, chốt timeline và chịu trách nhiệm toàn bộ khâu hậu kỳ đến khi bàn giao sản phẩm cuối cùng.", en: "Directly communicate, consult on ideas, finalize timelines, and take full responsibility for the post-production phase until the final product delivery." },
-      topskills_desc1: { vi: "Quản lý đa phương tiện (Media) phục vụ quảng bá cho các khóa học <span data-i18n="skills_title">Kỹ năng</span> mềm, Đào tạo doanh nghiệp và Hội thảo chuyên đề.", en: "Manage multimedia for promoting Soft Skills courses, Corporate Training, and Specialized Seminars." },
-      topskills_desc2: { vi: "Quay phim, chụp ảnh tại sự kiện và biên tập video recap, video chia sẻ kiến thức, phỏng vấn giảng viên/học viên.", en: "Film and photograph at events, and edit recap videos, knowledge-sharing videos, and interviews with instructors/students." },
-      topskills_desc3: { vi: "Thiết kế đồ họa 2D cơ bản: Layout slide, standee sự kiện, ảnh bài đăng Facebook.", en: "Basic 2D graphic design: Slide layouts, event standees, and Facebook post images." },
-      tgia_desc1: { vi: "Tiền thân là Phụ tá In ấn, trực tiếp vận hành máy in kỹ thuật số, gia công thành phẩm (cán màng, bế, cắt) và kiểm tra chất lượng bản in.", en: "Formerly a Printing Assistant, directly operating digital printers, processing finished products (laminating, die-cutting), and checking print quality." },
-      tgia_desc2: { vi: "Tự học hỏi và phát triển kỹ năng nội bộ, được cất nhắc lên vị trí Nhân viên Media: Đảm nhận thiết kế banner web, chụp ảnh sản phẩm in ấn (namecard, catalogue, túi giấy) làm tư liệu truyền thông.", en: "Self-taught and internally developed skills, promoted to Media Specialist: Responsible for designing web banners, photographing printed products (namecards, catalogues, paper bags) as media resources." }
-    };
-
-    function updateLanguage(lang) {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (cvTranslations[key] && cvTranslations[key][lang]) {
-          el.innerHTML = cvTranslations[key][lang];
-        }
-      });
-      document.documentElement.lang = lang;
-    }
-
-    // Sync from parent localStorage on load
-    const parentTheme = localStorage.getItem('portfolio_theme');
-    const parentLang = localStorage.getItem('portfolio_lang');
-    if (parentTheme === 'light') {
-      document.documentElement.classList.add('light-theme');
-    }
-    if (parentLang === 'en') {
-      updateLanguage('en');
-    }
-
-    // Listen to messages from parent window
-    window.addEventListener('message', (event) => {
-      if (event.data.type === 'THEME_TOGGLE') {
-        if (event.data.isLight) {
-          document.documentElement.classList.add('light-theme');
-        } else {
-          document.documentElement.classList.remove('light-theme');
-        }
-      }
-      if (event.data.type === 'LANG_TOGGLE') {
-        updateLanguage(event.data.lang);
-      }
-    });
-  </script>
 </body>
-
 </html>
