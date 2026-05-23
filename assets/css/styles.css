@@ -3216,13 +3216,13 @@
   width: 90vw;
   max-width: 1000px;
   height: 90vh;
-  background: var(--bg);
-  border-radius: 12px;
+  background: transparent;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: none;
   transform: translateY(20px) scale(0.98);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: none;
 }
 #cvModal.active .cv-modal-content {
   transform: translateY(0) scale(1);
