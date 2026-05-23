@@ -173,6 +173,16 @@ const scrollProgress = document.getElementById("scrollProgress");
 const navLinks = document.querySelectorAll('.main-nav a, .mobile-nav a');
 const sections = document.querySelectorAll('section[id]');
 
+
+let sectionOffsets = [];
+function cacheSectionOffsets() {
+  sectionOffsets = Array.from(sections).map(section => ({
+    id: section.id,
+    top: section.offsetTop - 120
+  }));
+}
+window.addEventListener('resize', cacheSectionOffsets);
+
 function updateScrollUI() {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -182,9 +192,9 @@ function updateScrollUI() {
   if (backToTop) backToTop.classList.toggle("show", scrollTop > 520);
 
   let currentSection = "home";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 120;
-    if (scrollTop >= sectionTop) currentSection = section.id;
+  if (sectionOffsets.length === 0) cacheSectionOffsets();
+  sectionOffsets.forEach((sec) => {
+    if (scrollTop >= sec.top) currentSection = sec.id;
   });
 
   navLinks.forEach((link) => {
