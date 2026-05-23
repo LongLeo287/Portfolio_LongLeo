@@ -199,12 +199,26 @@
       const backBtn = document.querySelector('.cv-back');
       if (backBtn) backBtn.style.display = 'none';
       const controls = document.querySelector('.cv-controls');
-      if (controls) controls.style.justifyContent = 'flex-end';
+      if (controls) {
+        controls.style.justifyContent = 'flex-end';
+        controls.style.padding = '20px 30px 0';
+        controls.style.marginBottom = '-10px';
+      }
       const cvPage = document.querySelector('.cv-page');
       if (cvPage) {
-        cvPage.style.padding = '20px';
+        cvPage.style.padding = '0';
         cvPage.style.minHeight = 'auto';
+        cvPage.style.background = 'transparent';
       }
+      const cvContainer = document.querySelector('.cv-container');
+      if (cvContainer) {
+        cvContainer.style.background = 'transparent';
+        cvContainer.style.border = 'none';
+        cvContainer.style.boxShadow = 'none';
+        cvContainer.style.padding = '20px 30px 40px';
+        cvContainer.style.maxWidth = '100%';
+      }
+      document.body.style.background = 'transparent';
     }
   </script>
 </body>
