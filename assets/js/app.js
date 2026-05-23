@@ -987,3 +987,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Copy Email Function
+window.copyEmail = function(btn) {
+  const email = 'Longdragon287@gmail.com';
+  navigator.clipboard.writeText(email).then(() => {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Đã chép email!';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+    }, 2000);
+  });
+};
