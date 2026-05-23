@@ -257,9 +257,20 @@
 
     .mobile-nav {
       display: none;
-      border-top: 1px solid rgba(255,255,255,.1);
+      position: fixed;
+      top: 78px;
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 78px);
       background: var(--bg-main);
-      padding: 14px 0 18px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 24px 0;
+      overflow-y: auto;
+    }
+    .mobile-nav .container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     @keyframes mobileNavSlide {
@@ -1348,11 +1359,20 @@
     }
 
     @media (max-width: 768px) {
+      .modal-content-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        max-height: 100vh;
+      }
       .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
       .experience-grid {
+        grid-template-columns: 1fr;
+      }
+      .services-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1363,6 +1383,12 @@
     }
 
     @media (max-width: 720px) {
+      .service-card, .experience-card, .portfolio-body {
+        padding: 20px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 10vw, 48px);
+      }
       .container {
         width: min(100% - 28px, var(--max));
       }
@@ -1419,6 +1445,9 @@
       .experience-grid {
         grid-template-columns: 1fr;
       }
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
 
       .social-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1438,13 +1467,29 @@
     }
 
     @media (max-width: 480px) {
+      .skill-card {
+        padding: 20px;
+      }
+      .contact-form input, .contact-form textarea {
+        font-size: 16px !important;
+      }
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-cta .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
       .portfolio-grid {
         grid-template-columns: 1fr;
         gap: 16px;
       }
 
       .stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
 
       .skills {
@@ -1588,6 +1633,12 @@
 }
 
 @media (max-width: 720px) {
+      .service-card, .experience-card, .portfolio-body {
+        padding: 20px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 10vw, 48px);
+      }
   .avatar-card,
   .avatar-panel {
     min-height: 320px;
@@ -1611,6 +1662,21 @@
 }
 
 @media (max-width: 480px) {
+      .skill-card {
+        padding: 20px;
+      }
+      .contact-form input, .contact-form textarea {
+        font-size: 16px !important;
+      }
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-cta .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
   .compact-grid {
     grid-template-columns: 1fr;
   }
@@ -1891,6 +1957,12 @@
 }
 
 @media (max-width: 720px) {
+      .service-card, .experience-card, .portfolio-body {
+        padding: 20px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 10vw, 48px);
+      }
   .showcase-slider {
     border-radius: 22px;
   }
@@ -1983,6 +2055,12 @@
 }
 
 @media (max-width: 720px) {
+      .service-card, .experience-card, .portfolio-body {
+        padding: 20px;
+      }
+      .hero h1 {
+        font-size: clamp(36px, 10vw, 48px);
+      }
   .partners-section {
     padding: 35px 0;
   }
