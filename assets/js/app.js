@@ -570,8 +570,8 @@ function openCaseStudyModal(project) {
       if (content && content.trim() !== '') {
         bodyHtml += `
           <div class="cs-section" style="margin-bottom:1.25rem;">
-            <h4 style="font-family:'Space&nbsp;Grotesk',sans-serif;color:var(--text-light);font-size:1.05rem;margin-bottom:0.25rem;">✦ ${title}</h4>
-            <p style="margin:0;font-size:0.95rem;">${content}</p>
+            <h4>✦ ${title}</h4>
+            <p>${content}</p>
           </div>
         `;
       }
