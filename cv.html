@@ -24,11 +24,6 @@
       <a href="index.html" class="cv-back">
         <i data-lucide="arrow-left"></i> <span data-i18n="back_to_portfolio">Trở về Portfolio</span>
       </a>
-      <div>
-        <button class="btn btn-dark" onclick="window.print()" style="padding: 10px 20px;">
-          <i data-lucide="printer" style="width:16px;height:16px;margin-right:8px;"></i> <span data-i18n="print_pdf">In / Lưu PDF</span>
-        </button>
-      </div>
     </div>
 
     <div class="cv-container">
@@ -36,7 +31,7 @@
       <!-- CỘT TRÁI (THÔNG TIN CÁ NHÂN & <span data-i18n="skills_title">KỸ NĂNG</span>) -->
       <aside class="cv-sidebar">
         <div class="cv-header">
-          <h1>HÀ ĐÌNH LONG</h1>
+          <h1 data-i18n="name_title">HÀ ĐÌNH LONG</h1>
           <div class="cv-role">Video Editor</div>
         </div>
 
@@ -56,13 +51,13 @@
               <i data-lucide="map-pin"></i> <span data-i18n="address">Tân Phú, Hồ Chí Minh</span>
             </div>
             <div class="cv-contact-item" style="margin-top: 16px; display: flex; gap: 10px;">
-              <a href="https://www.facebook.com/LongLeo97" target="_blank" style="display:flex; align-items:center; padding: 8px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">
+              <a href="https://www.facebook.com/LongLeo97" target="_blank" class="cv-social-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right: 8px;">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
                 Facebook
               </a>
-              <a href="https://www.youtube.com/@LongLeo287" target="_blank" style="display:flex; align-items:center; padding: 8px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: background 0.2s;">
+              <a href="https://www.youtube.com/@LongLeo287" target="_blank" class="cv-social-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="margin-right: 8px;">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.55 9.376.55 9.376.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
@@ -208,6 +203,7 @@
   <!-- Translation and Theme Sync Script -->
   <script>
     const cvTranslations = {
+      name_title: { vi: "HÀ ĐÌNH LONG", en: "HA DINH LONG" },
       address: { vi: "Tân Phú, Hồ Chí Minh", en: "Tan Phu, Ho Chi Minh City" },
       edu_desc: { vi: "Tốt nghiệp ngành Multimedia với kỹ năng chuyên sâu trong quay dựng video, thiết kế đồ họa, motion graphic và thành thạo các phần mềm Adobe như Premiere, After Effects, Photoshop, Illustrator.", en: "Graduated in Multimedia with advanced skills in video editing, graphic design, motion graphics, and proficient in Adobe software such as Premiere, After Effects, Photoshop, Illustrator." },
       skill_video: { vi: "Quay dựng video", en: "Video Production" },
