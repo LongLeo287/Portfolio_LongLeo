@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   /* Layout & Brand */
   --radius-lg: 36px;
   --radius-md: 24px;
@@ -1592,7 +1592,25 @@
   align-items: center;
   justify-content: center;
   padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  border-radius: 8px;
 }
+.lang-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+.lang-btn.active {
+  color: var(--amber);
+  font-weight: 800;
+}
+
 .mobile-nav a {
   min-height: 48px;
   display: flex;
