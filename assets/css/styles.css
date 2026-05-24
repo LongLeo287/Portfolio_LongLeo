@@ -2442,13 +2442,7 @@
   color: var(--text-light);
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: transform 0.3s ease, background 0.3s ease, border 0.3s ease;
+  display: none !important;
 }
 .toggle-info-btn:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -2458,7 +2452,7 @@
 }
 
 .modal-media {
-  flex: 1.2;
+  flex: 1 1 100% !important;
   background: #000;
   display: flex;
   align-items: center;
@@ -2485,10 +2479,7 @@
   border: none;
 }
 .modal-info {
-  flex: 0.8;
-  padding: 3rem 2.5rem;
-  overflow-y: auto;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  display: none !important;
 }
 .modal-info h2 {
   font-size: 2rem;
