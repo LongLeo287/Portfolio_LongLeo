@@ -1997,14 +1997,23 @@
     border-radius: 22px;
   }
   .showcase-info {
-    left: 15px;
-    bottom: 15px;
-    padding: 10px 15px;
-    max-width: 85%;
+    left: 12px;
+    bottom: 46px; /* Avoid overlapping with dots */
+    padding: 8px 12px;
+    max-width: calc(100% - 24px);
+    border-radius: 14px;
+  }
+  .showcase-info .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    margin-bottom: 4px;
   }
   .showcase-info h3 {
-    font-size: 14px;
-      text-wrap: balance;
+    font-size: 13px;
+    text-wrap: balance;
+  }
+  .slider-dots {
+    bottom: 12px;
   }
   .slider-btn {
     width: 35px;
