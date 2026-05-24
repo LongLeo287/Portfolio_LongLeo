@@ -190,6 +190,17 @@
   will-change: transform, opacity;
 }
 
+/* Performance guard: disable heavy blur orbs on mobile to prevent GPU overload */
+@media (max-width: 719px) {
+  .hero-orb {
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+  .hero-orb-1, .hero-orb-2, .hero-orb-3 {
+    animation-play-state: paused;
+  }
+}
+
 .hero-orb-1 {
   width: 650px;
   height: 650px;
@@ -242,6 +253,7 @@
 /* Floating note gentle bob */
 .floating-note {
   animation: floatY 5s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Stat cards staggered entrance — start later so hero text appears first */
@@ -385,6 +397,11 @@
   will-change: left, top;
 }
 
+/* Hide cursor spotlight on touch devices — no mouse to follow */
+@media (hover: none) {
+  .cursor-spotlight { display: none !important; }
+}
+
 /* ── 8. SKILLS + TOOLS ENTRANCE ── */
 
 .skill-card {
@@ -482,3 +499,21 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── 16. PORTFOLIO CARD: fix hover vs show animation conflict ── */
+/* Show animation uses opacity + translateY — hover uses translateY separately */
+/* Separate transition properties prevent the conflict */
+.portfolio-card {
+  transition:
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+.portfolio-card.show:hover {
+  /* Only apply hover transform when card is already visible */
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(245,158,11,0.16);
+  border-color: rgba(245,158,11,0.4);
+}
+
