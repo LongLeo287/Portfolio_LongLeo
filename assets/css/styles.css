@@ -1431,10 +1431,23 @@
       }
 
       .floating-note {
-        left: 24px;
-        right: 24px;
-        bottom: 24px;
-        align-items: flex-start;
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        padding: 12px 16px;
+        border-radius: 20px;
+        align-items: center;
+        gap: 12px;
+      }
+      .floating-note small {
+        font-size: 12px;
+      }
+      .floating-note strong {
+        font-size: 14px;
+        margin-top: 2px;
+      }
+      .floating-note span {
+        font-size: 20px;
       }
 
       .section-pad,
