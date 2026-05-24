@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "proj_001",
     "title": {
@@ -572,8 +572,8 @@
   {
     "id": "proj_016",
     "title": {
-      "vi": "JBL PartyBox Club 120 - 2026",
-      "en": "JBL PartyBox Club 120 - 2026"
+      "vi": "JBL PARTYBOX CLUB 120 - 2026",
+      "en": "JBL PARTYBOX CLUB 120 - 2026"
     },
     "category": "Thumbnail",
     "client": {
@@ -876,8 +876,8 @@
   {
     "id": "proj_024",
     "title": {
-      "vi": "Loa Di Động Kèm Micro",
-      "en": "Portable Speaker With Microphone"
+      "vi": "LOA DI ĐỘNG KÈM MICRO",
+      "en": "PORTABLE SPEAKER WITH MICROPHONE"
     },
     "category": "Thumbnail",
     "client": {
@@ -1180,8 +1180,8 @@
   {
     "id": "proj_032",
     "title": {
-      "vi": "VẤP MARSHALL",
-      "en": "MARSHALL ATTACK"
+      "vi": "VẤP MARSHALL (Mẫu 2)",
+      "en": "MARSHALL ATTACK (Ver. 2)"
     },
     "category": "Thumbnail",
     "client": {
@@ -1256,8 +1256,8 @@
   {
     "id": "proj_034",
     "title": {
-      "vi": "VẤP MARSHALL",
-      "en": "MARSHALL ATTACK"
+      "vi": "VẤP MARSHALL (Mẫu 1)",
+      "en": "MARSHALL ATTACK (Ver. 1)"
     },
     "category": "Thumbnail",
     "client": {
@@ -1294,8 +1294,8 @@
   {
     "id": "proj_035",
     "title": {
-      "vi": "Thumbnail: Top 5 Loa Bluetooth Đáng Mua Nhất",
-      "en": "Thumbnail: Top 5 Bluetooth Speakers Worth Buying"
+      "vi": "TOP 5 LOA BLUETOOTH ĐÁNG MUA NHẤT",
+      "en": "TOP 5 BLUETOOTH SPEAKERS WORTH BUYING"
     },
     "category": "Thumbnail",
     "client": {
@@ -1681,8 +1681,8 @@
   {
     "id": "proj_045",
     "title": {
-      "vi": "BenQ Zowie XL2566K_Shopee - MYGEAR",
-      "en": "BenQ Zowie XL2566K_Shopee - MYGEAR"
+      "vi": "BenQ Zowie XL2566K Shopee - MYGEAR",
+      "en": "BenQ Zowie XL2566K Shopee - MYGEAR"
     },
     "category": "Video",
     "client": {
@@ -1691,7 +1691,7 @@
     },
     "imgSrc": "assets/img/thumbnails/uaM7R0lGPKI.jpg",
     "href": "https://www.youtube.com/watch?v=uaM7R0lGPKI",
-    "alt": "BenQ Zowie XL2566K_Shopee - MYGEAR",
+    "alt": "BenQ Zowie XL2566K Shopee - MYGEAR",
     "isFeatured": false,
     "caseStudy": {
       "role": {
@@ -2102,8 +2102,8 @@
   {
     "id": "proj_056",
     "title": {
-      "vi": "Amity Key visual",
-      "en": "Amity Key visual"
+      "vi": "Amity Key Visual",
+      "en": "Amity Key Visual"
     },
     "category": "Video",
     "client": {
@@ -2112,7 +2112,7 @@
     },
     "imgSrc": "assets/img/thumbnails/LDz9e5MjJec.jpg",
     "href": "https://www.youtube.com/watch?v=LDz9e5MjJec",
-    "alt": "Amity Key visual",
+    "alt": "Amity Key Visual",
     "isFeatured": false,
     "caseStudy": {
       "role": {
@@ -2862,8 +2862,8 @@
   {
     "id": "proj_076",
     "title": {
-      "vi": "TEASTER CTY TUANLE",
-      "en": "TEASTER CTY TUANLE"
+      "vi": "TEASER CTY TUANLE",
+      "en": "TEASER CTY TUANLE"
     },
     "category": "Video",
     "client": {
@@ -2872,7 +2872,7 @@
     },
     "imgSrc": "assets/img/thumbnails/wc7anDRoNLc.jpg",
     "href": "https://www.youtube.com/watch?v=wc7anDRoNLc",
-    "alt": "TEASTER CTY TUANLE",
+    "alt": "TEASER CTY TUANLE",
     "isFeatured": false,
     "caseStudy": {
       "role": {
@@ -3052,8 +3052,8 @@
   {
     "id": "proj_081",
     "title": {
-      "vi": "Rastaclat Review 2 1",
-      "en": "Rastaclat Review 2 1"
+      "vi": "Rastaclat Review - Vol.2 Part 1",
+      "en": "Rastaclat Review - Vol.2 Part 1"
     },
     "category": "Video",
     "client": {
@@ -3062,7 +3062,7 @@
     },
     "imgSrc": "assets/img/thumbnails/St357STCUPo.jpg",
     "href": "https://www.youtube.com/watch?v=St357STCUPo",
-    "alt": "Rastaclat Review 2 1",
+    "alt": "Rastaclat Review - Vol.2 Part 1",
     "isFeatured": false,
     "caseStudy": {
       "role": {
