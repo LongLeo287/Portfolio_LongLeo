@@ -1397,9 +1397,6 @@
       .service-card, .experience-card, .portfolio-body {
         padding: 20px;
       }
-      .hero h1 {
-        font-size: clamp(36px, 10vw, 48px);
-      }
       .container {
         width: min(100% - 28px, var(--max));
       }
@@ -1454,9 +1451,6 @@
       }
 
       .experience-grid {
-        grid-template-columns: 1fr;
-      }
-      .services-grid {
         grid-template-columns: 1fr;
       }
 
