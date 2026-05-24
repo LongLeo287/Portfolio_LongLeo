@@ -1487,8 +1487,31 @@
     }
 
     @media (max-width: 480px) {
+      .service-card, .experience-card, .portfolio-body {
+        padding: 16px;
+      }
+      .service-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+      .service-card h3, .portfolio-body h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      .service-card p, .experience-desc {
+        font-size: 14px;
+      }
+      .experience-card h4 {
+        font-size: 18px;
+      }
+      .experience-meta {
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
       .skill-card {
-        padding: 20px;
+        padding: 16px;
       }
       .contact-form input, .contact-form textarea {
         font-size: 16px !important;
@@ -1987,9 +2010,6 @@
 }
 
 @media (max-width: 720px) {
-      .service-card, .experience-card, .portfolio-body {
-        padding: 20px;
-      }
       .hero h1 {
         font-size: clamp(36px, 10vw, 48px);
       }
@@ -2081,9 +2101,6 @@
 }
 
 @media (max-width: 720px) {
-      .service-card, .experience-card, .portfolio-body {
-        padding: 20px;
-      }
       .hero h1 {
         font-size: clamp(36px, 10vw, 48px);
       }
