@@ -3658,6 +3658,23 @@
   .tool-info h5 {
     font-size: 14px !important;
   }
+  .filter-row {
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .filter-row::-webkit-scrollbar {
+    display: none !important;
+  }
+  .filter-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    padding: 8px 18px !important;
+    font-size: 14px !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -3722,6 +3739,23 @@
     display: none !important;
   }
   .tool-info h5 {
+    font-size: 13px !important;
+  }
+  .filter-row {
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+    padding-bottom: 8px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .filter-row::-webkit-scrollbar {
+    display: none !important;
+  }
+  .filter-btn {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    padding: 6px 14px !important;
     font-size: 13px !important;
   }
 }
