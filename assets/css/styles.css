@@ -1997,11 +1997,14 @@
     border-radius: 22px;
   }
   .showcase-info {
-    left: 12px;
-    bottom: 46px; /* Avoid overlapping with dots */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 46px;
     padding: 8px 12px;
-    max-width: calc(100% - 24px);
+    width: calc(100% - 130px);
+    max-width: 400px;
     border-radius: 14px;
+    text-align: center;
   }
   .showcase-info .tag {
     font-size: 10px;
