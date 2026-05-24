@@ -1324,32 +1324,6 @@
         animation: mobileNavSlide 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
 
-      .hero-grid,
-      .about-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-grid > div,
-      .about-grid > div,
-      .contact-grid > div {
-        min-width: 0;
-      }
-
-      .hero-visual,
-      .about-image {
-        max-width: min(80vw, 500px);
-        margin: 0 auto;
-      }
-
-      .hero-grid {
-        padding-top: 44px;
-      }
-
-      .hero-visual {
-        max-width: min(70vw, 400px);
-        margin: 0 auto;
-      }
-
       .services-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1411,8 +1385,26 @@
         padding-top: 94px;
       }
 
-      .hero-grid {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
         min-height: auto;
+      }
+      .hero-grid > div,
+      .about-grid > div,
+      .contact-grid > div {
+        min-width: 0;
+      }
+
+      .hero-visual,
+      .about-image {
+        max-width: min(80vw, 400px);
+        margin: 0 auto;
+      }
+
+      .hero-grid {
+        padding-top: 44px;
       }
 
       .hero h1 {
