@@ -3305,7 +3305,8 @@
   height: 90vh;
   background: transparent;
   border-radius: 24px;
-  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: none;
   transform: translateY(20px) scale(0.98);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3322,7 +3323,27 @@
 }
 
 #cvModal .lightbox-close {
-  display: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  top: 16px;
+  right: 16px;
+  font-size: 28px;
+  z-index: 10001;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  #cvModal .lightbox-close {
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
 }
 
 /* Light theme overrides for CV */

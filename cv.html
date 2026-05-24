@@ -323,30 +323,9 @@
         controls.style.marginBottom = '20px';
       }
 
-      // Add close button inside CV container
       const cvContainer = document.querySelector('.cv-container');
       if (cvContainer) {
-        const closeBtn = document.createElement('div');
-        closeBtn.innerHTML = '&times;';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '20px';
-        closeBtn.style.right = '30px';
-        closeBtn.style.fontSize = '32px';
-        closeBtn.style.color = 'rgba(255,255,255,0.5)';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.zIndex = '100';
-        closeBtn.style.lineHeight = '1';
-        closeBtn.style.transition = '0.2s';
-        closeBtn.onmouseover = () => closeBtn.style.color = '#fff';
-        closeBtn.onmouseout = () => closeBtn.style.color = 'rgba(255,255,255,0.5)';
-        closeBtn.onclick = () => {
-          if (window.parent && window.parent.document) {
-            const btn = window.parent.document.getElementById('closeCvBtn');
-            if (btn) btn.click();
-          }
-        };
         cvContainer.style.position = 'relative';
-        cvContainer.appendChild(closeBtn);
       }
 
       const cvPage = document.querySelector('.cv-page');
