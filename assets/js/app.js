@@ -767,8 +767,12 @@ function initShowcaseSlider() {
       <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="video" data-video-src="${selectedVideo.href}">
         <div class="showcase-img-wrap">
           <div class="showcase-bg-blur" style="background-image: url('${videoThumb}');"></div>
-          <div class="yt-facade" style="background-image: url('${videoThumb}');" aria-label="Phát video: ${videoTitle}">
-            <div class="yt-play-btn" aria-hidden="true">
+          <div class="yt-facade" aria-label="Phát video: ${videoTitle}">
+            <img src="${videoThumb}" alt="${videoTitle}"
+                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; border-radius:inherit;" 
+                 onload="if(this.naturalWidth <= 120 && this.src.includes('maxresdefault')) { this.src = this.src.replace('maxresdefault', 'hqdefault'); this.parentElement.previousElementSibling.style.backgroundImage = 'url(' + this.src + ')'; }"
+                 onerror="if(this.src.includes('maxresdefault')) { this.src = this.src.replace('maxresdefault', 'hqdefault'); this.parentElement.previousElementSibling.style.backgroundImage = 'url(' + this.src + ')'; }">
+            <div class="yt-play-btn" style="position:relative; z-index:2;" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="24" height="24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
             </div>
           </div>
