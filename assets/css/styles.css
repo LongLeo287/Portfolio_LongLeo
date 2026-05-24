@@ -1508,8 +1508,18 @@
       }
 
       .stats {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .stat-card {
+        padding: 16px 10px;
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 24px;
+      }
+      .stat-label {
+        font-size: 11px;
       }
 
       .skills {
