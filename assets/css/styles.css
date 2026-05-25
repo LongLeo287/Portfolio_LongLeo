@@ -987,6 +987,27 @@
       pointer-events: none;
     }
 
+    /* ── Photography: pure image card, no text body ── */
+    .portfolio-card.photo-only {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .portfolio-card.photo-only .portfolio-thumb {
+      aspect-ratio: 4 / 3;
+      border-radius: 16px;
+    }
+    .portfolio-card.photo-only .portfolio-thumb::after {
+      background: linear-gradient(to top, rgba(12,10,9,.35), transparent 50%);
+    }
+    .portfolio-card.photo-only:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      transform: translateY(-4px);
+    }
+
+
     .tag {
       position: absolute;
       left: 18px;

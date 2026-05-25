@@ -389,7 +389,7 @@ function renderPortfolio(filter = 'all') {
   
   displayList.forEach(p => {
     const card = document.createElement('a');
-    card.className = 'portfolio-card fade-up';
+    card.className = `portfolio-card fade-up${p.category === 'Photography' ? ' photo-only' : ''}`;
     card.dataset.category = p.category;
     card.dataset.id = p.id;
     card.href = p.href || p.imgSrc;
@@ -411,7 +411,7 @@ function renderPortfolio(filter = 'all') {
     `;
     card.appendChild(thumbDiv);
     
-    if (title || client) {
+    if ((title || client) && p.category !== 'Photography') {
       const bodyDiv = document.createElement('div');
       bodyDiv.className = 'portfolio-body';
       bodyDiv.innerHTML = `
