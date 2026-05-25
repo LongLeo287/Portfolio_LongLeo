@@ -592,23 +592,37 @@ function openCaseStudyModal(project) {
     elements.modalBody.innerHTML = '';
   }
   
-  // Media (Autoplay YouTube Video vs Image)
+  // Media — Video: embed YouTube | Thumbnail with YT link: embed | Others: image
   elements.modalMedia.innerHTML = '';
-  if (project.category === "Video") {
+  const isYouTubeHref = project.href && project.href.includes('youtube.com');
+
+  if (project.category === 'Video' || (project.category === 'Thumbnail' && isYouTubeHref)) {
     const embedUrl = getYouTubeEmbedUrl(project.href || project.imgSrc);
     if (embedUrl) {
       elements.modalMedia.innerHTML = `<iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
   } else {
     const safeImgSrc = project.imgSrc.replace(/'/g, "%27");
+    const ytBtn = isYouTubeHref
+      ? `<a href="${project.href}" target="_blank" rel="noopener" class="modal-yt-btn">▶ Xem trên YouTube</a>`
+      : '';
     elements.modalMedia.innerHTML = `
       <div class="modal-media-blur" style="background-image: url('${safeImgSrc}')"></div>
       <img src="${project.imgSrc}" alt="${title}" style="position:relative; z-index:2;" />
+      ${ytBtn}
     `;
   }
-  
+
   const layout = document.querySelector('.modal-layout');
-  if (layout) layout.classList.remove('info-hidden');
+  // Auto-hide info panel for image-only cards (Thumbnail/Photography) that have no case study
+  if (layout) {
+    const hasInfo = project.caseStudy && (project.caseStudy.role || project.caseStudy.concept);
+    if (!hasInfo) {
+      layout.classList.add('info-hidden');
+    } else {
+      layout.classList.remove('info-hidden');
+    }
+  }
   elements.modal.classList.add('active');
   if (window.lenis) window.lenis.stop();
 }
