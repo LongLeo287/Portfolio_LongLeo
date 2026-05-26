@@ -1,0 +1,15 @@
+# Dev / tooling scripts — không cần deploy lên Vercel
+deep-translate.py
+fix-translations.py
+design_all_files.json
+design_visual_titles.json
+vua2hand_visual_titles.json
+scratch/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

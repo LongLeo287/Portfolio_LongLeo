@@ -4,11 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hà Đình Long | Video Editor Portfolio</title>
-  <meta name="description" content="Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 5 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX." />
+  <meta name="description" content="Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 7 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX." />
   <meta name="theme-color" content="#0c0a09" />
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
   <meta property="og:title" content="Hà Đình Long | Video Editor Portfolio" />
-  <meta property="og:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 5+ năm kinh nghiệm." />
+  <meta property="og:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 7+ năm kinh nghiệm." />
   <meta property="og:url" content="https://portfolio-long-leo.vercel.app/" />
+  <meta property="og:image" content="https://portfolio-long-leo.vercel.app/assets/img/longleo_avatar.webp" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:alt" content="Hà Đình Long — Video Editor Portfolio" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hà Đình Long | Video Editor Portfolio" />
+  <meta name="twitter:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 7+ năm kinh nghiệm." />
+  <meta name="twitter:image" content="https://portfolio-long-leo.vercel.app/assets/img/longleo_avatar.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +35,7 @@
     @media (max-width: 479px)  { .portfolio-grid { grid-template-columns: 1fr !important;             gap: 14px !important; } }
   </style>
 
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js" async></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,7 +47,7 @@
     "sameAs": [
       "https://github.com/LongLeo287"
     ],
-    "description": "Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 5 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX.",
+    "description": "Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 7 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX.",
     "knowsAbout": ["Video Editing", "Motion Graphics", "Graphic Design", "UI/UX Design", "Visual Storytelling"]
   }
   </script>
@@ -51,7 +64,8 @@
       user-select: none !important;
       -webkit-user-drag: none !important;
     }
-    input, textarea {
+    input, textarea,
+    .contact-item a, .contact-item strong, .contact-list a {
       -webkit-user-select: auto !important;
       -moz-user-select: auto !important;
       -ms-user-select: auto !important;
@@ -139,17 +153,17 @@
           <span class="pill" data-i18n="hero_pill">✦ Technical Video Editor • Motion Graphic • UI/UX</span>
           <h1 data-i18n="hero_title">Hà Đình <span class="gradient-text">Long</span></h1>
           <p class="hero-copy" data-i18n="hero_desc">
-            Biến ý tưởng thành hình ảnh sống động — từ quay dựng video, motion graphic, thiết kế đồ họa đến tối ưu UI/UX.<br>Hơn 5 năm kinh nghiệm tạo ra sản phẩm truyền thông chất lượng cao.
+            Biến ý tưởng thành hình ảnh sống động — từ quay dựng video, motion graphic, thiết kế đồ họa đến tối ưu UI/UX.<br>Hơn 7 năm kinh nghiệm tạo ra sản phẩm truyền thông chất lượng cao.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#portfolio" data-i18n="hero_btn1">Xem portfolio ↗</a>
-            <a class="btn btn-glass" href="#" id="openCvBtn" data-i18n="hero_btn_cv">Xem CV 📄</a>
+            <a class="btn btn-glass" href="javascript:void(0)" id="openCvBtn" data-i18n="hero_btn_cv">Xem CV 📄</a>
             <a class="btn btn-glass" href="#contact" data-i18n="hero_btn2">Liên hệ hợp tác ✉</a>
           </div>
 
           <div class="stats">
             <div class="stat-card">
-              <span class="stat-number">5+</span>
+              <span class="stat-number">7+</span>
               <span class="stat-label" data-i18n="stat_exp">năm kinh nghiệm</span>
             </div>
             <div class="stat-card">
@@ -188,41 +202,41 @@
         <div class="marquee-wrapper fade-up">
         <div class="marquee-track">
             <!-- Set 1 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
             <!-- Set 2 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
             <!-- Set 3 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
             <!-- Set 4 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
             <!-- Set 5 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
             <!-- Set 6 -->
-            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" /></div>
-            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" /></div>
-            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" /></div>
-            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" /></div>
+            <div class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" loading="lazy"/></div>
+            <div class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" loading="lazy"/></div>
           </div>
         </div>
     </section>
@@ -242,7 +256,7 @@
           <h2 data-i18n="about_title">Từ Arena Multimedia đến hành trình sáng tạo hình ảnh chuyên nghiệp.</h2>
           <div class="about-text">
             <p data-i18n="about_p1">Chào bạn, mình là <strong>Hà Đình Long</strong> — hay còn được biết đến với tên <strong>Long Leo</strong>. Tốt nghiệp ngành Multimedia tại Arena Multimedia, mình bắt đầu hành trình sáng tạo từ năm 2019.</p>
-            <p data-i18n="about_p2">Với hơn 5 năm kinh nghiệm trong lĩnh vực sản xuất video, thiết kế đồ họa và truyền thông đa phương tiện, mình đã đi qua nhiều môi trường từ agency, công ty sản phẩm đến freelance — mỗi giai đoạn giúp mình tích lũy thêm góc nhìn và kỹ năng mới.</p>
+            <p data-i18n="about_p2">Với hơn 7 năm kinh nghiệm trong lĩnh vực sản xuất video, thiết kế đồ họa và truyền thông đa phương tiện, mình đã đi qua nhiều môi trường từ agency, công ty sản phẩm đến freelance — mỗi giai đoạn giúp mình tích lũy thêm góc nhìn và kỹ năng mới.</p>
             <p data-i18n="about_p3_short"><strong>Mục tiêu ngắn hạn:</strong> Tối ưu hóa kỹ năng sản xuất hình ảnh/video chuyên sâu và ứng dụng tư duy sáng tạo để tạo ra các sản phẩm truyền thông chất lượng cao, thúc đẩy hiệu suất các chiến dịch marketing.</p>
             <p data-i18n="about_p3_long"><strong>Mục tiêu dài hạn:</strong> Trở thành Chuyên gia Hậu kỳ (Post-Production Specialist), không ngừng nâng cấp bộ kỹ năng chuyên môn và ứng dụng các công cụ công nghệ mới (AI, Automation) để tối ưu hóa tốc độ dựng phim và nâng cao chất lượng đầu ra.</p>
           </div>
@@ -277,7 +291,7 @@
             <div class="tools-grid">
               <!-- Premiere Pro -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/3840px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="Adobe Premiere Pro"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/3840px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="Adobe Premiere Pro" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Premiere Pro</h5>
                   <span data-i18n="tool_prem">Dựng phim & Màu sắc</span>
@@ -286,7 +300,7 @@
               
               <!-- After Effects -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/3840px-Adobe_After_Effects_CC_icon.svg.png" alt="Adobe After Effects"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/3840px-Adobe_After_Effects_CC_icon.svg.png" alt="Adobe After Effects" loading="lazy"/>
                 <div class="tool-info">
                   <h5>After Effects</h5>
                   <span data-i18n="tool_ae">Motion & Hậu kỳ kỹ xảo</span>
@@ -295,7 +309,7 @@
               
               <!-- Photoshop -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/3840px-Adobe_Photoshop_CC_icon.svg.png" alt="Adobe Photoshop"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/3840px-Adobe_Photoshop_CC_icon.svg.png" alt="Adobe Photoshop" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Photoshop</h5>
                   <span data-i18n="tool_ps">Chỉnh ảnh & Cắt ghép</span>
@@ -304,7 +318,7 @@
               
               <!-- Illustrator -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/3840px-Adobe_Illustrator_CC_icon.svg.png" alt="Adobe Illustrator"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/3840px-Adobe_Illustrator_CC_icon.svg.png" alt="Adobe Illustrator" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Illustrator</h5>
                   <span data-i18n="tool_ai">Thiết kế Vector & Ấn phẩm</span>
@@ -313,7 +327,7 @@
               
               <!-- Lightroom -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg/3840px-Adobe_Photoshop_Lightroom_CC_logo.svg.png" alt="Adobe Lightroom"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Adobe_Photoshop_Lightroom_CC_logo.svg/3840px-Adobe_Photoshop_Lightroom_CC_logo.svg.png" alt="Adobe Lightroom" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Lightroom</h5>
                   <span data-i18n="tool_lr">Blend màu & Hậu kỳ ảnh</span>
@@ -322,7 +336,7 @@
               
               <!-- Figma -->
               <div class="tool-item">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma"/>
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Figma</h5>
                   <span data-i18n="tool_figma">Thiết kế giao diện UI/UX</span>
@@ -331,7 +345,7 @@
 
               <!-- CapCut -->
               <div class="tool-item">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Capcut-icon.svg/3840px-Capcut-icon.svg.png" alt="CapCut"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Capcut-icon.svg/3840px-Capcut-icon.svg.png" alt="CapCut" loading="lazy"/>
                 <div class="tool-info">
                   <h5>CapCut</h5>
                   <span data-i18n="tool_capcut">Dựng video nhanh & Tiện lợi</span>
@@ -340,7 +354,7 @@
 
               <!-- Canva -->
               <div class="tool-item">
-                <img src="https://static.vecteezy.com/system/resources/previews/032/329/175/large_2x/canva-icon-logo-symbol-free-png.png" alt="Canva"/>
+                <img src="https://static.vecteezy.com/system/resources/previews/032/329/175/large_2x/canva-icon-logo-symbol-free-png.png" alt="Canva" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Canva</h5>
                   <span data-i18n="tool_canva">Thiết kế đồ họa trực tuyến</span>
@@ -355,7 +369,7 @@
             <div class="tools-grid">
               <!-- Gemini -->
               <div class="tool-item">
-                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg" alt="Google Gemini"/>
+                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/gemini-color.svg" alt="Google Gemini" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Google Gemini</h5>
                   <span data-i18n="tool_gemini">Lên ý tưởng & Lịch trình</span>
@@ -384,7 +398,7 @@
               
               <!-- Google Antigravity -->
               <div class="tool-item">
-                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/antigravity-color.svg" alt="Google Antigravity"/>
+                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/antigravity-color.svg" alt="Google Antigravity" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Google Antigravity</h5>
                   <span data-i18n="tool_antigravity">Tự động hóa & Coding</span>
@@ -393,7 +407,7 @@
               
               <!-- Claude Code -->
               <div class="tool-item">
-                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claudecode-color.svg" alt="Claude Code"/>
+                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claudecode-color.svg" alt="Claude Code" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Claude Code</h5>
                   <span data-i18n="tool_claude">Phân tích & Viết nội dung</span>
@@ -402,7 +416,7 @@
               
               <!-- Codex -->
               <div class="tool-item">
-                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/codex-color.svg" alt="Codex"/>
+                <img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/codex-color.svg" alt="Codex" loading="lazy"/>
                 <div class="tool-info">
                   <h5>Codex</h5>
                   <span data-i18n="tool_codex">Hỗ trợ Kỹ thuật & Code</span>
@@ -470,7 +484,7 @@
             <div class="experience-card-inner">
               <div class="experience-header">
                 <div class="experience-logo-box">
-                  <img src="assets/img/logos/vua2hand.png" alt="Vua2Hand" class="experience-logo" />
+                  <img src="assets/img/logos/vua2hand.png" alt="Vua2Hand" class="experience-logo" loading="lazy"/>
                 </div>
                 <div class="experience-title-area">
                   <h3>Vua2Hand</h3>
@@ -489,7 +503,7 @@
             <div class="experience-card-inner">
               <div class="experience-header">
                 <div class="experience-logo-box">
-                  <img src="assets/img/logos/mygear.png" alt="MyGear" class="experience-logo" />
+                  <img src="assets/img/logos/mygear.png" alt="MyGear" class="experience-logo" loading="lazy"/>
                 </div>
                 <div class="experience-title-area">
                   <h3>MyGear</h3>
@@ -508,7 +522,7 @@
             <div class="experience-card-inner">
               <div class="experience-header">
                 <div class="experience-logo-box">
-                  <img src="assets/img/logos/vie.png" alt="Vie Production" class="experience-logo" />
+                  <img src="assets/img/logos/vie.png" alt="Vie Production" class="experience-logo" loading="lazy"/>
                 </div>
                 <div class="experience-title-area">
                   <h3>Vie Production</h3>
@@ -527,7 +541,7 @@
             <div class="experience-card-inner">
               <div class="experience-header">
                 <div class="experience-logo-box">
-                  <img src="assets/img/logos/topskills.png" alt="Topskills" class="experience-logo" />
+                  <img src="assets/img/logos/topskills.png" alt="Topskills" class="experience-logo" loading="lazy"/>
                 </div>
                 <div class="experience-title-area">
                   <h3>Topskills</h3>
@@ -546,7 +560,7 @@
             <div class="experience-card-inner">
               <div class="experience-header">
                 <div class="experience-logo-box">
-                  <img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" class="experience-logo" />
+                  <img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" class="experience-logo" loading="lazy"/>
                 </div>
                 <div class="experience-title-area">
                   <h3>Thế Giới In Ấn</h3>
@@ -694,7 +708,7 @@
     <div class="lightbox-content-wrapper" id="lightboxVideoWrapper">
       <iframe id="lightboxVideo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
-    <img class="lightbox-content" id="lightboxImage" alt="Phóng to" style="display: none;">
+    <img class="lightbox-content" id="lightboxImage" alt="Phóng to" style="display: none;" loading="lazy"/>
   </div>
 
   <!-- CV Modal -->
@@ -713,17 +727,37 @@
   <script src="assets/js/main.js?v=1.39" defer></script>
   <script src="assets/js/animations.js" defer></script>
 <script>
-    // Aggressive Anti-Theft
-    document.addEventListener('contextmenu', e => e.preventDefault(), {passive: false});
-    document.addEventListener('selectstart', e => e.preventDefault(), {passive: false});
+    // Anti-Theft — bảo vệ hình ảnh & nội dung, nhưng cho phép copy email/SĐT
+    const _allowedCopyTags = ['INPUT', 'TEXTAREA', 'A'];
+    const _contactCopyTargets = ['.contact-item', '.contact-list'];
+
+    document.addEventListener('contextmenu', e => {
+      // Chỉ block right-click trên ảnh
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    }, {passive: false});
+    document.addEventListener('selectstart', e => {
+      if (_allowedCopyTags.includes(e.target.tagName)) return;
+      if (e.target.closest('.contact-item, .contact-list, .contact-form')) return;
+      e.preventDefault();
+    }, {passive: false});
     document.addEventListener('dragstart', e => e.preventDefault(), {passive: false});
-    document.addEventListener('copy', e => e.preventDefault(), {passive: false});
-    document.addEventListener('cut', e => e.preventDefault(), {passive: false});
-    document.addEventListener('paste', e => e.preventDefault(), {passive: false});
+    document.addEventListener('copy', e => {
+      // Cho phép copy trong input, textarea, và contact section
+      if (_allowedCopyTags.includes(e.target.tagName)) return;
+      if (e.target.closest('.contact-item, .contact-list, .contact-form')) return;
+      e.preventDefault();
+    }, {passive: false});
+    document.addEventListener('cut', e => {
+      if (_allowedCopyTags.includes(e.target.tagName)) return;
+      e.preventDefault();
+    }, {passive: false});
     document.addEventListener('keydown', e => {
       if (e.key === 'F12') e.preventDefault();
-      if (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) e.preventDefault();
-      if (e.ctrlKey && ['U','u','S','s','P','p','C','c','A','a'].includes(e.key)) e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && ['I','i','J','j'].includes(e.key)) e.preventDefault();
+      // Chỉ block Ctrl+U (view source) — không block Ctrl+C/A trong inputs
+      if (e.ctrlKey && ['U','u'].includes(e.key) && !_allowedCopyTags.includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+      }
     }, {passive: false});
   </script>
 </body>
