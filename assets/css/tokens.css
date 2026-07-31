@@ -94,16 +94,20 @@
   --spotlight-tint: rgba(249, 115, 22, 0.1);
 }
 
-/* ── Reduced motion: collapse every duration to a near-zero value.
-      JS reads the same media query and skips its own animation loops. ── */
+/* ── Reduced motion ──────────────────────────────────────────────────
+   Durations shorten to a uniform, gentle fade rather than snapping to
+   zero: a colour or opacity change still communicates, and killing it
+   outright makes state changes harder to follow, not easier. The
+   movement itself is removed in animations.css; JS reads the same media
+   query and skips its own animation loops entirely. */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-instant: 0.01ms;
-    --dur-fast: 0.01ms;
-    --dur-base: 0.01ms;
-    --dur-slow: 0.01ms;
-    --dur-deliberate: 0.01ms;
-    --dur-cinematic: 0.01ms;
+    --dur-instant: 80ms;
+    --dur-fast: 120ms;
+    --dur-base: 150ms;
+    --dur-slow: 150ms;
+    --dur-deliberate: 150ms;
+    --dur-cinematic: 150ms;
     --stagger: 0ms;
     --stagger-tight: 0ms;
   }

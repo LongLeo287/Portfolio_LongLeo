@@ -255,7 +255,11 @@
 
   document.querySelectorAll('.stat-number').forEach((el) => counterObserver.observe(el));
 
-  /* ── 5. MAGNETIC CTA ────────────────────────────────────────────── */
+  /* ── 5. MAGNETIC CTA ──────────────────────────────────────────────
+     Writes --mag-x/--mag-y rather than `transform`. An inline transform
+     would win the cascade over :hover and :active, so the button would
+     stop showing lift and press feedback the moment the pointer touched
+     it. The CSS composes all three. */
   if (finePointer() && !prefersReduced()) {
     document.querySelectorAll('.btn-primary, .btn-dark, .header-cta').forEach((btn, i) => {
       const key = `magnet-${i}`;
@@ -264,12 +268,16 @@
         const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
         const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
         schedule(key, () => {
-          btn.style.transform = `translate(${x}px, ${y}px) translateY(-2px)`;
+          btn.style.setProperty('--mag-x', `${x.toFixed(1)}px`);
+          btn.style.setProperty('--mag-y', `${y.toFixed(1)}px`);
         });
       }, { passive: true });
 
       btn.addEventListener('mouseleave', () => {
-        schedule(key, () => { btn.style.transform = ''; });
+        schedule(key, () => {
+          btn.style.removeProperty('--mag-x');
+          btn.style.removeProperty('--mag-y');
+        });
       }, { passive: true });
     });
   }

@@ -293,13 +293,17 @@
       padding: 11px 18px;
       font-size: 14px;
       font-weight: 800;
-      transition: .25s ease;
+      transition: background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
       white-space: nowrap;
+    }
+
+    .header-cta {
+      transform: translate(var(--mag-x, 0px), calc(var(--mag-y, 0px) + var(--lift, 0px))) scale(var(--press, 1));
     }
 
     .header-cta:hover {
       background: linear-gradient(135deg, var(--orange), var(--amber));
-      transform: translateY(-1px);
+      --lift: -1px;
       box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
     }
 
@@ -355,11 +359,13 @@
       position: absolute;
       left: 0;
       bottom: -1px;
-      width: 0%;
+      width: 100%;
       height: 2px;
       background: linear-gradient(90deg, var(--amber), var(--orange));
       box-shadow: 0 0 18px rgba(252,211,77,.5);
-      transition: width .08s linear;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      will-change: transform;
     }
 
     .hero {
@@ -451,6 +457,10 @@
       gap: 12px;
     }
 
+    /* The magnetic-hover JS used to write an inline `transform`, which beat the
+       :active rule in the cascade, so pressing a primary CTA showed no
+       feedback at all. JS now writes --mag-x/--mag-y and the transform is
+       composed here, so lift, magnet pull and press all coexist. */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -460,9 +470,13 @@
       padding: 15px 24px;
       font-size: 14px;
       font-weight: 850;
-      transition: .25s ease;
       border: none;
       cursor: pointer;
+      transform: translate(var(--mag-x, 0px), calc(var(--mag-y, 0px) + var(--lift, 0px))) scale(var(--press, 1));
+      transition: transform var(--dur-base) var(--ease-out),
+                  background var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out),
+                  color var(--dur-base) var(--ease-out);
     }
 
     .btn-primary {
@@ -475,7 +489,7 @@
     .btn-glass:hover,
     .btn-dark:hover,
     .btn-light:hover {
-      transform: translateY(-2px);
+      --lift: -2px;
     }
 
     .btn-primary:hover {
@@ -764,7 +778,7 @@
       background: var(--bg-main);
       color: var(--amber);
       font-size: 25px;
-      transition: .28s ease;
+      transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     }
 
     .service-card:hover .service-icon {
@@ -818,7 +832,7 @@
       border: 1px solid rgba(255,255,255,.1);
       border-radius: 34px;
       background: rgba(255,255,255,.04);
-      transition: .28s ease;
+      transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     }
 
     .experience-card:hover {
@@ -855,7 +869,7 @@
       place-items: center;
       padding: 7px;
       box-sizing: border-box;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
@@ -1078,7 +1092,7 @@
       height: 100%;
       object-fit: cover;
       transform: scale(1.04);
-      transition: transform .5s ease;
+      transition: transform var(--dur-slow) var(--ease-out);
     }
 
     .portfolio-card:hover .portfolio-thumb img {
@@ -1299,7 +1313,7 @@
       padding: 14px 16px;
       outline: none;
       font: inherit;
-      transition: .2s ease;
+      transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
     }
 
     .contact-form input::placeholder,
@@ -1327,7 +1341,9 @@
       padding: 0 14px;
       font-size: 14px;
       font-weight: 750;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: max-height var(--dur-slow) var(--ease-out),
+                  padding var(--dur-slow) var(--ease-out),
+                  opacity var(--dur-slow) var(--ease-out);
       border: 1px solid transparent;
       box-sizing: border-box;
     }
@@ -1477,7 +1493,7 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(14px) scale(.96);
-      transition: .25s ease;
+      transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     }
 
     .back-to-top.show {
@@ -1900,8 +1916,9 @@
 /* ── Showcase Slider ── */
 .showcase-slider { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 0 auto 34px; border-radius: 34px; overflow: hidden; background: var(--bg-main); box-shadow: var(--shadow); border: 1px solid var(--line); touch-action: pan-y; }
 .showcase-slides { position: relative; width: 100%; height: 100%; }
-.showcase-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s cubic-bezier(0.25, 1, 0.5, 1); display: flex; align-items: center; justify-content: center; }
-.showcase-slide.active { opacity: 1; visibility: visible; }
+.showcase-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity var(--dur-deliberate) var(--ease-out), transform var(--dur-deliberate) var(--ease-out), visibility var(--dur-deliberate) var(--ease-out); display: flex; align-items: center; justify-content: center; }
+.showcase-slide { transform: scale(1.015); }
+.showcase-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
 .showcase-slide iframe { width: 100%; height: 100%; border: 0; }
 .showcase-img-wrap { position: relative; width: 100%; height: 100%; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .showcase-bg-blur { position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px; background-size: cover; background-position: center; filter: blur(24px) brightness(0.32) saturate(1.2); z-index: 1; pointer-events: none; }
@@ -1909,12 +1926,12 @@
 .showcase-info { position: absolute; left: 30px; bottom: 30px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); padding: 15px 25px; border-radius: 18px; color: #fff; max-width: 70%; border: 1px solid rgba(255,255,255,0.1); pointer-events: none; z-index: 10; }
 .showcase-info .tag { position: relative; top: auto; left: auto; display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 10px; border-radius: 20px; background: var(--orange); color: var(--text-light); margin-bottom: 6px; }
 .showcase-info h3 { font-size: 18px; font-weight: 600; margin: 0; text-wrap: balance; }
-.slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 20; }
+.slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); z-index: 20; }
 .slider-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.1); }
 .prev-btn { left: 20px; }
 .next-btn { right: 20px; }
 .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 20; }
-.slider-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; }
+.slider-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
 .slider-dot.active { background: #fff; width: 25px; border-radius: 10px; }
 
 /* ── Partners & Marquee ── */
@@ -1946,7 +1963,7 @@
 .tools-group { display: flex; flex-direction: column; gap: 20px; }
 .tools-group-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); border-bottom: 2px solid var(--line); padding-bottom: 10px; margin-bottom: 4px; }
 .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.tool-item { display: flex; align-items: center; gap: 16px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 20px; min-height: 92px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 15px rgba(28,25,23,0.015); }
+.tool-item { display: flex; align-items: center; gap: 16px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 20px; min-height: 92px; transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); box-shadow: 0 4px 15px rgba(28,25,23,0.015); }
 .tool-item:hover { transform: translateY(-3px); border-color: rgba(249,115,22,0.3); box-shadow: 0 12px 30px rgba(28,25,23,0.08); }
 .tool-item img, .tool-item svg { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; }
 .tool-info { display: flex; flex-direction: column; gap: 3px; }
@@ -1957,9 +1974,14 @@
 
 
 /* ── Interactive feedback ── */
-.btn:active, .header-cta:active, .menu-btn:active, .filter-btn:active, .back-to-top:active, .social-grid a:active {
-  transform: scale(0.96);
-  transition: transform 0.08s cubic-bezier(0.25, 1, 0.5, 1);
+/* Press feedback: subtle scale on anything pressable, fast on the way down. */
+.btn:active, .header-cta:active { --press: 0.96; }
+
+.menu-btn:active, .filter-btn:active, .back-to-top:active,
+.social-grid a:active, .portfolio-card:active, .service-card:active,
+.tool-item:active, .experience-card:active {
+  transform: scale(0.97);
+  transition: transform var(--dur-instant) var(--ease-out);
 }
 
 /* ── YouTube Facade ── */
@@ -2004,7 +2026,7 @@
 .mobile-lang-row { display: none; }
 
 /* ── Theme Toggle Button ── */
-.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; cursor: pointer; transition: all 0.3s ease; padding: 0; margin-right: 1rem; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; cursor: pointer; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); padding: 0; margin-right: 1rem; }
 .theme-toggle:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
 :root.light-theme .theme-toggle { background: rgba(28,25,23,0.05); border: 1px solid rgba(28,25,23,0.1); color: var(--text-main); }
 :root.light-theme .theme-toggle:hover { background: rgba(28,25,23,0.1); }
@@ -2033,7 +2055,7 @@
    open. Only opacity fades. */
 #cvModal { z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity var(--dur-base) var(--ease-out); }
 #cvModal.active { opacity: 1; visibility: visible; }
-.cv-modal-content { width: 90vw; max-width: 1000px; height: 90vh; background: transparent; border-radius: 24px; overflow-y: auto; -webkit-overflow-scrolling: touch; box-shadow: none; transform: translateY(20px) scale(0.98); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); border: none; }
+.cv-modal-content { width: 90vw; max-width: 1000px; height: 90vh; background: transparent; border-radius: 24px; overflow-y: auto; -webkit-overflow-scrolling: touch; box-shadow: none; transform: translateY(20px) scale(0.98); transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); border: none; }
 #cvModal.active .cv-modal-content { transform: translateY(0) scale(1); }
 .cv-modal-content iframe { width: 100%; height: 100%; border: none; background: transparent; }
 #cvModal .lightbox-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: rgba(0,0,0,0.6); border: 0; border-radius: 50%; top: 16px; right: 16px; font-size: 28px; z-index: var(--z-max); text-decoration: none; }

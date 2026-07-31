@@ -229,7 +229,9 @@ function updateScrollUI() {
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
-  if (scrollProgress) scrollProgress.style.width = `${progress}%`;
+  // scaleX, not width: this runs on every scroll frame and width would
+  // relayout + repaint each time.
+  if (scrollProgress) scrollProgress.style.transform = `scaleX(${progress / 100})`;
   if (backToTop) backToTop.classList.toggle("show", scrollTop > 520);
 
   let currentSection = "home";

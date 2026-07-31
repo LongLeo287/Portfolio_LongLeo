@@ -331,13 +331,14 @@
     rgba(255,255,255,0.08),
     transparent
   );
-  transform: skewX(-20deg);
-  transition: left 0.5s ease;
+  /* translate, not `left` — `left` relayouts every frame */
+  transform: translateX(-200%) skewX(-20deg);
+  transition: transform var(--dur-slow) var(--ease-out);
   pointer-events: none;
 }
 
 .tool-item:hover::before {
-  left: 150%;
+  transform: translateX(250%) skewX(-20deg);
 }
 
 /* ── 5. SECTION TITLE UNDERLINE ANIMATION ── */
@@ -368,17 +369,15 @@
 .btn-primary::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  transition: left 0.4s ease;
+  transform: translateX(-100%);
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
 .btn-dark:hover::before,
 .btn-primary:hover::before {
-  left: 100%;
+  transform: translateX(100%);
 }
 
 /* ── 7. CURSOR SPOTLIGHT ── */
@@ -483,22 +482,71 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: gap 0.28s ease, color 0.28s ease;
+  transform: translateX(0);
+  transition: transform var(--dur-base) var(--ease-out),
+              color var(--dur-base) var(--ease-out);
 }
 
 .experience-card:hover .link-line {
-  gap: 10px;
+  transform: translateX(4px);
 }
 
 /* ── 15. REDUCED MOTION SAFETY ── */
 
+/* Reduced motion means fewer and gentler animations, not none. Opacity and
+   colour still carry meaning and cause no vestibular trouble, so they stay —
+   what goes is movement: looping ambient motion, entrance offsets, parallax
+   and anything that travels across the screen. */
 @media (prefers-reduced-motion: reduce) {
+  /* 1. Every looping / ambient animation stops. */
+  .hero-orb,
+  .floating-note,
+  .pill-float,
+  .brand-mark,
+  .marquee-track,
+  .logo-path,
+  .hero-content,
+  .hero-visual,
+  .stat-card {
+    animation: none !important;
+  }
+
+  /* 2. Entrance offsets collapse — the element is simply there. */
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .fade-up,
+  .portfolio-card,
+  .showcase-slide {
+    transform: none !important;
+    transition-property: opacity, color, background-color, border-color !important;
+  }
+
+  /* Visibility must not depend on a transition completing. Under reduced
+     motion these elements are simply present from the start — no fade-in to
+     wait on, and nothing left stuck at opacity 0 if it never runs. */
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .portfolio-card,
+  .fade-up {
+    opacity: 1 !important;
+  }
+
+  .reveal-word {
+    transform: none !important;
+  }
+
+  /* 3. Everything else keeps a short fade rather than snapping. */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 150ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
