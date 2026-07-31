@@ -41,6 +41,7 @@ const elements = {
 // ==========================================
 async function initApp() {
   initLangToggle();
+  initHeroReel();
   
   try {
     const res = await fetch('assets/data/projects.json?v=1.17');
@@ -576,7 +577,18 @@ function initFilters() {
         b.classList.toggle('active', isActive);
         b.setAttribute('aria-pressed', String(isActive));
       });
-      renderPortfolio(clickedBtn.dataset.filter);
+
+      const swap = () => renderPortfolio(clickedBtn.dataset.filter);
+
+      // Cross-fade the grid instead of swapping it instantly. Falls straight
+      // through to a plain re-render where View Transitions aren't supported
+      // or where the visitor has asked for less motion.
+      const motion = window.portfolioMotion;
+      if (document.startViewTransition && !(motion && motion.prefersReduced())) {
+        document.startViewTransition(swap);
+      } else {
+        swap();
+      }
     });
   });
 }
@@ -611,6 +623,96 @@ function getTranslatedCaseStudy(project, lang) {
     solution: getVal(cs.solution),
     tools: cs.tools || []
   };
+}
+
+// ==========================================
+// Hero showreel
+// The markup ships a poster only. The video is attached here so it can be
+// skipped outright for anyone who would not want it or should not pay for it,
+// rather than being downloaded and then hidden.
+// ==========================================
+function initHeroReel() {
+  const card = document.getElementById('heroReel');
+  if (!card) return;
+
+  const motion = window.portfolioMotion;
+  if (motion && motion.prefersReduced()) return;
+
+  // Data saver / metered connection: the poster is a complete visual on its own.
+  const conn = navigator.connection;
+  if (conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''))) return;
+
+  const video = document.createElement('video');
+  video.src = 'assets/video/hero-reel.mp4';
+  video.poster = 'assets/video/hero-reel-poster.jpg';
+  video.muted = true;          // required for autoplay
+  video.defaultMuted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.preload = 'auto';
+  video.setAttribute('aria-hidden', 'true');
+  video.tabIndex = -1;
+
+  video.addEventListener('playing', () => card.classList.add('is-playing'), { once: true });
+  card.insertBefore(video, card.firstChild);
+
+  const tryPlay = () => {
+    const p = video.play();
+    // Autoplay can still be refused (iOS Low Power Mode, per-site settings).
+    // The poster stays put, which is why it has to look finished.
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  };
+  tryPlay();
+
+  // Don't decode frames for a card nobody is looking at.
+  const visibility = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) tryPlay();
+      else video.pause();
+    });
+  }, { threshold: 0.15 });
+  visibility.observe(card);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) video.pause();
+    else if (card.getBoundingClientRect().bottom > 0) tryPlay();
+  });
+
+  // Timecode readout — the one piece of chrome that has to be honest, so it
+  // follows the real playhead at 24fps. The loop is bound to playback: an
+  // always-on rAF would keep waking the compositor for a paused, offscreen
+  // card forever.
+  const tc = document.getElementById('reelTimecode');
+  if (!tc) return;
+
+  const pad = (n) => String(n).padStart(2, '0');
+  let lastFrame = -1;
+  let ticking = false;
+
+  const tick = () => {
+    if (video.paused || video.ended) {
+      ticking = false;
+      return;
+    }
+    const t = video.currentTime;
+    const frame = Math.floor(t * 24) % 24;
+    if (frame !== lastFrame) {
+      lastFrame = frame;
+      tc.textContent =
+        `${pad(Math.floor(t / 3600))}:${pad(Math.floor(t / 60) % 60)}:${pad(Math.floor(t) % 60)}:${pad(frame)}`;
+    }
+    requestAnimationFrame(tick);
+  };
+
+  const startTicking = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(tick);
+  };
+
+  video.addEventListener('play', startTicking);
+  video.addEventListener('playing', startTicking);
+  if (!video.paused) startTicking();
 }
 
 // ==========================================

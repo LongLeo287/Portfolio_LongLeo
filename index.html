@@ -34,12 +34,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Variable-axis request: two font files instead of ten static weights -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/longleo_avatar-732.webp"
-        imagesrcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
-        imagesizes="(max-width: 767px) 80vw, 420px" fetchpriority="high" />
-  <link rel="stylesheet" href="assets/css/tokens.css?v=1.45" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=1.45" />
-  <link rel="stylesheet" href="assets/css/animations.css?v=1.45" />
+  <link rel="preload" as="image" href="assets/video/hero-reel-poster.jpg" fetchpriority="high" />
+  <link rel="stylesheet" href="assets/css/tokens.css?v=1.49" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.49" />
+  <link rel="stylesheet" href="assets/css/animations.css?v=1.49" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -200,15 +198,26 @@
         </div>
 
         <div class="hero-visual fade-up">
-          <div class="portrait-card avatar-card">
-            <div class="avatar-panel">
-              <img src="assets/img/longleo_avatar.webp"
-                   srcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
-                   sizes="(max-width: 767px) 80vw, 420px"
-                   width="732" height="1200"
-                   alt="Chân dung Hà Đình Long, Video Editor"
-                   fetchpriority="high" decoding="async" />
+          <div class="reel-card" id="heroReel">
+            <!-- The <video> is attached by app.js, and only when it is worth
+                 it: not on save-data, not under reduced motion. Until then
+                 this poster is the whole visual, so it must stand alone. -->
+            <img class="reel-poster" src="assets/video/hero-reel-poster.jpg"
+                 width="960" height="540" alt="" fetchpriority="high" decoding="async" />
+
+            <div class="reel-scanlines" aria-hidden="true"></div>
+
+            <div class="reel-chrome" aria-hidden="true">
+              <span class="reel-rec"><i></i>REEL</span>
+              <span class="reel-tc" id="reelTimecode">00:00:00:00</span>
             </div>
+
+            <div class="reel-avatar">
+              <img src="assets/img/longleo_avatar-366.webp"
+                   width="366" height="600"
+                   alt="Chân dung Hà Đình Long, Video Editor" decoding="async" />
+            </div>
+
             <div class="floating-note">
               <div>
                 <small data-i18n="available_for">Sẵn sàng hợp tác</small>
@@ -748,8 +757,8 @@
   <!-- Self-hosted: one less origin to resolve, and the version can't move
        under the site the way unpkg's did. -->
   <script src="assets/js/vendor/lenis-1.1.13.min.js" defer></script>
-  <script src="assets/js/app.js?v=1.48" defer></script>
-  <script src="assets/js/main.js?v=1.45" defer></script>
-  <script src="assets/js/animations.js?v=1.45" defer></script>
+  <script src="assets/js/app.js?v=1.51" defer></script>
+  <script src="assets/js/main.js?v=1.49" defer></script>
+  <script src="assets/js/animations.js?v=1.49" defer></script>
 </body>
 </html>

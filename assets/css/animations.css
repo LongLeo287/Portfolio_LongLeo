@@ -491,6 +491,37 @@
   transform: translateX(4px);
 }
 
+/* ── 14b. VIEW TRANSITION — portfolio filter change ──────────────────
+   The default cross-fade is a full-page dissolve, which is too heavy for a
+   grid swap. Scoped to the grid, shortened, and given a slight vertical
+   offset so the change reads as a cut rather than a fade-through. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(root) {
+  animation-name: vtOut;
+}
+
+::view-transition-new(root) {
+  animation-name: vtIn;
+}
+
+@keyframes vtOut {
+  to { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes vtIn {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}
+
 /* ── 15. REDUCED MOTION SAFETY ── */
 
 /* Reduced motion means fewer and gentler animations, not none. Opacity and
@@ -507,9 +538,14 @@
   .logo-path,
   .hero-content,
   .hero-visual,
-  .stat-card {
+  .stat-card,
+  .reel-rec i {
     animation: none !important;
   }
+
+  /* The reel never loads its video here (app.js bails out), so the scanline
+     overlay is texture on a still — drop it. */
+  .reel-scanlines { display: none; }
 
   /* 2. Entrance offsets collapse — the element is simply there. */
   .reveal,
