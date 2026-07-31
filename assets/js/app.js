@@ -3,7 +3,21 @@
 // ==========================================================================
 
 let projectsData = [];
-let currentLang = localStorage.getItem('portfolio_lang') || 'vi';
+
+// ?lang=en wins over the stored preference so an English link is shareable.
+const SUPPORTED_LANGS = ['vi', 'en'];
+function resolveInitialLang() {
+  const fromUrl = new URLSearchParams(window.location.search).get('lang');
+  if (fromUrl && SUPPORTED_LANGS.includes(fromUrl)) return fromUrl;
+  const stored = localStorage.getItem('portfolio_lang');
+  if (stored && SUPPORTED_LANGS.includes(stored)) return stored;
+  return 'vi';
+}
+let currentLang = resolveInitialLang();
+
+// main.js needs the live value, and ?lang= means localStorage is no longer
+// the single source of truth.
+window.portfolioLang = () => currentLang;
 
 const elements = {
   grid: document.getElementById('portfolioGrid'),
@@ -26,11 +40,6 @@ const elements = {
 // Init & Fetch
 // ==========================================
 async function initApp() {
-  // Init Lucide
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
-  
   initLangToggle();
   
   try {
@@ -54,31 +63,34 @@ async function initApp() {
 // ==========================================
 // Language Toggle
 // ==========================================
+function setLangButtonState() {
+  elements.langBtns.forEach(b => {
+    const isActive = b.dataset.lang === currentLang;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
 function initLangToggle() {
+  setLangButtonState();
+
   elements.langBtns.forEach(btn => {
-    if (btn.dataset.lang === currentLang) {
-      btn.classList.add('active');
-    } else {
-      btn.classList.remove('active');
-    }
-    
     btn.addEventListener('click', (e) => {
       const selectedBtn = e.target.closest('.lang-btn');
       if (!selectedBtn) return;
-      
-      elements.langBtns.forEach(b => {
-        if (b.dataset.lang === selectedBtn.dataset.lang) {
-          b.classList.add('active');
-        } else {
-          b.classList.remove('active');
-        }
-      });
+
       currentLang = selectedBtn.dataset.lang;
+      setLangButtonState();
       localStorage.setItem('portfolio_lang', currentLang);
-      
+
+      // Keep the URL shareable without adding a history entry per toggle.
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', currentLang);
+      window.history.replaceState({}, '', url);
+
       const cvIframe = document.querySelector("#cvModal iframe");
       if (cvIframe && cvIframe.contentWindow) {
-        cvIframe.contentWindow.postMessage({ type: "LANG_TOGGLE", lang: currentLang }, "*");
+        cvIframe.contentWindow.postMessage({ type: "LANG_TOGGLE", lang: currentLang }, window.location.origin);
       }
 
       renderPortfolio(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
@@ -185,6 +197,15 @@ const translations = {
     contact_phone_btn: 'Gọi ngay ☎',
     contact_addr_label: 'Địa chỉ',
     contact_addr_val: 'Tân Phú, Hồ Chí Minh',
+    skip_link: 'Bỏ qua tới nội dung chính',
+    form_label_name: 'Tên của bạn',
+    form_label_email: 'Email liên hệ',
+    form_label_message: 'Nội dung cần trao đổi',
+    form_submit: 'Gửi đi',
+    form_hint: 'Nhập thông tin và nhấn Gửi đi để gửi email trực tiếp cho mình.',
+    form_ph_name: 'Nguyễn Văn A',
+    form_ph_email: 'ban@example.com',
+    form_ph_message: 'Mình đang cần dựng một video review dài 3 phút…',
     footer_copy: 'Hà Đình Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'Xem dự án ↗',
@@ -289,6 +310,15 @@ const translations = {
     contact_phone_btn: 'Call Now ☎',
     contact_addr_label: 'Address',
     contact_addr_val: 'Tan Phu, Ho Chi Minh City',
+    skip_link: 'Skip to main content',
+    form_label_name: 'Your name',
+    form_label_email: 'Email address',
+    form_label_message: 'What would you like to discuss?',
+    form_submit: 'Send message',
+    form_hint: 'Fill in your details and hit Send — it goes straight to my inbox.',
+    form_ph_name: 'Jane Doe',
+    form_ph_email: 'you@example.com',
+    form_ph_message: 'I need a 3-minute product review edited…',
     footer_copy: 'Ha Dinh Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'View Project ↗',
@@ -308,11 +338,14 @@ const translations = {
 };
 
 function updateStaticTranslations() {
-  // FIX: Cancel any running pill typing animation first to prevent text duplication
+  // Cancel any running pill typing animation first to prevent text duplication
   if (window._pillTypingInterval) {
     clearInterval(window._pillTypingInterval);
     window._pillTypingInterval = null;
   }
+
+  // Screen readers and search engines both need the real language of the page.
+  document.documentElement.lang = currentLang;
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
@@ -334,30 +367,45 @@ function updateStaticTranslations() {
     themeToggle.setAttribute('aria-label', translations[currentLang].theme_aria);
   }
   
-  // Re-translate placeholder in inputs
-  const nameInput = document.querySelector('input[name="name"]');
-  const emailInput = document.querySelector('input[name="email"]');
-  const msgInput = document.querySelector('textarea[name="message"]');
-  const formBtn = document.querySelector('.contact-form button[type="submit"]');
-  const formNote = document.getElementById('formNote');
-  
-  if (currentLang === 'en') {
-    if (nameInput) nameInput.placeholder = "Your Name";
-    if (emailInput) emailInput.placeholder = "Your Email";
-    if (msgInput) msgInput.placeholder = "Message details...";
-    if (formBtn) formBtn.textContent = "Send Message";
-    if (formNote && formNote.className === "form-note") {
-      formNote.textContent = "Enter details and click Send Message to email me directly.";
-    }
-  } else {
-    if (nameInput) nameInput.placeholder = "Tên của bạn";
-    if (emailInput) emailInput.placeholder = "Email liên hệ";
-    if (msgInput) msgInput.placeholder = "Nội dung cần trao đổi";
-    if (formBtn) formBtn.textContent = "Gửi đi";
-    if (formNote && formNote.className === "form-note") {
-      formNote.textContent = "Nhập thông tin và nhấn Gửi đi để gửi email trực tiếp cho mình.";
-    }
+  // Labels, button and hint carry data-i18n and were handled above; only the
+  // placeholders need setting by hand.
+  const dict = translations[currentLang] || translations.vi;
+  const setPlaceholder = (selector, key) => {
+    const el = document.querySelector(selector);
+    if (el && dict[key]) el.placeholder = dict[key];
+  };
+  setPlaceholder('#cf-name', 'form_ph_name');
+  setPlaceholder('#cf-email', 'form_ph_email');
+  setPlaceholder('#cf-message', 'form_ph_message');
+
+  // Re-split the headings the pass above just flattened, otherwise the word
+  // reveal animation silently stops existing after the first translation.
+  if (typeof window.refreshTextReveal === 'function') {
+    window.refreshTextReveal();
   }
+}
+
+// ==========================================
+// Responsive images
+// scripts/generate-image-sizes.py writes a -480.webp and a -960.webp next to
+// every image referenced by projects.json. Both always exist (small sources
+// are re-encoded at native width rather than skipped), so every candidate in
+// the srcset resolves.
+// ==========================================
+const IMAGE_WIDTHS = [480, 960];
+
+function buildSrcset(src) {
+  if (!src || /^https?:/i.test(src)) return null;
+  const stem = src.replace(/\.(webp|jpe?g|png)$/i, '');
+  if (stem === src) return null;
+  return IMAGE_WIDTHS.map(w => `${stem}-${w}.webp ${w}w`).join(', ');
+}
+
+function applyResponsiveSrc(img, src, sizes) {
+  const srcset = buildSrcset(src);
+  if (!srcset) return;
+  img.srcset = srcset;
+  img.sizes = sizes;
 }
 
 // ==========================================
@@ -387,95 +435,130 @@ function renderPortfolio(filter = 'all') {
     displayList = displayList.slice(0, 9);
   }
   
+  const fragment = document.createDocumentFragment();
+
   displayList.forEach(p => {
     const card = document.createElement('a');
     card.className = `portfolio-card fade-up${p.category === 'Photography' ? ' photo-only' : ''}`;
     card.dataset.category = p.category;
     card.dataset.id = p.id;
+    // Keep a real href so the card is crawlable and middle-click still works,
+    // but the primary action is the in-page dialog, not a new tab.
     card.href = p.href || p.imgSrc;
-    card.target = "_blank";
-    
-    // Multi-lang title & client
+    card.rel = 'noopener';
+    card.setAttribute('aria-haspopup', 'dialog');
+
     const title = typeof p.title === 'object' ? p.title[currentLang] : p.title;
     const client = typeof p.client === 'object' ? p.client[currentLang] : p.client;
-    
+
+    const tagText =
+      p.category === 'Design' ? (currentLang === 'vi' ? 'Thiết kế' : 'Design') :
+      p.category === 'Photography' ? (currentLang === 'vi' ? 'Chụp ảnh' : 'Photography') :
+      p.category;
+
     const thumbDiv = document.createElement('div');
     thumbDiv.className = 'portfolio-thumb';
-    
-    const tagText = p.category === 'Design' ? (currentLang === 'vi' ? 'Thiết kế' : 'Design') : 
-                    p.category === 'Photography' ? (currentLang === 'vi' ? 'Chụp ảnh' : 'Photography') : p.category;
-                    
-    thumbDiv.innerHTML = `
-      <img src="${p.imgSrc}" alt="${p.alt || title}" loading="lazy" />
-      <span class="tag">${tagText}</span>
-    `;
+
+    const img = document.createElement('img');
+    img.src = p.imgSrc;
+    applyResponsiveSrc(img, p.imgSrc, '(max-width: 560px) 92vw, (max-width: 900px) 46vw, 300px');
+    img.alt = p.alt || title || '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = tagText;
+
+    thumbDiv.append(img, tag);
     card.appendChild(thumbDiv);
-    
+
     if ((title || client) && p.category !== 'Photography') {
       const bodyDiv = document.createElement('div');
       bodyDiv.className = 'portfolio-body';
-      bodyDiv.innerHTML = `
-        <p class="client">${client}</p>
-        <h3>${title}</h3>
-      `;
+
+      const clientEl = document.createElement('p');
+      clientEl.className = 'client';
+      clientEl.textContent = client || '';
+
+      const titleEl = document.createElement('h3');
+      titleEl.textContent = title || '';
+
+      bodyDiv.append(clientEl, titleEl);
       card.appendChild(bodyDiv);
+    } else if (title) {
+      // Photography cards are image-only by design — the title still has to
+      // reach a screen reader somehow.
+      card.setAttribute('aria-label', title);
     }
-    
+
     card.addEventListener('click', (e) => handleCardClick(e, p));
-    
-    elements.grid.appendChild(card);
+
+    fragment.appendChild(card);
     displayedCards.push(card);
   });
-  
-  // Trigger entry transitions
-  setTimeout(() => {
+
+  elements.grid.appendChild(fragment);
+  elements.grid.setAttribute('aria-busy', 'false');
+  // Section offsets shift when the grid height changes, so the scroll-spy
+  // has to be told or the active nav link points at the wrong section.
+  if (typeof window.recacheSectionOffsets === 'function') {
+    window.recacheSectionOffsets();
+  }
+
+  const reveal = () => {
     displayedCards.forEach((card, idx) => {
-      card.style.transitionDelay = `${idx * 0.04}s`;
+      // Restraint budget: stagger tops out so the ninth card is not 400ms late.
+      card.style.transitionDelay = `${Math.min(idx * 40, 280)}ms`;
       card.classList.add('show');
     });
-    
-    // Re-bind hover card 3D tilt effects
-    applyCardEffects();
-  }, 50);
+    applyCardEffects(displayedCards);
+  };
+
+  // Cards start at opacity 0, so their visibility must never depend on a frame
+  // callback alone — rAF does not fire in a background tab.
+  if (document.visibilityState === 'hidden') {
+    reveal();
+  } else {
+    requestAnimationFrame(reveal);
+  }
 }
 
 // ==========================================
-// Card Tilt & Parallax Thumbnails
+// Card tilt, parallax and pointer spotlight
+// One rAF-scheduled write per card per frame instead of a style write on
+// every mousemove event, and bound only to the cards just rendered.
 // ==========================================
-function applyCardEffects() {
-  const cards = document.querySelectorAll('.portfolio-card');
-  cards.forEach(card => {
-    // 3D Card Tilt
+function applyCardEffects(cards) {
+  const motion = window.portfolioMotion;
+  if (!motion || !motion.finePointer() || motion.prefersReduced()) return;
+
+  cards.forEach((card, i) => {
+    const thumb = card.querySelector('.portfolio-thumb img');
+    const key = `card-${i}`;
+
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `
-        perspective(600px)
-        rotateX(${-y * 6}deg)
-        rotateY(${x * 6}deg)
-        translateY(-5px)
-        scale(1.01)
-      `;
-    });
+      const px = e.clientX - rect.left;
+      const py = e.clientY - rect.top;
+      const x = px / rect.width - 0.5;
+      const y = py / rect.height - 0.5;
+
+      motion.schedule(key, () => {
+        card.style.setProperty('--mx', `${px}px`);
+        card.style.setProperty('--my', `${py}px`);
+        card.style.transform =
+          `perspective(700px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-6px)`;
+        if (thumb) thumb.style.transform = `scale(1.08) translateY(${y * -8}px)`;
+      });
+    }, { passive: true });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-    
-    // Parallax Thumbnail image scaling
-    const thumb = card.querySelector('.portfolio-thumb img');
-    if (thumb) {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        thumb.style.transform = `scale(1.1) translateY(${y * -8}px)`;
+      motion.schedule(key, () => {
+        card.style.transform = '';
+        if (thumb) thumb.style.transform = '';
       });
-
-      card.addEventListener('mouseleave', () => {
-        thumb.style.transform = 'scale(1.04)';
-      });
-    }
+    }, { passive: true });
   });
 }
 
@@ -487,9 +570,12 @@ function initFilters() {
     btn.addEventListener('click', (e) => {
       const clickedBtn = e.target.closest('.filter-btn');
       if (!clickedBtn) return;
-      
-      elements.filterBtns.forEach(b => b.classList.remove('active'));
-      clickedBtn.classList.add('active');
+
+      elements.filterBtns.forEach(b => {
+        const isActive = b === clickedBtn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
       renderPortfolio(clickedBtn.dataset.filter);
     });
   });
@@ -526,6 +612,109 @@ function getTranslatedCaseStudy(project, lang) {
     tools: cs.tools || []
   };
 }
+
+// ==========================================
+// Modal Manager — focus trap, Escape, focus restore, scroll lock
+// ==========================================
+const ModalManager = (() => {
+  const FOCUSABLE = [
+    'a[href]', 'button:not([disabled])', 'input:not([disabled])',
+    'textarea:not([disabled])', 'select:not([disabled])', 'iframe',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+
+  let openEl = null;
+  let lastFocused = null;
+  let onCloseHook = null;
+
+  const visibleFocusable = (root) =>
+    Array.from(root.querySelectorAll(FOCUSABLE))
+      .filter(el => el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement);
+
+  function handleKeydown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+      return;
+    }
+    if (e.key !== 'Tab' || !openEl) return;
+
+    const items = visibleFocusable(openEl);
+    if (!items.length) {
+      e.preventDefault();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    } else if (!openEl.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
+  function open(el, options = {}) {
+    if (!el) return;
+    if (openEl) close();
+
+    lastFocused = document.activeElement;
+    openEl = el;
+    onCloseHook = options.onClose || null;
+
+    el.removeAttribute('aria-hidden');
+    document.body.classList.add('modal-open');
+    document.addEventListener('keydown', handleKeydown, true);
+    if (window.lenis) window.lenis.stop();
+
+    // Try synchronously first — a rAF-only approach leaves focus outside the
+    // dialog in a backgrounded tab. The retries cover the modals that fade in
+    // from visibility:hidden, where the element is not yet focusable on the
+    // very first attempt.
+    const target = options.initialFocus || visibleFocusable(el)[0] || el;
+    if (target === el && !el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+
+    const tryFocus = () => {
+      if (openEl !== el || el.contains(document.activeElement)) return true;
+      target.focus({ preventScroll: true });
+      return el.contains(document.activeElement);
+    };
+
+    if (!tryFocus()) {
+      requestAnimationFrame(() => { if (!tryFocus()) setTimeout(tryFocus, 80); });
+      setTimeout(tryFocus, 350); // after the fade-in transition settles
+    }
+  }
+
+  function close() {
+    if (!openEl) return;
+    const el = openEl;
+    const hook = onCloseHook;
+
+    openEl = null;
+    onCloseHook = null;
+
+    document.removeEventListener('keydown', handleKeydown, true);
+    document.body.classList.remove('modal-open');
+    el.setAttribute('aria-hidden', 'true');
+    if (typeof hook === 'function') hook();
+    if (window.lenis) window.lenis.start();
+
+    if (lastFocused && document.contains(lastFocused)) {
+      lastFocused.focus({ preventScroll: true });
+    }
+    lastFocused = null;
+  }
+
+  return { open, close, isOpen: () => openEl !== null, current: () => openEl };
+})();
+
+window.ModalManager = ModalManager;
 
 // ==========================================
 // Case Study Modal
@@ -602,13 +791,14 @@ function openCaseStudyModal(project) {
       elements.modalMedia.innerHTML = `<iframe src="${embedUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
   } else {
-    const safeImgSrc = project.imgSrc.replace(/'/g, "%27");
+    const blurSrc = project.imgSrc.replace(/\.(webp|jpe?g|png)$/i, '-480.webp').replace(/'/g, "%27");
+    const ytLabel = currentLang === 'en' ? '▶ Watch on YouTube' : '▶ Xem trên YouTube';
     const ytBtn = isYouTubeHref
-      ? `<a href="${project.href}" target="_blank" rel="noopener" class="modal-yt-btn">▶ Xem trên YouTube</a>`
+      ? `<a href="${project.href}" target="_blank" rel="noopener" class="modal-yt-btn">${ytLabel}</a>`
       : '';
     elements.modalMedia.innerHTML = `
-      <div class="modal-media-blur" style="background-image: url('${safeImgSrc}')"></div>
-      <img src="${project.imgSrc}" alt="${title}" style="position:relative; z-index:2;" />
+      <div class="modal-media-blur" style="background-image: url('${blurSrc}')"></div>
+      <img src="${project.imgSrc}" alt="${title}" decoding="async" style="position:relative; z-index:2;" />
       ${ytBtn}
     `;
   }
@@ -624,13 +814,18 @@ function openCaseStudyModal(project) {
     }
   }
   elements.modal.classList.add('active');
-  if (window.lenis) window.lenis.stop();
+  ModalManager.open(elements.modal, {
+    initialFocus: elements.closeModalBtn,
+    onClose: () => {
+      elements.modal.classList.remove('active');
+      // Clearing the media node is what actually stops a playing YouTube embed.
+      if (elements.modalMedia) elements.modalMedia.innerHTML = '';
+    }
+  });
 }
 
 function closeCaseStudyModal() {
-  if (elements.modal) elements.modal.classList.remove('active');
-  if (elements.modalMedia) elements.modalMedia.innerHTML = '';
-  if (window.lenis) window.lenis.start();
+  ModalManager.close();
 }
 
 elements.closeModalBtn?.addEventListener('click', closeCaseStudyModal);
@@ -666,21 +861,29 @@ function openLightbox(project) {
   
   if (project.category === "Video") {
     const embedUrl = getYouTubeEmbedUrl(project.href || project.imgSrc);
-    if (embedUrl && lightboxVideoWrapper && lightboxVideo) {
-      lightboxLoader.style.display = "none";
-      lightboxVideo.src = embedUrl;
-      lightboxVideoWrapper.style.display = "block";
-      lightboxModal.classList.add("show");
-    } else {
-      window.open(project.href || project.imgSrc, '_blank');
+    if (!embedUrl || !lightboxVideoWrapper || !lightboxVideo) {
+      window.open(project.href || project.imgSrc, '_blank', 'noopener');
+      return;
     }
+    lightboxLoader.style.display = "none";
+    lightboxVideo.src = embedUrl;
+    lightboxVideoWrapper.style.display = "block";
+    lightboxModal.classList.add("show");
   } else {
     lightboxImage.src = project.imgSrc;
     lightboxImage.alt = title;
     lightboxModal.classList.add("show");
   }
-  
-  if (window.lenis) window.lenis.stop();
+
+  ModalManager.open(lightboxModal, {
+    initialFocus: lightboxModal.querySelector('.lightbox-close'),
+    onClose: () => {
+      lightboxModal.classList.remove("show");
+      lightboxImage.src = "";
+      if (lightboxVideo) lightboxVideo.src = "";
+      if (lightboxVideoWrapper) lightboxVideoWrapper.style.display = "none";
+    }
+  });
 }
 
 // ==========================================
@@ -804,11 +1007,18 @@ function initShowcaseSlider() {
     const isActive = slideIndexCounter === currentSlideIndex;
     const title = typeof imgProj.title === 'object' ? imgProj.title[currentLang] : imgProj.title;
     const tagText = imgProj.category === 'Design' ? translations[currentLang].categories.design : translations[currentLang].categories.photography;
+    const srcset = buildSrcset(imgProj.imgSrc);
+    const srcsetAttr = srcset
+      ? ` srcset="${srcset}" sizes="(max-width: 1240px) 100vw, 1180px"`
+      : '';
+    // The blurred backdrop only ever renders behind a heavy blur, so point it
+    // at the 480w file instead of re-requesting the full-size artwork.
+    const blurSrc = (srcset ? imgProj.imgSrc.replace(/\.(webp|jpe?g|png)$/i, '-480.webp') : imgProj.imgSrc);
     slidesHtml += `
       <div class="showcase-slide ${isActive ? 'active' : ''}" data-type="image" data-src="${imgProj.imgSrc}">
         <div class="showcase-img-wrap">
-          <div class="showcase-bg-blur" style="background-image: url('${imgProj.imgSrc.replace(/'/g, "%27")}');"></div>
-          <img src="${imgProj.imgSrc}" alt="${title}" />
+          <div class="showcase-bg-blur" style="background-image: url('${blurSrc.replace(/'/g, "%27")}');"></div>
+          <img src="${imgProj.imgSrc}"${srcsetAttr} alt="${title}" decoding="async" />
         </div>
         <div class="showcase-info">
           <span class="tag">${tagText}</span>
@@ -958,24 +1168,16 @@ function initShowcaseSlider() {
 // Start Application
 document.addEventListener('DOMContentLoaded', initApp);
 
-// --- Anti-Theft / Portfolio Lock ---
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('copy', e => e.preventDefault());
-document.addEventListener('cut', e => e.preventDefault());
-document.addEventListener('paste', e => e.preventDefault());
-document.addEventListener('selectstart', e => e.preventDefault());
-document.addEventListener('dragstart', e => e.preventDefault());
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'F12') {
-    e.preventDefault();
-  }
-  if (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) {
-    e.preventDefault();
-  }
-  if (e.ctrlKey && ['U', 'u', 'S', 's', 'P', 'p', 'C', 'c', 'A', 'a'].includes(e.key)) {
-    e.preventDefault();
-  }
+// --- Image protection ---
+// Deliberately narrow: only images are guarded. Blocking copy/paste/select or
+// devtools shortcuts document-wide stopped visitors pasting their own email
+// into the contact form and printing the CV, and none of it stops anyone who
+// actually wants the files. Right-click + drag on <img> is the honest ceiling.
+document.addEventListener('contextmenu', (e) => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
+});
+document.addEventListener('dragstart', (e) => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
 });
 
 
@@ -986,34 +1188,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeCvBtn = document.getElementById('closeCvBtn');
 
   if (openCvBtn && cvModal && closeCvBtn) {
+    const closeCv = () => ModalManager.close();
+
     openCvBtn.addEventListener('click', (e) => {
       e.preventDefault();
       cvModal.classList.add('active');
-      if (window.lenis) window.lenis.stop();
+      ModalManager.open(cvModal, {
+        initialFocus: closeCvBtn,
+        onClose: () => cvModal.classList.remove('active')
+      });
     });
 
-    closeCvBtn.addEventListener('click', () => {
-      cvModal.classList.remove('active');
-      if (window.lenis) window.lenis.start();
-    });
+    closeCvBtn.addEventListener('click', closeCv);
 
     cvModal.addEventListener('click', (e) => {
-      if (e.target === cvModal) {
-        cvModal.classList.remove('active');
-        if (window.lenis) window.lenis.start();
-      }
+      if (e.target === cvModal) closeCv();
     });
   }
 });
 
-// Copy Email Function
-window.copyEmail = function(btn) {
+// ==========================================
+// Copy email to clipboard
+// ==========================================
+window.copyEmail = async function (btn) {
   const email = 'Longdragon287@gmail.com';
-  navigator.clipboard.writeText(email).then(() => {
-    const originalText = btn.innerHTML;
-    btn.innerHTML = 'Đã chép email!';
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-    }, 2000);
-  });
+  const isEn = currentLang === 'en';
+  const originalText = btn.innerHTML;
+
+  try {
+    await navigator.clipboard.writeText(email);
+    btn.innerHTML = isEn ? 'Email copied!' : 'Đã chép email!';
+  } catch (err) {
+    // Clipboard API needs a secure context and a permission the visitor may
+    // have denied — fall back to the mail client rather than failing silently.
+    window.location.href = `mailto:${email}`;
+    btn.innerHTML = isEn ? 'Opening mail app…' : 'Đang mở ứng dụng mail…';
+  }
+
+  setTimeout(() => { btn.innerHTML = originalText; }, 2000);
 };

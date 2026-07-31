@@ -1,162 +1,226 @@
 /**
  * LongLeo Portfolio — Animation Engine
- * Scroll reveals, cursor spotlight, tilt cards, counter animation
+ * Scroll reveals, headline word reveal, cursor spotlight, pointer effects,
+ * counters, typing. Every effect is gated behind prefers-reduced-motion and
+ * every pointer effect is rAF-throttled.
  */
 
 (function () {
   'use strict';
 
-  /* ── 1. INTERSECTION OBSERVER: scroll-triggered reveals ── */
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const prefersReduced = () => reduceMotionQuery.matches;
+  const finePointer = () => window.matchMedia('(pointer: fine)').matches;
+
+  /* Shared rAF scheduler — one frame loop for every pointer-driven effect
+     instead of one style write per mousemove event. */
+  const frameQueue = new Map();
+  let frameHandle = null;
+
+  function schedule(key, fn) {
+    frameQueue.set(key, fn);
+    if (frameHandle !== null) return;
+    frameHandle = requestAnimationFrame(() => {
+      frameHandle = null;
+      const jobs = Array.from(frameQueue.values());
+      frameQueue.clear();
+      jobs.forEach((job) => job());
+    });
+  }
+
+  window.portfolioMotion = { schedule, prefersReduced, finePointer };
+
+  /* ── 1. SCROLL REVEALS ──────────────────────────────────────────── */
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          // Once revealed, stop observing to save resources
-          revealObserver.unobserve(entry.target);
-        }
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
       });
     },
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
 
-  // Upgrade existing fade-up elements (except headings) to use reveal system
+  function observeReveal(el, delay) {
+    el.classList.add('reveal');
+    if (delay) el.style.transitionDelay = `${delay}ms`;
+    revealObserver.observe(el);
+  }
+
+  // Restraint budget: stagger caps at 300ms so a long list never trickles in.
   document.querySelectorAll('.fade-up').forEach((el, i) => {
     if (el.tagName === 'H1' || el.tagName === 'H2') return;
-    el.classList.add('reveal');
-    el.style.transitionDelay = `${Math.min(i * 0.04, 0.3)}s`;
-    revealObserver.observe(el);
+    observeReveal(el, Math.min(i * 40, 300));
   });
 
-  // Stagger children of .stagger containers
   document.querySelectorAll('.stagger').forEach((container) => {
-    const children = container.children;
-    Array.from(children).forEach((child, i) => {
-      child.classList.add('reveal');
-      child.style.transitionDelay = `${i * 0.09}s`;
-      revealObserver.observe(child);
+    Array.from(container.children).forEach((child, i) => {
+      observeReveal(child, Math.min(i * 60, 480));
     });
   });
 
-  /* ── 1b. PREMIUM SCROLL TEXT REVEAL (SPLIT WORDS) ── */
-  function initTextReveal() {
-    const revealTargets = document.querySelectorAll('.hero h1, .section-title h2, .about-content h2');
-    
-    revealTargets.forEach(target => {
-      if (target.classList.contains('text-reveal-processed')) return;
-      target.classList.add('text-reveal-processed');
-      
-      const lines = target.innerHTML.split(/<br\s*\/?>/i);
-      let newHTML = '';
-      
-      lines.forEach((line, lineIdx) => {
-        if (lineIdx > 0) newHTML += '<br>';
-        
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = line;
-        
-        const processNode = (node) => {
-          if (node.nodeType === Node.TEXT_NODE) {
-            const words = node.textContent.split(/(\s+)/);
-            const fragment = document.createDocumentFragment();
-            words.forEach(word => {
-              if (word.trim() === '') {
-                fragment.appendChild(document.createTextNode(word));
-              } else {
-                const mask = document.createElement('span');
-                mask.className = 'reveal-word-mask';
-                
-                const inner = document.createElement('span');
-                inner.className = 'reveal-word';
-                inner.textContent = word;
-                
-                mask.appendChild(inner);
-                fragment.appendChild(mask);
-              }
-            });
-            return fragment;
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            // FIX: Don't split gradient-text spans — background-clip:text breaks on nested spans
-            if (node.classList && node.classList.contains('gradient-text')) {
-              const mask = document.createElement('span');
-              mask.className = 'reveal-word-mask';
-              const inner = document.createElement('span');
-              inner.className = 'reveal-word';
-              inner.innerHTML = node.outerHTML;
-              mask.appendChild(inner);
-              return mask;
+  document.querySelectorAll('.tool-item').forEach((item, i) => {
+    observeReveal(item, Math.min(i * 60, 480));
+  });
+
+  document.querySelectorAll('.contact-item').forEach((item, i) => {
+    observeReveal(item, i * 100);
+  });
+
+  /* ── 2. HEADLINE WORD REVEAL ────────────────────────────────────────
+     Splits a heading into per-word masks. Must be re-runnable: the i18n
+     pass rewrites innerHTML on every language switch, which destroys the
+     spans, so app.js calls refreshTextReveal() after translating. */
+  const REVEAL_SELECTOR = '.hero h1, .section-title h2, .about-content h2';
+  let textObserver = null;
+
+  function splitHeading(target) {
+    const lines = target.innerHTML.split(/<br\s*\/?>/i);
+    let newHTML = '';
+
+    lines.forEach((line, lineIdx) => {
+      if (lineIdx > 0) newHTML += '<br>';
+
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = line;
+
+      const processNode = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const fragment = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach((word) => {
+            if (word.trim() === '') {
+              fragment.appendChild(document.createTextNode(word));
+              return;
             }
-            const newNode = node.cloneNode(false);
-            Array.from(node.childNodes).forEach(child => {
-              newNode.appendChild(processNode(child));
-            });
-            return newNode;
+            const mask = document.createElement('span');
+            mask.className = 'reveal-word-mask';
+            const inner = document.createElement('span');
+            inner.className = 'reveal-word';
+            inner.textContent = word;
+            mask.appendChild(inner);
+            fragment.appendChild(mask);
+          });
+          return fragment;
+        }
+
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          // background-clip:text breaks when the span is split, so keep
+          // .gradient-text whole and animate it as a single word.
+          if (node.classList && node.classList.contains('gradient-text')) {
+            const mask = document.createElement('span');
+            mask.className = 'reveal-word-mask';
+            const inner = document.createElement('span');
+            inner.className = 'reveal-word';
+            inner.innerHTML = node.outerHTML;
+            mask.appendChild(inner);
+            return mask;
           }
-          return node.cloneNode(true);
-        };
-        
-        const processedFragment = processNode(tempDiv);
-        const wrapper = document.createElement('div');
-        wrapper.appendChild(processedFragment);
-        newHTML += wrapper.innerHTML;
+          const clone = node.cloneNode(false);
+          Array.from(node.childNodes).forEach((child) => {
+            clone.appendChild(processNode(child));
+          });
+          return clone;
+        }
+
+        return node.cloneNode(true);
+      };
+
+      // Process tempDiv's children, not tempDiv itself — cloning the wrapper
+      // would inject a block-level <div> inside the heading and break the
+      // inline flow around <br>.
+      const wrapper = document.createElement('div');
+      Array.from(tempDiv.childNodes).forEach((child) => {
+        wrapper.appendChild(processNode(child));
       });
-      
-      target.innerHTML = newHTML;
-      
-      const textObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const words = entry.target.querySelectorAll('.reveal-word');
-            words.forEach((word, idx) => {
-              word.style.transitionDelay = `${idx * 0.025}s`;
-              word.style.transform = 'translateY(0)';
-            });
-            textObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-      
-      textObserver.observe(target);
+      newHTML += wrapper.innerHTML;
+    });
+
+    target.innerHTML = newHTML;
+  }
+
+  function playWords(target) {
+    target.querySelectorAll('.reveal-word').forEach((word, idx) => {
+      word.style.transitionDelay = `${idx * 25}ms`;
+      word.style.transform = 'translateY(0)';
     });
   }
 
+  function initTextReveal() {
+    const targets = document.querySelectorAll(REVEAL_SELECTOR);
+    if (!targets.length) return;
+
+    if (prefersReduced()) return; // leave the markup untouched
+
+    if (textObserver) textObserver.disconnect();
+    textObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          playWords(entry.target);
+          textObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    targets.forEach((target) => {
+      splitHeading(target);
+      // Already on screen (hero, or a heading the visitor scrolled past while
+      // the language was switching) — play immediately rather than waiting.
+      const rect = target.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        requestAnimationFrame(() => playWords(target));
+      } else {
+        textObserver.observe(target);
+      }
+    });
+  }
+
+  window.refreshTextReveal = initTextReveal;
   initTextReveal();
 
-  /* ── 2. CURSOR SPOTLIGHT ── */
+  /* ── 3. CURSOR SPOTLIGHT ────────────────────────────────────────── */
   const spotlight = document.getElementById('cursorSpotlight');
-  if (spotlight && window.matchMedia('(pointer: fine)').matches) {
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-    let animFrame;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
+  if (spotlight && finePointer() && !prefersReduced()) {
+    let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+    let running = false;
 
     function animateSpotlight() {
       currentX += (mouseX - currentX) * 0.1;
       currentY += (mouseY - currentY) * 0.1;
-      spotlight.style.left = currentX + 'px';
-      spotlight.style.top  = currentY + 'px';
-      animFrame = requestAnimationFrame(animateSpotlight);
+      spotlight.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      // Park the loop once it has caught up — no idle rAF burning battery.
+      if (Math.abs(mouseX - currentX) < 0.5 && Math.abs(mouseY - currentY) < 0.5) {
+        running = false;
+        return;
+      }
+      requestAnimationFrame(animateSpotlight);
     }
-    animateSpotlight();
 
-    // Hide on mobile / touch
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!running) {
+        running = true;
+        requestAnimationFrame(animateSpotlight);
+      }
+    }, { passive: true });
+
     document.addEventListener('touchstart', () => {
       spotlight.style.opacity = '0';
-      cancelAnimationFrame(animFrame);
-    }, { passive: true });
+      running = true; // stops the loop from being restarted
+    }, { passive: true, once: true });
   }
 
-  /* ── 3. COUNTER ANIMATION for stat numbers ── */
-  const statNumbers = document.querySelectorAll('.stat-number');
+  /* ── 4. COUNTERS ────────────────────────────────────────────────── */
   const counterObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
+        counterObserver.unobserve(el);
+
         const raw = el.textContent.trim();
         const numMatch = raw.match(/[\d,.]+/);
         if (!numMatch) return;
@@ -164,150 +228,113 @@
         const target = parseFloat(numMatch[0].replace(',', '.'));
         const suffix = raw.replace(numMatch[0], '');
 
-        // Fix #5: Skip counter for year/large numbers — just fade in
-        if (target > 999) {
-          el.style.animation = 'statCount 0.8s cubic-bezier(0.22, 1, 0.36, 1) both';
-          counterObserver.unobserve(el);
+        // Years (2019) are read as a date, not a quantity — never count them up.
+        if (target > 999 || prefersReduced()) {
+          el.style.animation = 'statCount var(--dur-deliberate) var(--ease-out) both';
           return;
         }
 
         const isDecimal = numMatch[0].includes('.');
-        const duration = 1600;
+        const duration = 1400;
         const start = performance.now();
 
         function tick(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
           const current = target * eased;
           el.textContent = isDecimal
             ? current.toFixed(1) + suffix
             : Math.round(current) + suffix;
-
           if (progress < 1) requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
-        counterObserver.unobserve(el);
       });
     },
     { threshold: 0.5 }
   );
 
-  statNumbers.forEach((el) => counterObserver.observe(el));
+  document.querySelectorAll('.stat-number').forEach((el) => counterObserver.observe(el));
 
-  /* ── 4. MAGNETIC HOVER on CTA buttons ── */
-  document.querySelectorAll('.btn-primary, .btn-dark, .header-cta').forEach((btn) => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top  - rect.height / 2;
-      btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px) translateY(-2px)`;
+  /* ── 5. MAGNETIC CTA ────────────────────────────────────────────── */
+  if (finePointer() && !prefersReduced()) {
+    document.querySelectorAll('.btn-primary, .btn-dark, .header-cta').forEach((btn, i) => {
+      const key = `magnet-${i}`;
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
+        schedule(key, () => {
+          btn.style.transform = `translate(${x}px, ${y}px) translateY(-2px)`;
+        });
+      }, { passive: true });
+
+      btn.addEventListener('mouseleave', () => {
+        schedule(key, () => { btn.style.transform = ''; });
+      }, { passive: true });
     });
+  }
 
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
+  /* ── 6. TILT + SPOTLIGHT on static cards ────────────────────────────
+     Portfolio cards are rendered later by app.js and bind themselves —
+     this only covers cards that exist in the markup at parse time. */
+  if (finePointer() && !prefersReduced()) {
+    document.querySelectorAll('.service-card').forEach((card, i) => {
+      const key = `tilt-${i}`;
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = e.clientX - rect.left;
+        const py = e.clientY - rect.top;
+        const x = px / rect.width - 0.5;
+        const y = py / rect.height - 0.5;
+        schedule(key, () => {
+          card.style.setProperty('--mx', `${px}px`);
+          card.style.setProperty('--my', `${py}px`);
+          card.style.transform =
+            `perspective(600px) rotateX(${-y * 5}deg) rotateY(${x * 5}deg) translateY(-4px)`;
+        });
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', () => {
+        schedule(key, () => { card.style.transform = ''; });
+      }, { passive: true });
     });
-  });
+  }
 
-  /* ── 5. 3D CARD TILT on service & experience cards ── */
-  const tiltCards = document.querySelectorAll('.service-card, .portfolio-card');
-  tiltCards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width  - 0.5;
-      const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `
-        perspective(600px)
-        rotateX(${-y * 6}deg)
-        rotateY(${x * 6}deg)
-        translateY(-5px)
-        scale(1.01)
-      `;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  /* ── 6. TYPING EFFECT on hero pill ── */
+  /* ── 7. HERO PILL TYPING ────────────────────────────────────────── */
   const pill = document.querySelector('.pill');
   if (pill) {
-    // FIX: expose interval so updateStaticTranslations() can cancel it before it appends extra chars
     const startPillTyping = (text) => {
       if (window._pillTypingInterval) {
         clearInterval(window._pillTypingInterval);
         window._pillTypingInterval = null;
       }
-      pill.textContent = '';
       pill.style.opacity = '1';
       pill.style.animation = 'none';
+
+      if (prefersReduced()) {
+        pill.textContent = text;
+        pill.classList.add('pill-float');
+        return;
+      }
+
+      pill.textContent = '';
       let charIndex = 0;
       window._pillTypingInterval = setInterval(() => {
         if (charIndex < text.length) {
           pill.textContent += text[charIndex];
           charIndex++;
-        } else {
-          clearInterval(window._pillTypingInterval);
-          window._pillTypingInterval = null;
-          pill.classList.add('pill-float');
+          return;
         }
+        clearInterval(window._pillTypingInterval);
+        window._pillTypingInterval = null;
+        pill.classList.add('pill-float');
       }, 45);
     };
 
-    // Expose so app.js can restart animation after language change
     window.startPillTyping = startPillTyping;
-
-    const originalText = pill.textContent.trim();
-    startPillTyping(originalText);
+    startPillTyping(pill.textContent.trim());
   }
 
-  /* ── 7. SECTION NAV HIGHLIGHT ── */
-  /* Handled by main.js — removed duplicate observer here (Fix #6) */
-
-  /* ── 8. SMOOTH REVEAL for tool items with stagger ── */
-  const toolItemObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          toolItemObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
-  );
-
-  document.querySelectorAll('.tool-item').forEach((item, i) => {
-    item.classList.add('reveal');
-    item.style.transitionDelay = `${i * 0.06}s`;
-    toolItemObserver.observe(item);
-  });
-
-  /* ── 9. PORTFOLIO CARD PARALLAX THUMBNAIL ── */
-  document.querySelectorAll('.portfolio-card').forEach((card) => {
-    const thumb = card.querySelector('.portfolio-thumb img');
-    if (!thumb) return;
-
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      thumb.style.transform = `scale(1.1) translateY(${y * -8}px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      thumb.style.transform = 'scale(1.04)';
-    });
-  });
-
-  /* ── 10. CONTACT ITEMS reveal stagger ── */
-  document.querySelectorAll('.contact-item').forEach((item, i) => {
-    item.classList.add('reveal');
-    item.style.transitionDelay = `${i * 0.1}s`;
-    revealObserver.observe(item);
-  });
-
-  /* ── 11. PAGE LOADING — remove initial flicker ── */
+  /* ── 8. PAGE READY ──────────────────────────────────────────────── */
   document.documentElement.classList.add('js-loaded');
-
 })();

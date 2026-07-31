@@ -2,20 +2,51 @@
 // LongLeo Portfolio — Main Global Layout Engine (Phase 1 Fixes & Phase 2 Integration)
 // ========================================================================== */
 
-/* ── Initialize Lenis Smooth Scroll ── */
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true
-});
+/* ── Smooth scroll ──────────────────────────────────────────────────
+   Hijacked scrolling is the single worst offender for motion sensitivity,
+   so it is skipped entirely under prefers-reduced-motion. Everything else
+   calls lenis.stop()/start()/scrollTo(), so a no-op stand-in keeps those
+   call sites working without a null check at each one. */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// app.js owns the language state (?lang= beats localStorage); fall back to
+// storage in case main.js somehow runs first.
+const isEnglish = () =>
+  (typeof window.portfolioLang === "function"
+    ? window.portfolioLang()
+    : localStorage.getItem("portfolio_lang")) === "en";
+
+const lenis = (!prefersReducedMotion && typeof Lenis !== 'undefined')
+  ? new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true
+    })
+  : {
+      stop() {},
+      start() {},
+      on() {},
+      raf() {},
+      scrollTo(target, options = {}) {
+        const offset = options.offset || 0;
+        if (typeof target === 'number') {
+          window.scrollTo({ top: target + offset, behavior: 'auto' });
+          return;
+        }
+        const el = typeof target === 'string' ? document.querySelector(target) : target;
+        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: 'auto' });
+      }
+    };
 
 window.lenis = lenis;
 
-function raf(time) {
-  lenis.raf(time);
+if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
+  const raf = (time) => {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  };
   requestAnimationFrame(raf);
 }
-requestAnimationFrame(raf);
 
 // ==========================================
 // Theme Switcher (Light/Dark Mode)
@@ -35,7 +66,7 @@ if (themeToggle) {
   
     const cvIframe = document.querySelector("#cvModal iframe");
     if (cvIframe && cvIframe.contentWindow) {
-      cvIframe.contentWindow.postMessage({ type: "THEME_TOGGLE", isLight: isLight }, "*");
+      cvIframe.contentWindow.postMessage({ type: "THEME_TOGGLE", isLight: isLight }, window.location.origin);
     }
   });
 }
@@ -45,15 +76,18 @@ if (themeToggle) {
 // ==========================================
 const loader = document.getElementById("cinematicLoader");
 if (loader) {
-  lenis.stop();
-  
-  // Safety timeout in case window load event fires late
-  const forceCloseLoader = setTimeout(closeLoaderSequence, 400);
-  
-  window.addEventListener("load", () => {
-    clearTimeout(forceCloseLoader);
-    setTimeout(closeLoaderSequence, 400);
-  });
+  if (prefersReducedMotion) {
+    closeLoaderSequence();
+  } else {
+    lenis.stop();
+    // Safety timeout in case the load event fires late
+    const forceCloseLoader = setTimeout(closeLoaderSequence, 400);
+
+    window.addEventListener("load", () => {
+      clearTimeout(forceCloseLoader);
+      setTimeout(closeLoaderSequence, 400);
+    });
+  }
 }
 
 function closeLoaderSequence() {
@@ -81,23 +115,34 @@ const menuBtn = document.getElementById("menuBtn");
 const mobileNav = document.getElementById("mobileNav");
 
 if (menuBtn && mobileNav) {
-  menuBtn.addEventListener("click", () => {
-    mobileNav.classList.toggle("open");
-    const isOpen = mobileNav.classList.contains("open");
+  const setMenuState = (isOpen) => {
+    mobileNav.classList.toggle("open", isOpen);
     menuBtn.textContent = isOpen ? "×" : "☰";
-    if (isOpen) {
-      lenis.stop();
-    } else {
-      lenis.start();
-    }
+    menuBtn.setAttribute("aria-expanded", String(isOpen));
+    menuBtn.setAttribute(
+      "aria-label",
+      isOpen
+        ? (isEnglish() ? "Close menu" : "Đóng menu")
+        : (isEnglish() ? "Open menu" : "Mở menu")
+    );
+    if (isOpen) lenis.stop(); else lenis.start();
+  };
+
+  setMenuState(false);
+
+  menuBtn.addEventListener("click", () => {
+    setMenuState(!mobileNav.classList.contains("open"));
   });
 
   mobileNav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      mobileNav.classList.remove("open");
-      menuBtn.textContent = "☰";
-      lenis.start();
-    });
+    link.addEventListener("click", () => setMenuState(false));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileNav.classList.contains("open")) {
+      setMenuState(false);
+      menuBtn.focus();
+    }
   });
 }
 
@@ -113,17 +158,13 @@ if (contactForm && formNote) {
 
     const submitBtn = contactForm.querySelector("button[type='submit']");
     const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = localStorage.getItem('portfolio_lang') === 'en' ? "Sending..." : "Đang gửi...";
+    submitBtn.textContent = isEnglish() ? "Sending..." : "Đang gửi...";
     submitBtn.disabled = true;
 
     formNote.className = "form-note";
     formNote.textContent = "";
 
     const formData = new FormData(contactForm);
-    
-    if (!formData.has("access_key")) {
-      formData.append("access_key", "a582c035-779d-4762-b9cf-c79ee898b958");
-    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -132,7 +173,7 @@ if (contactForm && formNote) {
       });
 
       const result = await response.json();
-      const isEn = localStorage.getItem('portfolio_lang') === 'en';
+      const isEn = isEnglish();
 
       if (result.success) {
         formNote.textContent = isEn 
@@ -180,6 +221,8 @@ function cacheSectionOffsets() {
   }));
 }
 window.addEventListener('resize', cacheSectionOffsets);
+// app.js calls this after re-rendering the grid, which changes page height.
+window.recacheSectionOffsets = cacheSectionOffsets;
 
 function updateScrollUI() {
   const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -200,10 +243,19 @@ function updateScrollUI() {
   });
 }
 
-// Listen scroll events from Lenis
-lenis.on('scroll', () => {
-  updateScrollUI();
-});
+// Lenis emits its own scroll events; the native listener below covers the
+// reduced-motion path. Guarded so the two never both fire per frame.
+let scrollTicking = false;
+function requestScrollUI() {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    scrollTicking = false;
+    updateScrollUI();
+  });
+}
+
+lenis.on('scroll', requestScrollUI);
 
 // Smooth anchor scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -235,8 +287,13 @@ if (backToTop) {
   });
 }
 
-window.addEventListener("scroll", updateScrollUI, { passive: true });
-window.addEventListener("load", updateScrollUI);
+window.addEventListener("scroll", requestScrollUI, { passive: true });
+window.addEventListener("load", () => {
+  // The portfolio grid renders after fetch, which changes every section's
+  // offsetTop — recache or the active nav link lags a whole section.
+  cacheSectionOffsets();
+  updateScrollUI();
+});
 updateScrollUI();
 
 // ==========================================
@@ -248,6 +305,8 @@ const lightboxClose = document.querySelector(".lightbox-close");
 const lightboxVideo = document.getElementById("lightboxVideo");
 const lightboxVideoWrapper = document.getElementById("lightboxVideoWrapper");
 
+// Opening, closing, Escape and focus restore all live in app.js's ModalManager.
+// This only handles the image-loaded swap from spinner to picture.
 if (lightboxModal && lightboxImage && lightboxClose) {
   lightboxImage.addEventListener("load", () => {
     const lightboxLoader = document.getElementById("lightboxLoader");
@@ -255,25 +314,11 @@ if (lightboxModal && lightboxImage && lightboxClose) {
     lightboxImage.style.display = "block";
   });
 
-  function closeLightbox() {
-    lightboxModal.classList.remove("show");
-    lightboxImage.src = "";
-    if (lightboxVideo) lightboxVideo.src = "";
-    if (lightboxVideoWrapper) lightboxVideoWrapper.style.display = "none";
-    lenis.start();
-  }
+  const closeLightbox = () => window.ModalManager && window.ModalManager.close();
 
   lightboxClose.addEventListener("click", closeLightbox);
-  
-  lightboxModal.addEventListener("click", (e) => {
-    if (e.target === lightboxModal) {
-      closeLightbox();
-    }
-  });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lightboxModal.classList.contains("show")) {
-      closeLightbox();
-    }
+  lightboxModal.addEventListener("click", (e) => {
+    if (e.target === lightboxModal) closeLightbox();
   });
 }
