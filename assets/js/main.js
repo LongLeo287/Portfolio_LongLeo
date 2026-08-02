@@ -9,6 +9,12 @@
    call sites working without a null check at each one. */
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// animations.css drives the scroll-progress bar with a native scroll timeline
+// where one exists; this stops the JS writing the same property every frame.
+const supportsScrollTimeline =
+  !prefersReducedMotion &&
+  window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+
 // app.js owns the language state (?lang= beats localStorage); fall back to
 // storage in case main.js somehow runs first.
 const isEnglish = () =>
@@ -230,8 +236,11 @@ function updateScrollUI() {
   const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
 
   // scaleX, not width: this runs on every scroll frame and width would
-  // relayout + repaint each time.
-  if (scrollProgress) scrollProgress.style.transform = `scaleX(${progress / 100})`;
+  // relayout + repaint each time. Skipped entirely where a CSS scroll
+  // timeline already drives the bar off the main thread.
+  if (scrollProgress && !supportsScrollTimeline) {
+    scrollProgress.style.transform = `scaleX(${progress / 100})`;
+  }
   if (backToTop) backToTop.classList.toggle("show", scrollTop > 520);
 
   let currentSection = "home";

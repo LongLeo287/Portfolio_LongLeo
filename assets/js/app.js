@@ -41,7 +41,6 @@ const elements = {
 // ==========================================
 async function initApp() {
   initLangToggle();
-  initHeroReel();
   
   try {
     const res = await fetch('assets/data/projects.json?v=1.17');
@@ -207,6 +206,8 @@ const translations = {
     form_ph_name: 'Nguyễn Văn A',
     form_ph_email: 'ban@example.com',
     form_ph_message: 'Mình đang cần dựng một video review dài 3 phút…',
+    band_1: ['QUAY DỰNG', 'MOTION GRAPHIC', 'COLOR GRADING', 'KEY VISUAL', 'THUMBNAIL', 'UI/UX'],
+    band_2: ['HẬU KỲ', 'TVC', 'SOCIAL VIDEO', 'CHỤP SẢN PHẨM', 'STORYBOARD', 'BRANDING'],
     footer_copy: 'Hà Đình Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'Xem dự án ↗',
@@ -320,6 +321,8 @@ const translations = {
     form_ph_name: 'Jane Doe',
     form_ph_email: 'you@example.com',
     form_ph_message: 'I need a 3-minute product review edited…',
+    band_1: ['VIDEO EDITING', 'MOTION GRAPHIC', 'COLOR GRADING', 'KEY VISUAL', 'THUMBNAIL', 'UI/UX'],
+    band_2: ['POST-PRODUCTION', 'TVC', 'SOCIAL VIDEO', 'PRODUCT PHOTOGRAPHY', 'STORYBOARD', 'BRANDING'],
     footer_copy: 'Ha Dinh Long © 2026 | All Rights Reserved.',
     footer_sub: 'Video Editor Portfolio',
     modal_view_link: 'View Project ↗',
@@ -378,6 +381,44 @@ function updateStaticTranslations() {
   setPlaceholder('#cf-name', 'form_ph_name');
   setPlaceholder('#cf-email', 'form_ph_email');
   setPlaceholder('#cf-message', 'form_ph_message');
+
+  // Kinetic band: the visible row and its duplicate must stay identical or
+  // the -50% loop develops a visible seam, so both are rebuilt together.
+  document.querySelectorAll('[data-i18n-band]').forEach(row => {
+    const words = dict[`band_${row.dataset.i18nBand}`];
+    if (!Array.isArray(words)) return;
+
+    const track = row.querySelector('.kinetic-track');
+    const dup = row.querySelector('.kinetic-dup');
+    if (!track || !dup) return;
+
+    const build = (parent) => {
+      parent.textContent = '';
+      words.forEach(word => {
+        const span = document.createElement('span');
+        span.textContent = word;
+        const sep = document.createElement('i');
+        sep.setAttribute('aria-hidden', 'true');
+        sep.textContent = '✦';
+        parent.append(span, sep);
+      });
+    };
+
+    build(dup);
+    // Rebuilding `track` would wipe `dup`, which lives inside it — replace
+    // only the nodes before it.
+    while (track.firstChild && track.firstChild !== dup) track.removeChild(track.firstChild);
+    const head = document.createDocumentFragment();
+    words.forEach(word => {
+      const span = document.createElement('span');
+      span.textContent = word;
+      const sep = document.createElement('i');
+      sep.setAttribute('aria-hidden', 'true');
+      sep.textContent = '✦';
+      head.append(span, sep);
+    });
+    track.insertBefore(head, dup);
+  });
 
   // Re-split the headings the pass above just flattened, otherwise the word
   // reveal animation silently stops existing after the first translation.
@@ -472,6 +513,25 @@ function renderPortfolio(filter = 'all') {
     tag.textContent = tagText;
 
     thumbDiv.append(img, tag);
+
+    // Play affordance, but only where the card genuinely opens a video —
+    // putting one on a poster or a photo would promise something the click
+    // does not deliver.
+    const opensVideo = p.category === 'Video' ||
+      (p.category === 'Thumbnail' && typeof p.href === 'string' && p.href.includes('youtube.com'));
+
+    if (opensVideo) {
+      card.classList.add('has-video');
+      const play = document.createElement('span');
+      play.className = 'thumb-play';
+      play.setAttribute('aria-hidden', 'true');
+      play.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+      const scrub = document.createElement('span');
+      scrub.className = 'thumb-scrub';
+      scrub.setAttribute('aria-hidden', 'true');
+      thumbDiv.append(play, scrub);
+    }
+
     card.appendChild(thumbDiv);
 
     if ((title || client) && p.category !== 'Photography') {
@@ -623,96 +683,6 @@ function getTranslatedCaseStudy(project, lang) {
     solution: getVal(cs.solution),
     tools: cs.tools || []
   };
-}
-
-// ==========================================
-// Hero showreel
-// The markup ships a poster only. The video is attached here so it can be
-// skipped outright for anyone who would not want it or should not pay for it,
-// rather than being downloaded and then hidden.
-// ==========================================
-function initHeroReel() {
-  const card = document.getElementById('heroReel');
-  if (!card) return;
-
-  const motion = window.portfolioMotion;
-  if (motion && motion.prefersReduced()) return;
-
-  // Data saver / metered connection: the poster is a complete visual on its own.
-  const conn = navigator.connection;
-  if (conn && (conn.saveData || /^(slow-)?2g$/.test(conn.effectiveType || ''))) return;
-
-  const video = document.createElement('video');
-  video.src = 'assets/video/hero-reel.mp4';
-  video.poster = 'assets/video/hero-reel-poster.jpg';
-  video.muted = true;          // required for autoplay
-  video.defaultMuted = true;
-  video.loop = true;
-  video.playsInline = true;
-  video.preload = 'auto';
-  video.setAttribute('aria-hidden', 'true');
-  video.tabIndex = -1;
-
-  video.addEventListener('playing', () => card.classList.add('is-playing'), { once: true });
-  card.insertBefore(video, card.firstChild);
-
-  const tryPlay = () => {
-    const p = video.play();
-    // Autoplay can still be refused (iOS Low Power Mode, per-site settings).
-    // The poster stays put, which is why it has to look finished.
-    if (p && typeof p.catch === 'function') p.catch(() => {});
-  };
-  tryPlay();
-
-  // Don't decode frames for a card nobody is looking at.
-  const visibility = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) tryPlay();
-      else video.pause();
-    });
-  }, { threshold: 0.15 });
-  visibility.observe(card);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause();
-    else if (card.getBoundingClientRect().bottom > 0) tryPlay();
-  });
-
-  // Timecode readout — the one piece of chrome that has to be honest, so it
-  // follows the real playhead at 24fps. The loop is bound to playback: an
-  // always-on rAF would keep waking the compositor for a paused, offscreen
-  // card forever.
-  const tc = document.getElementById('reelTimecode');
-  if (!tc) return;
-
-  const pad = (n) => String(n).padStart(2, '0');
-  let lastFrame = -1;
-  let ticking = false;
-
-  const tick = () => {
-    if (video.paused || video.ended) {
-      ticking = false;
-      return;
-    }
-    const t = video.currentTime;
-    const frame = Math.floor(t * 24) % 24;
-    if (frame !== lastFrame) {
-      lastFrame = frame;
-      tc.textContent =
-        `${pad(Math.floor(t / 3600))}:${pad(Math.floor(t / 60) % 60)}:${pad(Math.floor(t) % 60)}:${pad(frame)}`;
-    }
-    requestAnimationFrame(tick);
-  };
-
-  const startTicking = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(tick);
-  };
-
-  video.addEventListener('play', startTicking);
-  video.addEventListener('playing', startTicking);
-  if (!video.paused) startTicking();
 }
 
 // ==========================================

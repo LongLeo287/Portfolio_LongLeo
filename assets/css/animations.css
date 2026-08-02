@@ -491,6 +491,76 @@
   transform: translateX(4px);
 }
 
+/* ── 14a. SCROLL-DRIVEN MOTION ───────────────────────────────────────
+   Native scroll timelines: the animation's progress *is* the scroll
+   position, computed off the main thread. No listener, no rAF, and it
+   cannot fall behind under load the way a JS-driven equivalent does.
+
+   Everything here is additive. Browsers without support keep the
+   IntersectionObserver reveals and the JS rail, which is why each block
+   is guarded and why animations.js flips its own equivalents off when it
+   sees support. */
+@supports (animation-timeline: scroll()) {
+  @media not (prefers-reduced-motion: reduce) {
+
+    /* Scroll progress bar — hands a per-frame JS style write back to CSS. */
+    .scroll-progress {
+      animation: railGrowX linear;
+      animation-timeline: scroll(root block);
+    }
+
+    /* Experience rail draws itself as the section crosses the viewport. */
+    .experience-grid::after {
+      animation: railGrow linear both;
+      animation-timeline: view();
+      animation-range: cover 12% cover 78%;
+    }
+
+    /* Hero recedes as it leaves rather than simply scrolling off, so the
+       page reads as depth instead of a flat sheet of paper.
+
+       Applied to the grid, NOT to .hero-content / .hero-visual: those already
+       carry entrance animations, and an `animation:` shorthand there would
+       replace them outright. Two animations on one element would also fight
+       over `transform`, since the later one wins the whole property. */
+    .hero-grid {
+      animation: heroExit linear both;
+      animation-timeline: view();
+      animation-range: exit-crossing 0% exit-crossing 100%;
+    }
+
+    /* About portrait drifts against the scroll. Deliberately NOT applied to
+       .portfolio-thumb img: a CSS animation outranks an inline style, so it
+       would silently kill the hover parallax that JS writes there.
+       Nothing here may touch opacity either — a scroll-driven fade that
+       fails to resolve leaves real content invisible. */
+    .about-image-inner {
+      animation: parallaxDrift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes railGrow {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes heroExit {
+  to { opacity: 0; transform: translateY(-40px) scale(.96); }
+}
+
+@keyframes parallaxDrift {
+  from { transform: translateY(-16px); }
+  to   { transform: translateY(16px); }
+}
+
+@keyframes railGrowX {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 /* ── 14b. VIEW TRANSITION — portfolio filter change ──────────────────
    The default cross-fade is a full-page dissolve, which is too heavy for a
    grid swap. Scoped to the grid, shortened, and given a slight vertical
@@ -538,14 +608,9 @@
   .logo-path,
   .hero-content,
   .hero-visual,
-  .stat-card,
-  .reel-rec i {
+  .stat-card {
     animation: none !important;
   }
-
-  /* The reel never loads its video here (app.js bails out), so the scanline
-     overlay is texture on a still — drop it. */
-  .reel-scanlines { display: none; }
 
   /* 2. Entrance offsets collapse — the element is simply there. */
   .reveal,

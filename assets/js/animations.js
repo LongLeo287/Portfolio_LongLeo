@@ -12,6 +12,13 @@
   const prefersReduced = () => reduceMotionQuery.matches;
   const finePointer = () => window.matchMedia('(pointer: fine)').matches;
 
+  // Where scroll-driven animations exist, CSS links motion to scroll position
+  // directly — off the main thread, no listener, no rAF. The JS equivalents
+  // below stand down so the two never fight over the same property.
+  const supportsScrollTimeline =
+    window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
+  document.documentElement.classList.toggle('has-scroll-timeline', !!supportsScrollTimeline);
+
   /* Shared rAF scheduler — one frame loop for every pointer-driven effect
      instead of one style write per mousemove event. */
   const frameQueue = new Map();
@@ -343,6 +350,49 @@
     startPillTyping(pill.textContent.trim());
   }
 
-  /* ── 8. PAGE READY ──────────────────────────────────────────────── */
+  /* ── 8. EXPERIENCE RAIL ─────────────────────────────────────────────
+     Fills the timeline rail in step with how far the section has scrolled.
+     Where the browser has scroll-driven animations it is pure CSS and this
+     does nothing; the JS path exists for everyone else. */
+  const expGrid = document.querySelector('.experience-grid');
+  if (expGrid && !prefersReduced() && !supportsScrollTimeline) {
+    let railTicking = false;
+
+    const updateRail = () => {
+      railTicking = false;
+      const rect = expGrid.getBoundingClientRect();
+      // 0 when the section's top reaches the bottom third of the viewport,
+      // 1 once its bottom has passed the same line.
+      const line = window.innerHeight * 0.72;
+      const progress = (line - rect.top) / Math.max(rect.height, 1);
+      expGrid.style.setProperty('--rail-progress', Math.min(1, Math.max(0, progress)).toFixed(3));
+    };
+
+    const requestRail = () => {
+      if (railTicking) return;
+      railTicking = true;
+      requestAnimationFrame(updateRail);
+    };
+
+    // Only listen while the section is anywhere near the viewport.
+    let listening = false;
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !listening) {
+          listening = true;
+          window.addEventListener('scroll', requestRail, { passive: true });
+          requestRail();
+        } else if (!entry.isIntersecting && listening) {
+          listening = false;
+          window.removeEventListener('scroll', requestRail);
+        }
+      });
+    }, { rootMargin: '100% 0px' }).observe(expGrid);
+
+    window.addEventListener('resize', requestRail, { passive: true });
+    updateRail();
+  }
+
+  /* ── 9. PAGE READY ──────────────────────────────────────────────── */
   document.documentElement.classList.add('js-loaded');
 })();

@@ -542,145 +542,136 @@
       content: "";
       position: absolute;
       inset: -20px;
-      border-radius: 56px;
+      border-radius: 52px;
       background: linear-gradient(135deg, rgba(251,191,36,.24), rgba(249,115,22,.08), rgba(255,255,255,.05));
       filter: blur(26px);
     }
 
-    /* ── Hero showreel card ─────────────────────────────────────────────
-       The main hero visual: a looping cut of the portfolio's own work, with
-       the portrait demoted to a broadcast-style presenter badge. The poster
-       image carries the layout on its own, so nothing shifts when the video
-       attaches (or never does). */
-    .reel-card {
+    .portrait-card {
       position: relative;
-      width: 100%;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.15);
+      border-radius: 52px;
+      background: rgba(255,255,255,.1);
+      padding: 14px;
+      box-shadow: 0 35px 120px rgba(0,0,0,.35);
+      backdrop-filter: blur(16px);
+    }
+
+    .portrait-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
       border-radius: 40px;
-      background: #0a0807;
-      box-shadow: 0 35px 120px rgba(0,0,0,.45);
-      isolation: isolate;
     }
 
-    /* The poster stays in flow so it, not an aspect-ratio on an empty box,
-       gives the card its height. Everything else in the card is absolutely
-       positioned, so without this the card collapses to a few pixels wherever
-       the parent doesn't hand it a definite width. */
-    .reel-poster {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border-radius: inherit;
+    /* ── Kinetic band ───────────────────────────────────────────────────
+       Two rows of outlined display type running against each other. Outlined
+       rather than filled so it reads as texture between sections instead of
+       competing with the headlines on either side. */
+    .kinetic-band {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 56px) 0;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transform: rotate(-1.6deg) scale(1.06);
+      margin: clamp(48px, 8vw, 96px) 0;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
     }
 
-    .reel-card video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
+    .kinetic-row {
+      display: flex;
+      width: max-content;
+      animation: kineticScroll 34s linear infinite;
     }
 
-    .reel-card video {
-      opacity: 0;
-      transition: opacity var(--dur-deliberate) var(--ease-out);
+    .kinetic-row--reverse {
+      animation-direction: reverse;
+      animation-duration: 42s;
     }
 
-    /* Only fade the poster out once the video has frames to show. */
-    .reel-card.is-playing video { opacity: 1; }
+    .kinetic-band:hover .kinetic-row { animation-play-state: paused; }
 
-    /* Vignette keeps the badge and chrome legible over any frame. */
-    .reel-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      background:
-        linear-gradient(to top, rgba(8,6,5,.82) 0%, rgba(8,6,5,.18) 38%, transparent 62%),
-        radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(8,6,5,.45) 100%);
+    @keyframes kineticScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    .reel-scanlines {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      opacity: .45;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,.035) 0px,
-        rgba(255,255,255,.035) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-    }
-
-    .reel-chrome {
-      position: absolute;
-      z-index: 3;
-      top: 18px;
-      left: 20px;
-      right: 20px;
+    .kinetic-track {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-      font-size: 11px;
-      letter-spacing: .12em;
-      color: rgba(255,255,255,.72);
-      text-shadow: 0 1px 6px rgba(0,0,0,.7);
+      gap: clamp(16px, 2vw, 32px);
+      padding-right: clamp(16px, 2vw, 32px);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 5.5vw, 4rem);
+      font-weight: 850;
+      letter-spacing: var(--tracking-tight);
+      line-height: 1.1;
+      white-space: nowrap;
     }
 
-    .reel-rec {
-      display: inline-flex;
+    .kinetic-track > span,
+    .kinetic-dup > span {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+      transition: color var(--dur-base) var(--ease-out),
+                  -webkit-text-stroke-color var(--dur-base) var(--ease-out);
+    }
+
+    .kinetic-track > span:hover,
+    .kinetic-dup > span:hover {
+      color: var(--amber);
+      -webkit-text-stroke-color: transparent;
+    }
+
+    .kinetic-track > i,
+    .kinetic-dup > i {
+      font-style: normal;
+      color: var(--primary);
+      opacity: .55;
+      font-size: .45em;
+    }
+
+    .kinetic-dup {
+      display: flex;
       align-items: center;
-      gap: 7px;
-      font-weight: 700;
+      gap: clamp(16px, 2vw, 32px);
+      padding-right: clamp(16px, 2vw, 32px);
     }
 
-    .reel-rec i {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #ff3b30;
-      box-shadow: 0 0 10px rgba(255,59,48,.9);
-      animation: recBlink 2s steps(1, end) infinite;
+    /* Outlined type on a light background needs a darker stroke to survive. */
+    :root.light-theme .kinetic-track > span,
+    :root.light-theme .kinetic-dup > span {
+      -webkit-text-stroke-color: rgba(28, 25, 23, 0.32);
     }
 
-    @keyframes recBlink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: .15; } }
-
-    .reel-tc { font-variant-numeric: tabular-nums; }
-
-    .reel-avatar {
-      position: absolute;
-      z-index: 3;
-      left: 22px;
-      bottom: 116px;
-      width: 74px;
-      height: 74px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255,255,255,.4);
-      box-shadow: 0 10px 30px rgba(0,0,0,.55);
+    :root.light-theme .kinetic-track > span:hover,
+    :root.light-theme .kinetic-dup > span:hover {
+      color: var(--orange);
     }
 
-    .reel-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 18%;
-    }
-
-    .reel-card .floating-note {
-      left: 22px;
-      right: 22px;
-      bottom: 22px;
-      z-index: 3;
+    /* An endlessly travelling wall of type is the clearest vestibular
+       trigger on the page — it stops and wraps instead. */
+    @media (prefers-reduced-motion: reduce) {
+      .kinetic-band {
+        transform: none;
+        -webkit-mask-image: none;
+        mask-image: none;
+      }
+      .kinetic-row {
+        animation: none;
+        width: 100%;
+      }
+      .kinetic-track {
+        flex-wrap: wrap;
+        justify-content: center;
+        white-space: normal;
+        font-size: clamp(1.1rem, 3vw, 1.6rem);
+      }
+      .kinetic-dup { display: none; }
     }
 
     .floating-note {
@@ -939,24 +930,108 @@
       color: rgba(255,255,255,.62);
     }
 
+    /* ── Experience timeline ────────────────────────────────────────────
+       A single column with a rail down the left. Two columns of cards read
+       as a catalogue of jobs; one column with a rail reads as a career,
+       which is what the section heading promises. */
     .experience-grid {
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
+      grid-template-columns: 1fr;
+      gap: clamp(20px, 3vw, 30px);
+      padding-left: 62px;
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    /* The unfilled rail. */
+    .experience-grid::before {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--line);
+      border-radius: 2px;
+    }
+
+    /* The filled rail, drawn as the section scrolls past. Scaled from the
+       top so it grows downward; a height animation would relayout. */
+    .experience-grid::after {
+      content: '';
+      position: absolute;
+      left: 21px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      border-radius: 2px;
+      background: linear-gradient(to bottom, var(--amber), var(--primary));
+      box-shadow: 0 0 14px rgba(252, 211, 77, .45);
+      transform-origin: 50% 0;
+      transform: scaleY(var(--rail-progress, 0));
     }
 
     .experience-card {
-      overflow: hidden;
+      position: relative;
+      overflow: visible;
       border: 1px solid rgba(255,255,255,.1);
-      border-radius: 34px;
+      border-radius: 28px;
       background: rgba(255,255,255,.04);
       transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     }
 
+    /* Node on the rail, level with the card's logo. */
+    .experience-card::before {
+      content: '';
+      position: absolute;
+      left: -48px;
+      top: 42px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg-main);
+      border: 2px solid var(--line);
+      transform: scale(.6);
+      transition: transform var(--dur-base) var(--ease-back),
+                  background var(--dur-base) var(--ease-out),
+                  border-color var(--dur-base) var(--ease-out),
+                  box-shadow var(--dur-base) var(--ease-out);
+    }
+
+    /* Lands when the card itself reveals, so the node and the card arrive
+       together rather than the rail running ahead of its content. */
+    .experience-card.revealed::before,
+    .experience-card.show::before {
+      transform: scale(1);
+      background: var(--amber);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 5px rgba(252, 211, 77, .14), 0 0 16px rgba(252, 211, 77, .55);
+    }
+
     .experience-card:hover {
-      transform: translateY(-5px);
+      transform: translateX(5px);
       border-color: rgba(252,211,77,.42);
       background: rgba(255,255,255,.07);
+    }
+
+    .experience-card:hover::before {
+      transform: scale(1.25);
+    }
+
+    .experience-card-inner { border-radius: inherit; overflow: hidden; }
+
+    @media (max-width: 719px) {
+      .experience-grid { padding-left: 40px; }
+      .experience-grid::before,
+      .experience-grid::after { left: 13px; }
+      .experience-card::before { left: -33px; top: 32px; width: 11px; height: 11px; }
+    }
+
+    /* Rail draw is decorative; without motion it is simply already full. */
+    @media (prefers-reduced-motion: reduce) {
+      .experience-grid::after { transform: scaleY(1); }
+      .experience-card::before { transform: scale(1); }
     }
 
     .experience-card-inner {
@@ -1165,6 +1240,77 @@
       transform: translateY(-6px);
       border-color: rgba(245, 158, 11, .4);
       box-shadow: var(--shadow), var(--glow-amber-strong);
+    }
+
+    /* ── Video card affordance ──────────────────────────────────────────
+       Only rendered on cards that actually open a player. Scales in from
+       0.7 rather than 0 — nothing in the real world appears from nothing. */
+    .thumb-play {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      margin: -27px 0 0 -27px;
+      border-radius: 50%;
+      background: rgba(12, 10, 9, .62);
+      border: 1px solid rgba(255, 255, 255, .28);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      opacity: 0;
+      transform: scale(.7);
+      transition: opacity var(--dur-base) var(--ease-out),
+                  transform var(--dur-base) var(--ease-back),
+                  background var(--dur-base) var(--ease-out);
+    }
+
+    .thumb-play svg { margin-left: 3px; } /* optical centring of a triangle */
+
+    .portfolio-card.has-video:hover .thumb-play,
+    .portfolio-card.has-video:focus-visible .thumb-play {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .portfolio-card.has-video:hover .thumb-play {
+      background: var(--primary);
+      border-color: transparent;
+      color: #140f09;
+    }
+
+    /* Scrub line — reads as "this is footage" without pretending to know a
+       real duration. */
+    .thumb-scrub {
+      position: absolute;
+      z-index: 4;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform var(--dur-deliberate) var(--ease-out);
+    }
+
+    .portfolio-card.has-video:hover .thumb-scrub,
+    .portfolio-card.has-video:focus-visible .thumb-scrub {
+      transform: scaleX(1);
+    }
+
+    /* Touch has no hover to reveal it, so the affordance is simply on. */
+    @media (hover: none) {
+      .thumb-play { opacity: 1; transform: scale(.86); }
+      .thumb-scrub { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .thumb-play { opacity: 1; transform: scale(1); }
+      .thumb-scrub { display: none; }
     }
 
     /* Pointer spotlight — JS only writes --mx/--my, the paint stays in CSS.
@@ -1742,7 +1888,6 @@
   }
   /* Portfolio keeps 2 columns */
   /* Collapse grids */
-  .experience-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
   .tools-grid-wrapper { grid-template-columns: 1fr; gap: 28px; }
   /* Social grid 2 cols */
@@ -1772,16 +1917,11 @@
   .section-pad, .contact-section { padding: 60px 0; }
 
   .floating-note { left: 16px; right: 16px; bottom: 16px; padding: 12px 16px; border-radius: 20px; align-items: center; gap: 12px; }
-  .reel-card { border-radius: 30px; }
-  .reel-card .floating-note { left: 14px; right: 14px; bottom: 14px; }
-  .reel-avatar { left: 16px; bottom: 92px; width: 58px; height: 58px; }
-  .reel-chrome { top: 14px; left: 16px; right: 16px; font-size: 10px; }
   .floating-note small { font-size: 12px; }
   .floating-note strong { font-size: 14px; margin-top: 2px; }
   .floating-note span { font-size: 20px; }
 
   .services-grid { grid-template-columns: 1fr; }
-  .experience-grid { grid-template-columns: 1fr; }
 
   .back-to-top {
     right: 16px;
