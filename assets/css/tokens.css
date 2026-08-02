@@ -100,8 +100,8 @@
    outright makes state changes harder to follow, not easier. The
    movement itself is removed in animations.css; JS reads the same media
    query and skips its own animation loops entirely. */
-@media (prefers-reduced-motion: reduce) {
-  :root {
+
+  :root[data-motion="reduced"] {
     --dur-instant: 80ms;
     --dur-fast: 120ms;
     --dur-base: 150ms;
@@ -111,4 +111,4 @@
     --stagger: 0ms;
     --stagger-tight: 0ms;
   }
-}
+

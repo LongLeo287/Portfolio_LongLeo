@@ -528,44 +528,42 @@
    is guarded and why animations.js flips its own equivalents off when it
    sees support. */
 @supports (animation-timeline: scroll()) {
-  @media not (prefers-reduced-motion: reduce) {
 
-    /* Scroll progress bar — hands a per-frame JS style write back to CSS. */
-    .scroll-progress {
-      animation: railGrowX linear;
-      animation-timeline: scroll(root block);
-    }
+  /* Scroll progress bar — hands a per-frame JS style write back to CSS. */
+  :root[data-motion="full"] .scroll-progress {
+    animation: railGrowX linear;
+    animation-timeline: scroll(root block);
+  }
 
-    /* Experience rail draws itself as the section crosses the viewport. */
-    .experience-grid::after {
-      animation: railGrow linear both;
-      animation-timeline: view();
-      animation-range: cover 12% cover 78%;
-    }
+  /* Experience rail draws itself as the section crosses the viewport. */
+  :root[data-motion="full"] .experience-grid::after {
+    animation: railGrow linear both;
+    animation-timeline: view();
+    animation-range: cover 12% cover 78%;
+  }
 
-    /* Hero recedes as it leaves rather than simply scrolling off, so the
-       page reads as depth instead of a flat sheet of paper.
+  /* Hero recedes as it leaves rather than simply scrolling off, so the page
+     reads as depth instead of a flat sheet of paper.
 
-       Applied to the grid, NOT to .hero-content / .hero-visual: those already
-       carry entrance animations, and an `animation:` shorthand there would
-       replace them outright. Two animations on one element would also fight
-       over `transform`, since the later one wins the whole property. */
-    .hero-grid {
-      animation: heroExit linear both;
-      animation-timeline: view();
-      animation-range: exit-crossing 0% exit-crossing 100%;
-    }
+     Applied to the grid, NOT to .hero-content / .hero-visual: those already
+     carry entrance animations, and an `animation:` shorthand there would
+     replace them outright. Two animations on one element would also fight
+     over `transform`, since the later one wins the whole property. */
+  :root[data-motion="full"] .hero-grid {
+    animation: heroExit linear both;
+    animation-timeline: view();
+    animation-range: exit-crossing 0% exit-crossing 100%;
+  }
 
-    /* About portrait drifts against the scroll. Deliberately NOT applied to
-       .portfolio-thumb img: a CSS animation outranks an inline style, so it
-       would silently kill the hover parallax that JS writes there.
-       Nothing here may touch opacity either — a scroll-driven fade that
-       fails to resolve leaves real content invisible. */
-    .about-image-inner {
-      animation: parallaxDrift linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
+  /* About portrait drifts against the scroll. Deliberately NOT applied to
+     .portfolio-thumb img: a CSS animation outranks an inline style, so it
+     would silently kill the hover parallax that JS writes there. Nothing
+     here may touch opacity either — a scroll-driven fade that fails to
+     resolve leaves real content invisible. */
+  :root[data-motion="full"] .about-image-inner {
+    animation: parallaxDrift linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
   }
 }
 
@@ -614,70 +612,67 @@
   from { opacity: 0; transform: translateY(10px); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation: none; }
+
+  :root[data-motion="reduced"]::view-transition-old(root),
+:root[data-motion="reduced"]::view-transition-new(root) { animation: none; }
+
+
+/* ── 15. REDUCED MOTION ──────────────────────────────────────────────
+   Driven by [data-motion], which a head script sets from the OS preference
+   before first paint and the header toggle can override.
+
+   Reduced means *less* movement, not a dead page. What goes: looping
+   ambient motion, entrance travel, parallax, anything crossing the screen.
+   What stays: hover and press feedback, because that is state feedback the
+   visitor needs in order to tell what is interactive — an earlier version
+   blanket-reset `transform` here and silently killed every card hover on
+   the site. */
+
+/* 1. Looping / ambient animation stops outright. */
+:root[data-motion="reduced"] .hero-orb,
+:root[data-motion="reduced"] .floating-note,
+:root[data-motion="reduced"] .pill-float,
+:root[data-motion="reduced"] .brand-mark::after,
+:root[data-motion="reduced"] .eyebrow::after,
+:root[data-motion="reduced"] .marquee-track,
+:root[data-motion="reduced"] .kinetic-row,
+:root[data-motion="reduced"] .logo-path,
+:root[data-motion="reduced"] .hero-content,
+:root[data-motion="reduced"] .hero-visual,
+:root[data-motion="reduced"] .stat-card {
+  animation: none !important;
 }
 
-/* ── 15. REDUCED MOTION SAFETY ── */
+/* 2. Entrance travel collapses — these have no hover state of their own,
+      so resetting transform here costs nothing. */
+:root[data-motion="reduced"] .reveal,
+:root[data-motion="reduced"] .reveal-left,
+:root[data-motion="reduced"] .reveal-right,
+:root[data-motion="reduced"] .reveal-scale {
+  opacity: 1;
+  transform: none;
+}
 
-/* Reduced motion means fewer and gentler animations, not none. Opacity and
-   colour still carry meaning and cause no vestibular trouble, so they stay —
-   what goes is movement: looping ambient motion, entrance offsets, parallax
-   and anything that travels across the screen. */
-@media (prefers-reduced-motion: reduce) {
-  /* 1. Every looping / ambient animation stops. */
-  .hero-orb,
-  .floating-note,
-  .pill-float,
-  .brand-mark,
-  .brand-mark::after,
-  .eyebrow::after,
-  .marquee-track,
-  .logo-path,
-  .hero-content,
-  .hero-visual,
-  .stat-card {
-    animation: none !important;
-  }
+:root[data-motion="reduced"] .reveal-word,
+:root[data-motion="reduced"] .showcase-slide {
+  transform: none;
+}
 
-  /* 2. Entrance offsets collapse — the element is simply there. */
-  .reveal,
-  .reveal-left,
-  .reveal-right,
-  .reveal-scale,
-  .fade-up,
-  .portfolio-card,
-  .showcase-slide {
-    transform: none !important;
-    transition-property: opacity, color, background-color, border-color !important;
-  }
+/* 3. Visibility must never wait on a transition that may not run.
+      Opacity only — deliberately not transform, so :hover still lifts. */
+:root[data-motion="reduced"] .portfolio-card,
+:root[data-motion="reduced"] .fade-up {
+  opacity: 1;
+}
 
-  /* Visibility must not depend on a transition completing. Under reduced
-     motion these elements are simply present from the start — no fade-in to
-     wait on, and nothing left stuck at opacity 0 if it never runs. */
-  .reveal,
-  .reveal-left,
-  .reveal-right,
-  .reveal-scale,
-  .portfolio-card,
-  .fade-up {
-    opacity: 1 !important;
-  }
-
-  .reveal-word {
-    transform: none !important;
-  }
-
-  /* 3. Everything else keeps a short fade rather than snapping. */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 150ms !important;
-    scroll-behavior: auto !important;
-  }
+/* 4. Everything else keeps a short fade instead of snapping. */
+:root[data-motion="reduced"] *,
+:root[data-motion="reduced"] *::before,
+:root[data-motion="reduced"] *::after {
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 150ms !important;
+  scroll-behavior: auto !important;
 }
 
 /* ── 16. PORTFOLIO CARD: fix hover vs show animation conflict ── */

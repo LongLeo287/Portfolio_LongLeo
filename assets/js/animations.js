@@ -8,8 +8,11 @@
 (function () {
   'use strict';
 
-  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const prefersReduced = () => reduceMotionQuery.matches;
+  // Single source of truth for motion: the data-motion attribute, which the
+  // head script seeds from the OS preference and the header toggle rewrites.
+  // Read live, never cached, so flipping the toggle takes effect immediately
+  // instead of on the next page load.
+  const prefersReduced = () => document.documentElement.dataset.motion === 'reduced';
   const finePointer = () => window.matchMedia('(pointer: fine)').matches;
 
   // Where scroll-driven animations exist, CSS links motion to scroll position
@@ -189,7 +192,7 @@
 
   /* ── 3. CURSOR SPOTLIGHT ────────────────────────────────────────── */
   const spotlight = document.getElementById('cursorSpotlight');
-  if (spotlight && finePointer() && !prefersReduced()) {
+  if (spotlight && finePointer()) {
     let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
     let running = false;
 
@@ -206,6 +209,8 @@
     }
 
     document.addEventListener('mousemove', (e) => {
+      if (prefersReduced()) { spotlight.style.opacity = '0'; return; }
+      spotlight.style.opacity = '';
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!running) {
@@ -266,11 +271,16 @@
      Writes --mag-x/--mag-y rather than `transform`. An inline transform
      would win the cascade over :hover and :active, so the button would
      stop showing lift and press feedback the moment the pointer touched
-     it. The CSS composes all three. */
-  if (finePointer() && !prefersReduced()) {
+     it. The CSS composes all three.
+
+     Bound regardless of the current motion setting and gated inside the
+     handler — binding on load would mean the toggle only took effect after
+     a reload. */
+  if (finePointer()) {
     document.querySelectorAll('.btn-primary, .btn-dark, .header-cta').forEach((btn, i) => {
       const key = `magnet-${i}`;
       btn.addEventListener('mousemove', (e) => {
+        if (prefersReduced()) return;
         const rect = btn.getBoundingClientRect();
         const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
         const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
@@ -292,10 +302,11 @@
   /* ── 6. TILT + SPOTLIGHT on static cards ────────────────────────────
      Portfolio cards are rendered later by app.js and bind themselves —
      this only covers cards that exist in the markup at parse time. */
-  if (finePointer() && !prefersReduced()) {
+  if (finePointer()) {
     document.querySelectorAll('.service-card').forEach((card, i) => {
       const key = `tilt-${i}`;
       card.addEventListener('mousemove', (e) => {
+        if (prefersReduced()) return;
         const rect = card.getBoundingClientRect();
         const px = e.clientX - rect.left;
         const py = e.clientY - rect.top;

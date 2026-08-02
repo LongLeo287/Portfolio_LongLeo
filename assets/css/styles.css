@@ -653,26 +653,37 @@
       color: var(--orange);
     }
 
-    /* An endlessly travelling wall of type is the clearest vestibular
-       trigger on the page — it stops and wraps instead. */
-    @media (prefers-reduced-motion: reduce) {
-      .kinetic-band {
-        transform: none;
-        -webkit-mask-image: none;
-        mask-image: none;
-      }
-      .kinetic-row {
-        animation: none;
-        width: 100%;
-      }
-      .kinetic-track {
-        flex-wrap: wrap;
-        justify-content: center;
-        white-space: normal;
-        font-size: clamp(1.1rem, 3vw, 1.6rem);
-      }
-      .kinetic-dup { display: none; }
+    /* An endlessly travelling wall of type is the clearest vestibular trigger
+       on the page, so it stops. It must still read as a designed strip and
+       not as a stray pile of words — keep the outlined type, the rows, the
+       rhythm and the rule lines; only the travel goes. */
+    :root[data-motion="reduced"] .kinetic-band {
+      transform: none;
+      padding: clamp(32px, 5vw, 60px) var(--space-6);
+      -webkit-mask-image: none;
+      mask-image: none;
     }
+
+    :root[data-motion="reduced"] .kinetic-row {
+      animation: none;
+      width: 100%;
+    }
+
+    :root[data-motion="reduced"] .kinetic-row + .kinetic-row {
+      margin-top: var(--space-4);
+    }
+
+    :root[data-motion="reduced"] .kinetic-track {
+      flex-wrap: wrap;
+      justify-content: center;
+      white-space: normal;
+      row-gap: var(--space-3);
+      padding-right: 0;
+      font-size: clamp(1.25rem, 3.4vw, 2.25rem);
+    }
+
+    :root[data-motion="reduced"] .kinetic-dup { display: none; }
+    
 
     .floating-note {
       position: absolute;
@@ -1029,10 +1040,10 @@
     }
 
     /* Rail draw is decorative; without motion it is simply already full. */
-    @media (prefers-reduced-motion: reduce) {
-      .experience-grid::after { transform: scaleY(1); }
-      .experience-card::before { transform: scale(1); }
-    }
+
+      :root[data-motion="reduced"] .experience-grid::after { transform: scaleY(1); }
+      :root[data-motion="reduced"] .experience-card::before { transform: scale(1); }
+    
 
     .experience-card-inner {
       padding: 32px;
@@ -1308,10 +1319,10 @@
       .thumb-scrub { display: none; }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .thumb-play { opacity: 1; transform: scale(1); }
-      .thumb-scrub { display: none; }
-    }
+
+      :root[data-motion="reduced"] .thumb-play { opacity: 1; transform: scale(1); }
+      :root[data-motion="reduced"] .thumb-scrub { display: none; }
+    
 
     /* Pointer spotlight — JS only writes --mx/--my, the paint stays in CSS.
        Also covers .service-card, which uses the same two custom properties. */
@@ -2207,11 +2218,11 @@
 @keyframes scrollMarquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 40px)); } }
 
 /* An endlessly looping strip is exactly what motion sensitivity flags. */
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; gap: 40px; padding: 0; }
-  .marquee-track .logo-item[aria-hidden="true"] { display: none; }
-  .marquee-wrapper { -webkit-mask-image: none; mask-image: none; }
-}
+
+  :root[data-motion="reduced"] .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; gap: 40px; padding: 0; }
+  :root[data-motion="reduced"] .marquee-track .logo-item[aria-hidden="true"] { display: none; }
+  :root[data-motion="reduced"] .marquee-wrapper { -webkit-mask-image: none; mask-image: none; }
+
 
 .logo-item { height: 100px; display: flex; align-items: center; justify-content: center; transition: filter var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); filter: brightness(0) invert(1); opacity: 0.8; flex: 0 0 auto; }
 .logo-item:hover { filter: none; opacity: 1; transform: scale(1.08); }
@@ -2291,6 +2302,61 @@
 .theme-toggle:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
 :root.light-theme .theme-toggle { background: rgba(28,25,23,0.05); border: 1px solid rgba(28,25,23,0.1); color: var(--text-main); }
 :root.light-theme .theme-toggle:hover { background: rgba(28,25,23,0.1); }
+/* Mobile nav switch — the header has no room for a fourth icon button, but
+   the setting still has to be reachable on a phone. */
+.motion-switch {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.motion-switch-track {
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 27px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid var(--line);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.motion-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+
+.motion-switch[aria-pressed="true"] .motion-switch-track {
+  background: rgba(255, 122, 0, 0.35);
+  border-color: var(--primary);
+}
+
+.motion-switch[aria-pressed="true"] .motion-switch-thumb {
+  transform: translateX(21px);
+  background: var(--primary);
+}
+
+:root.light-theme .motion-switch-track { background: rgba(28, 25, 23, 0.1); }
+
+/* Motion toggle mirrors the theme toggle: one icon per state. */
+.motion-toggle .icon-motion-on { display: none; }
+.motion-toggle .icon-motion-off { display: block; }
+:root[data-motion="full"] .motion-toggle .icon-motion-on { display: block; }
+:root[data-motion="full"] .motion-toggle .icon-motion-off { display: none; }
+:root[data-motion="full"] .motion-toggle { color: var(--amber); }
+.motion-toggle { margin-right: 8px; }
+@media (max-width: 767px) { .motion-toggle { display: none; } }
 .theme-toggle .sun-icon { display: block; }
 .theme-toggle .moon-icon { display: none; }
 :root.light-theme .theme-toggle .sun-icon { display: none; }
