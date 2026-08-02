@@ -264,9 +264,28 @@
 .stat-card:nth-child(2) { animation-delay: 1.15s; }
 .stat-card:nth-child(3) { animation-delay: 1.3s; }
 
-/* Pulse glow on brand mark */
+/* Pulse glow on brand mark.
+   The old version animated box-shadow, and .brand-mark sits in the fixed
+   header — so it forced a repaint every frame for the entire visit. The ring
+   is now a pseudo-element scaling and fading, which the compositor handles. */
 .brand-mark {
-  animation: pulseGlow 3s ease-in-out infinite;
+  position: relative;
+}
+
+.brand-mark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 10px rgba(252, 211, 77, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  animation: brandPulse 3s ease-in-out infinite;
+}
+
+@keyframes brandPulse {
+  0%, 100% { opacity: 0; transform: scale(.82); }
+  50%      { opacity: 1; transform: scale(1); }
 }
 
 /* ── 4. CARD HOVER UPGRADES ── */
@@ -428,16 +447,24 @@
   overflow: hidden;
 }
 
+/* Sweep driven by transform, not background-position. Five of these were
+   repainting every frame, forever, including while far off screen —
+   background-position is not a composited property. */
 .eyebrow::after {
   content: '';
   position: absolute;
   top: 0;
-  left: -80%;
+  left: 0;
   width: 50%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
-  animation: shimmer 3s ease-in-out infinite;
-  animation-delay: 1s;
+  transform: translateX(-160%);
+  animation: eyebrowSheen 3s ease-in-out 1s infinite;
+}
+
+@keyframes eyebrowSheen {
+  0%        { transform: translateX(-160%); }
+  60%, 100% { transform: translateX(320%); }
 }
 
 /* ── 11. AVATAR CARD GLOW RING ── */
@@ -604,6 +631,8 @@
   .floating-note,
   .pill-float,
   .brand-mark,
+  .brand-mark::after,
+  .eyebrow::after,
   .marquee-track,
   .logo-path,
   .hero-content,

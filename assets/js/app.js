@@ -1155,25 +1155,32 @@ function initShowcaseSlider() {
     nextBtn.onclick = () => { nextSlide(); resetInterval(); };
   }
   
-  // Video facade click to load iframe on demand
-  slidesContainer.addEventListener('click', (e) => {
-    const facade = e.target.closest('.yt-facade');
-    if (facade) {
+  // Video facade click to load iframe on demand.
+  // Bound once: initShowcaseSlider() re-runs on every language switch, but
+  // slidesContainer persists, so an unguarded listener stacked up one copy
+  // per switch. Same guard the swipe handlers below already use.
+  if (!slidesContainer.dataset.facadeBound) {
+    slidesContainer.addEventListener('click', (e) => {
+      const facade = e.target.closest('.yt-facade');
+      if (!facade) return;
+
       const slide = facade.closest('.showcase-slide');
-      const videoSrc = slide.dataset.videoSrc;
-      if (videoSrc) {
-        const embedUrl = getYouTubeEmbedUrl(videoSrc);
-        if (embedUrl) {
-          const iframe = document.createElement('iframe');
-          iframe.src = embedUrl;
-          iframe.title = slide.querySelector('h3').textContent;
-          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-          iframe.setAttribute('allowfullscreen', '');
-          facade.replaceWith(iframe);
-        }
-      }
-    }
-  });
+      const videoSrc = slide && slide.dataset.videoSrc;
+      if (!videoSrc) return;
+
+      const embedUrl = getYouTubeEmbedUrl(videoSrc);
+      if (!embedUrl) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      const heading = slide.querySelector('h3');
+      iframe.title = heading ? heading.textContent : 'Video';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen', '');
+      facade.replaceWith(iframe);
+    });
+    slidesContainer.dataset.facadeBound = 'true';
+  }
   
   // Image slide lightbox click
   slides.forEach(slide => {
