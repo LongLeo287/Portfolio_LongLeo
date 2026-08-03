@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hà Đình Long | Video Editor Portfolio</title>
-  <meta name="description" content="Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 5 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX." />
+  <meta name="description" content="Portfolio của Hà Đình Long (Long Leo) — Video Editor: quay dựng, motion graphic, thiết kế đồ họa và UI/UX. Hơn 5 năm kinh nghiệm, TP.HCM." />
   <meta name="theme-color" content="#0c0a09" />
   <link rel="canonical" href="https://portfolio-long-leo.vercel.app/" />
   <!-- One page serves both languages via ?lang=; x-default is the Vietnamese view. -->
@@ -37,9 +37,9 @@
   <link rel="preload" as="image" href="assets/img/longleo_avatar-732.webp"
         imagesrcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
         imagesizes="(max-width: 767px) 80vw, 420px" fetchpriority="high" />
-  <link rel="stylesheet" href="assets/css/tokens.css?v=1.62" />
-  <link rel="stylesheet" href="assets/css/styles.css?v=1.62" />
-  <link rel="stylesheet" href="assets/css/animations.css?v=1.62" />
+  <link rel="stylesheet" href="assets/css/tokens.css?v=1.72" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.72" />
+  <link rel="stylesheet" href="assets/css/animations.css?v=1.72" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -82,12 +82,6 @@
     if (localStorage.getItem('portfolio_theme') === 'light') {
       document.documentElement.classList.add('light-theme');
     }
-    (function () {
-      var stored = localStorage.getItem('portfolio_motion');
-      var osReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      document.documentElement.dataset.motion =
-        (stored === 'full' || stored === 'reduced') ? stored : (osReduce ? 'reduced' : 'full');
-    })();
   </script>
 <style>
     /* Only images resist selection/drag. Text stays selectable so visitors can
@@ -138,11 +132,6 @@
           <button class="lang-btn" data-lang="en">EN</button>
         </div>
         
-        <button class="theme-toggle motion-toggle" id="motionToggle" type="button" aria-pressed="false" aria-label="Bật/tắt hiệu ứng chuyển động" title="Hiệu ứng chuyển động">
-          <svg class="icon icon-motion-on" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12h3l3-8 4 16 3-8h5"/></svg>
-          <svg class="icon icon-motion-off" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12h20"/><path d="m4 4 16 16"/></svg>
-        </button>
-
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng/tối">
           <svg class="icon icon-sun sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <svg class="icon icon-moon moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -164,13 +153,6 @@
             <span class="lang-sep">|</span>
             <button class="lang-btn" data-lang="en">EN</button>
           </div>
-        </div>
-
-        <div class="mobile-lang-row">
-          <span style="font-size: 13px; color: var(--text-muted); font-weight: 700;" data-i18n="motion_label">Hiệu ứng chuyển động</span>
-          <button class="motion-switch" id="motionToggleMobile" type="button" aria-pressed="false">
-            <span class="motion-switch-track" aria-hidden="true"><span class="motion-switch-thumb"></span></span>
-          </button>
         </div>
         <a href="#home" data-i18n="nav_home">Trang chủ</a>
         <a href="#about" data-i18n="nav_about">Về mình</a>
@@ -779,8 +761,8 @@
   <!-- Self-hosted: one less origin to resolve, and the version can't move
        under the site the way unpkg's did. -->
   <script src="assets/js/vendor/lenis-1.1.13.min.js" defer></script>
-  <script src="assets/js/app.js?v=1.62" defer></script>
-  <script src="assets/js/main.js?v=1.62" defer></script>
-  <script src="assets/js/animations.js?v=1.62" defer></script>
+  <script src="assets/js/app.js?v=1.72" defer></script>
+  <script src="assets/js/main.js?v=1.72" defer></script>
+  <script src="assets/js/animations.js?v=1.72" defer></script>
 </body>
 </html>

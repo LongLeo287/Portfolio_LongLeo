@@ -11,89 +11,98 @@
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 
 @keyframes slideInLeft {
   from { opacity: 0; transform: translateX(-40px); }
-  to   { opacity: 1; transform: translateX(0); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(40px); }
-  to   { opacity: 1; transform: translateX(0); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
   from { opacity: 0; transform: scale(0.88); }
-  to   { opacity: 1; transform: scale(1); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
-  50%       { box-shadow: 0 0 0 14px rgba(252, 211, 77, 0.18); }
+  0%,
+100% { box-shadow: 0 0 0 0 rgba(252, 211, 77, 0); }
+  50% { box-shadow: 0 0 0 14px rgba(252, 211, 77, 0.18); }
 }
 
 @keyframes floatY {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
+  0%,
+100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes shimmer {
-  0%   { background-position: -400px 0; }
+  0% { background-position: -400px 0; }
   100% { background-position: 400px 0; }
 }
 
 @keyframes rotateSlow {
   from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes borderPulse {
-  0%, 100% { border-color: rgba(252,211,77,.15); }
-  50%       { border-color: rgba(252,211,77,.55); }
+  0%,
+100% { border-color: rgba(252,211,77,.15); }
+  50% { border-color: rgba(252,211,77,.55); }
 }
 
 @keyframes typewriter {
   from { width: 0; }
-  to   { width: 100%; }
+  to { width: 100%; }
 }
 
 @keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50%       { border-color: rgba(252,211,77,.9); }
+  0%,
+100% { border-color: transparent; }
+  50% { border-color: rgba(252,211,77,.9); }
 }
 
 @keyframes heroOrb1 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.75; }
-  33%       { transform: translate(80px, -60px) scale(1.15) rotate(120deg); opacity: 0.95; }
-  66%       { transform: translate(-40px, 40px) scale(0.9) rotate(240deg); opacity: 0.65; }
+  0%,
+100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.75; }
+  33% { transform: translate(80px, -60px) scale(1.15) rotate(120deg); opacity: 0.95; }
+  66% { transform: translate(-40px, 40px) scale(0.9) rotate(240deg); opacity: 0.65; }
 }
 
 @keyframes heroOrb2 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.65; }
-  33%       { transform: translate(-60px, 50px) scale(1.2) rotate(-120deg); opacity: 0.85; }
-  66%       { transform: translate(50px, -70px) scale(0.85) rotate(-240deg); opacity: 0.55; }
+  0%,
+100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.65; }
+  33% { transform: translate(-60px, 50px) scale(1.2) rotate(-120deg); opacity: 0.85; }
+  66% { transform: translate(50px, -70px) scale(0.85) rotate(-240deg); opacity: 0.55; }
 }
 
 @keyframes heroOrb3 {
-  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.55; }
-  50%       { transform: translate(70px, 70px) scale(1.25) rotate(180deg); opacity: 0.8; }
+  0%,
+100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.55; }
+  50% { transform: translate(70px, 70px) scale(1.25) rotate(180deg); opacity: 0.8; }
 }
 
 @keyframes statCount {
   from { opacity: 0; transform: translateY(20px) scale(0.85); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes pillFloat {
-  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
-  50%       { transform: translateY(-5px) rotate(0.5deg); }
+  0%,
+100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-5px) rotate(0.5deg); }
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.6; }
-  50%       { opacity: 1; }
+  0%,
+100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 @keyframes cardEntrance {
@@ -111,7 +120,7 @@
 
 @keyframes skillBarFill {
   from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  to { transform: scaleX(1); }
 }
 
 /* ── 2. SCROLL-TRIGGERED BASE ── */
@@ -166,15 +175,15 @@
 }
 
 /* Stagger delays for children */
-.stagger > *:nth-child(1)  { transition-delay: 0.00s; }
-.stagger > *:nth-child(2)  { transition-delay: 0.08s; }
-.stagger > *:nth-child(3)  { transition-delay: 0.16s; }
-.stagger > *:nth-child(4)  { transition-delay: 0.24s; }
-.stagger > *:nth-child(5)  { transition-delay: 0.32s; }
-.stagger > *:nth-child(6)  { transition-delay: 0.40s; }
-.stagger > *:nth-child(7)  { transition-delay: 0.48s; }
-.stagger > *:nth-child(8)  { transition-delay: 0.56s; }
-.stagger > *:nth-child(9)  { transition-delay: 0.64s; }
+.stagger > *:nth-child(1) { transition-delay: 0.00s; }
+.stagger > *:nth-child(2) { transition-delay: 0.08s; }
+.stagger > *:nth-child(3) { transition-delay: 0.16s; }
+.stagger > *:nth-child(4) { transition-delay: 0.24s; }
+.stagger > *:nth-child(5) { transition-delay: 0.32s; }
+.stagger > *:nth-child(6) { transition-delay: 0.40s; }
+.stagger > *:nth-child(7) { transition-delay: 0.48s; }
+.stagger > *:nth-child(8) { transition-delay: 0.56s; }
+.stagger > *:nth-child(9) { transition-delay: 0.64s; }
 .stagger > *:nth-child(10) { transition-delay: 0.72s; }
 .stagger > *:nth-child(11) { transition-delay: 0.80s; }
 .stagger > *:nth-child(12) { transition-delay: 0.88s; }
@@ -265,9 +274,11 @@
 .stat-card:nth-child(3) { animation-delay: 1.3s; }
 
 /* Pulse glow on brand mark.
-   The old version animated box-shadow, and .brand-mark sits in the fixed
+   The old version animated box-shadow,
+and .brand-mark sits in the fixed
    header — so it forced a repaint every frame for the entire visit. The ring
-   is now a pseudo-element scaling and fading, which the compositor handles. */
+   is now a pseudo-element scaling and fading,
+which the compositor handles. */
 .brand-mark {
   position: relative;
 }
@@ -284,8 +295,9 @@
 }
 
 @keyframes brandPulse {
-  0%, 100% { opacity: 0; transform: scale(.82); }
-  50%      { opacity: 1; transform: scale(1); }
+  0%,
+100% { opacity: 0; transform: scale(.82); }
+  50% { opacity: 1; transform: scale(1); }
 }
 
 /* ── 4. CARD HOVER UPGRADES ── */
@@ -447,8 +459,11 @@
   overflow: hidden;
 }
 
-/* Sweep driven by transform, not background-position. Five of these were
-   repainting every frame, forever, including while far off screen —
+/* Sweep driven by transform,
+not background-position. Five of these were
+   repainting every frame,
+forever,
+including while far off screen —
    background-position is not a composited property. */
 .eyebrow::after {
   content: '';
@@ -463,8 +478,9 @@
 }
 
 @keyframes eyebrowSheen {
-  0%        { transform: translateX(-160%); }
-  60%, 100% { transform: translateX(320%); }
+  0% { transform: translateX(-160%); }
+  60%,
+100% { transform: translateX(320%); }
 }
 
 /* ── 11. AVATAR CARD GLOW RING ── */
@@ -520,23 +536,27 @@
 
 /* ── 14a. SCROLL-DRIVEN MOTION ───────────────────────────────────────
    Native scroll timelines: the animation's progress *is* the scroll
-   position, computed off the main thread. No listener, no rAF, and it
+   position,
+computed off the main thread. No listener,
+no rAF,
+and it
    cannot fall behind under load the way a JS-driven equivalent does.
 
    Everything here is additive. Browsers without support keep the
-   IntersectionObserver reveals and the JS rail, which is why each block
+   IntersectionObserver reveals and the JS rail,
+which is why each block
    is guarded and why animations.js flips its own equivalents off when it
    sees support. */
 @supports (animation-timeline: scroll()) {
 
   /* Scroll progress bar — hands a per-frame JS style write back to CSS. */
-  :root[data-motion="full"] .scroll-progress {
+  .scroll-progress {
     animation: railGrowX linear;
     animation-timeline: scroll(root block);
   }
 
   /* Experience rail draws itself as the section crosses the viewport. */
-  :root[data-motion="full"] .experience-grid::after {
+  .experience-grid::after {
     animation: railGrow linear both;
     animation-timeline: view();
     animation-range: cover 12% cover 78%;
@@ -549,7 +569,7 @@
      carry entrance animations, and an `animation:` shorthand there would
      replace them outright. Two animations on one element would also fight
      over `transform`, since the later one wins the whole property. */
-  :root[data-motion="full"] .hero-grid {
+  .hero-grid {
     animation: heroExit linear both;
     animation-timeline: view();
     animation-range: exit-crossing 0% exit-crossing 100%;
@@ -560,7 +580,7 @@
      would silently kill the hover parallax that JS writes there. Nothing
      here may touch opacity either — a scroll-driven fade that fails to
      resolve leaves real content invisible. */
-  :root[data-motion="full"] .about-image-inner {
+  .about-image-inner {
     animation: parallaxDrift linear both;
     animation-timeline: view();
     animation-range: cover 0% cover 100%;
@@ -569,7 +589,7 @@
 
 @keyframes railGrow {
   from { transform: scaleY(0); }
-  to   { transform: scaleY(1); }
+  to { transform: scaleY(1); }
 }
 
 @keyframes heroExit {
@@ -578,17 +598,20 @@
 
 @keyframes parallaxDrift {
   from { transform: translateY(-16px); }
-  to   { transform: translateY(16px); }
+  to { transform: translateY(16px); }
 }
 
 @keyframes railGrowX {
   from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  to { transform: scaleX(1); }
 }
 
 /* ── 14b. VIEW TRANSITION — portfolio filter change ──────────────────
-   The default cross-fade is a full-page dissolve, which is too heavy for a
-   grid swap. Scoped to the grid, shortened, and given a slight vertical
+   The default cross-fade is a full-page dissolve,
+which is too heavy for a
+   grid swap. Scoped to the grid,
+shortened,
+and given a slight vertical
    offset so the change reads as a cut rather than a fade-through. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -612,68 +635,30 @@
   from { opacity: 0; transform: translateY(10px); }
 }
 
-
-  :root[data-motion="reduced"]::view-transition-old(root),
-:root[data-motion="reduced"]::view-transition-new(root) { animation: none; }
-
-
 /* ── 15. REDUCED MOTION ──────────────────────────────────────────────
-   Driven by [data-motion], which a head script sets from the OS preference
-   before first paint and the header toggle can override.
 
-   Reduced means *less* movement, not a dead page. What goes: looping
-   ambient motion, entrance travel, parallax, anything crossing the screen.
-   What stays: hover and press feedback, because that is state feedback the
+   Reduced means *less* movement,
+not a dead page. What goes: looping
+   ambient motion,
+entrance travel,
+parallax,
+anything crossing the screen.
+   What stays: hover and press feedback,
+because that is state feedback the
    visitor needs in order to tell what is interactive — an earlier version
    blanket-reset `transform` here and silently killed every card hover on
    the site. */
 
 /* 1. Looping / ambient animation stops outright. */
-:root[data-motion="reduced"] .hero-orb,
-:root[data-motion="reduced"] .floating-note,
-:root[data-motion="reduced"] .pill-float,
-:root[data-motion="reduced"] .brand-mark::after,
-:root[data-motion="reduced"] .eyebrow::after,
-:root[data-motion="reduced"] .marquee-track,
-:root[data-motion="reduced"] .kinetic-row,
-:root[data-motion="reduced"] .logo-path,
-:root[data-motion="reduced"] .hero-content,
-:root[data-motion="reduced"] .hero-visual,
-:root[data-motion="reduced"] .stat-card {
-  animation: none !important;
-}
 
 /* 2. Entrance travel collapses — these have no hover state of their own,
-      so resetting transform here costs nothing. */
-:root[data-motion="reduced"] .reveal,
-:root[data-motion="reduced"] .reveal-left,
-:root[data-motion="reduced"] .reveal-right,
-:root[data-motion="reduced"] .reveal-scale {
-  opacity: 1;
-  transform: none;
-}
-
-:root[data-motion="reduced"] .reveal-word,
-:root[data-motion="reduced"] .showcase-slide {
-  transform: none;
-}
+so resetting transform here costs nothing. */
 
 /* 3. Visibility must never wait on a transition that may not run.
-      Opacity only — deliberately not transform, so :hover still lifts. */
-:root[data-motion="reduced"] .portfolio-card,
-:root[data-motion="reduced"] .fade-up {
-  opacity: 1;
-}
+      Opacity only — deliberately not transform,
+so :hover still lifts. */
 
 /* 4. Everything else keeps a short fade instead of snapping. */
-:root[data-motion="reduced"] *,
-:root[data-motion="reduced"] *::before,
-:root[data-motion="reduced"] *::after {
-  animation-duration: 1ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 150ms !important;
-  scroll-behavior: auto !important;
-}
 
 /* ── 16. PORTFOLIO CARD: fix hover vs show animation conflict ── */
 /* Show animation uses opacity + translateY — hover uses translateY separately */

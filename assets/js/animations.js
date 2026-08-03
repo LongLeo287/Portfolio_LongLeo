@@ -1,18 +1,16 @@
 /**
  * LongLeo Portfolio — Animation Engine
  * Scroll reveals, headline word reveal, cursor spotlight, pointer effects,
- * counters, typing. Every effect is gated behind prefers-reduced-motion and
- * every pointer effect is rAF-throttled.
+ * counters, typing. Every pointer effect is rAF-throttled and shares one
+ * frame loop.
  */
 
 (function () {
   'use strict';
 
-  // Single source of truth for motion: the data-motion attribute, which the
-  // head script seeds from the OS preference and the header toggle rewrites.
-  // Read live, never cached, so flipping the toggle takes effect immediately
-  // instead of on the next page load.
-  const prefersReduced = () => document.documentElement.dataset.motion === 'reduced';
+  // Motion runs for everyone. The only concession to reduced-motion is a
+  // narrow CSS block in styles.css that stops the two infinite horizontal
+  // strips; nothing in this file needs to opt out.
   const finePointer = () => window.matchMedia('(pointer: fine)').matches;
 
   // Where scroll-driven animations exist, CSS links motion to scroll position
@@ -38,7 +36,7 @@
     });
   }
 
-  window.portfolioMotion = { schedule, prefersReduced, finePointer };
+  window.portfolioMotion = { schedule, finePointer };
 
   /* ── 1. SCROLL REVEALS ──────────────────────────────────────────── */
   const revealObserver = new IntersectionObserver(
@@ -160,8 +158,6 @@
     const targets = document.querySelectorAll(REVEAL_SELECTOR);
     if (!targets.length) return;
 
-    if (prefersReduced()) return; // leave the markup untouched
-
     if (textObserver) textObserver.disconnect();
     textObserver = new IntersectionObserver(
       (entries) => {
@@ -209,8 +205,6 @@
     }
 
     document.addEventListener('mousemove', (e) => {
-      if (prefersReduced()) { spotlight.style.opacity = '0'; return; }
-      spotlight.style.opacity = '';
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!running) {
@@ -241,7 +235,7 @@
         const suffix = raw.replace(numMatch[0], '');
 
         // Years (2019) are read as a date, not a quantity — never count them up.
-        if (target > 999 || prefersReduced()) {
+        if (target > 999) {
           el.style.animation = 'statCount var(--dur-deliberate) var(--ease-out) both';
           return;
         }
@@ -280,7 +274,6 @@
     document.querySelectorAll('.btn-primary, .btn-dark, .header-cta').forEach((btn, i) => {
       const key = `magnet-${i}`;
       btn.addEventListener('mousemove', (e) => {
-        if (prefersReduced()) return;
         const rect = btn.getBoundingClientRect();
         const x = (e.clientX - rect.left - rect.width / 2) * 0.18;
         const y = (e.clientY - rect.top - rect.height / 2) * 0.18;
@@ -306,7 +299,6 @@
     document.querySelectorAll('.service-card').forEach((card, i) => {
       const key = `tilt-${i}`;
       card.addEventListener('mousemove', (e) => {
-        if (prefersReduced()) return;
         const rect = card.getBoundingClientRect();
         const px = e.clientX - rect.left;
         const py = e.clientY - rect.top;
@@ -337,12 +329,6 @@
       pill.style.opacity = '1';
       pill.style.animation = 'none';
 
-      if (prefersReduced()) {
-        pill.textContent = text;
-        pill.classList.add('pill-float');
-        return;
-      }
-
       pill.textContent = '';
       let charIndex = 0;
       window._pillTypingInterval = setInterval(() => {
@@ -366,7 +352,7 @@
      Where the browser has scroll-driven animations it is pure CSS and this
      does nothing; the JS path exists for everyone else. */
   const expGrid = document.querySelector('.experience-grid');
-  if (expGrid && !prefersReduced() && !supportsScrollTimeline) {
+  if (expGrid && !supportsScrollTimeline) {
     let railTicking = false;
 
     const updateRail = () => {

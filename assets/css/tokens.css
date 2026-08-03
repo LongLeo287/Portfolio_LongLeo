@@ -101,14 +101,3 @@
    movement itself is removed in animations.css; JS reads the same media
    query and skips its own animation loops entirely. */
 
-  :root[data-motion="reduced"] {
-    --dur-instant: 80ms;
-    --dur-fast: 120ms;
-    --dur-base: 150ms;
-    --dur-slow: 150ms;
-    --dur-deliberate: 150ms;
-    --dur-cinematic: 150ms;
-    --stagger: 0ms;
-    --stagger-tight: 0ms;
-  }
-

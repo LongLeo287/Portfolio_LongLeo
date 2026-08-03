@@ -198,7 +198,6 @@ const translations = {
     contact_addr_label: 'Địa chỉ',
     contact_addr_val: 'Tân Phú, Hồ Chí Minh',
     skip_link: 'Bỏ qua tới nội dung chính',
-    motion_label: 'Hiệu ứng chuyển động',
     form_label_name: 'Tên của bạn',
     form_label_email: 'Email liên hệ',
     form_label_message: 'Nội dung cần trao đổi',
@@ -314,7 +313,6 @@ const translations = {
     contact_addr_label: 'Address',
     contact_addr_val: 'Tan Phu, Ho Chi Minh City',
     skip_link: 'Skip to main content',
-    motion_label: 'Motion effects',
     form_label_name: 'Your name',
     form_label_email: 'Email address',
     form_label_message: 'What would you like to discuss?',
@@ -594,7 +592,7 @@ function renderPortfolio(filter = 'all') {
 // ==========================================
 function applyCardEffects(cards) {
   const motion = window.portfolioMotion;
-  if (!motion || !motion.finePointer() || motion.prefersReduced()) return;
+  if (!motion || !motion.finePointer()) return;
 
   cards.forEach((card, i) => {
     const thumb = card.querySelector('.portfolio-thumb img');
@@ -645,8 +643,7 @@ function initFilters() {
       // Cross-fade the grid instead of swapping it instantly. Falls straight
       // through to a plain re-render where View Transitions aren't supported
       // or where the visitor has asked for less motion.
-      const motion = window.portfolioMotion;
-      if (document.startViewTransition && !(motion && motion.prefersReduced())) {
+      if (document.startViewTransition) {
         document.startViewTransition(swap);
       } else {
         swap();

@@ -3,20 +3,13 @@
 // ========================================================================== */
 
 /* ── Smooth scroll ──────────────────────────────────────────────────
-   Hijacked scrolling is the single worst offender for motion sensitivity,
-   so it is skipped entirely under prefers-reduced-motion. Everything else
-   calls lenis.stop()/start()/scrollTo(), so a no-op stand-in keeps those
-   call sites working without a null check at each one. */
-// Motion state lives on <html data-motion>, seeded from the OS preference by
-// the head script and overridable from the header toggle. Read live so the
-// toggle takes effect without a reload.
-const motionReduced = () => document.documentElement.dataset.motion === 'reduced';
-
+   Everything else calls lenis.stop()/start()/scrollTo(), so the no-op
+   stand-in below keeps those call sites working when the library is
+   unavailable, without a null check at each one. */
 // animations.css drives the scroll-progress bar with a native scroll timeline
 // where one exists; this stops the JS writing the same property every frame.
-const hasScrollTimeline =
+const supportsScrollTimeline =
   window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()');
-const supportsScrollTimeline = () => hasScrollTimeline && !motionReduced();
 
 // app.js owns the language state (?lang= beats localStorage); fall back to
 // storage in case main.js somehow runs first.
@@ -55,8 +48,6 @@ if (typeof Lenis !== 'undefined') {
     requestAnimationFrame(raf);
   };
   requestAnimationFrame(raf);
-  // Hijacked scrolling is the single worst offender for motion sensitivity.
-  if (motionReduced()) lenis.stop();
 }
 
 // ==========================================
@@ -83,59 +74,18 @@ if (themeToggle) {
 }
 
 // ==========================================
-// Motion Toggle
-// Lets a visitor turn the full experience on even when their OS asks for
-// reduced motion — a setting many people have on without realising it also
-// strips websites. The OS preference remains the default.
-// ==========================================
-const motionToggles = [document.getElementById("motionToggle"), document.getElementById("motionToggleMobile")].filter(Boolean);
-
-function applyMotionState(mode) {
-  document.documentElement.dataset.motion = mode;
-  localStorage.setItem("portfolio_motion", mode);
-
-  const on = mode === "full";
-  motionToggles.forEach((btn) => {
-    btn.setAttribute("aria-pressed", String(on));
-    btn.setAttribute(
-      "aria-label",
-      on
-        ? (isEnglish() ? "Turn off motion effects" : "Tắt hiệu ứng chuyển động")
-        : (isEnglish() ? "Turn on motion effects" : "Bật hiệu ứng chuyển động")
-    );
-  });
-
-  if (typeof lenis !== "undefined" && lenis) {
-    if (mode === "reduced") lenis.stop(); else lenis.start();
-  }
-}
-
-if (motionToggles.length) {
-  applyMotionState(document.documentElement.dataset.motion === "reduced" ? "reduced" : "full");
-  motionToggles.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      applyMotionState(document.documentElement.dataset.motion === "reduced" ? "full" : "reduced");
-    });
-  });
-}
-
-// ==========================================
 // Cinematic Loader
 // ==========================================
 const loader = document.getElementById("cinematicLoader");
 if (loader) {
-  if (motionReduced()) {
-    closeLoaderSequence();
-  } else {
-    lenis.stop();
-    // Safety timeout in case the load event fires late
-    const forceCloseLoader = setTimeout(closeLoaderSequence, 400);
+  lenis.stop();
+  // Safety timeout in case the load event fires late
+  const forceCloseLoader = setTimeout(closeLoaderSequence, 400);
 
-    window.addEventListener("load", () => {
-      clearTimeout(forceCloseLoader);
-      setTimeout(closeLoaderSequence, 400);
-    });
-  }
+  window.addEventListener("load", () => {
+    clearTimeout(forceCloseLoader);
+    setTimeout(closeLoaderSequence, 400);
+  });
 }
 
 function closeLoaderSequence() {
@@ -280,7 +230,7 @@ function updateScrollUI() {
   // scaleX, not width: this runs on every scroll frame and width would
   // relayout + repaint each time. Skipped entirely where a CSS scroll
   // timeline already drives the bar off the main thread.
-  if (scrollProgress && !supportsScrollTimeline()) {
+  if (scrollProgress && !supportsScrollTimeline) {
     scrollProgress.style.transform = `scaleX(${progress / 100})`;
   }
   if (backToTop) backToTop.classList.toggle("show", scrollTop > 520);

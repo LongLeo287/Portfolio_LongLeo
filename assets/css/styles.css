@@ -34,7 +34,6 @@
   --shadow: 0 4px 6px -1px rgba(28, 25, 23, 0.05), 0 10px 15px -3px rgba(28, 25, 23, 0.08), 0 20px 25px -5px rgba(28, 25, 23, 0.12), 0 30px 50px -10px rgba(28, 25, 23, 0.15);
 }
 
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -49,7 +48,7 @@
     }
 
     html.lenis,
-    html.lenis body {
+html.lenis body {
       height: auto;
     }
 
@@ -83,13 +82,17 @@
       -webkit-user-drag: none;
     }
 
-    h1, h2, h3, h4, h5, h6,
-    .brand-title,
-    .brand-mark,
-    .stat-number,
-    .pill,
-    .tag,
-    .eyebrow {
+    h1,
+h2,
+h3,
+h4,
+h5,
+.brand-title,
+.brand-mark,
+.stat-number,
+.pill,
+.tag,
+.eyebrow {
       font-family: 'Space Grotesk', sans-serif;
       letter-spacing: -0.01em;
     }
@@ -129,7 +132,7 @@
     }
 
     a:focus-visible,
-    button:focus-visible {
+button:focus-visible {
       outline: 2px solid var(--amber);
       outline-offset: 4px;
       border-radius: 12px;
@@ -176,7 +179,8 @@
       opacity: 0.7;
     }
 
-    /* ── Skip link — first tab stop, visible only when focused ── */
+    /* ── Skip link — first tab stop,
+visible only when focused ── */
     .skip-link {
       position: absolute;
       left: 50%;
@@ -281,7 +285,7 @@
     }
 
     .main-nav a:hover,
-    .main-nav a.active {
+.main-nav a.active {
       color: var(--text-light);
       background: rgba(255,255,255,.1);
     }
@@ -338,7 +342,7 @@
 
     @keyframes mobileNavSlide {
       from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .mobile-nav a {
@@ -350,7 +354,7 @@
     }
 
     .mobile-nav a:hover,
-    .mobile-nav a.active {
+.mobile-nav a.active {
       background: rgba(255,255,255,.1);
       color: var(--text-light);
     }
@@ -439,7 +443,8 @@
       color: transparent;
     }
 
-    /* Vietnamese single-syllable words orphan far more than English, so the
+    /* Vietnamese single-syllable words orphan far more than English,
+so the
        measure is capped in ch and paragraphs use text-wrap: pretty. */
     .hero-copy {
       max-width: min(680px, var(--measure));
@@ -457,10 +462,14 @@
       gap: 12px;
     }
 
-    /* The magnetic-hover JS used to write an inline `transform`, which beat the
-       :active rule in the cascade, so pressing a primary CTA showed no
+    /* The magnetic-hover JS used to write an inline `transform`,
+which beat the
+       :active rule in the cascade,
+so pressing a primary CTA showed no
        feedback at all. JS now writes --mag-x/--mag-y and the transform is
-       composed here, so lift, magnet pull and press all coexist. */
+       composed here,
+so lift,
+magnet pull and press all coexist. */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -486,9 +495,9 @@
     }
 
     .btn-primary:hover,
-    .btn-glass:hover,
-    .btn-dark:hover,
-    .btn-light:hover {
+.btn-glass:hover,
+.btn-dark:hover,
+.btn-light:hover {
       --lift: -2px;
     }
 
@@ -597,7 +606,7 @@
 
     @keyframes kineticScroll {
       from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      to { transform: translateX(-50%); }
     }
 
     .kinetic-track {
@@ -614,7 +623,7 @@
     }
 
     .kinetic-track > span,
-    .kinetic-dup > span {
+.kinetic-dup > span {
       color: transparent;
       -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
       transition: color var(--dur-base) var(--ease-out),
@@ -622,13 +631,13 @@
     }
 
     .kinetic-track > span:hover,
-    .kinetic-dup > span:hover {
+.kinetic-dup > span:hover {
       color: var(--amber);
       -webkit-text-stroke-color: transparent;
     }
 
     .kinetic-track > i,
-    .kinetic-dup > i {
+.kinetic-dup > i {
       font-style: normal;
       color: var(--primary);
       opacity: .55;
@@ -644,45 +653,22 @@
 
     /* Outlined type on a light background needs a darker stroke to survive. */
     :root.light-theme .kinetic-track > span,
-    :root.light-theme .kinetic-dup > span {
+:root.light-theme .kinetic-dup > span {
       -webkit-text-stroke-color: rgba(28, 25, 23, 0.32);
     }
 
     :root.light-theme .kinetic-track > span:hover,
-    :root.light-theme .kinetic-dup > span:hover {
+:root.light-theme .kinetic-dup > span:hover {
       color: var(--orange);
     }
 
     /* An endlessly travelling wall of type is the clearest vestibular trigger
-       on the page, so it stops. It must still read as a designed strip and
-       not as a stray pile of words — keep the outlined type, the rows, the
+       on the page,
+so it stops. It must still read as a designed strip and
+       not as a stray pile of words — keep the outlined type,
+the rows,
+the
        rhythm and the rule lines; only the travel goes. */
-    :root[data-motion="reduced"] .kinetic-band {
-      transform: none;
-      padding: clamp(32px, 5vw, 60px) var(--space-6);
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-
-    :root[data-motion="reduced"] .kinetic-row {
-      animation: none;
-      width: 100%;
-    }
-
-    :root[data-motion="reduced"] .kinetic-row + .kinetic-row {
-      margin-top: var(--space-4);
-    }
-
-    :root[data-motion="reduced"] .kinetic-track {
-      flex-wrap: wrap;
-      justify-content: center;
-      white-space: normal;
-      row-gap: var(--space-3);
-      padding-right: 0;
-      font-size: clamp(1.25rem, 3.4vw, 2.25rem);
-    }
-
-    :root[data-motion="reduced"] .kinetic-dup { display: none; }
     
 
     .floating-note {
@@ -944,7 +930,7 @@
     /* ── Experience timeline ────────────────────────────────────────────
        A single column with a rail down the left. Two columns of cards read
        as a catalogue of jobs; one column with a rail reads as a career,
-       which is what the section heading promises. */
+which is what the section heading promises. */
     .experience-grid {
       position: relative;
       display: grid;
@@ -967,7 +953,8 @@
       border-radius: 2px;
     }
 
-    /* The filled rail, drawn as the section scrolls past. Scaled from the
+    /* The filled rail,
+drawn as the section scrolls past. Scaled from the
        top so it grows downward; a height animation would relayout. */
     .experience-grid::after {
       content: '';
@@ -992,7 +979,8 @@
       transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
     }
 
-    /* Node on the rail, level with the card's logo. */
+    /* Node on the rail,
+level with the card's logo. */
     .experience-card::before {
       content: '';
       position: absolute;
@@ -1010,10 +998,11 @@
                   box-shadow var(--dur-base) var(--ease-out);
     }
 
-    /* Lands when the card itself reveals, so the node and the card arrive
+    /* Lands when the card itself reveals,
+so the node and the card arrive
        together rather than the rail running ahead of its content. */
     .experience-card.revealed::before,
-    .experience-card.show::before {
+.experience-card.show::before {
       transform: scale(1);
       background: var(--amber);
       border-color: var(--primary);
@@ -1035,14 +1024,11 @@
     @media (max-width: 719px) {
       .experience-grid { padding-left: 40px; }
       .experience-grid::before,
-      .experience-grid::after { left: 13px; }
+.experience-grid::after { left: 13px; }
       .experience-card::before { left: -33px; top: 32px; width: 11px; height: 11px; }
     }
 
     /* Rail draw is decorative; without motion it is simply already full. */
-
-      :root[data-motion="reduced"] .experience-grid::after { transform: scaleY(1); }
-      :root[data-motion="reduced"] .experience-card::before { transform: scale(1); }
     
 
     .experience-card-inner {
@@ -1149,7 +1135,6 @@
       transform: scale(1.08);
     }
 
-
     .filter-row {
       margin-bottom: 38px;
       display: flex;
@@ -1189,7 +1174,8 @@
       box-shadow: var(--glow-amber-soft);
     }
 
-    /* Intrinsic columns: the card decides how many fit, so there is no
+    /* Intrinsic columns: the card decides how many fit,
+so there is no
        breakpoint to keep in sync and no !important override to bust a CDN
        cache with. 260px is the width below which a 16:9 thumbnail stops
        reading as a piece of work. */
@@ -1231,22 +1217,6 @@
       display: none ;
     }
 
-    .empty-state {
-      display: none;
-      margin-top: 22px;
-      border: 1px dashed rgba(120,113,108,.35);
-      border-radius: 28px;
-      background: rgba(255,255,255,.7);
-      color: var(--text-muted);
-      padding: 28px;
-      text-align: center;
-      font-weight: 750;
-    }
-
-    .empty-state.show {
-      display: block;
-    }
-
     .portfolio-card:hover {
       transform: translateY(-6px);
       border-color: rgba(245, 158, 11, .4);
@@ -1282,7 +1252,7 @@
     .thumb-play svg { margin-left: 3px; } /* optical centring of a triangle */
 
     .portfolio-card.has-video:hover .thumb-play,
-    .portfolio-card.has-video:focus-visible .thumb-play {
+.portfolio-card.has-video:focus-visible .thumb-play {
       opacity: 1;
       transform: scale(1);
     }
@@ -1309,25 +1279,24 @@
     }
 
     .portfolio-card.has-video:hover .thumb-scrub,
-    .portfolio-card.has-video:focus-visible .thumb-scrub {
+.portfolio-card.has-video:focus-visible .thumb-scrub {
       transform: scaleX(1);
     }
 
-    /* Touch has no hover to reveal it, so the affordance is simply on. */
+    /* Touch has no hover to reveal it,
+so the affordance is simply on. */
     @media (hover: none) {
       .thumb-play { opacity: 1; transform: scale(.86); }
       .thumb-scrub { display: none; }
     }
-
-
-      :root[data-motion="reduced"] .thumb-play { opacity: 1; transform: scale(1); }
-      :root[data-motion="reduced"] .thumb-scrub { display: none; }
     
 
-    /* Pointer spotlight — JS only writes --mx/--my, the paint stays in CSS.
-       Also covers .service-card, which uses the same two custom properties. */
+    /* Pointer spotlight — JS only writes --mx/--my,
+the paint stays in CSS.
+       Also covers .service-card,
+which uses the same two custom properties. */
     .portfolio-card::before,
-    .service-card::before {
+.service-card::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -1346,13 +1315,13 @@
     .portfolio-card { position: relative; }
 
     .portfolio-card:hover::before,
-    .service-card:hover::before {
+.service-card:hover::before {
       opacity: 1;
     }
 
     @media (hover: none) {
       .portfolio-card::before,
-      .service-card::before { display: none; }
+.service-card::before { display: none; }
     }
 
     .portfolio-thumb {
@@ -1383,7 +1352,8 @@
       pointer-events: none;
     }
 
-    /* ── Photography: pure image card, no text body ── */
+    /* ── Photography: pure image card,
+no text body ── */
     .portfolio-card.photo-only {
       background: transparent;
       border: none;
@@ -1402,7 +1372,6 @@
       box-shadow: 0 12px 40px rgba(0,0,0,.35);
       transform: translateY(-4px);
     }
-
 
     .tag {
       position: absolute;
@@ -1535,14 +1504,14 @@
     }
 
     :root:not(.light-theme) .contact-form input,
-    :root:not(.light-theme) .contact-form textarea {
+:root:not(.light-theme) .contact-form textarea {
       background: rgba(255,255,255,0.06);
       color: var(--cream);
       border-color: rgba(252, 211, 77, 0.15);
     }
 
     :root:not(.light-theme) .contact-form input::placeholder,
-    :root:not(.light-theme) .contact-form textarea::placeholder {
+:root:not(.light-theme) .contact-form textarea::placeholder {
       color: rgba(255, 217, 181, 0.45);
     }
 
@@ -1568,7 +1537,8 @@
       margin-top: var(--space-3);
     }
 
-    /* Honeypot — off-screen rather than display:none, which some bots skip */
+    /* Honeypot — off-screen rather than display:none,
+which some bots skip */
     .hp-field {
       position: absolute;
       width: 1px;
@@ -1579,7 +1549,7 @@
     }
 
     .contact-form input,
-    .contact-form textarea {
+.contact-form textarea {
       width: 100%;
       border: 1px solid rgba(122,76,37,.25);
       border-radius: 18px;
@@ -1592,7 +1562,7 @@
     }
 
     .contact-form input::placeholder,
-    .contact-form textarea::placeholder {
+.contact-form textarea::placeholder {
       color: rgba(122, 76, 37, 0.55);
     }
 
@@ -1602,7 +1572,7 @@
     }
 
     .contact-form input:focus,
-    .contact-form textarea:focus {
+.contact-form textarea:focus {
       border-color: var(--amber-2);
       box-shadow: 0 0 0 4px rgba(245,158,11,.14);
     }
@@ -1695,7 +1665,7 @@
     }
 
     .contact-item strong,
-    .contact-item a {
+.contact-item a {
       display: block;
       margin-top: 2px;
       color: var(--text-main);
@@ -1716,7 +1686,7 @@
     }
 
     .contact-item a:hover,
-    .contact-item a:focus-visible {
+.contact-item a:focus-visible {
       text-decoration: underline;
     }
 
@@ -1797,9 +1767,9 @@
       gap: 16px;
     }
 
-
 /* ==========================================================================
-   RESPONSIVE SYSTEM — 5 BREAKPOINTS (CLEAN, NO DUPLICATES)
+   RESPONSIVE SYSTEM — 5 BREAKPOINTS (CLEAN,
+NO DUPLICATES)
    xl: 1280px+  |  lg: 1024–1279px  |  md: 768–1023px  |  sm: 480–767px  |  xs: 0–479px
    ========================================================================== */
 
@@ -1970,7 +1940,6 @@
   .slider-dots { bottom: 12px; }
   .slider-btn { width: 35px; height: 35px; font-size: 14px; }
 
-  .featured-video { border-radius: 22px; }
   .compact-grid { grid-template-columns: repeat(2, 1fr); }
   .partners-section { padding: 35px 0; }
   .logo-item { height: 70px; }
@@ -2111,7 +2080,12 @@
 }
 
 /* ==========================================================================
-   COMPONENT STYLES (Avatar, Source tiles, Slider, Partners, Tools, Modal)
+   COMPONENT STYLES (Avatar,
+Source tiles,
+Slider,
+Partners,
+Tools,
+Modal)
    ========================================================================== */
 
 /* Avatar card */
@@ -2131,46 +2105,19 @@
   overflow: hidden;
 }
 .avatar-panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-.avatar-panel span { font-size: clamp(48px, 8vw, 104px); font-weight: 950; letter-spacing: -.08em; }
 .light-avatar .avatar-panel {
   background:
     radial-gradient(circle at 18% 20%, rgba(252, 211, 77, .8), transparent 26%),
     linear-gradient(135deg, #fff7ed, #fed7aa 48%, #0c0a09 49%, #292524);
   color: var(--bg-main);
 }
-.light-avatar .avatar-panel span { max-width: 320px; letter-spacing: -.06em; line-height: .95; }
 
 /* Source tiles */
-.source-tile,
-.source-thumb {
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(252, 211, 77, .45), transparent 32%),
-    linear-gradient(135deg, #1c1917, #44403c);
-  color: var(--text-light);
-}
-.playlist-tile,
-.playlist-thumb {
-  background:
-    radial-gradient(circle at 82% 28%, rgba(249, 115, 22, .5), transparent 30%),
-    linear-gradient(135deg, #0c0a09, #7c2d12);
-}
-.cv-thumb {
-  background:
-    radial-gradient(circle at 80% 25%, rgba(255, 255, 255, .22), transparent 30%),
-    linear-gradient(135deg, #57534e, #1c1917);
-}
-.source-icon { font-size: 78px; font-weight: 950; }
-.source-thumb strong { position: relative; z-index: 1; max-width: 76%; text-align: center; font-size: clamp(24px, 3vw, 40px); line-height: 1.05; letter-spacing: -.045em; }
 
 /* Featured video */
-.featured-video { overflow: hidden; margin: 0 auto 34px; border: 1px solid var(--line); border-radius: 34px; background: var(--bg-main); box-shadow: var(--shadow); aspect-ratio: 16 / 9; }
-.featured-video iframe { width: 100%; height: 100%; border: 0; display: block; }
 
 /* Compact grid */
 .compact-grid { grid-template-columns: repeat(3, 1fr); }
-.single-social { grid-template-columns: 1fr; }
 
 /* ── Lightbox Modal ── */
 .lightbox-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
@@ -2179,9 +2126,11 @@
 .lightbox-content-wrapper { display: none; width: 90%; max-width: 960px; aspect-ratio: 16 / 9; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
 .lightbox-content-wrapper iframe { width: 100%; height: 100%; border: 0; }
 .lightbox-modal.show .lightbox-content { transform: scale(1); }
-/* <button>, so the browser's default button chrome has to be reset explicitly */
+/* <button>,
+so the browser's default button chrome has to be reset explicitly */
 .lightbox-close { position: absolute; top: 20px; right: 35px; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: none; border: 0; color: #fff; font-size: 40px; line-height: 1; font-weight: bold; cursor: pointer; transition: color var(--dur-fast) var(--ease-out); z-index: var(--z-max); }
-.lightbox-close:hover, .lightbox-close:focus-visible { color: #bbb; }
+.lightbox-close:hover,
+.lightbox-close:focus-visible { color: #bbb; }
 .lightbox-loader { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid #fff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; position: absolute; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
@@ -2211,18 +2160,15 @@
 .partners-section { padding: 25px 0 35px 0; background: #12100e; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; }
 .marquee-wrapper { overflow: hidden; display: flex; width: 100%; position: relative; -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
 /* Two identical sets translated by exactly -50% = seamless loop.
-   The old markup repeated the set 6x and shifted -16.667%, which only
+   The old markup repeated the set 6x and shifted -16.667%,
+which only
    happened to line up; any change to the set count broke the seam. */
 .marquee-track { display: flex; align-items: center; gap: 80px; width: max-content; margin: 0; padding: 0 80px 0 0; list-style: none; animation: scrollMarquee 30s linear infinite; }
-.marquee-track:hover, .marquee-track:focus-within { animation-play-state: paused; }
+.marquee-track:hover,
+.marquee-track:focus-within { animation-play-state: paused; }
 @keyframes scrollMarquee { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 40px)); } }
 
 /* An endlessly looping strip is exactly what motion sensitivity flags. */
-
-  :root[data-motion="reduced"] .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; gap: 40px; padding: 0; }
-  :root[data-motion="reduced"] .marquee-track .logo-item[aria-hidden="true"] { display: none; }
-  :root[data-motion="reduced"] .marquee-wrapper { -webkit-mask-image: none; mask-image: none; }
-
 
 .logo-item { height: 100px; display: flex; align-items: center; justify-content: center; transition: filter var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); filter: brightness(0) invert(1); opacity: 0.8; flex: 0 0 auto; }
 .logo-item:hover { filter: none; opacity: 1; transform: scale(1.08); }
@@ -2237,21 +2183,28 @@
 .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .tool-item { display: flex; align-items: center; gap: 16px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 20px; min-height: 92px; transition: transform var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); box-shadow: 0 4px 15px rgba(28,25,23,0.015); }
 .tool-item:hover { transform: translateY(-3px); border-color: rgba(249,115,22,0.3); box-shadow: 0 12px 30px rgba(28,25,23,0.08); }
-.tool-item img, .tool-item svg { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; }
+.tool-item img,
+.tool-item svg { width: 40px; height: 40px; flex-shrink: 0; object-fit: contain; }
 .tool-info { display: flex; flex-direction: column; gap: 3px; }
 .tool-info h5 { font-size: 15.5px; font-weight: 750; color: var(--text-main); }
 .tool-info span { font-size: 12.5px; color: var(--text-muted); font-weight: 550; }
 
 @media (max-width: 990px) { .tools-grid-wrapper { grid-template-columns: 1fr; gap: 32px; } }
 
-
 /* ── Interactive feedback ── */
-/* Press feedback: subtle scale on anything pressable, fast on the way down. */
-.btn:active, .header-cta:active { --press: 0.96; }
+/* Press feedback: subtle scale on anything pressable,
+fast on the way down. */
+.btn:active,
+.header-cta:active { --press: 0.96; }
 
-.menu-btn:active, .filter-btn:active, .back-to-top:active,
-.social-grid a:active, .portfolio-card:active, .service-card:active,
-.tool-item:active, .experience-card:active {
+.menu-btn:active,
+.filter-btn:active,
+.back-to-top:active,
+.social-grid a:active,
+.portfolio-card:active,
+.service-card:active,
+.tool-item:active,
+.experience-card:active {
   transform: scale(0.97);
   transition: transform var(--dur-instant) var(--ease-out);
 }
@@ -2265,14 +2218,15 @@
 .yt-play-btn svg { width: 22px; height: 22px; fill: var(--bg-card); }
 
 /* ==========================================================================
-   LANGUAGE TOGGLE, CASE STUDY MODAL, THEME CONTROLS
+   LANGUAGE TOGGLE,
+CASE STUDY MODAL,
+THEME CONTROLS
    ========================================================================== */
 
 .lang-toggle { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 600; color: var(--text-muted); margin-right: 1.5rem; }
 .lang-sep { opacity: 0.5; }
 
 /* Lucide Icons */
-.lucide { width: 24px; height: 24px; stroke-width: 2; stroke: currentColor; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Case Study Modal */
 .case-study-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
@@ -2286,7 +2240,8 @@
 .modal-layout { display: flex; flex-direction: row; flex: 1; min-height: 0; }
 .modal-media { flex: 1 1 100%; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .modal-media-blur { position: absolute; top: -10%; left: -10%; width: 120%; height: 120%; background-size: cover; background-position: center; filter: blur(50px) brightness(0.4); transform: scale(1.5); z-index: 1; }
-.modal-media iframe, .modal-media img { width: 100%; height: 100%; object-fit: contain; border: none; position: relative; z-index: 2; }
+.modal-media iframe,
+.modal-media img { width: 100%; height: 100%; object-fit: contain; border: none; position: relative; z-index: 2; }
 .modal-yt-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,0,0,0.88); color: #fff; font-size: 14px; font-weight: 700; padding: 10px 22px; border-radius: 999px; text-decoration: none; backdrop-filter: blur(8px); transition: background 0.2s, transform 0.2s; white-space: nowrap; }
 .modal-yt-btn:hover { background: #ff0000; transform: translateX(-50%) scale(1.05); }
 
@@ -2302,61 +2257,62 @@
 .theme-toggle:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
 :root.light-theme .theme-toggle { background: rgba(28,25,23,0.05); border: 1px solid rgba(28,25,23,0.1); color: var(--text-main); }
 :root.light-theme .theme-toggle:hover { background: rgba(28,25,23,0.1); }
-/* Mobile nav switch — the header has no room for a fourth icon button, but
-   the setting still has to be reachable on a phone. */
-.motion-switch {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0;
-  background: none;
-  border: 0;
-  cursor: pointer;
+/* ── Vestibular safety net ───────────────────────────────────────────
+   Motion runs for everyone; this block is the single,
+deliberate exception.
+
+   Endless horizontal travel is the specific thing that provokes nausea in
+   people with vestibular disorders: two strips of content sliding sideways
+   with no end. Those stop when the OS asks for reduced motion. Hover,
+entrances,
+reveals,
+scroll-driven motion,
+the orbs and the counters all
+   keep running — none of them travel without end. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .kinetic-row {
+    animation: none !important;
+  }
+
+  /* Frozen mid-strip they would show a half-empty row, so lay them out. */
+  .marquee-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 40px;
+    padding: 0;
+  }
+
+  .marquee-track .logo-item[aria-hidden="true"],
+  .kinetic-dup {
+    display: none;
+  }
+
+  .marquee-wrapper,
+  .kinetic-band {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .kinetic-band {
+    transform: none;
+    padding: clamp(32px, 5vw, 60px) var(--space-6);
+  }
+
+  .kinetic-row { width: 100%; }
+  .kinetic-row + .kinetic-row { margin-top: var(--space-4); }
+
+  .kinetic-track {
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+    row-gap: var(--space-3);
+    padding-right: 0;
+    font-size: clamp(1.25rem, 3.4vw, 2.25rem);
+  }
 }
 
-.motion-switch-track {
-  position: relative;
-  display: block;
-  width: 48px;
-  height: 27px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid var(--line);
-  transition: background var(--dur-fast) var(--ease-out);
-}
-
-.motion-switch-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: var(--text-muted);
-  transition: transform var(--dur-fast) var(--ease-out),
-              background var(--dur-fast) var(--ease-out);
-}
-
-.motion-switch[aria-pressed="true"] .motion-switch-track {
-  background: rgba(255, 122, 0, 0.35);
-  border-color: var(--primary);
-}
-
-.motion-switch[aria-pressed="true"] .motion-switch-thumb {
-  transform: translateX(21px);
-  background: var(--primary);
-}
-
-:root.light-theme .motion-switch-track { background: rgba(28, 25, 23, 0.1); }
-
-/* Motion toggle mirrors the theme toggle: one icon per state. */
-.motion-toggle .icon-motion-on { display: none; }
-.motion-toggle .icon-motion-off { display: block; }
-:root[data-motion="full"] .motion-toggle .icon-motion-on { display: block; }
-:root[data-motion="full"] .motion-toggle .icon-motion-off { display: none; }
-:root[data-motion="full"] .motion-toggle { color: var(--amber); }
-.motion-toggle { margin-right: 8px; }
-@media (max-width: 767px) { .motion-toggle { display: none; } }
 .theme-toggle .sun-icon { display: block; }
 .theme-toggle .moon-icon { display: none; }
 :root.light-theme .theme-toggle .sun-icon { display: none; }
@@ -2377,7 +2333,8 @@
 @keyframes auroraMove2 { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(-120px,-100px) scale(0.9); } 100% { transform: translate(-50px,-200px) scale(1.05); } }
 
 /* ── CV Modal ── */
-/* visibility is deliberately NOT transitioned: while it interpolates, the
+/* visibility is deliberately NOT transitioned: while it interpolates,
+the
    dialog is briefly unfocusable and the close button cannot take focus on
    open. Only opacity fades. */
 #cvModal { z-index: var(--z-modal); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity var(--dur-base) var(--ease-out); }
@@ -2397,13 +2354,15 @@
 :root.light-theme .brand { color: #1c1917; }
 :root.light-theme .brand-subtitle { color: rgba(28,25,23,0.6); }
 :root.light-theme .main-nav a { color: rgba(28,25,23,0.7); }
-:root.light-theme .main-nav a:hover, :root.light-theme .main-nav a.active { color: #1c1917; background: rgba(28,25,23,0.08); }
+:root.light-theme .main-nav a:hover,
+:root.light-theme .main-nav a.active { color: #1c1917; background: rgba(28,25,23,0.08); }
 :root.light-theme .header-cta { background: #1c1917; color: #ffffff; }
 :root.light-theme .header-cta:hover { background: var(--orange); color: #ffffff; }
 :root.light-theme .menu-btn { color: #1c1917; border-color: rgba(28,25,23,0.15); }
 :root.light-theme .mobile-nav { background: var(--bg-main); border-top: 1px solid var(--line); }
 :root.light-theme .mobile-nav a { color: var(--text-muted); }
-:root.light-theme .mobile-nav a:hover, :root.light-theme .mobile-nav a.active { background: rgba(28,25,23,0.05); color: var(--text-main); }
+:root.light-theme .mobile-nav a:hover,
+:root.light-theme .mobile-nav a.active { background: rgba(28,25,23,0.05); color: var(--text-main); }
 
 /* Hero */
 :root.light-theme .hero { background: var(--bg-main); color: var(--text-main); }
@@ -2462,7 +2421,8 @@
 :root.light-theme .client { color: #a16207; }
 :root.light-theme .portfolio-thumb::after { background: linear-gradient(to top, rgba(28,25,23,0.7), rgba(28,25,23,0.04), transparent); }
 :root.light-theme .tag { background: rgba(255,255,255,0.95); color: #1c1917; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
-:root.light-theme #portfolio, :root.light-theme #portfolio .section-title h2 { color: var(--text-main); }
+:root.light-theme #portfolio,
+:root.light-theme #portfolio .section-title h2 { color: var(--text-main); }
 :root.light-theme #portfolio { background: #f5f5f4; }
 :root.light-theme .section-title h2 { color: var(--text-main); text-wrap: balance; }
 :root.light-theme .section-title p { color: var(--text-muted); }
@@ -2476,20 +2436,27 @@
 :root.light-theme .contact-item { background: rgba(255,255,255,0.7); border: 1px solid rgba(28,25,23,0.08); }
 :root.light-theme .contact-item .ci-icon { color: var(--brown); }
 :root.light-theme .contact-item small { color: #92400e; }
-:root.light-theme .contact-item strong, :root.light-theme .contact-item a { color: var(--brown); }
+:root.light-theme .contact-item strong,
+:root.light-theme .contact-item a { color: var(--brown); }
 :root.light-theme .contact-section .eyebrow { background: rgba(122,76,37,0.12); border-color: rgba(122,76,37,0.2); color: var(--brown); }
 :root.light-theme .contact-section .btn-dark { background: var(--brown); color: #ffffff; }
 :root.light-theme .contact-section .btn-dark:hover { background: #1c1917; }
 :root.light-theme .contact-section .btn-light { border: 1px solid rgba(122,76,37,.35); background: rgba(255,255,255,.8); color: var(--brown); }
-:root.light-theme .contact-form input, :root.light-theme .contact-form textarea { background: rgba(255,255,255,0.8); border-color: rgba(122,76,37,0.2); color: var(--brown); }
-:root.light-theme .contact-form input::placeholder, :root.light-theme .contact-form textarea::placeholder { color: rgba(122,76,37,0.5); }
-:root.light-theme .contact-form input:focus, :root.light-theme .contact-form textarea:focus { border-color: var(--brown); background: #ffffff; }
+:root.light-theme .contact-form input,
+:root.light-theme .contact-form textarea { background: rgba(255,255,255,0.8); border-color: rgba(122,76,37,0.2); color: var(--brown); }
+:root.light-theme .contact-form input::placeholder,
+:root.light-theme .contact-form textarea::placeholder { color: rgba(122,76,37,0.5); }
+:root.light-theme .contact-form input:focus,
+:root.light-theme .contact-form textarea:focus { border-color: var(--brown); background: #ffffff; }
 :root.light-theme .social-grid a { background: rgba(255,255,255,0.6); color: var(--brown); border: 1px solid rgba(122,76,37,0.15); }
 :root.light-theme .social-grid a:hover { background: var(--amber); color: #1c1917; border-color: transparent; }
 :root.light-theme .site-footer { background: var(--bg-main); color: var(--text-muted); border-top: 1px solid var(--line); }
 :root.light-theme .back-to-top { background: #1c1917; color: #fcd34d; border-color: #1c1917; }
 :root.light-theme .back-to-top:hover { background: var(--brown); }
-:root.light-theme #services .eyebrow, :root.light-theme #about .eyebrow, :root.light-theme #tools .eyebrow, :root.light-theme #portfolio .eyebrow { background: rgba(252,211,77,0.2); border-color: rgba(252,211,77,0.35); color: #92400e; }
+:root.light-theme #services .eyebrow,
+:root.light-theme #about .eyebrow,
+:root.light-theme #tools .eyebrow,
+:root.light-theme #portfolio .eyebrow { background: rgba(252,211,77,0.2); border-color: rgba(252,211,77,0.35); color: #92400e; }
 
 /* Showcase light */
 :root.light-theme .showcase-slider { background: #ffffff; border: 1px solid rgba(28,25,23,0.09); }
@@ -2514,7 +2481,6 @@
 :root.light-theme .modal-content-wrapper { background: rgba(255,255,255,0.97); border: 1px solid var(--line); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
 :root.light-theme .close-modal-btn { background: rgba(28,25,23,0.05); border: 1px solid rgba(28,25,23,0.1); color: var(--text-main); }
 :root.light-theme .close-modal-btn:hover { background: rgba(28,25,23,0.1); }
-:root.light-theme .empty-state { background: rgba(28,25,23,0.04); border-color: rgba(28,25,23,0.15); color: var(--text-muted); }
 :root.light-theme .cv-social-btn { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); color: #1c1917; }
 :root.light-theme .cv-social-btn:hover { background: rgba(0,0,0,0.08); }
 :root.light-theme .cv-item-date { color: #c2410c; background: rgba(234,88,12,0.15); }
