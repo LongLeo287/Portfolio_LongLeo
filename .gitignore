@@ -1,0 +1,58 @@
+# ──────────────────────────────────────────────────────────────────
+# File nguồn thiết kế — KHÔNG commit.
+#
+# Website chỉ dùng bản .webp đã nén (kèm bản -480/-960 do
+# scripts/generate-image-sizes.py sinh ra). Bản gốc chưa nén nằm cạnh
+# chúng từng chiếm ~115 MB trong repo mà không phục vụ gì cho trang.
+#
+# Chúng vẫn nằm nguyên trên ổ đĩa, chỉ là git không theo dõi nữa.
+# ĐÂY LÀ FILE GỐC KHÔNG TẠO LẠI ĐƯỢC — hãy sao lưu ra Drive hoặc ổ ngoài,
+# vì từ giờ git không còn là bản sao dự phòng cho chúng.
+# ──────────────────────────────────────────────────────────────────
+*.psd
+*.psb
+*.ai
+*.prproj
+*.aep
+
+# Ảnh gốc chưa nén trong thư mục thiết kế
+assets/img/design/**/*.jpg
+assets/img/design/**/*.jpeg
+assets/img/design/**/*.png
+assets/img/longleo_avatar.jpg
+
+# Bản .webp trùng lặp không được projects.json tham chiếu
+assets/img/design/MYGEAR/*.webp
+assets/img/design/TOPSKILLS/*.webp
+
+# Nhưng vẫn giữ những bản responsive đang được dùng
+!assets/img/design/**/*-480.webp
+!assets/img/design/**/*-960.webp
+
+# File tham chiếu cũ, không nơi nào dùng
+Portfolio Demo.html
+
+# Script phát triển — không cần deploy
+deep-translate.py
+fix-translations.py
+design_all_files.json
+design_visual_titles.json
+vua2hand_visual_titles.json
+scratch/
+unused_files.txt
+.rm-list.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / công cụ
+.vscode/
+.idea/
+.claude/
+
+# Landing page sinh ra cho từng repo — nguồn là scripts/build-repo-landing.py,
+# bản thật nằm trong chính repo của dự án đó chứ không phải ở đây.
+build/
+__pycache__/
+*.pyc

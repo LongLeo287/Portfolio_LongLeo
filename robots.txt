@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /scratch/
+
+Sitemap: https://portfolio-long-leo.vercel.app/sitemap.xml

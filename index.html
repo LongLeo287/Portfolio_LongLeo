@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hà Đình Long | Video Editor Portfolio</title>
+  <meta name="description" content="Portfolio của Hà Đình Long (Long Leo) — Video Editor: quay dựng, motion graphic, thiết kế đồ họa và UI/UX. Hơn 5 năm kinh nghiệm, TP.HCM." />
+  <meta name="theme-color" content="#0c0a09" />
+  <link rel="canonical" href="https://portfolio-long-leo.vercel.app/" />
+  <!-- One page serves both languages via ?lang=; x-default is the Vietnamese view. -->
+  <link rel="alternate" hreflang="vi" href="https://portfolio-long-leo.vercel.app/" />
+  <link rel="alternate" hreflang="en" href="https://portfolio-long-leo.vercel.app/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://portfolio-long-leo.vercel.app/" />
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="Hà Đình Long — Video Editor Portfolio" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:title" content="Hà Đình Long | Video Editor Portfolio" />
+  <meta property="og:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 5+ năm kinh nghiệm." />
+  <meta property="og:url" content="https://portfolio-long-leo.vercel.app/" />
+  <meta property="og:image" content="https://portfolio-long-leo.vercel.app/assets/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Hà Đình Long — Video Editor Portfolio" />
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hà Đình Long | Video Editor Portfolio" />
+  <meta name="twitter:description" content="Video Editor chuyên nghiệp — Quay dựng, Motion Graphic, Thiết kế & UI/UX. 5+ năm kinh nghiệm." />
+  <meta name="twitter:image" content="https://portfolio-long-leo.vercel.app/assets/img/og-cover.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Variable-axis request: two font files instead of ten static weights -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/longleo_avatar-732.webp"
+        imagesrcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
+        imagesizes="(max-width: 767px) 80vw, 420px" fetchpriority="high" />
+  <link rel="stylesheet" href="assets/css/tokens.css?v=1.90" />
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.90" />
+  <link rel="stylesheet" href="assets/css/animations.css?v=1.90" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "inLanguage": "vi",
+    "url": "https://portfolio-long-leo.vercel.app/",
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://portfolio-long-leo.vercel.app/#person",
+      "name": "Hà Đình Long",
+      "alternateName": "Long Leo",
+      "jobTitle": "Video Editor & Motion Designer",
+      "url": "https://portfolio-long-leo.vercel.app/",
+      "image": "https://portfolio-long-leo.vercel.app/assets/img/longleo_avatar.webp",
+      "email": "mailto:Longdragon287@gmail.com",
+      "telephone": "+84906964451",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tân Phú",
+        "addressRegion": "Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Arena Multimedia"
+      },
+      "sameAs": [
+        "https://github.com/LongLeo287",
+        "https://www.youtube.com/@LongLeo287",
+        "https://www.facebook.com/LongLeo97"
+      ],
+      "description": "Portfolio cá nhân của Hà Đình Long (Long Leo) — Video Editor chuyên nghiệp với hơn 5 năm kinh nghiệm trong sản xuất video, motion graphic, thiết kế đồ họa và UI/UX.",
+      "knowsAbout": ["Video Editing", "Motion Graphics", "Graphic Design", "UI/UX Design", "Visual Storytelling"],
+      "knowsLanguage": ["vi", "en"]
+    }
+  }
+  </script>
+  <script>
+    // Runs before first paint: no flash of the wrong theme or motion branch.
+    if (localStorage.getItem('portfolio_theme') === 'light') {
+      document.documentElement.classList.add('light-theme');
+    }
+  </script>
+<style>
+    /* Only images resist selection/drag. Text stays selectable so visitors can
+       copy an email, a phone number, or a line of the bio. */
+    img {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip_link">Bỏ qua tới nội dung chính</a>
+
+  <!-- Cinematic Loader -->
+  <div class="cinematic-loader" id="cinematicLoader">
+    <div class="loader-logo-wrap">
+      <svg class="loader-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="logo-path" d="M 30 25 L 30 75 M 30 50 L 50 50 M 50 25 L 50 75 L 70 75" stroke="#ff7a00" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="Hà Đình Long Portfolio">
+        <span class="brand-mark">HL</span>
+        <span class="brand-text">
+          <span class="brand-title">Hà Đình Long</span>
+          <span class="brand-subtitle">Video Editor</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home" data-i18n="nav_home">Trang chủ</a>
+        <a href="#about" data-i18n="nav_about">Về mình</a>
+        <a href="#services" data-i18n="nav_services">Dịch vụ</a>
+        <a href="#experience" data-i18n="nav_exp">Kinh nghiệm</a>
+        <a href="#portfolio" data-i18n="nav_port">Portfolio</a>
+        <a href="#labs" data-i18n="nav_labs">Mã nguồn</a>
+        <a href="#contact" data-i18n="nav_contact">Liên hệ</a>
+      </nav>
+
+      <div class="header-controls">
+        <div class="lang-toggle desktop-lang">
+          <button class="lang-btn active" data-lang="vi">VN</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng/tối">
+          <svg class="icon icon-sun sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg class="icon icon-moon moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+
+      <a class="header-cta" href="#contact" data-i18n="nav_collab">Liên hệ hợp tác</a>
+
+      <!-- main.js swaps this glyph for × when the menu opens -->
+      <button class="menu-btn" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">☰</button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+      <div class="container">
+        <div class="mobile-lang-row">
+          <span style="font-size: 13px; color: var(--text-muted); font-weight: 700;" data-i18n="lang_label">Ngôn ngữ / Language:</span>
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="vi">VN</button>
+            <span class="lang-sep">|</span>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </div>
+        <a href="#home" data-i18n="nav_home">Trang chủ</a>
+        <a href="#about" data-i18n="nav_about">Về mình</a>
+        <a href="#services" data-i18n="nav_services">Dịch vụ</a>
+        <a href="#experience" data-i18n="nav_exp">Kinh nghiệm</a>
+        <a href="#portfolio" data-i18n="nav_port">Portfolio</a>
+        <a href="#labs" data-i18n="nav_labs">Mã nguồn</a>
+        <a href="#contact" data-i18n="nav_contact">Liên hệ</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-content fade-up">
+          <span class="pill" data-i18n="hero_pill">✦ Technical Video Editor • Motion Graphic • UI/UX</span>
+          <h1 data-i18n="hero_title">Hà Đình <span class="gradient-text">Long</span></h1>
+          <p class="hero-copy" data-i18n="hero_desc">
+            Biến ý tưởng thành hình ảnh sống động — từ quay dựng video, motion graphic, thiết kế đồ họa đến tối ưu UI/UX.<br>Hơn 5 năm kinh nghiệm tạo ra sản phẩm truyền thông chất lượng cao.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#portfolio" data-i18n="hero_btn1">Xem portfolio ↗</a>
+            <a class="btn btn-glass" href="javascript:void(0)" id="openCvBtn" data-i18n="hero_btn_cv">Xem CV 📄</a>
+            <a class="btn btn-glass" href="#contact" data-i18n="hero_btn2">Liên hệ hợp tác ✉</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <span class="stat-number">5+</span>
+              <span class="stat-label" data-i18n="stat_exp">năm kinh nghiệm</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">5</span>
+              <span class="stat-label" data-i18n="stat_proj">công ty & dự án</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">2019</span>
+              <span class="stat-label" data-i18n="stat_start">bắt đầu hành trình</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual fade-up">
+          <div class="portrait-card avatar-card">
+            <div class="avatar-panel">
+              <img src="assets/img/longleo_avatar.webp"
+                   srcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
+                   sizes="(max-width: 767px) 80vw, 420px"
+                   width="732" height="1200"
+                   alt="Chân dung Hà Đình Long, Video Editor"
+                   fetchpriority="high" decoding="async" />
+            </div>
+            <div class="floating-note">
+              <div>
+                <small data-i18n="available_for">Sẵn sàng hợp tác</small>
+                <strong>Video • Design • Motion • UI/UX</strong>
+              </div>
+              <span>🎬</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+      <div class="container">
+        <div class="partners-title" data-i18n="partners_title">ĐỐI TÁC HỢP TÁC</div>
+        
+        <div class="marquee-wrapper fade-up">
+          <ul class="marquee-track" aria-label="Đối tác đã hợp tác">
+            <!-- Set 1 — the real list -->
+            <li class="logo-item"><img src="assets/img/logos/mygear.png" alt="MyGear" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item"><img src="assets/img/logos/topskills.png" alt="TopSkills" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item"><img src="assets/img/logos/vie.png" alt="Vie Channel" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item"><img src="assets/img/logos/vua2hand.png" alt="Vua2hand" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item"><img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <!-- Set 2 — visual duplicate for the seamless -50% loop -->
+            <li class="logo-item" aria-hidden="true"><img src="assets/img/logos/mygear.png" alt="" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item" aria-hidden="true"><img src="assets/img/logos/topskills.png" alt="" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item" aria-hidden="true"><img src="assets/img/logos/vie.png" alt="" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item" aria-hidden="true"><img src="assets/img/logos/vua2hand.png" alt="" width="160" height="70" loading="lazy" decoding="async" /></li>
+            <li class="logo-item" aria-hidden="true"><img src="assets/img/logos/thegioiinan.png" alt="" width="160" height="70" loading="lazy" decoding="async" /></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-soft" id="about">
+      <div class="container about-grid">
+        <div class="about-image fade-up">
+          <div class="about-image-inner avatar-card light-avatar">
+            <div class="avatar-panel">
+              <img src="assets/img/longleo_avatar.webp"
+                   srcset="assets/img/longleo_avatar-366.webp 366w, assets/img/longleo_avatar-732.webp 732w"
+                   sizes="(max-width: 767px) 80vw, 420px"
+                   width="732" height="1200"
+                   alt="Hà Đình Long tại bàn dựng"
+                   loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content fade-up">
+          <span class="eyebrow" data-i18n="about_eyebrow">Một chút về mình</span>
+          <h2 data-i18n="about_title">Từ Arena Multimedia đến hành trình sáng tạo hình ảnh chuyên nghiệp.</h2>
+          <div class="about-text">
+            <p data-i18n="about_p1">Chào bạn, mình là <strong>Hà Đình Long</strong> — hay còn được biết đến với tên <strong>Long Leo</strong>. Tốt nghiệp ngành Multimedia tại Arena Multimedia, mình bắt đầu hành trình sáng tạo từ năm 2019.</p>
+            <p data-i18n="about_p2">Với hơn 5 năm kinh nghiệm trong lĩnh vực sản xuất video, thiết kế đồ họa và truyền thông đa phương tiện, mình đã đi qua nhiều môi trường từ agency, công ty sản phẩm đến freelance — mỗi giai đoạn giúp mình tích lũy thêm góc nhìn và kỹ năng mới.</p>
+            <p data-i18n="about_p3_short"><strong>Mục tiêu ngắn hạn:</strong> Tối ưu hóa kỹ năng sản xuất hình ảnh/video chuyên sâu và ứng dụng tư duy sáng tạo để tạo ra các sản phẩm truyền thông chất lượng cao, thúc đẩy hiệu suất các chiến dịch marketing.</p>
+            <p data-i18n="about_p3_long"><strong>Mục tiêu dài hạn:</strong> Trở thành Chuyên gia Hậu kỳ (Post-Production Specialist), không ngừng nâng cấp bộ kỹ năng chuyên môn và ứng dụng các công cụ công nghệ mới (AI, Automation) để tối ưu hóa tốc độ dựng phim và nâng cao chất lượng đầu ra.</p>
+          </div>
+
+          <div class="skills stagger">
+            <div class="skill-card">
+              <div class="icon">🎯</div>
+              <p data-i18n="about_skill1"><strong>Tư duy Thẩm mỹ:</strong> Cân bằng giữa yếu tố nghệ thuật và mục tiêu truyền thông thực tế.</p>
+            </div>
+            <div class="skill-card">
+              <div class="icon">⚡</div>
+              <p data-i18n="about_skill2"><strong>Quy trình Tối ưu:</strong> Ứng dụng công nghệ & AI để tối ưu hóa thời gian sản xuất mà vẫn giữ chất lượng cao.</p>
+            </div>
+            <div class="skill-card">
+              <div class="icon">🤝</div>
+              <p data-i18n="about_skill3"><strong>Thích ứng Nhanh:</strong> Khả năng đảm nhiệm linh hoạt nhiều vai trò từ Quay, Dựng, đến Thiết kế và UI/UX.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & AI Stack -->
+      <div class="container tools-container fade-up">
+        <h3 class="tools-title" data-i18n="tools_title">
+          <span>🛠️</span> Công cụ & Trợ lý AI sáng tạo
+        </h3>
+        
+        <div class="tools-grid-wrapper">
+          <!-- Creative Software Group -->
+          <div class="tools-group">
+            <h4 class="tools-group-title" data-i18n="tools_group1_title">Phần mềm sáng tạo chuyên nghiệp</h4>
+            <div class="tools-grid">
+              <!-- Premiere Pro -->
+              <div class="tool-item">
+                <img src="assets/img/tools/premiere.svg" alt="Adobe Premiere Pro" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Premiere Pro</h5>
+                  <span data-i18n="tool_prem">Dựng phim & Màu sắc</span>
+                </div>
+              </div>
+              
+              <!-- After Effects -->
+              <div class="tool-item">
+                <img src="assets/img/tools/aftereffects.svg" alt="Adobe After Effects" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>After Effects</h5>
+                  <span data-i18n="tool_ae">Motion & Hậu kỳ kỹ xảo</span>
+                </div>
+              </div>
+              
+              <!-- Photoshop -->
+              <div class="tool-item">
+                <img src="assets/img/tools/photoshop.svg" alt="Adobe Photoshop" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Photoshop</h5>
+                  <span data-i18n="tool_ps">Chỉnh ảnh & Cắt ghép</span>
+                </div>
+              </div>
+              
+              <!-- Illustrator -->
+              <div class="tool-item">
+                <img src="assets/img/tools/illustrator.svg" alt="Adobe Illustrator" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Illustrator</h5>
+                  <span data-i18n="tool_ai">Thiết kế Vector & Ấn phẩm</span>
+                </div>
+              </div>
+              
+              <!-- Lightroom -->
+              <div class="tool-item">
+                <img src="assets/img/tools/lightroom.svg" alt="Adobe Lightroom" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Lightroom</h5>
+                  <span data-i18n="tool_lr">Blend màu & Hậu kỳ ảnh</span>
+                </div>
+              </div>
+              
+              <!-- Figma -->
+              <div class="tool-item">
+                <img src="assets/img/tools/figma.svg" alt="Figma" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Figma</h5>
+                  <span data-i18n="tool_figma">Thiết kế giao diện UI/UX</span>
+                </div>
+              </div>
+
+              <!-- CapCut -->
+              <div class="tool-item">
+                <img src="assets/img/tools/capcut.svg" alt="CapCut" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>CapCut</h5>
+                  <span data-i18n="tool_capcut">Dựng video nhanh & Tiện lợi</span>
+                </div>
+              </div>
+
+              <!-- Canva -->
+              <div class="tool-item">
+                <img src="assets/img/tools/canva.svg" alt="Canva" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Canva</h5>
+                  <span data-i18n="tool_canva">Thiết kế đồ họa trực tuyến</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- AI Assistants Group -->
+          <div class="tools-group">
+            <h4 class="tools-group-title" data-i18n="tools_group2_title">Trợ lý AI & Tối ưu hiệu suất</h4>
+            <div class="tools-grid">
+              <!-- Gemini -->
+              <div class="tool-item">
+                <img src="assets/img/tools/gemini.svg" alt="Google Gemini" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Google Gemini</h5>
+                  <span data-i18n="tool_gemini">Lên ý tưởng & Lịch trình</span>
+                </div>
+              </div>
+              
+              <!-- Google AI Studio -->
+              <div class="tool-item">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.921 4.196H6.328A2.705 2.705 0 003.623 6.9v11.362a2.705 2.705 0 002.705 2.705h11.363a2.705 2.705 0 002.705-2.705v-4.756l1.623-1.113v5.87a4.329 4.329 0 01-4.328 4.328H6.328A4.329 4.329 0 012 18.263V6.901a4.328 4.328 0 014.328-4.329h4.545l-.952 1.624z" fill="#4285F4"/>
+                  <path d="M17.82 0c.145 0 .268.104.299.246a7 7 0 001.9 3.484 7 7 0 003.485 1.901c.142.031.246.154.246.3a.308.308 0 01-.246.298A7 7 0 0020.02 8.13a7 7 0 00-1.912 3.535.297.297 0 01-.288.238.297.297 0 01-.288-.238A7 7 0 0015.62 8.13a7 7 0 00-3.535-1.912.297.297 0 01-.238-.288c0-.14.1-.26.238-.288A7 7 0 0015.62 3.73 7.001 7.001 0 0017.521.246.308.308 0 0117.82 0z" fill="url(#aiStudioGradient)"/>
+                  <defs>
+                    <linearGradient id="aiStudioGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#9eb6ff"/>
+                      <stop offset="35%" stop-color="#7a97ff"/>
+                      <stop offset="70%" stop-color="#c275ff"/>
+                      <stop offset="100%" stop-color="#ff857a"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="tool-info">
+                  <h5>Google AI Studio</h5>
+                  <span data-i18n="tool_ai_studio">Thử nghiệm Prompt & API</span>
+                </div>
+              </div>
+              
+              <!-- Google Antigravity -->
+              <div class="tool-item">
+                <img src="assets/img/tools/antigravity.svg" alt="Google Antigravity" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Google Antigravity</h5>
+                  <span data-i18n="tool_antigravity">Tự động hóa & Coding</span>
+                </div>
+              </div>
+              
+              <!-- Claude Code -->
+              <div class="tool-item">
+                <img src="assets/img/tools/claudecode.svg" alt="Claude Code" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Claude Code</h5>
+                  <span data-i18n="tool_claude">Phân tích & Viết nội dung</span>
+                </div>
+              </div>
+              
+              <!-- Codex -->
+              <div class="tool-item">
+                <img src="assets/img/tools/codex.svg" alt="Codex" width="40" height="40" loading="lazy" decoding="async" />
+                <div class="tool-info">
+                  <h5>Codex</h5>
+                  <span data-i18n="tool_codex">Hỗ trợ Kỹ thuật & Code</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-white" id="services">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow" data-i18n="services_eyebrow">Dịch vụ</span>
+          <h2 data-i18n="services_title">Giải pháp hình ảnh & truyền thông toàn diện.</h2>
+          <p data-i18n="services_desc">Tập trung vào chất lượng hình ảnh, nhịp kể và tính ứng dụng thực tế —<br>từ video, thiết kế đến UI/UX cho các chiến dịch truyền thông.</p>
+        </div>
+
+        <div class="services-grid stagger">
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-video" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
+            <h3 data-i18n="srv_vid_title">Quay & Dựng Video</h3>
+            <p data-i18n="srv_vid_desc">Sản xuất video chuyên nghiệp: TVC, quảng cáo, unboxing, review sản phẩm, video sự kiện và các định dạng social media.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-sparkles" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg></div>
+            <h3 data-i18n="srv_motion_title">Motion Graphic</h3>
+            <p data-i18n="srv_motion_desc">Tạo hiệu ứng chuyển động bắt mắt, title animation, infographic động và các visual effects chuyên nghiệp bằng After Effects.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-pen-tool" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"/><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"/><path d="m2.3 2.3 7.286 7.286"/><circle cx="11" cy="11" r="2"/></svg></div>
+            <h3 data-i18n="srv_design_title">Thiết kế đồ họa</h3>
+            <p data-i18n="srv_design_desc">Thiết kế banner, poster, thumbnail, key visual và ấn phẩm truyền thông phục vụ chiến dịch marketing trên mọi nền tảng.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-camera" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+            <h3 data-i18n="srv_photo_title">Chụp ảnh sản phẩm</h3>
+            <p data-i18n="srv_photo_desc">Chụp ảnh sản phẩm, sự kiện, không gian thương hiệu — chỉnh sửa hậu kỳ chất lượng cao phục vụ quảng bá.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-monitor" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></div>
+            <h3 data-i18n="srv_uiux_title">UI/UX Design</h3>
+            <p data-i18n="srv_uiux_desc">Thiết kế giao diện & trải nghiệm người dùng cho landing page, website — đảm bảo thẩm mỹ hiện đại và thân thiện.</p>
+          </article>
+          <article class="service-card fade-up">
+            <div class="service-icon"><svg class="icon icon-lightbulb" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></div>
+            <h3 data-i18n="srv_idea_title">Sáng tạo Ý tưởng</h3>
+            <p data-i18n="srv_idea_desc">Đề xuất và phát triển các concept sáng tạo, lên ý tưởng hình ảnh và định hướng nội dung trước khi sản xuất.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kinetic band: two rows scrolling against each other. The second copy
+         of each row is what makes the -50% loop seamless, so it is marked
+         aria-hidden rather than read out twice. -->
+    <section class="kinetic-band" aria-label="Chuyên môn">
+      <div class="kinetic-row" data-i18n-band="1">
+        <div class="kinetic-track"><span>QUAY DỰNG</span><i aria-hidden="true">✦</i><span>MOTION GRAPHIC</span><i aria-hidden="true">✦</i><span>COLOR GRADING</span><i aria-hidden="true">✦</i><span>KEY VISUAL</span><i aria-hidden="true">✦</i><span>THUMBNAIL</span><i aria-hidden="true">✦</i><span>UI/UX</span><i aria-hidden="true">✦</i><span class="kinetic-dup" aria-hidden="true"><span>QUAY DỰNG</span><i aria-hidden="true">✦</i><span>MOTION GRAPHIC</span><i aria-hidden="true">✦</i><span>COLOR GRADING</span><i aria-hidden="true">✦</i><span>KEY VISUAL</span><i aria-hidden="true">✦</i><span>THUMBNAIL</span><i aria-hidden="true">✦</i><span>UI/UX</span><i aria-hidden="true">✦</i></span></div>
+      </div>
+      <div class="kinetic-row kinetic-row--reverse" data-i18n-band="2">
+        <div class="kinetic-track"><span>HẬU KỲ</span><i aria-hidden="true">✦</i><span>TVC</span><i aria-hidden="true">✦</i><span>SOCIAL VIDEO</span><i aria-hidden="true">✦</i><span>CHỤP SẢN PHẨM</span><i aria-hidden="true">✦</i><span>STORYBOARD</span><i aria-hidden="true">✦</i><span>BRANDING</span><i aria-hidden="true">✦</i><span class="kinetic-dup" aria-hidden="true"><span>HẬU KỲ</span><i aria-hidden="true">✦</i><span>TVC</span><i aria-hidden="true">✦</i><span>SOCIAL VIDEO</span><i aria-hidden="true">✦</i><span>CHỤP SẢN PHẨM</span><i aria-hidden="true">✦</i><span>STORYBOARD</span><i aria-hidden="true">✦</i><span>BRANDING</span><i aria-hidden="true">✦</i></span></div>
+      </div>
+    </section>
+
+    <section class="section-pad experience" id="experience">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow" data-i18n="exp_eyebrow">Kinh nghiệm</span>
+          <h2 data-i18n="exp_title">Hành trình 5+ năm trong ngành sáng tạo.</h2>
+          <p data-i18n="exp_desc">Từ in ấn, đào tạo, freelance, đến thương hiệu công nghệ —<br>mỗi môi trường tạo thêm một góc nhìn mới về truyền thông và sáng tạo.</p>
+        </div>
+
+        <div class="experience-grid stagger">
+          <a class="experience-card fade-up" href="https://www.facebook.com/Vua2Hand" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-header">
+                <div class="experience-logo-box">
+                  <img src="assets/img/logos/vua2hand.png" alt="Vua2Hand" class="experience-logo" loading="lazy"/>
+                </div>
+                <div class="experience-title-area">
+                  <h3>Vua2Hand</h3>
+                  <span class="experience-role" data-i18n="exp_v2h_role">Nhân viên Media</span>
+                </div>
+                <span class="experience-year" data-i18n="exp_v2h_time">2025 – nay</span>
+              </div>
+              <div class="experience-body">
+                <p data-i18n="exp_v2h_desc">Quay dựng video review thiết bị âm thanh & công nghệ (JBL, Bose, Sony, Marshall). Quản lý kênh YouTube, thiết kế thumbnail, tối ưu SEO.</p>
+                <div class="link-line" data-i18n="exp_v2h_btn">Ghé thăm Vua2Hand ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://mygear.com.vn/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-header">
+                <div class="experience-logo-box">
+                  <img src="assets/img/logos/mygear.png" alt="MyGear" class="experience-logo" loading="lazy"/>
+                </div>
+                <div class="experience-title-area">
+                  <h3>MyGear</h3>
+                  <span class="experience-role" data-i18n="exp_mygear_role">Nhân viên Media</span>
+                </div>
+                <span class="experience-year">2024 – 2025</span>
+              </div>
+              <div class="experience-body">
+                <p data-i18n="exp_mygear_desc">Thiết kế UI/UX landing page & website. Sản xuất video, thiết kế banner/poster, chụp ảnh sản phẩm. Đóng góp xây dựng ý tưởng hình ảnh cùng đội ngũ sáng tạo.</p>
+                <div class="link-line" data-i18n="exp_mygear_btn">Ghé thăm MyGear ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://vieproduction.com/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-header">
+                <div class="experience-logo-box">
+                  <img src="assets/img/logos/vie.png" alt="Vie Production" class="experience-logo" loading="lazy"/>
+                </div>
+                <div class="experience-title-area">
+                  <h3>Vie Production</h3>
+                  <span class="experience-role" data-i18n="exp_vie_role">Editor Freelance</span>
+                </div>
+                <span class="experience-year">2023 – 2024</span>
+              </div>
+              <div class="experience-body">
+                <p data-i18n="exp_vie_desc">Hậu kỳ chuyên nghiệp: xử lý file thô, cắt ghép, color grading, đồng bộ âm thanh. Tư vấn giải pháp hình ảnh trực tiếp với khách hàng.</p>
+                <div class="link-line" data-i18n="exp_vie_btn">Ghé thăm Vie Channel ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://topskills.com.vn/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-header">
+                <div class="experience-logo-box">
+                  <img src="assets/img/logos/topskills.png" alt="Topskills" class="experience-logo" loading="lazy"/>
+                </div>
+                <div class="experience-title-area">
+                  <h3>Topskills</h3>
+                  <span class="experience-role" data-i18n="exp_topskills_role">Nhân viên Media</span>
+                </div>
+                <span class="experience-year">2022 – 2023</span>
+              </div>
+              <div class="experience-body">
+                <p data-i18n="exp_topskills_desc">Sản xuất & hậu kỳ video đào tạo. Thiết kế ấn phẩm thương hiệu (banner, poster). Phối hợp phát triển các ý tưởng sáng tạo cho dự án.</p>
+                <div class="link-line" data-i18n="exp_topskills_btn">Ghé thăm TopSkills ↗</div>
+              </div>
+            </div>
+          </a>
+
+          <a class="experience-card fade-up" href="https://thegioiinan.com/" target="_blank" rel="noreferrer">
+            <div class="experience-card-inner">
+              <div class="experience-header">
+                <div class="experience-logo-box">
+                  <img src="assets/img/logos/thegioiinan.png" alt="Thế Giới In Ấn" class="experience-logo" loading="lazy"/>
+                </div>
+                <div class="experience-title-area">
+                  <h3>Thế Giới In Ấn</h3>
+                  <span class="experience-role" data-i18n="exp_tgia_role">Nhân viên Media</span>
+                </div>
+                <span class="experience-year">2019 – 2020</span>
+              </div>
+              <div class="experience-body">
+                <p data-i18n="exp_tgia_desc">Thiết kế và xử lý file in ấn. Hỗ trợ sản xuất nội dung truyền thông, quay dựng video cơ bản và chụp ảnh sản phẩm cho các chiến dịch của công ty.</p>
+                <div class="link-line" data-i18n="exp_tgia_btn">Ghé thăm Thế Giới In Ấn ↗</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad bg-soft" id="portfolio">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow" data-i18n="port_eyebrow">Portfolio</span>
+          <h2 data-i18n="port_title">Sản phẩm nổi bật</h2>
+          <p data-i18n="port_desc">Tổng hợp các sản phẩm video và nội dung sáng tạo từ kênh YouTube @LongLeo287<br>và các dự án thực tế.</p>
+        </div>
+
+        <div class="showcase-slider fade-up" id="showcaseSlider">
+          <div class="showcase-slides" id="showcaseSlides">
+            <!-- Sẽ được khởi tạo ngẫu nhiên bằng JavaScript từ toàn bộ sản phẩm -->
+          </div>
+          
+          <button class="slider-btn prev-btn" id="prevSlideBtn" aria-label="Slide trước">&lt;</button>
+          <button class="slider-btn next-btn" id="nextSlideBtn" aria-label="Slide sau">&gt;</button>
+          <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <div class="filter-row fade-up" role="group" aria-label="Lọc portfolio theo danh mục">
+          <button class="filter-btn active" type="button" aria-pressed="true" data-filter="all" data-i18n="filter_all">Nổi bật</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="Video" data-i18n="filter_vid">Sản xuất Video</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="Design" data-i18n="filter_des">Thiết kế</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="Photography" data-i18n="filter_photo">Chụp ảnh</button>
+          <button class="filter-btn" type="button" aria-pressed="false" data-filter="Thumbnail" data-i18n="filter_thumb">YouTube Thumbnail</button>
+        </div>
+
+        <div class="portfolio-grid compact-grid" id="portfolioGrid" aria-busy="true" aria-live="polite">
+          <div class="portfolio-loader">
+            <span class="portfolio-loader-spinner" aria-hidden="true"></span>
+            <span class="visually-hidden">Đang tải sản phẩm…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad" id="labs">
+      <div class="container">
+        <div class="section-title fade-up">
+          <span class="eyebrow" data-i18n="labs_eyebrow">Mã nguồn mở</span>
+          <h2 data-i18n="labs_title">Không chỉ dùng công cụ — mình xây luôn công cụ.</h2>
+          <p data-i18n="labs_desc">Những hệ thống mình tự phát triển để tự động hoá quy trình sản xuất của chính mình.<br>Toàn bộ mã nguồn công khai.</p>
+        </div>
+
+        <div class="labs-grid stagger">
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://seosona-flow.vercel.app">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/seosona-flow.jpg"
+                   srcset="assets/img/labs/seosona-flow-480.webp 480w, assets/img/labs/seosona-flow-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="SEOSONA Flow" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Chrome Extension</span>
+              <h3>SEOSONA Flow</h3>
+              <p>Tạo ảnh và video AI hàng loạt ngay trong trình duyệt — không backend, không API key.</p>
+              <span class="lab-tile-tech">JavaScript · Chrome MV3</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://seosona-video-ai.vercel.app">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/seosona-video-ai.jpg"
+                   srcset="assets/img/labs/seosona-video-ai-480.webp 480w, assets/img/labs/seosona-video-ai-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="SEOSONA Video AI" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Nhà máy video</span>
+              <h3>SEOSONA Video AI</h3>
+              <p>Hệ sản xuất video tự động: 10 đặc vụ AI, 21 luồng công việc, 26 bộ luật vận hành.</p>
+              <span class="lab-tile-tech">Python · FFmpeg · Whisper</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="labs/omniclaw.html">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/omniclaw.jpg"
+                   srcset="assets/img/labs/omniclaw-480.webp 480w, assets/img/labs/omniclaw-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="OmniClaw" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Hệ điều hành agent</span>
+              <h3>OmniClaw</h3>
+              <p>Biến máy cá nhân thành dàn AI tự vận hành, cai quản bởi 8 daemon chạy nền.</p>
+              <span class="lab-tile-tech">Python</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://seosona-os.vercel.app">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/seosona-os.jpg"
+                   srcset="assets/img/labs/seosona-os-480.webp 480w, assets/img/labs/seosona-os-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="SEOSONA OS" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Bộ não trung tâm</span>
+              <h3>SEOSONA OS</h3>
+              <p>Một bộ luật, một trí nhớ dùng chung cho mọi công cụ AI — và nó tự học thêm.</p>
+              <span class="lab-tile-tech">Python · Node.js</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://seosona-ux-ui.vercel.app">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/seosona-ux-ui.jpg"
+                   srcset="assets/img/labs/seosona-ux-ui-480.webp 480w, assets/img/labs/seosona-ux-ui-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="SEOSONA UX-UI" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Hệ thống thiết kế</span>
+              <h3>SEOSONA UX-UI</h3>
+              <p>Thư viện 30+ component và design token thuần HTML/CSS/JS, không ràng buộc framework.</p>
+              <span class="lab-tile-tech">HTML · CSS · JS</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://tiem-nuoc-nho.vercel.app">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/tiem-nuoc-nho.jpg"
+                   srcset="assets/img/labs/tiem-nuoc-nho-480.webp 480w, assets/img/labs/tiem-nuoc-nho-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="Tiệm Nước Nhỏ POS" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Ứng dụng thực tế</span>
+              <h3>Tiệm Nước Nhỏ POS</h3>
+              <p>Hệ thống bán hàng cho quán nước — database chỉ là một file Google Sheets.</p>
+              <span class="lab-tile-tech">React 19 · TypeScript</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="https://seosona.com">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/seosona.jpg"
+                   srcset="assets/img/labs/seosona-480.webp 480w, assets/img/labs/seosona-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="SEOSONA" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Website</span>
+              <h3>SEOSONA</h3>
+              <p>Dựng lại seosona.com bằng Next.js và Tailwind CSS, nội dung viết bằng MDX.</p>
+              <span class="lab-tile-tech">Next.js · Tailwind</span>
+            </div>
+          </a>
+          <a class="lab-tile fade-up" target="_blank" rel="noopener" href="labs/portfolio.html">
+            <div class="lab-tile-shot">
+              <img src="assets/img/labs/portfolio.jpg"
+                   srcset="assets/img/labs/portfolio-480.webp 480w, assets/img/labs/portfolio-960.webp 960w"
+                   sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 340px"
+                   width="1200" height="600" alt="Portfolio_LongLeo" loading="lazy" decoding="async" />
+            </div>
+            <div class="lab-tile-body">
+              <span class="lab-tile-kind">Mã nguồn mở</span>
+              <h3>Portfolio_LongLeo</h3>
+              <p>Chính trang bạn đang xem. 174 dự án, không framework, không bước build.</p>
+              <span class="lab-tile-tech">HTML · CSS · JS</span>
+            </div>
+          </a>
+        </div>
+
+        <p class="labs-foot fade-up">
+          <a href="https://github.com/LongLeo287" target="_blank" rel="noopener" data-i18n="labs_all">Xem toàn bộ trên GitHub ↗</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy fade-up">
+          <span class="eyebrow" data-i18n="contact_eyebrow">Liên hệ</span>
+          <h2 data-i18n="contact_title">Cảm ơn bạn đã dành thời gian ghé thăm.</h2>
+          <p data-i18n="contact_desc">Cần người quay dựng, thiết kế, làm motion graphic hoặc tối ưu UI/UX?<br>Hãy liên hệ để bắt đầu trao đổi về dự án của bạn.</p>
+          <div class="contact-actions">
+            <button class="btn btn-dark" onclick="copyEmail(this)" data-i18n="contact_email_btn">Gửi email ✉</button>
+            <a class="btn btn-light" href="tel:0906964451" data-i18n="contact_phone_btn">Gọi ngay ☎</a>
+          </div>
+        </div>
+
+        <div class="contact-card fade-up">
+          <form class="contact-form" id="contactForm">
+            <!-- Web3Forms Configuration -->
+            <input type="hidden" name="access_key" value="9388bba3-7b03-4e3f-b81e-45dd6375e65d" />
+            <input type="hidden" name="from_name" value="Long Leo Portfolio" />
+            <input type="hidden" name="subject" value="Tin nhắn liên hệ mới từ Portfolio" />
+            
+            <!-- Honeypot: hidden from people, irresistible to bots -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="cf-website">Website</label>
+              <input type="text" id="cf-website" name="botcheck" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <label for="cf-name" data-i18n="form_label_name">Tên của bạn</label>
+            <input type="text" id="cf-name" name="name" autocomplete="name" placeholder="Nguyễn Văn A" required />
+
+            <label for="cf-email" data-i18n="form_label_email">Email liên hệ</label>
+            <input type="email" id="cf-email" name="email" autocomplete="email" placeholder="ban@example.com" required />
+
+            <label for="cf-message" data-i18n="form_label_message">Nội dung cần trao đổi</label>
+            <textarea id="cf-message" name="message" rows="4" placeholder="Mình đang cần dựng một video review dài 3 phút…" required></textarea>
+
+            <button class="btn btn-dark" type="submit" data-i18n="form_submit">Gửi đi</button>
+            <div class="form-note" id="formNote" role="status" aria-live="polite" data-i18n="form_hint">Nhập thông tin và nhấn Gửi đi để gửi email trực tiếp cho mình.</div>
+          </form>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="ci-icon">✉</span>
+              <div>
+                <small>Email</small>
+                <a href="mailto:Longdragon287@gmail.com">Longdragon287@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="ci-icon">☎</span>
+              <div>
+                <small>SĐT</small>
+                <a href="tel:0906964451">0906 964 451</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <span class="ci-icon">⌖</span>
+              <div>
+                <small data-i18n="contact_addr_label">Địa chỉ</small>
+                <strong data-i18n="contact_addr_val">Tân Phú, Hồ Chí Minh</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-grid">
+            <a href="https://www.facebook.com/LongLeo97" target="_blank" rel="noreferrer">Facebook</a>
+            <a href="https://www.youtube.com/@LongLeo287" target="_blank" rel="noreferrer">YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p data-i18n="footer_copy">Hà Đình Long © 2026 | All Rights Reserved.</p>
+      <p data-i18n="footer_sub">Video Editor Portfolio</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" type="button" aria-label="Quay lại đầu trang">↑</button>
+
+  <!-- Case Study Modal -->
+  <div id="caseStudyModal" class="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div id="modalBackdrop" class="modal-backdrop"></div>
+    <div class="modal-content-wrapper">
+      <button id="toggleInfoBtn" class="toggle-info-btn" type="button" aria-label="Ẩn/Hiện thông tin">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <button id="closeModalBtn" class="close-modal-btn" type="button" aria-label="Đóng">&times;</button>
+      <div class="modal-layout">
+        <div id="modalMedia" class="modal-media">
+          <!-- Dynamic media content -->
+        </div>
+        <div class="modal-info" data-lenis-prevent>
+          <p id="modalClient" class="modal-client"></p>
+          <h2 id="modalTitle"></h2>
+          <div id="modalTags" class="modal-tags"></div>
+          <div id="modalBody" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Đóng">&times;</button>
+    <div class="lightbox-loader" id="lightboxLoader"></div>
+    <div class="lightbox-content-wrapper" id="lightboxVideoWrapper">
+      <iframe id="lightboxVideo" src="" title="Trình phát video YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <img class="lightbox-content" id="lightboxImage" alt="" style="display: none;" />
+  </div>
+
+  <!-- CV Modal -->
+  <div id="cvModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="CV Hà Đình Long" aria-hidden="true">
+    <button class="lightbox-close" id="closeCvBtn" type="button" aria-label="Đóng CV">&times;</button>
+    <div class="cv-modal-content">
+      <iframe src="cv.html?modal=1&v=1.44" title="CV Hà Đình Long" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Cursor Spotlight -->
+  <div class="cursor-spotlight" id="cursorSpotlight" aria-hidden="true"></div>
+
+  <!-- Self-hosted: one less origin to resolve, and the version can't move
+       under the site the way unpkg's did. -->
+  <script src="assets/js/vendor/lenis-1.1.13.min.js" defer></script>
+  <script src="assets/js/app.js?v=1.90" defer></script>
+  <script src="assets/js/main.js?v=1.90" defer></script>
+  <script src="assets/js/animations.js?v=1.90" defer></script>
+</body>
+</html>

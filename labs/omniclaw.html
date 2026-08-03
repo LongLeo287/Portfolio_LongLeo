@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniClaw của Long Leo — hệ điều hành agent 8 daemon cho Claude Code</title>
+  <meta name="description" content="Biến máy cá nhân thành một dàn AI tự vận hành, được cai quản bởi 8 daemon chạy nền — không phải mấy con agent &quot;đóng vai nhân viên&quot;." />
+  <meta name="theme-color" content="#0c0a09" />
+  <link rel="canonical" href="https://portfolio-long-leo.vercel.app/labs/omniclaw.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="OmniClaw của Long Leo — hệ điều hành agent 8 daemon cho Claude Code" />
+  <meta property="og:description" content="Biến máy cá nhân thành một dàn AI tự vận hành, được cai quản bởi 8 daemon chạy nền — không phải mấy con agent &quot;đóng vai nhân viên&quot;." />
+  <meta property="og:url" content="https://portfolio-long-leo.vercel.app/labs/omniclaw.html" />
+  <meta property="og:image" content="https://portfolio-long-leo.vercel.app/assets/img/labs/omniclaw.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://portfolio-long-leo.vercel.app/assets/img/labs/omniclaw.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1.90" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=1.90" />
+  <link rel="stylesheet" href="../assets/css/labs.css?v=1.90" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "OmniClaw",
+    "description": "Biến máy cá nhân thành một dàn AI tự vận hành, được cai quản bởi 8 daemon chạy nền — không phải mấy con agent &quot;đóng vai nhân viên&quot;.",
+    "codeRepository": "https://github.com/LongLeo287/OmniClaw",
+    "programmingLanguage": "Python",
+    "author": { "@type": "Person", "name": "Hà Đình Long", "url": "https://portfolio-long-leo.vercel.app/" }
+  }
+  </script>
+
+  <script>
+    if (localStorage.getItem('portfolio_theme') === 'light') {
+      document.documentElement.classList.add('light-theme');
+    }
+  </script>
+</head>
+<body class="lab-page">
+  <a class="skip-link" href="#lab-main">Bỏ qua tới nội dung chính</a>
+
+  <div class="lab-bar">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <a class="lab-back" href="../index.html#labs">← Về portfolio</a>
+      <a class="btn btn-primary" href="https://github.com/LongLeo287/OmniClaw" target="_blank" rel="noopener">Xem trên GitHub ↗</a>
+    </div>
+  </div>
+
+  <header class="lab-hero">
+    <div class="container">
+      <span class="lab-eyebrow">Hệ điều hành agent</span>
+      <h1>OmniClaw</h1>
+      <p class="lab-tagline">Biến máy cá nhân thành một dàn AI tự vận hành, được cai quản bởi 8 daemon chạy nền — không phải mấy con agent &quot;đóng vai nhân viên&quot;.</p>
+
+      <div class="lab-meta"><span class="lab-chip">Ngôn ngữ <b>Python</b></span><span class="lab-chip">Phiên bản <b>5.0</b></span><span class="lab-chip">Giấy phép <b>MIT</b></span><span class="lab-chip">Chạy trên <b>Claude Code · Antigravity</b></span></div>
+
+      <div class="lab-actions">
+        <a class="btn btn-primary" href="https://github.com/LongLeo287/OmniClaw" target="_blank" rel="noopener">Xem mã nguồn ↗</a>
+        <a class="btn btn-glass" href="../index.html#labs">Các dự án khác</a>
+      </div>
+
+      <div class="lab-shot">
+        <img src="../assets/img/labs/omniclaw.jpg"
+             srcset="../assets/img/labs/omniclaw-480.webp 480w, ../assets/img/labs/omniclaw-960.webp 960w"
+             sizes="(max-width: 900px) 92vw, 1100px"
+             width="1200" height="600" alt="OmniClaw" decoding="async" />
+      </div>
+    </div>
+  </header>
+
+  <main class="lab-body" id="lab-main">
+    <div class="container">
+      <section class="lab-section">
+        <h2>Vấn đề nó giải quyết</h2>
+        <p>Mỗi công cụ AI lập trình có bộ luật riêng, trí nhớ riêng, và quên sạch sau mỗi phiên. Kết quả là cùng một máy nhưng mỗi công cụ hành xử một kiểu, và không có gì bắt chúng tuân theo kỷ luật chung. OmniClaw đặt một tầng backend không thể né phía dưới tất cả.</p>
+      </section>
+
+      <section class="lab-section">
+        <h2>Điểm cốt lõi</h2>
+        <div class="lab-grid"><article class="lab-card"><span class="lab-num">01</span><h3>Tính di động tuyệt đối</h3><p>Tương thích gốc với Claude Code CLI và Google Antigravity. Luật hệ thống được kế thừa ở phạm vi toàn cục, không phải cấu hình lại từng dự án.</p></article><article class="lab-card"><span class="lab-num">02</span><h3>Bảo vệ Git kiểu Zero-Trust</h3><p>Daemon chạy nền quét cache, dọn file .sqlite và làm sạch commit trước khi đẩy lên GitHub — để khoá API không bao giờ lọt ra ngoài.</p></article><article class="lab-card"><span class="lab-num">03</span><h3>Bootstrapper tự động</h3><p>Gõ một lệnh `omniclaw` là mở bảng điều khiển trung tâm. Nó tự lo NPM, extension VSCode và các pipeline logic.</p></article><article class="lab-card"><span class="lab-num">04</span><h3>8 daemon bất tử</h3><p>Agent ở đây không có &quot;ý chí tự do&quot;. Toàn bộ chạy qua một pipeline cứng, được 8 daemon Python canh gác: kiến trúc sư, bộ phân luồng, bộ đăng ký thực thể, bộ thu thập…</p></article><article class="lab-card"><span class="lab-num">05</span><h3>MemPalace — trí nhớ 3 tầng</h3><p>Kiến trúc bộ nhớ không gian ba lớp, để ngữ cảnh sống qua nhiều phiên làm việc thay vì bốc hơi mỗi lần đóng cửa sổ.</p></article></div>
+      </section>
+
+      <section class="lab-section">
+        <h2>Công nghệ</h2>
+        <div class="lab-meta"><span class="lab-chip"><b>Python</b></span><span class="lab-chip"><b>Claude Code CLI</b></span><span class="lab-chip"><b>Google Antigravity</b></span><span class="lab-chip"><b>MCP</b></span><span class="lab-chip"><b>SQLite</b></span></div>
+        
+      </section>
+
+      <section class="lab-cta">
+        <h2>Muốn xem sâu hơn?</h2>
+        <p>Toàn bộ mã nguồn, tài liệu và lịch sử phát triển đều công khai trên GitHub.</p>
+        <div class="lab-actions">
+          <a class="btn btn-primary" href="https://github.com/LongLeo287/OmniClaw" target="_blank" rel="noopener">Mở repo ↗</a>
+          <a class="btn btn-glass" href="../index.html#contact">Liên hệ hợp tác</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Hà Đình Long © 2026 | All Rights Reserved.</p>
+      <p>Video Editor Portfolio</p>
+    </div>
+  </footer>
+</body>
+</html>
