@@ -1921,8 +1921,13 @@ def generate_page():
         f.write(html_content)
     print(f"✓ Đã sinh SEOSONA Flow Cyber-Glass Landing Page tại: {out_file} ({len(html_content):,} bytes)")
 
-    # Sinh kèm vercel.json
+    # Sinh kèm vercel.json chuẩn để Vercel phục vụ thư mục landing/
     vercel_json = {
+        "$schema": "https://openapi.vercel.sh/vercel.json",
+        "framework": None,
+        "installCommand": "echo 'khong can cai dat'",
+        "buildCommand": "echo 'trang tinh, khong can build'",
+        "outputDirectory": "landing",
         "cleanUrls": True,
         "trailingSlash": False,
         "headers": [
@@ -1938,6 +1943,12 @@ def generate_page():
     }
     with open(os.path.join(OUT, "vercel.json"), "w", encoding="utf-8") as f:
         json.dump(vercel_json, f, indent=2)
+
+    # Bản vercel.json dự phòng bên trong landing/ (phòng trường hợp Vercel Root Directory = landing)
+    inner_vercel = dict(vercel_json)
+    inner_vercel["outputDirectory"] = "."
+    with open(os.path.join(landing_dir, "vercel.json"), "w", encoding="utf-8") as f:
+        json.dump(inner_vercel, f, indent=2)
 
 if __name__ == "__main__":
     generate_page()

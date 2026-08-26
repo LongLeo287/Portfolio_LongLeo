@@ -71,7 +71,7 @@ def api(path, method=None, payload=None, check=True):
 
 def local_files(base):
     """Mọi file cần đẩy. Ảnh thư viện quét theo thư mục thay vì liệt kê tay."""
-    names = ["landing/index.html", "landing/cover.jpg", "landing/vercel.json",
+    names = ["index.html", "landing/index.html", "landing/cover.jpg", "landing/vercel.json",
              "vercel.json", ".vercelignore"]
     gal = os.path.join(base, "landing", "gallery")
     if os.path.isdir(gal):
