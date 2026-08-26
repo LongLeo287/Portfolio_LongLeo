@@ -17,7 +17,14 @@ import io
 import json
 import os
 import subprocess
+import sys
 from PIL import Image
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CACHE = os.path.join(ROOT, "build", "cache", "flow-thumbs")
