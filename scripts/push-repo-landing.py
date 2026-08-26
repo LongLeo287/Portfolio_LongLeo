@@ -70,17 +70,23 @@ def api(path, method=None, payload=None, check=True):
 
 
 def local_files(base):
-    """Mọi file cần đẩy. Ảnh thư viện quét theo thư mục thay vì liệt kê tay."""
+    """Mọi file cần đẩy. Quét toàn bộ thư mục landing, assets và gallery."""
     names = ["index.html", "landing/index.html", "landing/cover.jpg", "landing/vercel.json",
              "vercel.json", ".vercelignore"]
-    gal = os.path.join(base, "landing", "gallery")
-    if os.path.isdir(gal):
-        names += sorted("landing/gallery/" + n for n in os.listdir(gal)
-                        if n.endswith(".webp"))
+    
+    # Quét mọi thư mục media / assets
+    for folder in ["landing/gallery", "gallery", "landing/assets", "assets"]:
+        p_dir = os.path.join(base, folder.replace("/", os.sep))
+        if os.path.isdir(p_dir):
+            for f in os.listdir(p_dir):
+                if not f.startswith("."):
+                    names.append(folder + "/" + f)
+                    
+    names = sorted(list(set(names)))
     out = []
     for n in names:
         p = os.path.join(base, n.replace("/", os.sep))
-        if os.path.exists(p):
+        if os.path.exists(p) and os.path.isfile(p):
             out.append((n, open(p, "rb").read()))
     return out
 
