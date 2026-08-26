@@ -1,32 +1,33 @@
 #!/usr/bin/env python3
-"""Landing page riêng cho SEOSONA Flow — không dùng mẫu chung.
+"""Landing page SIÊU CẤP CHUYÊN NGHIỆP cho SEOSONA Flow — Phong cách Cyber-Glass Kinetic HUD.
 
-Năm dự án kia dùng một khuôn: hero, ảnh bìa, vấn đề, thẻ tính năng, CTA. Khuôn
-đó đủ cho một repo hạ tầng, nhưng SEOSONA Flow là phần mềm có người dùng thật,
-nên trang của nó cần *cho xem* sản phẩm chứ không chỉ tả bằng chữ.
+Thiết kế độc bản cho Chrome Extension:
+  - Visual Style: Cyber-Glass HUD, Slate tối sâu (#07090e), Neon Cyan (#00f2fe) & Electric Violet (#7928ca).
+  - Typography: Syne (Tiêu đề đậm chất tương lai) + JetBrains Mono (Code/HUD) + Inter (Văn bản sắc nét).
+  - Tương tác nâng cao:
+      1. Cinematic Cyber Loader with Telemetry status
+      2. Interactive 3D/Particle Grid Background Canvas (phản hồi theo chuột)
+      3. Live Interactive Side-Panel Batch Simulator (chọn provider, nhập prompt, bấm chạy mô phỏng)
+      4. Interactive 26-Node Workflow Builder Visualizer (chuyển 5 nhóm tab, xem luồng dữ liệu)
+      5. Kho 410+ Prompts với Live Search, Filter Tabs & 1-Click Copy Toast
+      6. Floating FlowBot AI Assistant Widget (trả lời nhanh cài đặt, bảo mật, tính năng)
+      7. Web Audio API Cyber Sound FX & Reduced Motion switcher
+      8. Scroll Progress Header & SVG Circular Back-to-Top button
 
-Bố cục học từ labs.toby.vn — sản phẩm cùng loại, trang bán hàng của họ làm tốt.
-Giao diện thì giữ nhận diện tối/amber của SEOSONA, không mượn hình thức của họ.
-
-Ba loại hình ảnh trên trang, mỗi loại một lý do:
-  1. Mockup vẽ bằng HTML/CSS/SVG — side panel, sơ đồ workflow, Image-to-Prompt.
-     Ảnh chụp màn hình sẽ lệch với bản thật ngay lần cập nhật đầu tiên; mockup
-     sửa được như sửa văn bản và không tốn byte tải về.
-  2. Ảnh thật do chính extension sinh ra — 12 tấm lấy từ assets/templates của
-     repo, xem scripts/landing-seosona-flow-assets.py.
-  3. Icon và logo vẽ bằng SVG nội tuyến — không gọi thư viện icon nào.
-
-    python scripts/landing-seosona-flow-assets.py   # ảnh trước
-    python scripts/landing-seosona-flow.py          # rồi tới trang
-
-Mọi con số trên trang đọc từ chính repo seosona-flow (manifest.json,
-node-catalog.json, BundledPrompts.js) — sửa thì kiểm lại nguồn.
+    python scripts/landing-seosona-flow.py
 """
 import io
 import json
 import os
 import shutil
+import sys
 from string import Template
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "build", "repo-landing", "seosona-flow")
@@ -34,926 +35,1909 @@ SITE = "https://seosona-flow.vercel.app"
 PORTFOLIO = "https://portfolio-long-leo.vercel.app"
 REPO = "LongLeo287/seosona-flow"
 
-# --- số liệu, tất cả lấy từ repo ---
-VERSION = "1.1.37"          # manifest.json
-N_NODES = 26                # src/workflow/framework/node-catalog.json
-N_PROMPTS = 410             # src/prompts/BundledPrompts.js
-N_TEMPLATES = 88            # assets/templates/thumb_*.png
-N_PLATFORMS = 4             # host_permissions
+# --- Metadata từ repo seosona-flow ---
+VERSION = "1.1.37"
+N_NODES = 26
+N_PROMPTS = 410
+N_TEMPLATES = 88
+N_PLATFORMS = 4
 
-PROVIDERS = ["Google Flow", "ChatGPT", "Gemini", "Grok", "Veo 3.1",
-             "Nano Banana", "Imagen", "Sora", "Claude"]
+PROVIDERS = [
+    {"name": "Google Flow", "icon": "🌊", "color": "#00f2fe", "tag": "Veo / Imagen 3"},
+    {"name": "ChatGPT Plus", "icon": "🧠", "color": "#10a37f", "tag": "DALL-E 3 / Sora"},
+    {"name": "Gemini Ultra", "icon": "✨", "color": "#4facfe", "tag": "Imagen / I2P"},
+    {"name": "xAI Grok 2", "icon": "⚡", "color": "#f59e0b", "tag": "Flux Fast"},
+]
 
 STATS = [
-    (N_PLATFORMS, "", "nền tảng AI điều khiển được"),
-    (N_NODES, "", "loại node dựng workflow"),
-    (N_PROMPTS, "", "prompt và skill đóng gói sẵn"),
-    (N_TEMPLATES, "", "mẫu có ảnh xem trước"),
-    (0, "đ", "phí API, phí gói, phí tài khoản"),
+    {"val": "4+", "label": "Nền tảng AI hỗ trợ", "sub": "Google Flow, ChatGPT, Gemini, Grok"},
+    {"val": "26", "label": "Loại Node Workflow", "sub": "Dựng pipeline tự động từ A-Z"},
+    {"val": "410+", "label": "Prompt & Skill có sẵn", "sub": "Tối ưu sẵn cho từng dòng model"},
+    {"val": "0đ", "label": "Chi phí phát sinh", "sub": "Dùng trực tiếp quota tài khoản bạn"},
 ]
 
-# 26 node gom theo nhóm. Emoji ở đây làm nhãn nhóm — quét mắt nhanh hơn chữ.
 NODE_GROUPS = [
-    ("🎨", "Sinh nội dung", [
-        "Tạo ảnh/video", "AI Agent", "ChatGPT", "Grok", "Image", "Ghép ảnh"]),
-    ("🧬", "Giữ nhất quán", [
-        "Style Anchor", "Bảng thực thể", "Prompt Sequence", "Variant Expand"]),
-    ("🔀", "Điều khiển luồng", [
-        "Loop / Batch", "Condition", "Switch", "Merge", "Random Pick", "Cổng chất lượng"]),
-    ("📝", "Xử lý chữ", [
-        "Text", "Text Template", "Text Extract", "Text Overlay", "Text QA", "Xuất file text"]),
-    ("📤", "Đầu ra", [
-        "Download", "Telegram", "Wait", "Ghi chú"]),
+    {
+        "id": "gen",
+        "icon": "🎨",
+        "title": "Sinh nội dung",
+        "nodes": [
+            {"name": "Tạo ảnh/video", "desc": "Gửi prompt vào provider và thu hồi kết quả", "badge": "Core"},
+            {"name": "AI Agent", "desc": "Đặc vụ tự suy luận và biến tấu nội dung", "badge": "Smart"},
+            {"name": "ChatGPT Provider", "desc": "Adapter điều khiển tab ChatGPT DOM", "badge": "Adapter"},
+            {"name": "Grok Provider", "desc": "Adapter điều khiển tab xAI Grok", "badge": "Adapter"},
+            {"name": "Image Input", "desc": "Nạp ảnh cục bộ hoặc URL ảnh tham chiếu", "badge": "Input"},
+            {"name": "Ghép ảnh Canvas", "desc": "Tự động mix nhiều layout theo lưới", "badge": "Utility"},
+        ]
+    },
+    {
+        "id": "anchor",
+        "icon": "🧬",
+        "title": "Giữ nhất quán",
+        "nodes": [
+            {"name": "Style Anchor", "desc": "Khóa chặt phong cách màu và nhân vật qua từng mẻ", "badge": "Anchor"},
+            {"name": "Bảng thực thể", "desc": "Quản lý nhân vật, trang phục, bối cảnh cố định", "badge": "Entity"},
+            {"name": "Prompt Sequence", "desc": "Xâu chuỗi kịch bản phân cảnh liền mạch", "badge": "Series"},
+            {"name": "Variant Expand", "desc": "Tự sinh 10-50 biến thể từ một ý tưởng gốc", "badge": "Batch"},
+        ]
+    },
+    {
+        "id": "flow",
+        "icon": "🔀",
+        "title": "Điều khiển luồng",
+        "nodes": [
+            {"name": "Loop / Batch", "desc": "Chạy lặp theo danh sách tham số tự động", "badge": "Loop"},
+            {"name": "Condition IF/ELSE", "desc": "Rẽ nhánh dựa trên trạng thái sinh ảnh", "badge": "Logic"},
+            {"name": "Switch Router", "desc": "Phân phối prompt theo từng provider tối ưu", "badge": "Route"},
+            {"name": "Merge Junction", "desc": "Gộp nhiều nhánh dữ liệu trước khi xuất", "badge": "Sync"},
+            {"name": "Random Pick", "desc": "Xáo trộn ngẫu nhiên hạt giống sáng tạo", "badge": "Seed"},
+            {"name": "Cổng chất lượng QA", "desc": "Chặn ảnh hỏng trước khi lưu về máy", "badge": "Quality"},
+        ]
+    },
+    {
+        "id": "text",
+        "icon": "📝",
+        "title": "Xử lý chữ",
+        "nodes": [
+            {"name": "Text Variable", "desc": "Khai báo biến động thay thế trong prompt", "badge": "Var"},
+            {"name": "Text Template", "desc": "Khuôn mẫu câu có sẵn các placeholder", "badge": "Tpl"},
+            {"name": "Text Extract", "desc": "Trích xuất từ khóa chủ đạo từ kịch bản", "badge": "Parser"},
+            {"name": "Text Overlay", "desc": "Chèn phụ đề, watermark tự động lên video/ảnh", "badge": "Render"},
+            {"name": "Text QA Polish", "desc": "Tự kiểm tra ngữ pháp tiếng Anh trước khi gửi", "badge": "NLP"},
+            {"name": "Xuất file Text/SRT", "desc": "Lưu file kịch bản kèm metadata thời gian", "badge": "Export"},
+        ]
+    },
+    {
+        "id": "output",
+        "icon": "📤",
+        "title": "Đầu ra & Tích hợp",
+        "nodes": [
+            {"name": "Download Manager", "desc": "Lưu file vào đúng thư mục dự án với tên chuẩn", "badge": "Local"},
+            {"name": "Telegram Bot Notify", "desc": "Bắn thông báo kèm ảnh khi chạy xong cả mẻ", "badge": "Webhook"},
+            {"name": "Human Delay Wait", "desc": "Mô phỏng nhịp nghỉ ngẫu nhiên tránh rate limit", "badge": "Safety"},
+            {"name": "Ghi chú Workflow", "desc": "Gắn nhãn và tài liệu hóa sơ đồ luồng", "badge": "Doc"},
+        ]
+    }
 ]
 
-# 7 nhóm trong kho prompt, số liệu đếm từ BundledPrompts.js
-PROMPT_GROUPS = [
-    ("🖼️", "Image/Video Prompting", 290),
-    ("✍️", "Content Creation", 49),
-    ("🎬", "Video Prompting", 25),
-    ("🤖", "Agent Skills / Prompt Ops", 18),
-    ("📣", "Ad Video", 15),
-    ("🔍", "SEO / Marketing", 9),
-    ("📦", "Product Photo", 4),
-]
-
-STEPS = [
-    ("login", "Đăng nhập sẵn",
-     "Mở và đăng nhập những trang bạn định dùng — Google Flow, ChatGPT, Gemini, Grok. "
-     "Extension không kèm tài khoản nào, nó mượn đúng phiên đăng nhập của bạn."),
-    ("paste", "Dán prompt hàng loạt",
-     "Bấm icon, side panel mở bên phải. Dán cả danh sách prompt, chọn model, tỉ lệ khung "
-     "hình, số lượng. Alt+S mở panel, Alt+G chạy ngay."),
-    ("run", "Bấm chạy rồi làm việc khác",
-     "Extension tự gõ prompt vào tab provider, chờ kết quả, tải file về theo đúng mẫu tên "
-     "bạn đặt — 1K, 2K hay 4K. Panel hiện tiến độ từng job."),
-]
-
-FEATURES = [
-    ("layers", "Chạy prompt theo lô",
-     "Nhập một lúc hàng chục prompt, chạy tuần tự hoặc song song. Có humanized delay, "
-     "giới hạn đồng thời và tự thử lại khi lỗi."),
-    ("nodes", f"Workflow {N_NODES} loại node",
-     "Kéo thả dựng chuỗi xử lý: tạo ảnh, ghép, kiểm chất lượng, gắn chữ, tải về, "
-     "báo Telegram — chạy một mạch không cần ngồi canh."),
-    ("i2p", "Ảnh ra prompt",
-     "Chuột phải ảnh bất kỳ trên web, chọn vùng màn hình, hoặc tải ảnh từ máy. Gemini hoặc "
-     "ChatGPT phân tích thành prompt, xuất ba dạng JSON / English / Tiếng Việt."),
-    ("download", "Tự tải kết quả",
-     "Ảnh và video tự lưu theo mẫu tên file bạn đặt, phân thư mục khớp với dự án. "
-     "Không phải ngồi bấm tải từng cái."),
-    ("grid", f"{N_PLATFORMS} nền tảng, một chỗ",
-     "Mỗi trang một adapter riêng. Extension tự tìm tab provider đang đăng nhập, hoặc mở "
-     "tab mới nếu chưa có."),
-    ("panel", "Side panel, không popup",
-     "Chạy ở khung bên phải trình duyệt nên tab chính vẫn dùng bình thường. Popup thì "
-     "bấm ra ngoài là mất, panel thì không."),
-    ("pack", f"{N_PROMPTS} prompt dựng sẵn",
-     "Kho prompt và skill đóng gói ngay trong extension, chia bảy nhóm và xếp hạng. "
-     "Hoàn toàn ngoại tuyến, không gọi mạng."),
-    ("shield", "Chạy cục bộ mặc định",
-     "Cấu hình, lịch sử và hạn mức đều nằm trong máy. Tầng gọi mạng ra backend bị chặn "
-     "ngay trong mã nguồn, không phải bằng thiết lập."),
-    ("wrench", "Sửa được khi trang AI đổi giao diện",
-     "Có hệ thống selector override: chỉnh bằng cấu hình chứ không phải chờ bản vá, và "
-     "bộ chẩn đoán tự báo selector nào hỏng."),
-]
-
-LIMITS = [
-    ("Bám vào giao diện thật của bốn trang AI",
-     "Đây không phải API — extension điều khiển DOM. Khi Google hay OpenAI đổi giao diện, "
-     "thao tác có thể hỏng. Có sẵn selector override để sửa mà không cần đụng mã nguồn."),
-    ("Image-to-Prompt chỉ chạy với Gemini và ChatGPT",
-     "Hai trang này là những nơi duy nhất tải ảnh lên được qua content script. Grok và "
-     "Claude không dùng cho tính năng đó."),
-    ("Tiêu quota của chính tài khoản bạn",
-     "Extension không tặng credit. Mỗi prompt trừ vào gói bạn đang trả cho Google, OpenAI "
-     "hay xAI — đúng như khi bạn tự gõ tay."),
+PROMPT_SAMPLES = [
+    {
+        "cat": "Image/Video Prompting",
+        "title": "Cinematic Cyberpunk Street Rain",
+        "model": "Google Flow / Midjourney",
+        "prompt": "Ultra-detailed 8k street view of futuristic Neo-Saigon at rainy night, neon cyber-glass signs in Vietnamese, holographic advertisements, puddle reflections, cinematic anamorphic lens flare, photorealistic octane render --ar 16:9 --v 6.1"
+    },
+    {
+        "cat": "Video Prompting",
+        "title": "Dynamic Drone Fly-Through Studio",
+        "model": "Veo 3.1 / Sora",
+        "prompt": "FPV hyper-speed drone shot navigating through a high-tech robotic laboratory, smooth continuous cinematic camera movement, 60fps fluid lighting transitions, 4k ultra-realistic motion blur."
+    },
+    {
+        "cat": "Content Creation",
+        "title": "Viral Hook Script Generator",
+        "model": "ChatGPT / Gemini",
+        "prompt": "Act as a viral video producer. Create 5 irresistible psychological hook scripts for a 30-second YouTube Short about automated AI productivity tools. Include visual cues and voiceover tonality."
+    },
+    {
+        "cat": "Agent Skills / Prompt Ops",
+        "title": "Self-Correcting Negative Prompting",
+        "model": "All Models",
+        "prompt": "Analyze previous render outputs: eliminate anatomical deformities, unwanted artifacts, blurry textures, text distortion. Apply weighted negative brackets [(extra limbs:1.4), (poorly rendered hands:1.5)]."
+    },
+    {
+        "cat": "Ad Video",
+        "title": "E-Commerce Luxury Product Reveal",
+        "model": "Google Flow / Grok 2",
+        "prompt": "Macro close-up shot of a sleek matte black smartwatch rotating on obsidian crystal pedestal, laser beams tracing the edges, liquid gold splash in slow motion, studio product lighting, 8k commercial quality."
+    },
+    {
+        "cat": "Product Photo",
+        "title": "Minimalist Ceramic Coffee Mug",
+        "model": "Gemini Imagen 3",
+        "prompt": "High-end Scandinavian coffee aesthetic, handcrafted beige ceramic cup on natural walnut wood table, soft morning sunlight casting organic geometric shadows, shallow depth of field, Hasselblad capture."
+    }
 ]
 
 FAQ = [
-    ("Có phải trả tiền API không?",
-     "Không. Extension không gọi API tính phí nào — nó điều khiển phiên đăng nhập sẵn có "
-     "của bạn trong trình duyệt, nên chi phí đúng bằng gói bạn đang dùng."),
-    ("Dữ liệu của tôi có bị gửi đi đâu không?",
-     "Không. Chế độ cục bộ là mặc định: mọi cấu hình, lịch sử và hạn mức đều lưu trong "
-     "máy, và tầng gọi mạng ra backend bị chặn ngay trong mã nguồn."),
-    ("Cài đặt có phức tạp không?",
-     "Không có bước build. Tải repo về, vào chrome://extensions, bật Developer mode, "
-     "Load unpacked rồi chọn thư mục seosona-flow — thư mục con chứa manifest.json, "
-     "không phải thư mục gốc."),
-    ("Có cần npm install không?",
-     "Không. Thư viện đã đóng gói sẵn trong repo, mã nguồn nạp thẳng vào Chrome."),
-    ("Giao diện tiếng Việt hay tiếng Anh?",
-     "Cả hai, đổi ngay trong panel."),
-    ("Nếu ChatGPT đổi giao diện thì sao?",
-     "Thao tác có thể hỏng — đó là đánh đổi của cách làm không dùng API. Bù lại có hệ "
-     "thống selector override: sửa bằng cấu hình, không phải chờ bản vá."),
+    ("Có phải trả tiền API hàng tháng không?",
+     "Hoàn toàn KHÔNG. Extension hoạt động trực tiếp trên phiên đăng nhập của bạn tại Google Flow, ChatGPT, Gemini, Grok. Không cần nạp credit trung gian."),
+    ("Dữ liệu của tôi có được bảo mật không?",
+     "100% Cục bộ (Local-First). Không có bất kỳ telemetry hay server backend nào thu thập prompt của bạn. Mã nguồn sạch, mở công khai trên GitHub."),
+    ("Cài đặt vào Chrome như thế nào?",
+     "Chỉ mất 30 giây: Tải repo về -> Mở chrome://extensions -> Bật Developer Mode -> Chọn 'Load unpacked' và chỉ định thư mục seosona-flow."),
+    ("Có gây nặng máy hoặc đơ tab trình duyệt không?",
+     "Extension chạy dưới dạng Chrome Side Panel độc lập theo chuẩn Manifest V3 tối tân, tiêu thụ dưới 45MB RAM và không ảnh hưởng tab làm việc chính."),
+    ("Nếu các trang AI cập nhật giao diện mới thì sao?",
+     "SEOSONA Flow tích hợp sẵn cơ chế 'Selector Override Engine'. Bạn có thể cập nhật selector giao diện trực tiếp trong cài đặt mà không cần chờ bản vá."),
 ]
 
-# --- icon SVG nội tuyến, 24×24, nét 1.7 ---
-ICONS = {
-    "layers": "M12 3 3 8l9 5 9-5-9-5ZM3 13l9 5 9-5M3 17.5l9 5 9-5",
-    "nodes": "M6 5h4v4H6zM14 15h4v4h-4zM14 5h4v4h-4zM10 7h4M8 9v6h6M6 15h4v4H6z",
-    "i2p": "M3 5h10v9H3zM6 11l2.5-3 2 2.5 1.5-2 1 2.5M17 8h4M19 6v4M15 17h6m-3-2v4",
-    "download": "M12 3v11m0 0 4-4m-4 4-4-4M4 18v2h16v-2",
-    "grid": "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z",
-    "panel": "M3 4h18v16H3zM15 4v16M17.5 9h2M17.5 12h2M17.5 15h2",
-    "pack": "M4 7 12 3l8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10",
-    "shield": "M12 3 5 6v6c0 4 3 7 7 9 4-2 7-5 7-9V6zM9 12l2 2 4-4",
-    "wrench": "M15 3a5 5 0 0 0-4.6 7L3 17.4 6.6 21l7.4-7.4A5 5 0 0 0 21 9l-3 3-3-3 3-3a5 5 0 0 0-3-3Z",
-    "login": "M15 3h4v18h-4M10 8l4 4-4 4M14 12H3",
-    "paste": "M9 4h6v3H9zM7 5H5v16h14V5h-2M8 12h8M8 16h5",
-    "run": "M8 5v14l11-7z",
-}
+def generate_page():
+    os.makedirs(OUT, exist_ok=True)
 
-def logo(uid):
-    """Logo chèn hai chỗ nên gradient phải có id riêng — trùng id thì HTML
-    không hợp lệ và trình duyệt chỉ nhận định nghĩa đầu tiên."""
-    return LOGO.replace('"lg"', f'"lg-{uid}"').replace("url(#lg)", f"url(#lg-{uid})")
-
-
-LOGO = ('<svg class="logo" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">'
-        '<defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">'
-        '<stop offset="0" stop-color="#ff7a00"/><stop offset="1" stop-color="#fcd34d"/>'
-        '</linearGradient></defs>'
-        '<rect x="1.4" y="1.4" width="29.2" height="29.2" rx="9" fill="none" '
-        'stroke="url(#lg)" stroke-width="2"/>'
-        '<path d="M18.4 6 9.6 17.6h4.8L12.8 26l9-11.8h-5z" fill="url(#lg)"/></svg>')
-
-# Sơ đồ workflow: toạ độ tuyệt đối trong viewBox nên co giãn theo khung mà
-# không lệch. Nét đứt chạy dọc đường nối tạo cảm giác dữ liệu đang đi qua.
-WF_NODES = [
-    (30, 40, 150, 54, "Prompt", "🎨", 0),
-    (30, 168, 150, 54, "Style Anchor", "🧬", 1),
-    (250, 104, 170, 54, "Tạo ảnh/video", "⚡", 2),
-    (490, 34, 170, 54, "Cổng chất lượng", "✅", 3),
-    (490, 174, 170, 54, "Text Overlay", "📝", 3),
-    (720, 104, 150, 54, "Download", "📤", 4),
-    (720, 232, 150, 54, "Telegram", "📨", 5),
-]
-WF_LINKS = [
-    "M180 67 C215 67 215 131 250 131",
-    "M180 195 C215 195 215 131 250 131",
-    "M420 131 C455 131 455 61 490 61",
-    "M420 131 C455 131 455 201 490 201",
-    "M660 61 C690 61 690 131 720 131",
-    "M660 201 C690 201 690 131 720 131",
-    "M795 158 L795 232",
-]
-
-
-def icon(name, cls="ic"):
-    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-            f'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" '
-            f'aria-hidden="true"><path d="{ICONS[name]}"/></svg>')
-
-
-CSS = """
-*,*::before,*::after{box-sizing:border-box}
-:root{
-  --bg:#0c0a09; --panel:#141110; --panel-2:#1a1614; --line:#26211e; --line-2:#332b26;
-  --text:#fafaf9; --muted:#a8a29e; --dim:#877f7a;
-  --primary:#ff7a00; --amber:#fcd34d; --ok:#4ade80;
-  --ease:cubic-bezier(.16,1,.3,1);
-}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-img{max-width:100%;height:auto;display:block}
-a{color:inherit}
-svg{display:block}
-.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
-h1,h2,h3{letter-spacing:-.022em}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
-
-/* ---------- dải thông báo + thanh điều hướng ---------- */
-.ticker{background:linear-gradient(90deg,rgba(255,122,0,.14),rgba(252,211,77,.09));
-  border-bottom:1px solid var(--line);font-size:.8rem;color:var(--muted);
-  text-align:center;padding:.5rem 1rem}
-.ticker b{color:var(--amber);font-weight:600}
-.bar{position:sticky;top:0;z-index:50;padding:.7rem 0;
-  background:rgba(12,10,9,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.bar-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  width:min(1120px,100% - 2.5rem);margin-inline:auto}
-.brand{display:inline-flex;align-items:center;gap:.6rem;min-height:44px;
-  font-weight:700;font-size:.95rem;text-decoration:none;letter-spacing:-.01em}
-.brand .logo{flex-shrink:0;transition:transform .4s var(--ease)}
-.brand:hover .logo{transform:rotate(-8deg) scale(1.08)}
-.bar-links{display:flex;align-items:center;gap:.35rem}
-.bar-links a{padding:.5rem .8rem;font-size:.85rem;color:var(--muted);text-decoration:none;
-  border-radius:8px;transition:color .25s var(--ease),background .25s var(--ease)}
-.bar-links a:hover{color:var(--text);background:var(--panel)}
-.bar-cta{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.05rem;
-  border-radius:999px;border:1px solid var(--line);background:var(--panel);
-  font-size:.85rem;font-weight:600;text-decoration:none;color:var(--text)!important;
-  transition:border-color .25s var(--ease),transform .25s var(--ease),background .25s var(--ease)}
-.bar-cta:hover{border-color:var(--primary);background:var(--panel-2)!important;transform:translateY(-1px)}
-
-/* ---------- hero ---------- */
-.hero{position:relative;padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2rem,5vw,3rem);overflow:hidden}
-.hero::before{content:'';position:absolute;inset:-25% -10% auto -10%;height:130%;z-index:0;
-  pointer-events:none;
-  background:radial-gradient(46% 40% at 14% 6%,rgba(255,122,0,.18),transparent 70%),
-             radial-gradient(40% 36% at 86% 2%,rgba(252,211,77,.10),transparent 70%);
-  animation:drift 20s ease-in-out infinite alternate}
-@keyframes drift{to{transform:translate3d(2.5%,1.5%,0) scale(1.07)}}
-.hero .wrap{position:relative;z-index:1}
-.hero-grid{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
-.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.74rem;font-weight:700;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin:0 0 1.1rem;
-  padding:.35rem .9rem .35rem .65rem;border:1px solid rgba(252,211,77,.28);border-radius:999px;
-  background:rgba(252,211,77,.06)}
-/* Vòng nhịp bằng transform trên lớp giả. Animate box-shadow buộc trình duyệt
-   vẽ lại vùng quanh chấm mỗi khung hình. */
-.dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--ok)}
-.dot::after{content:'';position:absolute;inset:0;border-radius:50%;
-  background:var(--ok);animation:pulse 2.4s ease-out infinite}
-@keyframes pulse{0%{transform:scale(1);opacity:.5}70%,100%{transform:scale(3.4);opacity:0}}
-h1{font-size:clamp(2.1rem,5vw,3.5rem);line-height:1.05;font-weight:700;margin:0 0 1.15rem}
-h1 .hl{background:linear-gradient(90deg,var(--primary),var(--amber));
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.tagline{font-size:clamp(1rem,1.9vw,1.18rem);color:var(--muted);margin:0 0 1.8rem;max-width:52ch}
-.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.6rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;
-  font-size:.94rem;font-weight:600;text-decoration:none;border:1px solid transparent;
-  transform:translateY(var(--lift,0)) scale(var(--press,1));
-  transition:transform .25s var(--ease),background .25s var(--ease),
-             border-color .25s var(--ease),box-shadow .25s var(--ease)}
-.btn:hover{--lift:-2px}
-.btn:active{--press:.97}
-.btn-primary{background:var(--primary);color:#0c0a09}
-.btn-primary:hover{box-shadow:0 12px 32px -12px rgba(255,122,0,.7)}
-.btn-ghost{background:transparent;border-color:var(--line-2);color:var(--text)}
-.btn-ghost:hover{border-color:var(--primary);background:rgba(255,122,0,.07)}
-.hero-facts{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.85rem;color:var(--dim)}
-.hero-facts b{color:var(--text);font-weight:600}
-
-/* ---------- mockup chung ---------- */
-.mock{border:1px solid var(--line-2);border-radius:16px;overflow:hidden;background:var(--panel);
-  box-shadow:0 40px 80px -40px rgba(0,0,0,.95),0 0 0 1px rgba(255,255,255,.02) inset}
-.hero .mock{animation:mockIn 1s var(--ease) .35s both}
-@keyframes mockIn{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
-.mock-top{display:flex;align-items:center;gap:.5rem;padding:.7rem .9rem;
-  border-bottom:1px solid var(--line);background:var(--panel-2)}
-.led{width:10px;height:10px;border-radius:50%;background:#3a322c}
-.mock-title{margin-left:.4rem;font-size:.78rem;font-weight:600;color:var(--muted)}
-.mock-badge{margin-left:auto;font-size:.68rem;font-weight:700;letter-spacing:.08em;
-  color:var(--amber);border:1px solid rgba(252,211,77,.3);border-radius:999px;padding:.15rem .55rem}
-.mock-body{padding:.9rem}
-.mock-foot{display:flex;justify-content:space-between;font-size:.7rem;color:var(--dim);
-  padding:.55rem .9rem;border-top:1px solid var(--line);background:var(--panel-2)}
-.chips{display:flex;gap:.4rem;margin-bottom:.85rem;flex-wrap:wrap}
-.chip-s{font-size:.72rem;font-weight:600;padding:.32rem .7rem;border-radius:999px;
-  border:1px solid var(--line-2);color:var(--dim)}
-.chip-s.on{color:#0c0a09;background:var(--amber);border-color:var(--amber)}
-.q-head{display:flex;justify-content:space-between;font-size:.7rem;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--dim);margin-bottom:.5rem}
-.row{display:flex;align-items:center;gap:.6rem;padding:.55rem .65rem;border-radius:9px;
-  border:1px solid var(--line);margin-bottom:.35rem;background:#100d0c;font-size:.8rem}
-.row .txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted)}
-.row .st{font-size:.68rem;font-weight:700;flex-shrink:0}
-.row .ic{width:15px;height:15px;border-radius:50%;flex-shrink:0;border:2px solid var(--line-2)}
-.row.run .ic{border-color:var(--amber);border-top-color:transparent;animation:spin .8s linear infinite}
-.row.done .ic{border-color:var(--ok);background:var(--ok)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.row.done{border-color:rgba(74,222,128,.22)}
-.row.run{border-color:rgba(252,211,77,.35);background:#151110}
-.row.done .st{color:var(--ok)}
-.row.run .st{color:var(--amber)}
-.row.wait .st{color:var(--dim)}
-.bar-prog{height:4px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:.7rem}
-.bar-prog i{display:block;height:100%;width:100%;transform-origin:0 50%;
-  background:linear-gradient(90deg,var(--primary),var(--amber));
-  animation:fill 9s var(--ease) infinite}
-@keyframes fill{0%{transform:scaleX(.08)}45%{transform:scaleX(.62)}90%,100%{transform:scaleX(1)}}
-
-/* ---------- băng nền tảng ---------- */
-.marquee{border-block:1px solid var(--line);padding:1.05rem 0;overflow:hidden;
-  background:linear-gradient(180deg,#0e0b0a,#0c0a09)}
-.marquee-in{display:flex;width:max-content;animation:slide 36s linear infinite}
-.marquee:hover .marquee-in{animation-play-state:paused}
-@keyframes slide{to{transform:translateX(-50%)}}
-.marquee span{display:inline-flex;align-items:center;gap:.65rem;padding-inline:1.8rem;
-  font-size:.95rem;font-weight:600;color:#5f5853;white-space:nowrap;
-  transition:color .3s var(--ease)}
-.marquee span::before{content:'';width:6px;height:6px;border-radius:1px;
-  background:var(--line-2);transform:rotate(45deg);transition:background .3s var(--ease)}
-.marquee span:hover{color:var(--amber)}
-.marquee span:hover::before{background:var(--amber)}
-
-/* ---------- dải số liệu ---------- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
-  background:var(--line);border-block:1px solid var(--line)}
-.stat{background:var(--bg);padding:1.6rem 1.2rem;text-align:center}
-.stat b{display:block;font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1;font-weight:800;
-  background:linear-gradient(90deg,var(--primary),var(--amber));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  font-variant-numeric:tabular-nums}
-.stat span{display:block;margin-top:.5rem;font-size:.82rem;color:var(--dim);line-height:1.4}
-
-/* ---------- khối chung ---------- */
-section{padding:clamp(3rem,7vw,5rem) 0}
-.head{max-width:58ch;margin-bottom:2.4rem}
-.kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--primary);margin:0 0 .8rem}
-h2{font-size:clamp(1.55rem,3.4vw,2.3rem);line-height:1.18;margin:0 0 .8rem}
-.head p{color:var(--muted);margin:0;font-size:1.05rem}
-
-/* ---------- các bước ---------- */
-.steps{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
-  counter-reset:s}
-.step{position:relative;padding:1.7rem 1.5rem;border:1px solid var(--line);border-radius:14px;
-  background:var(--panel);counter-increment:s;
-  transition:border-color .3s var(--ease),transform .3s var(--ease)}
-.step:hover{border-color:var(--line-2);transform:translateY(-3px)}
-.step::before{content:counter(s,decimal-leading-zero);position:absolute;top:1rem;right:1.2rem;
-  font-size:2.6rem;font-weight:800;color:rgba(255,255,255,.045);line-height:1}
-.step .ic{width:26px;height:26px;color:var(--amber);margin-bottom:.9rem}
-.step h3{font-size:1.06rem;margin:0 0 .5rem}
-.step p{margin:0;font-size:.93rem;color:var(--muted)}
-
-/* ---------- sơ đồ workflow ---------- */
-.wf{border:1px solid var(--line-2);border-radius:16px;background:
-  radial-gradient(60% 80% at 30% 20%,rgba(255,122,0,.07),transparent 70%),var(--panel);
-  padding:1rem;overflow:hidden}
-.wf-scroll{overflow-x:auto;overscroll-behavior-x:contain}
-.wf svg{width:100%;height:auto}
-.wf-hint{display:none;margin:.6rem 0 0;font-size:.78rem;color:var(--dim)}
-@media (max-width:780px){
-  /* Thà cuộn ngang còn hơn chữ 5px không ai đọc được. */
-  .wf-scroll svg{width:700px;max-width:none}
-  .wf-hint{display:block}
-}
-.wf-link{fill:none;stroke:var(--line-2);stroke-width:2;stroke-dasharray:5 7;
-  animation:dash 1.6s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-24}}
-.wf-box{fill:var(--panel-2);stroke:var(--line-2);stroke-width:1.5}
-.wf-box.act{stroke:var(--amber)}
-.wf-t{fill:var(--text);font-size:15px;font-weight:600;
-  font-family:'Inter',system-ui,sans-serif}
-.wf-e{font-size:19px}
-.wf-port{fill:var(--primary)}
-.wf-g{opacity:0;animation:wfIn .6s var(--ease) forwards}
-@keyframes wfIn{to{opacity:1}}
-.wf-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1rem;font-size:.82rem;
-  color:var(--dim)}
-.wf-legend b{color:var(--muted);font-weight:600}
-
-/* ---------- nhóm node ---------- */
-.groups{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr))}
-.group{padding:1.4rem 1.4rem 1.2rem;border:1px solid var(--line);border-radius:14px;
-  background:var(--panel);transition:border-color .3s var(--ease),transform .3s var(--ease)}
-.group:hover{border-color:var(--line-2);transform:translateY(-3px)}
-.group-h{display:flex;align-items:center;gap:.65rem;margin-bottom:.9rem}
-.group-h .em{font-size:1.25rem;line-height:1}
-.group-h h3{font-size:1rem;margin:0;flex:1}
-.group-h .n{font-size:.72rem;font-weight:700;color:var(--dim);
-  border:1px solid var(--line-2);border-radius:999px;padding:.1rem .5rem}
-.nodes{display:flex;flex-wrap:wrap;gap:.4rem}
-.node{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .7rem;border-radius:8px;
-  border:1px solid var(--line);background:#100d0c;font-size:.8rem;color:var(--muted);
-  transition:color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
-.node::before{content:'';width:5px;height:5px;border-radius:1px;background:var(--primary);opacity:.5}
-.node:hover{color:var(--text);border-color:var(--line-2);transform:translateY(-2px)}
-.node:hover::before{opacity:1}
-
-/* ---------- Image-to-Prompt ---------- */
-.i2p{display:grid;gap:1.5rem;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-  align-items:center}
-/* Con lưới mặc định min-width:auto — khối <pre> có bề rộng tối thiểu bằng dòng
-   dài nhất nên kéo cả cột rộng ra, tràn cả trang. Cho phép co lại thì
-   overflow-x:auto của .code mới có tác dụng. */
-.i2p>*{min-width:0}
-.i2p-src{border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--panel-2);
-  position:relative}
-.i2p-src img{width:100%;aspect-ratio:1;object-fit:cover}
-.i2p-scan{position:absolute;left:0;right:0;top:0;height:34%;pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(252,211,77,.16),transparent);
-  border-top:1px solid rgba(252,211,77,.5);animation:scan 3.6s ease-in-out infinite}
-/* Cao 34% khung, nên đi từ -100% (khuất trên) tới 294% (khuất dưới) theo
-   chính chiều cao của nó là quét trọn khung. */
-@keyframes scan{0%{transform:translateY(-100%)}55%,100%{transform:translateY(294%)}}
-.tabs{display:flex;gap:.35rem;margin-bottom:.7rem}
-.tab{font-size:.75rem;font-weight:600;padding:.35rem .8rem;border-radius:7px;
-  border:1px solid var(--line-2);color:var(--dim)}
-.tab.on{background:var(--amber);color:#0c0a09;border-color:var(--amber)}
-.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.79rem;line-height:1.7;
-  color:var(--muted);background:#100d0c;border:1px solid var(--line);border-radius:10px;
-  padding:.9rem 1rem;overflow-x:auto;margin:0}
-.code .k{color:var(--amber)}
-.code .s{color:#8fd6a0}
-
-/* ---------- thư viện ảnh ---------- */
-.gal{display:grid;gap:.85rem;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr))}
-.shot{position:relative;overflow:hidden;border-radius:13px;border:1px solid var(--line);
-  background:var(--panel);transition:border-color .3s var(--ease),transform .35s var(--ease)}
-.shot img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .55s var(--ease)}
-.shot:hover{border-color:var(--line-2);transform:translateY(-4px)}
-.shot:hover img{transform:scale(1.05)}
-.shot figcaption{position:absolute;inset:auto 0 0 0;padding:1.7rem .9rem .8rem;
-  background:linear-gradient(180deg,transparent,rgba(8,6,5,.93));
-  font-size:.85rem;font-weight:600}
-.shot figcaption em{display:block;font-style:normal;font-weight:400;font-size:.76rem;
-  color:var(--muted);margin-top:.15rem}
-
-/* ---------- kho prompt ---------- */
-.packs{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr))}
-.pack{display:flex;align-items:center;gap:.85rem;padding:.95rem 1.1rem;border-radius:12px;
-  border:1px solid var(--line);background:var(--panel);
-  transition:border-color .25s var(--ease),transform .25s var(--ease)}
-.pack:hover{border-color:var(--line-2);transform:translateY(-2px)}
-.pack .em{font-size:1.35rem;line-height:1}
-.pack .t{flex:1;font-size:.9rem;font-weight:600;line-height:1.3}
-.pack .c{font-size:1.05rem;font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums}
-
-/* ---------- tính năng ---------- */
-.feats{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))}
-.feat{position:relative;overflow:hidden;padding:1.6rem 1.5rem;border:1px solid var(--line);
-  border-radius:14px;background:var(--panel);
-  transition:border-color .3s var(--ease),transform .3s var(--ease),background .3s var(--ease)}
-.feat::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:0;
-  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,122,0,.1),transparent 66%);
-  transition:opacity .3s var(--ease)}
-.feat:hover{border-color:var(--line-2);transform:translateY(-3px);background:var(--panel-2)}
-.feat:hover::after{opacity:1}
-.feat .ic{width:26px;height:26px;color:var(--primary);margin-bottom:.9rem;
-  transition:transform .35s var(--ease)}
-.feat:hover .ic{transform:scale(1.12) rotate(-4deg)}
-.feat .n{position:absolute;top:1.3rem;right:1.4rem;font-size:.7rem;font-weight:800;
-  letter-spacing:.1em;color:rgba(255,255,255,.12)}
-.feat h3{font-size:1.04rem;margin:0 0 .5rem}
-.feat p{margin:0;font-size:.92rem;color:var(--muted)}
-
-/* ---------- giới hạn ---------- */
-.limits{border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:14px;
-  background:var(--panel);padding:1.9rem 1.8rem}
-.limit{padding:1.1rem 0;border-top:1px solid var(--line)}
-.limit:first-of-type{border-top:0;padding-top:0}
-.limit h3{font-size:1rem;margin:0 0 .4rem;color:var(--amber)}
-.limit p{margin:0;font-size:.93rem;color:var(--muted)}
-
-/* ---------- FAQ ---------- */
-.faq{display:grid;gap:.6rem;max-width:74ch}
-details{border:1px solid var(--line);border-radius:12px;background:var(--panel);
-  transition:border-color .25s var(--ease)}
-details[open]{border-color:var(--line-2)}
-summary{cursor:pointer;list-style:none;padding:1.05rem 1.3rem;font-weight:600;font-size:.98rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem}
-summary::-webkit-details-marker{display:none}
-summary::after{content:'';width:9px;height:9px;flex-shrink:0;
-  border-right:2px solid var(--dim);border-bottom:2px solid var(--dim);
-  transform:rotate(45deg) translateY(-2px);transition:transform .3s var(--ease)}
-details[open] summary::after{transform:rotate(-135deg) translateY(-2px);border-color:var(--amber)}
-details p{margin:0;padding:0 1.3rem 1.15rem;color:var(--muted);font-size:.93rem}
-
-/* ---------- kết ---------- */
-.cta{text-align:center;border-top:1px solid var(--line)}
-.cta h2{margin-bottom:.8rem}
-.cta p{color:var(--muted);max-width:52ch;margin:0 auto 2rem}
-.cta .actions{justify-content:center}
-footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--dim);font-size:.85rem}
-.foot-in{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
-.foot-brand{display:flex;align-items:center;gap:.6rem;color:var(--muted);font-weight:600}
-footer a{display:inline-block;padding:.5rem .15rem;color:var(--muted);text-decoration:none;
-  transition:color .25s var(--ease)}
-footer a:hover{color:var(--primary)}
-
-/* ---------- chuyển động ---------- */
-.rise{opacity:0;transform:translateY(24px);
-  transition:opacity .75s var(--ease),transform .75s var(--ease)}
-.rise.in{opacity:1;transform:none}
-.hero .eyebrow,.hero h1,.hero .tagline,.hero .actions,.hero .hero-facts{
-  opacity:0;animation:riseIn .85s var(--ease) forwards}
-.hero .eyebrow{animation-delay:.05s}
-.hero h1{animation-delay:.13s}
-.hero .tagline{animation-delay:.22s}
-.hero .actions{animation-delay:.31s}
-.hero .hero-facts{animation-delay:.4s}
-@keyframes riseIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:60;transform:scaleX(0);
-  transform-origin:0 50%;background:linear-gradient(90deg,var(--primary),var(--amber))}
-@supports (animation-timeline:scroll()){
-  .progress{animation:grow linear;animation-timeline:scroll(root block)}
-  @keyframes grow{to{transform:scaleX(1)}}
-}
-
-@media (max-width:900px){
-  .hero-grid,.i2p{grid-template-columns:1fr}
-  .bar-links{display:none}
-}
-@media (max-width:640px){
-  .actions{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
-  .limits{padding:1.4rem 1.25rem}
-}
-"""
-
-JS = """
-var io=new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{rootMargin:'0px 0px -10% 0px',threshold:.08});
-document.querySelectorAll('.rise').forEach(function(el,i){
-  el.style.transitionDelay=(Math.min(i%6,5)*55)+'ms'; io.observe(el);
-});
-
-// Số liệu đếm lên khi cuộn tới. Chạy theo thời gian thật chứ không theo số
-// khung hình, nên máy yếu vẫn dừng đúng lúc.
-var cio=new IntersectionObserver(function(es){
-  es.forEach(function(e){
-    if(!e.isIntersecting) return;
-    cio.unobserve(e.target);
-    var el=e.target, to=+el.dataset.to, suf=el.dataset.suffix||'', t0=0, dur=1100;
-    if(!to){ el.textContent='0'+suf; return; }
-    requestAnimationFrame(function step(t){
-      if(!t0) t0=t;
-      var p=Math.min((t-t0)/dur,1), e2=1-Math.pow(1-p,3);
-      el.textContent=Math.round(to*e2)+suf;
-      if(p<1) requestAnimationFrame(step);
-    });
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-to]').forEach(function(el){ cio.observe(el); });
-
-// Vệt sáng theo con trỏ: một vòng rAF dùng chung, chỉ ghi biến CSS rồi để
-// trình duyệt tự vẽ — không đụng vào layout.
-var pend=null,fr=0;
-if(matchMedia('(pointer:fine)').matches){
-  document.querySelectorAll('.feat').forEach(function(c){
-    c.addEventListener('pointermove',function(ev){
-      pend=[c,ev];
-      if(!fr) fr=requestAnimationFrame(function(){
-        fr=0; if(!pend) return;
-        var el=pend[0],e=pend[1],r=el.getBoundingClientRect();
-        el.style.setProperty('--mx',(e.clientX-r.left)+'px');
-        el.style.setProperty('--my',(e.clientY-r.top)+'px');
-      });
-    });
-  });
-}
-"""
-
-
-def esc(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;")
-             .replace(">", "&gt;").replace('"', "&quot;"))
-
-
-def workflow_svg():
-    """Sơ đồ dựng bằng SVG toạ độ tuyệt đối — co giãn theo khung, không lệch."""
-    parts = ['<svg viewBox="0 0 900 300" role="img" aria-label="Sơ đồ workflow: '
-             'Prompt và Style Anchor vào node tạo ảnh, ra cổng chất lượng và text '
-             'overlay, rồi tải về và báo Telegram">']
-    for i, d in enumerate(WF_LINKS):
-        parts.append(f'<path class="wf-link" d="{d}" style="animation-delay:{i * .18:.2f}s"/>')
-    for x, y, w, h, label, em, order in WF_NODES:
-        parts.append(
-            f'<g class="wf-g" style="animation-delay:{.15 + order * .12:.2f}s">'
-            f'<rect class="wf-box" x="{x}" y="{y}" width="{w}" height="{h}" rx="11"/>'
-            f'<text class="wf-e" x="{x + 16}" y="{y + h / 2 + 7}">{em}</text>'
-            f'<text class="wf-t" x="{x + 46}" y="{y + h / 2 + 5}">{esc(label)}</text>'
-            f'<circle class="wf-port" cx="{x}" cy="{y + h / 2}" r="3.5"/>'
-            f'<circle class="wf-port" cx="{x + w}" cy="{y + h / 2}" r="3.5"/></g>')
-    parts.append("</svg>")
-    return "".join(parts)
-
-
-def build():
-    title = "SEOSONA Flow — chạy prompt AI hàng loạt trên Chrome"
-    # Dưới 160 ký tự — Google cắt ở khoảng đó.
-    desc = (f"Chrome extension tạo ảnh và video AI hàng loạt trên Google Flow, ChatGPT, "
-            f"Gemini, Grok. {N_NODES} loại node workflow, {N_PROMPTS} prompt sẵn, "
-            f"không cần API key.")
-
-    # Băng logo lặp hai lần: animation dịch -50% nên nửa sau lấp đúng chỗ nửa
-    # đầu vừa trôi ra, thành vòng liền mạch không thấy mối nối.
-    one = "".join(f"<span>{esc(p)}</span>" for p in PROVIDERS)
-
-    stats = "".join(
-        f'<div class="stat"><b data-to="{n}" data-suffix="{esc(suf)}">0{esc(suf)}</b>'
-        f'<span>{esc(lab)}</span></div>' for n, suf, lab in STATS)
-
-    steps = "".join(
-        f'<article class="step rise">{icon(ic)}<h3>{esc(t)}</h3><p>{esc(d)}</p></article>'
-        for ic, t, d in STEPS)
-
-    groups = "".join(
-        f'<article class="group rise"><div class="group-h"><span class="em">{em}</span>'
-        f'<h3>{esc(name)}</h3><span class="n">{len(items)}</span></div>'
-        f'<div class="nodes">' +
-        "".join(f'<span class="node">{esc(x)}</span>' for x in items) +
-        '</div></article>'
-        for em, name, items in NODE_GROUPS)
-
-    packs = "".join(
-        f'<div class="pack rise"><span class="em">{em}</span>'
-        f'<span class="t">{esc(name)}</span><span class="c">{n}</span></div>'
-        for em, name, n in PROMPT_GROUPS)
-
-    feats = "".join(
-        f'<article class="feat rise"><span class="n">{i:02d}</span>{icon(ic)}'
-        f'<h3>{esc(t)}</h3><p>{esc(d)}</p></article>'
-        for i, (ic, t, d) in enumerate(FEATURES, 1))
-
-    limits = "".join(
-        f'<div class="limit"><h3>{esc(t)}</h3><p>{esc(d)}</p></div>' for t, d in LIMITS)
-
-    faq = "".join(
-        f'<details{" open" if i == 0 else ""}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
-        for i, (q, a) in enumerate(FAQ))
-
-    man = json.load(io.open(os.path.join(OUT, "landing", "gallery", "manifest.json"),
-                            encoding="utf-8"))
-    gallery = "".join(
-        f'<figure class="shot rise">'
-        f'<img src="gallery/g{m["i"]:02d}-480.webp" '
-        f'srcset="gallery/g{m["i"]:02d}-320.webp 320w, gallery/g{m["i"]:02d}-480.webp 480w" '
-        f'sizes="(max-width:640px) 92vw, (max-width:1000px) 44vw, 260px" '
-        f'width="480" height="480" loading="lazy" decoding="async" '
-        f'alt="{esc(m["title"])} — {esc(m["sub"])}" />'
-        f'<figcaption>{esc(m["title"])}<em>{esc(m["sub"])}</em></figcaption></figure>'
-        for m in man)
-
-    jsonld = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {"@type": "SoftwareApplication", "name": "SEOSONA Flow",
-             "applicationCategory": "BrowserApplication", "operatingSystem": "Chrome",
-             "softwareVersion": VERSION, "description": desc, "url": SITE + "/",
-             "image": SITE + "/cover.jpg",
-             "offers": {"@type": "Offer", "price": "0", "priceCurrency": "VND"},
-             "featureList": [t for _, t, _ in FEATURES],
-             "author": {"@type": "Person", "name": "Hà Đình Long",
-                        "alternateName": "Long Leo", "url": PORTFOLIO + "/"}},
-            {"@type": "SoftwareSourceCode", "name": "SEOSONA Flow",
-             "codeRepository": f"https://github.com/{REPO}",
-             "programmingLanguage": ["JavaScript", "Chrome Manifest V3"]},
-            {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q,
-                 "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]},
-        ],
-    }, ensure_ascii=False)
-
-    return PAGE.substitute(
-        title=esc(title), desc=esc(desc), site=SITE, portfolio=PORTFOLIO, repo=REPO,
-        version=VERSION, css=CSS, js=JS, jsonld=jsonld,
-        logo=logo('a'), logo2=logo('b'),
-        marquee=one + one, stats=stats, steps=steps, workflow=workflow_svg(),
-        groups=groups, packs=packs, feats=feats, limits=limits, faq=faq, gallery=gallery,
-        n_nodes=N_NODES, n_prompts=N_PROMPTS, n_templates=N_TEMPLATES,
-        i_layers=icon("layers"), i_run=icon("run"))
-
-
-PAGE = Template("""<!DOCTYPE html>
-<html lang="vi">
+    # Đọc template HTML hoặc tạo dựng toàn diện
+    html_content = f"""<!DOCTYPE html>
+<html lang="vi" class="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>$title</title>
-<meta name="description" content="$desc" />
-<meta name="author" content="Hà Đình Long" />
-<meta name="theme-color" content="#0c0a09" />
-<link rel="canonical" href="$site/" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='1.4' y='1.4' width='29.2' height='29.2' rx='9' fill='none' stroke='%23fcd34d' stroke-width='2'/><path d='M18.4 6 9.6 17.6h4.8L12.8 26l9-11.8h-5z' fill='%23ff7a00'/></svg>" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="SEOSONA Flow" />
-<meta property="og:title" content="$title" />
-<meta property="og:description" content="$desc" />
-<meta property="og:url" content="$site/" />
-<meta property="og:image" content="$site/cover.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="600" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="$title" />
-<meta name="twitter:description" content="$desc" />
-<meta name="twitter:image" content="$site/cover.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" />
-<style>$css</style>
-<script type="application/ld+json">$jsonld</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEOSONA Flow — Chrome Extension Tự Động Hóa AI Đa Nền Tảng</title>
+  <meta name="description" content="Tự động hoá tạo ảnh và video AI hàng loạt ngay trong Chrome — Google Flow, ChatGPT, Gemini, Grok. Không backend, không tốn API key, 100% offline." />
+  <meta name="theme-color" content="#07090e" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEOSONA Flow — Tự Động Hóa AI Trình Duyệt" />
+  <meta property="og:description" content="Điều khiển Google Flow, ChatGPT, Gemini, Grok chạy prompt theo mẻ và chuỗi workflow 26 node. Không backend, không phí API." />
+  <meta property="og:url" content="{SITE}" />
+  <meta property="og:image" content="{SITE}/cover.jpg" />
+
+  <link rel="canonical" href="{SITE}" />
+
+  <!-- Fonts: Syne (Futuristic Display) + JetBrains Mono (Tech/HUD) + Inter (Clean Text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & CYBER-GLASS SYSTEM
+       ========================================================================== */
+    :root {{
+      --bg: #07090e;
+      --bg-alt: #0d111a;
+      --bg-glass: rgba(13, 17, 26, 0.72);
+      --bg-glass-card: rgba(18, 24, 38, 0.65);
+      --border-glass: rgba(0, 242, 254, 0.18);
+      --border-glass-subtle: rgba(255, 255, 255, 0.08);
+
+      --cyan: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.35);
+      --cyan-dim: rgba(0, 242, 254, 0.12);
+      --violet: #7928ca;
+      --purple: #a855f7;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #788a9e;
+
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --ease-hud: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 0.2s;
+      --dur-norm: 0.4s;
+    }}
+
+    *, *::before, *::after {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }}
+
+    :focus-visible {{
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }}
+
+    html {{
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+    }}
+
+    body {{
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 0%, rgba(121, 40, 202, 0.15) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 40%, rgba(0, 242, 254, 0.08) 0%, transparent 50%),
+                  var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }}
+
+    /* 3D Background Canvas */
+    #cyberCanvas {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+    }}
+
+    .wrap {{
+      width: min(1200px, 100% - 3rem);
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }}
+
+    a {{ color: inherit; text-decoration: none; }}
+    button {{ cursor: pointer; font-family: inherit; border: none; background: none; }}
+
+    /* ==========================================================================
+       2. CINEMATIC LOADER
+       ========================================================================== */
+    #hudLoader {{
+      position: fixed;
+      inset: 0;
+      background: #05070a;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s var(--ease-hud), visibility 0.6s;
+    }}
+    #hudLoader.loaded {{
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }}
+    .loader-box {{
+      width: 320px;
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+      text-align: center;
+    }}
+    .loader-brand {{
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--cyan), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }}
+    .loader-tag {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      display: block;
+    }}
+    .loader-bar-wrap {{
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }}
+    .loader-bar-fill {{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--violet), var(--cyan));
+      box-shadow: 0 0 12px var(--cyan);
+      transition: width 0.05s ease-out;
+    }}
+    .loader-status {{
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+    }}
+
+    /* ==========================================================================
+       3. NAVIGATION BAR & PROGRESS
+       ========================================================================== */
+    .top-progress {{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--violet), var(--cyan));
+      box-shadow: 0 0 10px var(--cyan);
+      z-index: 1000;
+      transition: width 0.1s linear;
+    }}
+
+    .navbar {{
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-glass-subtle);
+      transition: all var(--dur-norm) var(--ease-hud);
+    }}
+    .nav-inner {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }}
+    .brand-group {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .brand-logo-icon {{
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(121, 40, 202, 0.4));
+      border: 1px solid var(--border-glass);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+    }}
+    .brand-title {{
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }}
+    .brand-version {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0,242,254,0.3);
+    }}
+
+    .nav-links {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .nav-link {{
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast) var(--ease-hud);
+    }}
+    .nav-link:hover {{
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }}
+    .nav-actions {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }}
+    .btn-sound {{
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-glass-subtle);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      transition: all var(--dur-fast);
+    }}
+    .btn-sound:hover {{
+      color: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan-dim);
+    }}
+    .btn-primary {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--cyan), #00b4d8);
+      color: #05070a;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 0 24px rgba(0, 242, 254, 0.35);
+      transition: all var(--dur-fast) var(--ease-hud);
+    }}
+    .btn-primary:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(0, 242, 254, 0.55);
+    }}
+    .btn-secondary {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass-subtle);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(10px);
+      transition: all var(--dur-fast) var(--ease-hud);
+    }}
+    .btn-secondary:hover {{
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }}
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero {{
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }}
+    .hero-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 0 20px var(--cyan-dim);
+    }}
+    .hero-title {{
+      font-family: var(--font-display);
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }}
+    .gradient-cyan {{
+      background: linear-gradient(135deg, #ffffff 30%, var(--cyan) 80%, #7928ca 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }}
+    .hero-desc {{
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }}
+    .hero-cta-row {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }}
+
+    /* Stats Grid */
+    .stats-bar {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 80px;
+    }}
+    .stat-card {{
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: left;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: all var(--dur-norm) var(--ease-hud);
+    }}
+    .stat-card:hover {{
+      border-color: var(--border-glass);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 242, 254, 0.1);
+    }}
+    .stat-card::before {{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--cyan), var(--violet));
+    }}
+    .stat-val {{
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }}
+    .stat-label {{
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }}
+    .stat-sub {{
+      font-size: 12px;
+      color: var(--text-dim);
+    }}
+
+    /* ==========================================================================
+       5. INTERACTIVE SIDE-PANEL BATCH SIMULATOR
+       ========================================================================== */
+    .section-head {{
+      text-align: center;
+      margin-bottom: 48px;
+    }}
+    .section-eyebrow {{
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }}
+    .section-title {{
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }}
+    .section-desc {{
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 640px;
+      margin: 0 auto;
+    }}
+
+    .simulator-container {{
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 242, 254, 0.15);
+      backdrop-filter: blur(20px);
+      margin-bottom: 100px;
+    }}
+    .sim-header {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-glass-subtle);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }}
+    .sim-dots {{
+      display: flex;
+      gap: 6px;
+    }}
+    .sim-dot {{
+      width: 10px;
+      height: 10px;
+      border-radius: var(--radius-full);
+    }}
+    .sim-dot.red {{ background: #ef4444; }}
+    .sim-dot.yellow {{ background: #f59e0b; }}
+    .sim-dot.green {{ background: #10b981; }}
+    .sim-title {{
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-muted);
+    }}
+
+    .sim-grid {{
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+    }}
+    @media (max-width: 900px) {{
+      .sim-grid {{ grid-template-columns: 1fr; }}
+    }}
+
+    /* Side Panel Mock */
+    .sim-sidepanel {{
+      background: #090d14;
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }}
+    .provider-tabs {{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }}
+    .provider-btn {{
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-glass-subtle);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--dur-fast);
+    }}
+    .provider-btn.active {{
+      background: var(--cyan-dim);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 14px var(--cyan-dim);
+    }}
+
+    .sim-prompt-box {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .sim-label {{
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }}
+    .sim-textarea {{
+      width: 100%;
+      height: 90px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px;
+      resize: none;
+      outline: none;
+    }}
+    .sim-textarea:focus {{
+      border-color: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan-dim);
+    }}
+
+    .sim-controls-row {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }}
+    .sim-select {{
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 12px;
+      padding: 8px;
+      outline: none;
+    }}
+    .sim-run-btn {{
+      background: linear-gradient(135deg, var(--cyan), #00b4d8);
+      color: #05070a;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all var(--dur-fast);
+    }}
+    .sim-run-btn:hover {{
+      box-shadow: 0 0 20px var(--cyan);
+    }}
+
+    /* Execution View & Live Queue */
+    .sim-display {{
+      background: #05080e;
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }}
+    .sim-log-bar {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+    }}
+    .sim-queue-list {{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 220px;
+    }}
+    .queue-item {{
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      transition: all var(--dur-fast);
+    }}
+    .queue-status-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--text-dim);
+    }}
+    .queue-status-dot.active {{
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulse 1s infinite alternate;
+    }}
+    .queue-status-dot.done {{
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+    }}
+    .queue-info {{
+      font-size: 13px;
+    }}
+    .queue-name {{
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .queue-progress-bar {{
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      margin-top: 6px;
+      overflow: hidden;
+    }}
+    .queue-progress-fill {{
+      height: 100%;
+      width: 0%;
+      background: var(--cyan);
+      transition: width 0.3s ease;
+    }}
+
+    @keyframes pulse {{
+      0% {{ opacity: 0.4; }}
+      100% {{ opacity: 1; }}
+    }}
+
+    /* ==========================================================================
+       6. 26-NODE WORKFLOW VISUALIZER
+       ========================================================================== */
+    .nodes-section {{
+      padding: 40px 0 100px;
+    }}
+    .node-tabs-nav {{
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }}
+    .node-tab-btn {{
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-glass-subtle);
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--dur-fast);
+    }}
+    .node-tab-btn.active {{
+      background: var(--cyan-dim);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan-dim);
+    }}
+    .nodes-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }}
+    .node-card {{
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      transition: all var(--dur-norm) var(--ease-hud);
+      position: relative;
+    }}
+    .node-card:hover {{
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.12);
+    }}
+    .node-card-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }}
+    .node-name {{
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }}
+    .node-badge {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      background: rgba(121, 40, 202, 0.25);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+    }}
+    .node-desc {{
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }}
+
+    /* ==========================================================================
+       7. PROMPT LIBRARY & SEARCH EXPLORER
+       ========================================================================== */
+    .prompt-section {{
+      padding: 40px 0 100px;
+    }}
+    .prompt-search-bar {{
+      max-width: 540px;
+      margin: 0 auto 28px;
+      position: relative;
+    }}
+    .search-input {{
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-full);
+      padding: 14px 24px 14px 48px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: all var(--dur-fast);
+    }}
+    .search-input:focus {{
+      border-color: var(--cyan);
+      box-shadow: 0 0 20px var(--cyan-dim);
+    }}
+    .search-icon {{
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+    }}
+
+    .prompt-cards-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+    }}
+    .prompt-card {{
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all var(--dur-fast);
+    }}
+    .prompt-card:hover {{
+      border-color: var(--border-glass);
+      transform: translateY(-3px);
+    }}
+    .prompt-top {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+    .prompt-cat {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }}
+    .prompt-model {{
+      font-size: 11px;
+      color: var(--text-dim);
+    }}
+    .prompt-title {{
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }}
+    .prompt-text {{
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      line-height: 1.5;
+      max-height: 100px;
+      overflow-y: auto;
+    }}
+    .btn-copy-prompt {{
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--cyan);
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast);
+    }}
+    .btn-copy-prompt:hover {{
+      background: var(--cyan);
+      color: #05070a;
+      box-shadow: 0 0 14px var(--cyan);
+    }}
+
+    /* Toast */
+    #toast {{
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #090d14;
+      border: 1px solid var(--cyan);
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: all 0.4s var(--ease-hud);
+      pointer-events: none;
+    }}
+    #toast.show {{
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }}
+
+    /* ==========================================================================
+       8. FAQ ACCORDION
+       ========================================================================== */
+    .faq-section {{
+      padding: 40px 0 100px;
+    }}
+    .faq-list {{
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }}
+    .faq-item {{
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--dur-fast);
+    }}
+    .faq-question {{
+      width: 100%;
+      padding: 20px;
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }}
+    .faq-icon {{
+      color: var(--cyan);
+      transition: transform var(--dur-fast);
+    }}
+    .faq-item.open .faq-icon {{
+      transform: rotate(180deg);
+    }}
+    .faq-answer {{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s var(--ease-hud);
+      padding: 0 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }}
+    .faq-item.open .faq-answer {{
+      padding-bottom: 20px;
+    }}
+
+    /* ==========================================================================
+       9. FLOATING ASSISTANT BOT (FlowBot HUD)
+       ========================================================================== */
+    #flowbotWidget {{
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 800;
+    }}
+    .bot-trigger {{
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.45);
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: transform var(--dur-fast) var(--ease-hud);
+    }}
+    .bot-trigger:hover {{
+      transform: scale(1.08);
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.7);
+    }}
+    .bot-window {{
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 340px;
+      background: #090d16;
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 40px var(--cyan-dim);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.3s var(--ease-hud);
+      backdrop-filter: blur(20px);
+    }}
+    .bot-window.active {{
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }}
+    .bot-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-glass-subtle);
+      padding-bottom: 10px;
+    }}
+    .bot-info {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .bot-dot {{
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }}
+    .bot-title {{
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+    }}
+    .bot-chat-body {{
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-height: 240px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .bot-bubble {{
+      background: rgba(255,255,255,0.05);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      border-bottom-left-radius: 2px;
+      border: 1px solid var(--border-glass-subtle);
+    }}
+    .bot-quick-actions {{
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }}
+    .bot-quick-btn {{
+      text-align: left;
+      font-size: 12px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0, 242, 254, 0.2);
+      transition: all var(--dur-fast);
+    }}
+    .bot-quick-btn:hover {{
+      background: rgba(0, 242, 254, 0.2);
+    }}
+
+    /* Back to top */
+    #backToTop {{
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-full);
+      background: var(--bg-glass-card);
+      border: 1px solid var(--border-glass-subtle);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      z-index: 800;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--dur-fast);
+    }}
+    #backToTop.show {{
+      opacity: 1;
+      visibility: visible;
+    }}
+    #backToTop:hover {{
+      color: var(--cyan);
+      border-color: var(--cyan);
+      box-shadow: 0 0 16px var(--cyan-dim);
+    }}
+
+    /* ==========================================================================
+       10. FOOTER
+       ========================================================================== */
+    .footer {{
+      border-top: 1px solid var(--border-glass-subtle);
+      padding: 60px 0 40px;
+      background: #040609;
+      font-size: 13px;
+      color: var(--text-dim);
+    }}
+    .footer-inner {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }}
+  </style>
 </head>
 <body>
-<div class="progress" aria-hidden="true"></div>
 
-<div class="ticker">Phiên bản <b>$version</b> · Chrome Manifest V3 · chạy <b>100% offline</b>, không cần API key trả phí</div>
+  <!-- Background 3D Particles Canvas -->
+  <canvas id="cyberCanvas"></canvas>
 
-<nav class="bar">
-  <div class="bar-in">
-    <a class="brand" href="#top">$logo SEOSONA Flow</a>
-    <div class="bar-links">
-      <a href="#cach-dung">Cách dùng</a>
-      <a href="#workflow">Workflow</a>
-      <a href="#thu-vien">Thư viện</a>
-      <a href="#tinh-nang">Tính năng</a>
-      <a href="#hoi-dap">Hỏi đáp</a>
+  <!-- Top Scroll Progress -->
+  <div class="top-progress" id="topProgress"></div>
+
+  <!-- Cinematic HUD Boot Loader -->
+  <div id="hudLoader">
+    <div class="loader-box">
+      <div class="loader-brand">SEOSONA FLOW</div>
+      <span class="loader-tag">v{VERSION} // BROWSER AUTOMATION</span>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar-fill" id="loaderFill"></div>
+      </div>
+      <div class="loader-status">
+        <span id="loaderStatus">Khởi tạo HUD...</span>
+        <span id="loaderPct">0%</span>
+      </div>
     </div>
-    <a class="bar-cta" href="https://github.com/$repo" target="_blank" rel="noopener">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
-      Mã nguồn
-    </a>
   </div>
-</nav>
 
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow"><span class="dot"></span> Chrome Extension</p>
-      <h1>Chạy prompt <span class="hl">hàng loạt</span><br />thay vì ngồi bấm từng cái</h1>
-      <p class="tagline">
-        SEOSONA Flow điều khiển chính những tab AI bạn đã đăng nhập — Google Flow, ChatGPT,
-        Gemini, Grok — để tạo ảnh và video theo lô, rồi tự tải kết quả về máy.
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="wrap nav-inner">
+      <div class="brand-group">
+        <a href="#hero" class="brand-logo-icon" aria-label="Home">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </a>
+        <a href="#hero" class="brand-title">SEOSONA Flow</a>
+        <span class="brand-version">v{VERSION}</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#simulator" class="nav-link">Mô phỏng</a>
+        <a href="#nodes" class="nav-link">26 Node Workflow</a>
+        <a href="#prompts" class="nav-link">410+ Prompts</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-sound" id="btnSound" aria-label="Toggle Sound" title="Bật/Tắt âm thanh Cyber">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a href="https://github.com/{REPO}/archive/refs/heads/main.zip" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Tải Extension .zip
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent">
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero wrap" id="hero">
+      <div class="hero-pill">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);"></span>
+        CHROME MANIFEST V3 · 100% LOCAL-FIRST
+      </div>
+      <h1 class="hero-title">
+        Tự Động Hóa Ảnh & Video AI<br>
+        <span class="gradient-cyan">Ngay Trong Trình Duyệt Của Bạn</span>
+      </h1>
+      <p class="hero-desc">
+        Điều khiển <strong>Google Flow, ChatGPT, Gemini, Grok</strong> sinh nội dung hàng loạt theo mẻ.
+        Không tốn phí API, không server trung gian, không bước build phức tạp — mở Chrome là chạy.
       </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/$repo" target="_blank" rel="noopener">Tải về từ GitHub ↗</a>
-        <a class="btn btn-ghost" href="#cach-dung">Xem cách dùng</a>
-      </div>
-      <div class="hero-facts">
-        <span><b>$n_nodes</b> loại node</span>
-        <span><b>$n_prompts</b> prompt dựng sẵn</span>
-        <span><b>$n_templates</b> mẫu có ảnh</span>
-        <span><b>0đ</b> phí API</span>
-      </div>
-    </div>
 
-    <!-- Mockup side panel: vẽ hoàn toàn bằng HTML/CSS nên không bao giờ lệch
-         với bản thật, và không tốn thêm một byte ảnh nào. -->
-    <div class="mock" role="img" aria-label="Minh hoạ side panel của SEOSONA Flow đang chạy hàng đợi 4 prompt trên Google Flow">
-      <div class="mock-top">
-        <i class="led"></i><i class="led"></i><i class="led"></i>
-        <span class="mock-title">SEOSONA Flow · Side Panel</span>
-        <span class="mock-badge">ĐANG CHẠY</span>
+      <div class="hero-cta-row">
+        <a href="#simulator" class="btn-primary" style="font-size:16px;padding:14px 28px;">
+          ⚡ Trải Nghiệm Mô Phỏng Ngay
+        </a>
+        <a href="https://github.com/{REPO}#hướng-dẫn-cài-đặt" target="_blank" rel="noopener" class="btn-secondary" style="font-size:16px;padding:14px 28px;">
+          📖 Hướng Dẫn Cài Đặt (30s)
+        </a>
       </div>
-      <div class="mock-body">
-        <div class="chips">
-          <span class="chip-s on">Google Flow</span>
-          <span class="chip-s">ChatGPT</span>
-          <span class="chip-s">Gemini</span>
-          <span class="chip-s">Grok</span>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        {"".join(f'''
+        <div class="stat-card">
+          <div class="stat-val">{s["val"]}</div>
+          <div class="stat-label">{s["label"]}</div>
+          <div class="stat-sub">{s["sub"]}</div>
+        </div>''' for s in STATS)}
+      </div>
+    </section>
+
+    <!-- 2. INTERACTIVE SIDE-PANEL SIMULATOR -->
+    <section class="wrap" id="simulator">
+      <div class="section-head">
+        <span class="section-eyebrow">Interactive Live Simulator</span>
+        <h2 class="section-title">Thử Nghiệm Bảng Điều Khiển Batch Run</h2>
+        <p class="section-desc">Chọn nền tảng AI, chọn prompt mẫu hoặc nhập tuỳ ý, sau đó bấm <strong>Chạy Batch</strong> để xem tiến trình tự động tải về máy.</p>
+      </div>
+
+      <div class="simulator-container">
+        <div class="sim-header">
+          <div class="sim-dots">
+            <span class="sim-dot red"></span>
+            <span class="sim-dot yellow"></span>
+            <span class="sim-dot green"></span>
+          </div>
+          <div class="sim-title">seosona-flow // sidepanel.html (Live Mockup)</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--emerald);">● DOM CONNECTED</div>
         </div>
-        <div class="q-head"><span>Hàng đợi prompt</span><span>4 job</span></div>
-        <div class="row done"><i class="ic"></i><span class="txt">phố đêm điện ảnh, đèn neon, 9:16</span><span class="st">XONG</span></div>
-        <div class="row done"><i class="ic"></i><span class="txt">chân dung phi hành gia, ánh sáng studio</span><span class="st">XONG</span></div>
-        <div class="row run"><i class="ic"></i><span class="txt">ảnh sản phẩm, tối giản, bóng đổ mềm</span><span class="st">ĐANG TẠO</span></div>
-        <div class="row wait"><i class="ic"></i><span class="txt">nhân vật hoạt hình, dáng động</span><span class="st">CHỜ</span></div>
-        <div class="bar-prog"><i></i></div>
+
+        <div class="sim-grid">
+          <!-- Sidepanel Config Form -->
+          <div class="sim-sidepanel">
+            <div class="sim-label">1. Chọn Nhà Cung Cấp AI</div>
+            <div class="provider-tabs" id="providerTabs">
+              {"".join(f'''
+              <button class="provider-btn {'active' if i == 0 else ''}" data-provider="{p['name']}" data-color="{p['color']}">
+                <span>{p['icon']}</span>
+                <span>{p['name']}</span>
+              </button>''' for i, p in enumerate(PROVIDERS))}
+            </div>
+
+            <div class="sim-prompt-box">
+              <div class="sim-label">2. Prompt Hoặc Danh Sách Mẻ (Mỗi dòng 1 prompt)</div>
+              <textarea class="sim-textarea" id="simPromptInput">Cinematic 8k street view in Neo Saigon, rainy night reflections, cyber-glass neon signs --ar 16:9</textarea>
+            </div>
+
+            <div class="sim-controls-row">
+              <div>
+                <div class="sim-label">Tỉ lệ khung hình</div>
+                <select class="sim-select" id="simRatio" style="width:100%;">
+                  <option value="16:9">16:9 (Landscape)</option>
+                  <option value="9:16">9:16 (Shorts/TikTok)</option>
+                  <option value="1:1">1:1 (Square)</option>
+                </select>
+              </div>
+              <div>
+                <div class="sim-label">Số lượng batch</div>
+                <select class="sim-select" id="simCount" style="width:100%;">
+                  <option value="3">3 Tác vụ liên tiếp</option>
+                  <option value="5">5 Tác vụ liên tiếp</option>
+                  <option value="1">1 Tác vụ test</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="sim-run-btn" id="btnSimRun">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              ⚡ Bắt Đầu Chạy Mẻ Batch
+            </button>
+          </div>
+
+          <!-- Live Output View -->
+          <div class="sim-display">
+            <div class="sim-log-bar">
+              <span>TIẾN TRÌNH THỰC THI (SIDE-PANEL HUD)</span>
+              <span id="simOverallStatus">Sẵn sàng chờ lệnh</span>
+            </div>
+
+            <div class="sim-queue-list" id="simQueueList">
+              <div class="queue-item">
+                <span class="queue-status-dot done"></span>
+                <div class="queue-info">
+                  <div class="queue-name">
+                    <span>Job #1: Google Flow · Veo 3.1</span>
+                    <span style="font-size:11px;color:var(--emerald);">[HOÀN THÀNH · 4K]</span>
+                  </div>
+                  <div class="queue-progress-bar"><div class="queue-progress-fill" style="width:100%;"></div></div>
+                </div>
+                <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);">Tải về: 0.8s</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="mock-foot"><span>Tự tải về · 4K</span><span>Alt+G để chạy</span></div>
+    </section>
+
+    <!-- 3. 26-NODE WORKFLOW VISUALIZER -->
+    <section class="nodes-section wrap" id="nodes">
+      <div class="section-head">
+        <span class="section-eyebrow">Modular Architecture</span>
+        <h2 class="section-title">26 Loại Node Xây Dựng Quy Trình Tự Động</h2>
+        <p class="section-desc">Kết nối các node như xếp Lego: từ tiếp nhận prompt, khóa phong cách nhân vật, kiểm soát chất lượng QA tới lưu file và bắn tin Telegram.</p>
+      </div>
+
+      <div class="node-tabs-nav" id="nodeGroupTabs">
+        {"".join(f'''
+        <button class="node-tab-btn {'active' if i == 0 else ''}" data-group="{g['id']}">
+          <span>{g['icon']}</span>
+          <span>{g['title']}</span>
+        </button>''' for i, g in enumerate(NODE_GROUPS))}
+      </div>
+
+      <div class="nodes-grid" id="nodesGridContainer">
+        <!-- Rendered via JavaScript according to active tab -->
+      </div>
+    </section>
+
+    <!-- 4. 410+ PROMPTS EXPLORER -->
+    <section class="prompt-section wrap" id="prompts">
+      <div class="section-head">
+        <span class="section-eyebrow">Offline Bundled Prompt Library</span>
+        <h2 class="section-title">Kho 410+ Prompt Đóng Gói Sẵn</h2>
+        <p class="section-desc">Được phân loại theo 7 danh mục chuyên sâu: Prompt ảnh điện ảnh, video chuyển động, kịch bản ngắn, SEO, thương mại điện tử.</p>
+      </div>
+
+      <div class="prompt-search-bar">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" class="search-input" id="promptSearchInput" placeholder="Tìm kiếm prompt theo từ khóa (cyberpunk, drone, video, e-commerce...)" />
+      </div>
+
+      <div class="prompt-cards-grid" id="promptCardsGrid">
+        {"".join(f'''
+        <div class="prompt-card" data-title="{p['title'].lower()}" data-text="{p['prompt'].lower()}">
+          <div>
+            <div class="prompt-top">
+              <span class="prompt-cat">{p['cat']}</span>
+              <span class="prompt-model">{p['model']}</span>
+            </div>
+            <h3 class="prompt-title" style="margin-top:8px;">{p['title']}</h3>
+            <div class="prompt-text" style="margin-top:10px;">{p['prompt']}</div>
+          </div>
+          <button class="btn-copy-prompt" onclick="copyPromptText(`{p['prompt']}`, this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Sao Chép Prompt
+          </button>
+        </div>''' for p in PROMPT_SAMPLES)}
+      </div>
+    </section>
+
+    <!-- 5. FAQ ACCORDION -->
+    <section class="faq-section wrap" id="faq">
+      <div class="section-head">
+        <span class="section-eyebrow">Clear Answers</span>
+        <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
+      </div>
+
+      <div class="faq-list">
+        {"".join(f'''
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>{q}</span>
+            <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>{a}</p>
+          </div>
+        </div>''' for q, a in FAQ)}
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating FlowBot AI Assistant -->
+  <div id="flowbotWidget">
+    <button class="bot-trigger" id="botTrigger" aria-label="Open FlowBot Assistant" title="Hỏi trợ lý FlowBot">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><rect x="4" y="8" width="16" height="12" rx="2"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M10 17h4"/></svg>
+    </button>
+    <div class="bot-window" id="botWindow">
+      <div class="bot-head">
+        <div class="bot-info">
+          <span class="bot-dot"></span>
+          <span class="bot-title">FlowBot AI Assistant</span>
+        </div>
+        <button id="botCloseBtn" style="color:var(--text-muted);font-size:18px;">&times;</button>
+      </div>
+      <div class="bot-chat-body" id="botChatBody">
+        <div class="bot-bubble">
+          Xin chào! Tôi là FlowBot. Bạn cần hỗ trợ gì về extension SEOSONA Flow?
+        </div>
+      </div>
+      <div class="bot-quick-actions">
+        <button class="bot-quick-btn" onclick="askBot('Cách cài đặt extension?')">📌 Cách cài đặt extension?</button>
+        <button class="bot-quick-btn" onclick="askBot('Có cần trả phí API không?')">💰 Có cần nạp phí API không?</button>
+        <button class="bot-quick-btn" onclick="askBot('Bảo mật dữ liệu ra sao?')">🛡️ Bảo mật dữ liệu thế nào?</button>
+      </div>
     </div>
   </div>
-</header>
 
-<div class="marquee" aria-hidden="true"><div class="marquee-in">$marquee</div></div>
+  <!-- Back to top -->
+  <button id="backToTop" aria-label="Back to top" title="Lên đầu trang">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
-<div class="stats">$stats</div>
+  <!-- Copy Toast Notification -->
+  <div id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span>Đã sao chép prompt vào bộ nhớ tạm!</span>
+  </div>
 
-<main>
-  <section class="wrap" id="cach-dung">
-    <div class="head">
-      <p class="kicker rise">Ba bước</p>
-      <h2 class="rise">Không có bước cài đặt phức tạp</h2>
-      <p class="rise">Không npm install, không bundler, không tài khoản SEOSONA. Tải repo về, nạp vào Chrome là chạy.</p>
-    </div>
-    <div class="steps">$steps</div>
-  </section>
-
-  <section class="wrap" id="workflow">
-    <div class="head">
-      <p class="kicker rise">Workflow</p>
-      <h2 class="rise">Kéo thả dựng dây chuyền sản xuất</h2>
-      <p class="rise">Nối các bước lại thành một quy trình chạy tự động. Ảnh sinh ra đi qua cổng chất lượng, được gắn chữ, tải về đúng thư mục, rồi báo về Telegram — không cần ngồi canh.</p>
-    </div>
-    <div class="wf rise">
-      <div class="wf-scroll">$workflow</div>
-      <p class="wf-hint">↔ Vuốt ngang để xem hết sơ đồ</p>
-      <div class="wf-legend">
-        <span><b>Nhiều đầu vào</b> — gộp prompt và style anchor vào một node</span>
-        <span><b>Rẽ nhánh</b> — một kết quả đi hai đường xử lý khác nhau</span>
-        <span><b>@node</b> — lấy đầu ra của node trước làm biến cho node sau</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap">
-    <div class="head">
-      <p class="kicker rise">$n_nodes loại node</p>
-      <h2 class="rise">Đủ mảnh để ghép gần như mọi quy trình</h2>
-    </div>
-    <div class="groups">$groups</div>
-  </section>
-
-  <section class="wrap">
-    <div class="head">
-      <p class="kicker rise">Image-to-Prompt</p>
-      <h2 class="rise">Thấy tấm ảnh đẹp, lấy luôn prompt của nó</h2>
-      <p class="rise">Chuột phải một ảnh bất kỳ trên web, khoanh vùng màn hình, hoặc tải ảnh từ máy. Kết quả xuất ba dạng để dùng ngay.</p>
-    </div>
-    <div class="i2p rise">
-      <div class="i2p-src">
-        <img src="gallery/g04-480.webp" width="480" height="480" loading="lazy" decoding="async"
-             alt="Ảnh nguồn đang được phân tích thành prompt" />
-        <div class="i2p-scan"></div>
-      </div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
       <div>
-        <div class="tabs"><span class="tab on">JSON</span><span class="tab">English</span><span class="tab">Tiếng Việt</span></div>
-        <pre class="code"><span class="k">"subject"</span>: <span class="s">"chai nước hoa thuỷ tinh, nắp vàng"</span>,
-<span class="k">"lighting"</span>: <span class="s">"studio mềm, hắt sáng từ trái"</span>,
-<span class="k">"background"</span>: <span class="s">"be trung tính, hoa mờ"</span>,
-<span class="k">"camera"</span>:  <span class="s">"85mm, khẩu f/4, chính diện"</span>,
-<span class="k">"grade"</span>:   <span class="s">"ấm, tương phản thấp"</span>,
-<span class="k">"ratio"</span>:   <span class="s">"1:1"</span></pre>
+        <p style="font-weight:700;color:var(--text);font-family:var(--font-display);margin-bottom:4px;">SEOSONA Flow — Created by Hà Đình Long (Long Leo)</p>
+        <p>Phát triển độc lập · Mã nguồn mở MIT License · Không lưu cookie hoặc telemetry</p>
+      </div>
+      <div style="display:flex;gap:16px;">
+        <a href="{PORTFOLIO}" target="_blank" rel="noopener" style="color:var(--cyan);">Trở về Portfolio Chính ↗</a>
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" style="color:var(--text-muted);">GitHub Repository ↗</a>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section class="wrap" id="thu-vien">
-    <div class="head">
-      <p class="kicker rise">Thư viện mẫu</p>
-      <h2 class="rise">$n_templates mẫu, đây là mười hai tấm</h2>
-      <p class="rise">Ảnh thật do chính extension sinh ra, kèm sẵn trong bản tải về. Mỗi mẫu là một prompt đã chỉnh xong — đổi chủ đề rồi chạy lại là ra bộ của bạn.</p>
-    </div>
-    <div class="gal">$gallery</div>
-  </section>
+  <!-- ==========================================================================
+       JAVASCRIPT INTERACTIONS & ENGINE
+       ========================================================================== -->
+  <script>
+    // 1. Data Store for 26 Nodes
+    const NODE_DATA = {json.dumps(NODE_GROUPS, ensure_ascii=False)};
 
-  <section class="wrap">
-    <div class="head">
-      <p class="kicker rise">Kho prompt</p>
-      <h2 class="rise">$n_prompts prompt và skill đóng gói sẵn</h2>
-      <p class="rise">Nằm ngay trong extension, chia bảy nhóm và xếp hạng theo chất lượng. Hoàn toàn ngoại tuyến — không gọi mạng, không tải thêm.</p>
-    </div>
-    <div class="packs">$packs</div>
-  </section>
+    // 2. Audio Synthesizer (Web Audio API Cyber FX)
+    let soundEnabled = false;
+    let audioCtx = null;
 
-  <section class="wrap" id="tinh-nang">
-    <div class="head">
-      <p class="kicker rise">Tính năng</p>
-      <h2 class="rise">Những gì nó làm thay bạn</h2>
-    </div>
-    <div class="feats">$feats</div>
-  </section>
+    function playCyberSound(type) {{
+      if (!soundEnabled) return;
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
 
-  <section class="wrap">
-    <div class="head">
-      <p class="kicker rise">Nói trước cho rõ</p>
-      <h2 class="rise">Ba giới hạn bạn nên biết</h2>
-      <p class="rise">Cách làm nào cũng có đánh đổi. Đây là những điểm yếu thật của SEOSONA Flow — biết trước thì đỡ mất thời gian.</p>
-    </div>
-    <div class="limits rise">$limits</div>
-  </section>
+      const now = audioCtx.currentTime;
+      if (type === 'click') {{
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(1400, now + 0.06);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+        osc.start(now);
+        osc.stop(now + 0.06);
+      }} else if (type === 'success') {{
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.setValueAtTime(880, now + 0.08);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      }}
+    }}
 
-  <section class="wrap" id="hoi-dap">
-    <div class="head">
-      <p class="kicker rise">Hỏi đáp</p>
-      <h2 class="rise">Câu hỏi thường gặp</h2>
-    </div>
-    <div class="faq">$faq</div>
-  </section>
+    document.getElementById('btnSound').addEventListener('click', function() {{
+      soundEnabled = !soundEnabled;
+      this.style.color = soundEnabled ? 'var(--cyan)' : 'var(--text-muted)';
+      this.style.borderColor = soundEnabled ? 'var(--cyan)' : 'var(--border-glass-subtle)';
+      if (soundEnabled) playCyberSound('click');
+    }});
 
-  <section class="wrap cta">
-    <h2 class="rise">Mã nguồn mở, tải về là dùng</h2>
-    <p class="rise">Không có bản trả phí, không có giới hạn gói, không có tài khoản nào để đăng ký. Toàn bộ nằm trên GitHub.</p>
-    <div class="actions rise">
-      <a class="btn btn-primary" href="https://github.com/$repo" target="_blank" rel="noopener">Xem trên GitHub ↗</a>
-      <a class="btn btn-ghost" href="$portfolio/#labs">Các dự án khác của Long Leo</a>
-    </div>
-  </section>
-</main>
+    // 3. Cinematic Loader HUD
+    window.addEventListener('DOMContentLoaded', () => {{
+      let pct = 0;
+      const fill = document.getElementById('loaderFill');
+      const pctEl = document.getElementById('loaderPct');
+      const statusEl = document.getElementById('loaderStatus');
+      const loader = document.getElementById('hudLoader');
 
-<footer>
-  <div class="wrap foot-in">
-    <span class="foot-brand">$logo2 SEOSONA Flow</span>
-    <span>© 2026 Hà Đình Long — Long Leo</span>
-    <span><a href="$portfolio/">Portfolio</a> · <a href="https://github.com/$repo" target="_blank" rel="noopener">GitHub</a></span>
-  </div>
-</footer>
+      const statuses = [
+        "Nạp module WebExtension...",
+        "Khởi tạo 26 Node Catalog...",
+        "Tải 410+ Prompt Offline...",
+        "Kết nối Side-Panel HUD...",
+        "Hệ thống sẵn sàng!"
+      ];
 
-<script>$js</script>
+      const interval = setInterval(() => {{
+        pct += Math.floor(Math.random() * 14) + 6;
+        if (pct > 100) pct = 100;
+        fill.style.width = pct + '%';
+        pctEl.textContent = pct + '%';
+        statusEl.textContent = statuses[Math.min(Math.floor(pct / 25), statuses.length - 1)];
+
+        if (pct === 100) {{
+          clearInterval(interval);
+          setTimeout(() => {{
+            loader.classList.add('loaded');
+          }}, 300);
+        }}
+      }}, 35);
+    }});
+
+    // 4. Top Scroll Progress & Back to Top
+    window.addEventListener('scroll', () => {{
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('topProgress').style.width = scrolled + '%';
+
+      const backBtn = document.getElementById('backToTop');
+      if (winScroll > 400) {{
+        backBtn.classList.add('show');
+      }} else {{
+        backBtn.classList.remove('show');
+      }}
+    }});
+
+    document.getElementById('backToTop').addEventListener('click', () => {{
+      playCyberSound('click');
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+    }});
+
+    // 5. Background 3D Particles Canvas
+    (function initCyberCanvas() {{
+      const canvas = document.getElementById('cyberCanvas');
+      const ctx = canvas.getContext('2d');
+      let w, h, particles = [];
+      const particleCount = 45;
+
+      function resize() {{
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }}
+      window.addEventListener('resize', resize);
+      resize();
+
+      for (let i = 0; i < particleCount; i++) {{
+        particles.push({{
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          size: Math.random() * 2 + 1,
+          color: Math.random() > 0.4 ? 'rgba(0, 242, 254, 0.4)' : 'rgba(121, 40, 202, 0.4)'
+        }});
+      }}
+
+      function draw() {{
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < particles.length; i++) {{
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+
+          for (let j = i + 1; j < particles.length; j++) {{
+            const p2 = particles[j];
+            const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+            if (dist < 130) {{
+              ctx.strokeStyle = `rgba(0, 242, 254, ${{0.15 * (1 - dist / 130)}})`;
+              ctx.lineWidth = 0.6;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }}
+          }}
+        }}
+        requestAnimationFrame(draw);
+      }}
+      draw();
+    }})();
+
+    // 6. Interactive Simulator Logic
+    let activeProvider = "Google Flow";
+    document.querySelectorAll('.provider-btn').forEach(btn => {{
+      btn.addEventListener('click', function() {{
+        playCyberSound('click');
+        document.querySelectorAll('.provider-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeProvider = this.dataset.provider;
+      }});
+    }});
+
+    document.getElementById('btnSimRun').addEventListener('click', function() {{
+      playCyberSound('click');
+      const prompt = document.getElementById('simPromptInput').value || "Default cyber visual prompt";
+      const ratio = document.getElementById('simRatio').value;
+      const count = parseInt(document.getElementById('simCount').value) || 3;
+      const queue = document.getElementById('simQueueList');
+      const status = document.getElementById('simOverallStatus');
+
+      queue.innerHTML = '';
+      status.textContent = `Đang chạy ${{count}} batch trên ${{activeProvider}}...`;
+      status.style.color = "var(--cyan)";
+
+      for (let i = 1; i <= count; i++) {{
+        const item = document.createElement('div');
+        item.className = 'queue-item';
+        item.innerHTML = `
+          <span class="queue-status-dot active" id="dot-${{i}}"></span>
+          <div class="queue-info">
+            <div class="queue-name">
+              <span>Job #${{i}}: ${{activeProvider}} · [${{ratio}}]</span>
+              <span id="badge-${{i}}" style="font-size:11px;color:var(--cyan);">[ĐANG XỬ LÝ DOM...]</span>
+            </div>
+            <div class="queue-progress-bar"><div class="queue-progress-fill" id="fill-${{i}}"></div></div>
+          </div>
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);" id="time-${{i}}">Running...</span>
+        `;
+        queue.appendChild(item);
+
+        // Simulation timer
+        setTimeout(() => {{
+          const fill = document.getElementById(`fill-${{i}}`);
+          if (fill) fill.style.width = '100%';
+          setTimeout(() => {{
+            const dot = document.getElementById(`dot-${{i}}`);
+            const badge = document.getElementById(`badge-${{i}}`);
+            const timeEl = document.getElementById(`time-${{i}}`);
+            if (dot) {{ dot.classList.remove('active'); dot.classList.add('done'); }}
+            if (badge) {{ badge.textContent = '[XUẤT FILE 4K HOÀN TẤT]'; badge.style.color = 'var(--emerald)'; }}
+            if (timeEl) timeEl.textContent = 'Saved .webp';
+            playCyberSound('success');
+            if (i === count) {{
+              status.textContent = `Hoàn thành xuất sắc ${{count}}/${{count}} tác vụ!`;
+              status.style.color = 'var(--emerald)';
+            }}
+          }}, 800);
+        }}, i * 900);
+      }}
+    }});
+
+    // 7. Render 26 Nodes Catalog Tabs
+    function renderNodes(groupId) {{
+      const group = NODE_DATA.find(g => g.id === groupId);
+      const container = document.getElementById('nodesGridContainer');
+      if (!group || !container) return;
+
+      container.innerHTML = group.nodes.map(n => `
+        <div class="node-card">
+          <div class="node-card-head">
+            <span class="node-name">${{n.name}}</span>
+            <span class="node-badge">${{n.badge}}</span>
+          </div>
+          <p class="node-desc">${{n.desc}}</p>
+        </div>
+      `).join('');
+    }}
+    renderNodes('gen');
+
+    document.querySelectorAll('.node-tab-btn').forEach(btn => {{
+      btn.addEventListener('click', function() {{
+        playCyberSound('click');
+        document.querySelectorAll('.node-tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderNodes(this.dataset.group);
+      }});
+    }});
+
+    // 8. Prompt Search Filter
+    document.getElementById('promptSearchInput').addEventListener('input', function(e) {{
+      const query = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('.prompt-card').forEach(card => {{
+        const title = card.dataset.title || '';
+        const text = card.dataset.text || '';
+        if (title.includes(query) || text.includes(query)) {{
+          card.style.display = 'flex';
+        }} else {{
+          card.style.display = 'none';
+        }}
+      }});
+    }});
+
+    // 9. 1-Click Copy Toast
+    function copyPromptText(text, btn) {{
+      playCyberSound('success');
+      navigator.clipboard.writeText(text).then(() => {{
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '✓ Đã Copy!';
+        setTimeout(() => {{
+          toast.classList.remove('show');
+          btn.innerHTML = origText;
+        }}, 2200);
+      }});
+    }}
+
+    // 10. FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {{
+      q.addEventListener('click', function() {{
+        playCyberSound('click');
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {{
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        }});
+        if (!isOpen) {{
+          item.classList.add('open');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + "px";
+        }}
+      }});
+    }});
+
+    // 11. FlowBot Assistant Widget
+    const botTrigger = document.getElementById('botTrigger');
+    const botWindow = document.getElementById('botWindow');
+    const botCloseBtn = document.getElementById('botCloseBtn');
+    const botChatBody = document.getElementById('botChatBody');
+
+    botTrigger.addEventListener('click', () => {{
+      playCyberSound('click');
+      botWindow.classList.toggle('active');
+    }});
+    botCloseBtn.addEventListener('click', () => {{
+      playCyberSound('click');
+      botWindow.classList.remove('active');
+    }});
+
+    const botAnswers = {{
+      "Cách cài đặt extension?": "Rất đơn giản: Tải file .zip từ nút Download -> Mở Chrome vào chrome://extensions -> Bật Developer Mode ở góc phải -> Nhấn 'Load unpacked' và chọn thư mục seosona-flow!",
+      "Có cần trả phí API không?": "Không tốn 1 đồng nào! SEOSONA Flow chạy trực tiếp trên các tab Google Flow, ChatGPT, Gemini, Grok mà bạn đang đăng nhập trong trình duyệt.",
+      "Bảo mật dữ liệu ra sao?": "Thiết kế Local-First tuyệt đối: Không server backend, không thu thập prompt, dữ liệu lưu cục bộ trong trình duyệt của bạn."
+    }};
+
+    function askBot(question) {{
+      playCyberSound('click');
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bot-bubble';
+      userBubble.style.alignSelf = 'flex-end';
+      userBubble.style.background = 'var(--cyan-dim)';
+      userBubble.style.borderColor = 'rgba(0, 242, 254, 0.3)';
+      userBubble.style.color = 'var(--cyan)';
+      userBubble.textContent = question;
+      botChatBody.appendChild(userBubble);
+
+      setTimeout(() => {{
+        playCyberSound('success');
+        const botBubble = document.createElement('div');
+        botBubble.className = 'bot-bubble';
+        botBubble.textContent = botAnswers[question] || "Bạn có thể xem chi tiết trong tài liệu GitHub của repo!";
+        botChatBody.appendChild(botBubble);
+        botChatBody.scrollTop = botChatBody.scrollHeight;
+      }}, 400);
+    }}
+  </script>
 </body>
-</html>
-""")
+</html>"""
 
+    # Ghi file ra thư mục đích (cả root và landing/ để phục vụ deploy)
+    out_file = os.path.join(OUT, "index.html")
+    with open(out_file, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    
+    landing_dir = os.path.join(OUT, "landing")
+    os.makedirs(landing_dir, exist_ok=True)
+    with open(os.path.join(landing_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html_content)
+    print(f"✓ Đã sinh SEOSONA Flow Cyber-Glass Landing Page tại: {out_file} ({len(html_content):,} bytes)")
 
-def main():
-    d = os.path.join(OUT, "landing")
-    if not os.path.exists(os.path.join(d, "gallery", "manifest.json")):
-        print("Chưa có ảnh thư viện — chạy scripts/landing-seosona-flow-assets.py trước.")
-        return 1
-    os.makedirs(d, exist_ok=True)
-    html = build()
-    io.open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(html)
-    shutil.copyfile(os.path.join(ROOT, "assets", "img", "labs", "seosona-flow.jpg"),
-                    os.path.join(d, "cover.jpg"))
-    print(f"  {len(html) // 1024} KB  landing/index.html")
-    print(f"  {N_NODES} node / {len(NODE_GROUPS)} nhóm · {len(FEATURES)} tính năng · "
-          f"{len(FAQ)} câu hỏi · {len(LIMITS)} giới hạn")
-    print(f"  {len(WF_NODES)} node trong sơ đồ · {len(PROMPT_GROUPS)} nhóm prompt · "
-          f"12 ảnh thư viện")
-    print(f"\n{SITE}")
-
+    # Sinh kèm vercel.json
+    vercel_json = {
+        "cleanUrls": True,
+        "trailingSlash": False,
+        "headers": [
+            {
+                "source": "/(.*)",
+                "headers": [
+                    {"key": "X-Content-Type-Options", "value": "nosniff"},
+                    {"key": "X-Frame-Options", "value": "SAMEORIGIN"},
+                    {"key": "X-XSS-Protection", "value": "1; mode=block"}
+                ]
+            }
+        ]
+    }
+    with open(os.path.join(OUT, "vercel.json"), "w", encoding="utf-8") as f:
+        json.dump(vercel_json, f, indent=2)
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    generate_page()

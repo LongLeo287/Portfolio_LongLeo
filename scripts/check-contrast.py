@@ -10,6 +10,13 @@ ra 2.48:1). Đọc file thì kết quả tất định.
 import io
 import os
 import re
+import sys
+
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 BASE = r"D:\SEOSONA AI\LongLeo Profolio\build\repo-landing"
 
@@ -40,11 +47,9 @@ PAGES = {
         ("--ok", "--bg", 12, "ok"), ("--danger", "--bg", 12, "lỗi"),
     ]),
     "Flow": ("seosona-flow", "", [
-        ("--text", "--bg", 16, "thân"), ("--muted", "--panel", 15, "phụ"),
-        ("--dim", "--panel", 12, "mờ trên panel"), ("--dim", "--bg", 12, "mờ trên nền"),
-        ("--dim", "--panel-2", 12, "mờ trên panel-2"),
-        ("--primary", "--bg", 12, "nhấn cam"), ("--amber", "--panel", 14, "amber"),
-        ("--ok", "--panel", 12, "xanh"),
+        ("--text", "--bg", 16, "thân"), ("--text-muted", "--bg", 15, "phụ"),
+        ("--text-dim", "--bg", 12, "mờ"), ("--cyan", "--bg", 14, "nhấn cyan"),
+        ("--emerald", "--bg", 14, "nhấn emerald"),
     ]),
     "Tiệm Nước": ("Tiem_Nuoc_Nho_v5", "", [
         ("--text", "--bg", 16, "thân"), ("--muted", "--panel", 15, "phụ"),
