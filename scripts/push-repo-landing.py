@@ -99,12 +99,35 @@ def remote_blob(repo, path):
 
 
 def push_one(repo, files, dry):
-    """Một commit cho toàn bộ thay đổi: blob → tree → commit → cập nhật ref."""
+    """Một commit cho toàn bộ thay đổi: so sánh tree trong 1 API call, upload blob và commit."""
+    repo_info = api(f"repos/{OWNER}/{repo}")
+    if not repo_info or "default_branch" not in repo_info:
+        return 0
+    branch = repo_info["default_branch"]
+    head_ref = api(f"repos/{OWNER}/{repo}/git/ref/heads/{branch}")
+    if not head_ref or "object" not in head_ref:
+        return 0
+    head = head_ref["object"]["sha"]
+    base_commit = api(f"repos/{OWNER}/{repo}/git/commits/{head}")
+    base_tree = base_commit["tree"]["sha"]
+
+    # Lấy toàn bộ cây remote trong ĐÚNG 1 request
+    tree_data = api(f"repos/{OWNER}/{repo}/git/trees/{base_tree}?recursive=1", check=False)
+    remote_shas = {}
+    if tree_data and "tree" in tree_data:
+        for item in tree_data["tree"]:
+            remote_shas[item["path"]] = item["sha"]
+
     changed = []
+    tree = []
     for path, blob in files:
-        cur = remote_blob(repo, path)
-        if cur != blob:
-            changed.append((path, blob, cur is not None))
+        # Tính sha git blob cục bộ: sha1("blob " + size + "\0" + content)
+        import hashlib
+        header = f"blob {len(blob)}\0".encode()
+        local_sha = hashlib.sha1(header + blob).hexdigest()
+
+        if remote_shas.get(path) != local_sha:
+            changed.append((path, blob, path in remote_shas))
 
     for path, blob, existed in changed:
         print(f"   {'~' if existed else '+'}  {path}  ({len(blob) // 1024 or 1} KB)")
@@ -114,11 +137,7 @@ def push_one(repo, files, dry):
     if dry:
         return len(changed)
 
-    branch = api(f"repos/{OWNER}/{repo}")["default_branch"]
-    head = api(f"repos/{OWNER}/{repo}/git/ref/heads/{branch}")["object"]["sha"]
-    base_tree = api(f"repos/{OWNER}/{repo}/git/commits/{head}")["tree"]["sha"]
-
-    tree = []
+    # Upload blob cho các file thực sự thay đổi
     for path, blob, _ in changed:
         sha = api(f"repos/{OWNER}/{repo}/git/blobs", "POST",
                   {"content": base64.b64encode(blob).decode(),
