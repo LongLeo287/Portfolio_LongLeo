@@ -1,26 +1,17 @@
 #!/usr/bin/env python3
-"""Landing page cho OmniClaw — hình thức terminal.
+"""Landing page cho OmniClaw — Cybernetic Kernel & 8-Daemon Pulse Matrix.
 
-Trước đây bốn dự án hạ tầng dùng chung một bộ sinh, giống nhau 83% về cấu trúc
-và trùng nhau từng khối một về thứ tự. Giờ mỗi cái một hình thức riêng, do bản
-chất sản phẩm quyết định.
-
-OmniClaw là hệ điều hành agent chạy trong terminal, cai quản bằng daemon và
-pipeline zero-trust. Nên trang của nó là một cửa sổ terminal: phông monospace,
-chuỗi khởi động gõ dần, mỗi mục là một pane có thanh tiêu đề, dòng nhắc `$`
-thay cho tiêu đề mục. Không có hero căn trái, không có băng logo chạy ngang,
-không có lưới thẻ bo góc — những thứ đó thuộc về ba trang kia.
+OmniClaw là hệ điều hành agent chạy trong terminal, cai quản bằng 8 daemon tự hành
+và pipeline zero-trust nghiêm ngặt. Giao diện được dựng theo phong cách Cybernetic
+Kernel Terminal: HUD terminal tương tác với CLI gõ lệnh thật, ma trận 8 daemon
+phát xung thời gian thực, kiến trúc MemPalace ba tầng và tường lửa sandbox.
 
     python scripts/landing-omniclaw.py
-
-Số liệu đọc từ repo OmniClaw; danh sách daemon lấy từ
-core/docs/architecture/CORE_DAEMONS_AND_OER.md.
 """
 import io
 import json
 import os
 import shutil
-from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "build", "repo-landing", "OmniClaw")
@@ -28,551 +19,1402 @@ SITE = "https://omniclaw-longleo.vercel.app"
 PORTFOLIO = "https://portfolio-long-leo.vercel.app"
 REPO = "LongLeo287/OmniClaw"
 
+VERSION = "3.8.2"
 N_FILES = 14879
 N_SKILLS = 578
 N_KNOWLEDGE = 2148
 N_DAEMONS = 8
 
-BOOT = [
-    ("omniclaw --boot", None),
-    (None, "oma_architect   lập bản đồ hạ tầng ......... OK"),
-    (None, "oap_pipeline    phân luồng đầu vào ......... OK"),
-    (None, "oer_registry    nạp sổ đăng ký ............. OK"),
-    (None, "oiw_intake      chờ mã nguồn ngoài ......... OK"),
-    (None, "osf_warden      dựng tường lửa biên ........ OK"),
-    (None, "obd_harbor      khoá cổng ngoài 127.0.0.1 .. OK"),
-    (None, "ohd_healer      quét sức khoẻ hệ thống ..... OK"),
-    (None, "oa_academy      kiểm toán logic ............ OK"),
-    (None, "8/8 daemon đang chạy · zero-trust ĐANG BẬT"),
-]
+def generate_page():
+    os.makedirs(OUT, exist_ok=True)
+    assets_dir = os.path.join(OUT, "assets")
+    landing_assets = os.path.join(OUT, "landing", "assets")
+    os.makedirs(assets_dir, exist_ok=True)
+    os.makedirs(landing_assets, exist_ok=True)
 
-DAEMONS = [
-    ("oma_architect", "Map Architect", "vẽ bản đồ hạ tầng và định danh node", "daemons"),
-    ("oap_pipeline", "Assimilation", "phân luồng mọi thứ đi vào hệ", "daemons"),
-    ("oer_registry", "Ecosystem Registry", "giữ sổ đăng ký thực thể", "daemons"),
-    ("oiw_intake", "Intake Worker", "thu thập mã nguồn từ bên ngoài", "daemons"),
-    ("oa_academy", "Academy", "kiểm toán logic, tuyển agent mới", "daemons"),
-    ("osf_warden", "Sandbox Firewall", "cách ly thứ chưa qua kiểm duyệt", "security"),
-    ("obd_harbor", "Bridge Daemon", "không skill nào tự mở cổng mạng", "security"),
-    ("ohd_healer", "Health Daemon", "tự vá lỗi, dọn rác, chữa lint", "health"),
-]
+    # Đồng bộ assets giữa OUT và OUT/landing
+    for src_dir, dst_dir in [(assets_dir, landing_assets), (landing_assets, assets_dir)]:
+        if os.path.exists(src_dir):
+            for f in os.listdir(src_dir):
+                if not f.startswith("."):
+                    shutil.copyfile(os.path.join(src_dir, f), os.path.join(dst_dir, f))
 
-PANES = [
-    ("~/core", "Nhân hệ thống", [
-        ("Luật toàn cục", "bộ luật kế thừa ở phạm vi máy, không cấu hình lại từng dự án"),
-        ("Pipeline cứng", "agent không tự quyết đường đi, mọi thứ qua một luồng cố định"),
-        ("Bảo vệ Git", "quét cache, dọn sqlite, làm sạch commit trước khi đẩy lên"),
-        ("Cổng mạng khoá", "chỉ 127.0.0.1, mở 0.0.0.0 là vi phạm trừ khi được cấp phép"),
-    ]),
-    ("~/brain", "Trí nhớ", [
-        ("MemPalace ba tầng", "ngữ cảnh sống qua nhiều phiên thay vì bốc hơi mỗi lần đóng cửa sổ"),
-        ("2.148 file tri thức", "đã phân tích và lập chỉ mục, truy vấn được lúc chạy"),
-        ("Đồ thị tri thức", "quan hệ giữa các mảnh, không phải một đống file phẳng"),
-    ]),
-    ("~/ecosystem", "Hệ sinh thái", [
-        ("578 kỹ năng", "mỗi cái là một thực thể có đăng ký, không phải script thả bừa"),
-        ("Cầu nối và plugin", "vào hệ phải qua cổng kiểm duyệt của OIW rồi OSF"),
-        ("Workflow", "chuỗi tác vụ chạy được, gắn với node đã đăng ký"),
-    ]),
-]
-
-LIMITS = [
-    ("Không phải phần mềm cho người dùng cuối",
-     "Hạ tầng cho máy của một lập trình viên. Không bộ cài, không giao diện đồ hoạ, "
-     "đọc tài liệu là bắt buộc."),
-    ("Tám daemon, ba cái đã hiện thực bằng Python",
-     "Năm cái còn lại tồn tại dưới dạng node agent theo tài liệu kiến trúc. Đây là hệ "
-     "đang phát triển, không phải bản đã đóng băng."),
-    ("Repo nặng, sát hạn mức triển khai",
-     "14.879 file — Vercel giới hạn 15.000 file nguồn mỗi lần triển khai. Chính trang "
-     "này phải cấu hình riêng mới lên được."),
-    ("Trùng tên với hơn mười dự án khác",
-     "Trên GitHub có nhiều repo tên OmniClaw do trùng trào lưu đặt tên. Bản này của "
-     "Long Leo, 135 commit tự viết, không fork của ai."),
-]
-
-FAQ = [
-    ("Khác gì một tập script tự động hoá?",
-     "Khác ở tầng cai quản. Script thì ai chạy lúc nào cũng được; ở đây mọi thứ qua "
-     "pipeline có daemon kiểm soát, vượt quyền là bị chấm dứt phiên ngay."),
-    ("Vì sao lại chia tám daemon?",
-     "Để không con nào ôm quá nhiều quyền. Tám vai chia vào ba phòng ban — hạ tầng, "
-     "an ninh, sức khoẻ hệ thống — mỗi cái một ranh giới cứng."),
-    ("Có phải bản clone của dự án OmniClaw nào khác không?",
-     "Không. Trên GitHub có hơn mười repo cùng tên, nhưng bản này không phải fork — "
-     "135 commit tự viết từ tháng 3/2026."),
-    ("Cần gì để chạy?",
-     "Python, cộng Claude Code CLI hoặc Google Antigravity. Repo khoảng 110 MB vì mang "
-     "theo cả kho tri thức và hệ sinh thái kỹ năng."),
-]
-
-# Dòng log chạy ở chân cửa sổ terminal. Sáu dòng, lặp lại — đủ để trang có
-# nhịp sống mà không thành thứ gây rối mắt.
-STREAM = [
-    "oer_registry  đăng ký thực thể mới: skill/vision-ocr",
-    "osf_warden    cách ly gói chưa ký: 1 mục vào khu chờ",
-    "ohd_healer    dọn 214 file tạm · vá 3 lỗi lint",
-    "obd_harbor    từ chối mở cổng 0.0.0.0:8080 — vi phạm luật",
-    "oiw_intake    thu thập xong 2 repo, chuyển sang OAP",
-    "oa_academy    kiểm toán 18 kỹ năng · 17 đạt · 1 trả lại",
-]
-
-STACK = ["Python", "Claude Code CLI", "Google Antigravity", "MCP", "SQLite",
-         "TypeScript", "Rust"]
-
-CSS = """
-*,*::before,*::after{box-sizing:border-box}
-:root{
-  --bg:#080a0b; --pane:#0e1214; --pane-2:#131a1d; --line:#1e282c; --line-2:#2b393e;
-  --text:#dfe7ea; --muted:#8fa3aa; --dim:#748a93;
-  --amber:#f75c1e; --lime:#7ee787; --warn:#f2c14e; --danger:#ff6b6b;
-  --ease:cubic-bezier(.16,1,.3,1);
-}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-/* Lưới mảnh phía sau, gợi màn hình phosphor mà không làm chữ khó đọc. */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4;
-  background-image:linear-gradient(rgba(126,231,135,.045) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(126,231,135,.045) 1px,transparent 1px);
-  background-size:34px 34px;
-  mask-image:radial-gradient(120% 90% at 50% 0%,#000 20%,transparent 75%);
-}
-body>*{position:relative;z-index:1}
-a{color:inherit}
-svg{display:block}
-.wrap{width:min(980px,100% - 2.2rem);margin-inline:auto}
-:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
-
-/* ---------- thanh trên cùng: dòng lệnh, không phải nav ---------- */
-.top{border-bottom:1px solid var(--line);background:rgba(8,10,11,.9);
-  backdrop-filter:blur(10px);position:sticky;top:0;z-index:50}
-.top-in{display:flex;align-items:center;gap:1rem;padding:.6rem 0;
-  width:min(980px,100% - 2.2rem);margin-inline:auto;font-size:.8rem}
-.leds{display:flex;gap:.4rem}
-.leds i{width:10px;height:10px;border-radius:50%;background:#2b393e}
-.leds i:nth-child(1){background:#ff5f57}
-.leds i:nth-child(2){background:#febc2e}
-.leds i:nth-child(3){background:#28c840}
-.top-path{color:var(--dim)}
-.top-path b{color:var(--lime);font-weight:500}
-.top a{margin-left:auto;color:var(--muted);text-decoration:none;padding:.4rem .7rem;
-  border:1px solid var(--line-2);transition:color .2s,border-color .2s,background .2s}
-.top a:hover{color:var(--bg);background:var(--lime);border-color:var(--lime)}
-
-/* ---------- hero: chuỗi khởi động ---------- */
-.boot{padding:clamp(2rem,5vw,3.5rem) 0 clamp(1.5rem,4vw,2.5rem)}
-.term{border:1px solid var(--line-2);background:var(--pane);
-  box-shadow:0 30px 70px -40px #000,0 0 0 1px rgba(126,231,135,.04) inset}
-.term-bar{display:flex;align-items:center;gap:.6rem;padding:.5rem .8rem;
-  border-bottom:1px solid var(--line);background:var(--pane-2);font-size:.76rem;
-  color:var(--dim);letter-spacing:.02em}
-.term-body{padding:1.1rem 1.2rem;font-size:.86rem;line-height:1.85}
-.bl{white-space:pre;overflow:hidden;opacity:0;animation:blIn .01s linear forwards}
-@keyframes blIn{to{opacity:1}}
-.bl .p{color:var(--lime)}
-.bl .c{color:var(--text)}
-.bl .ok{color:var(--lime)}
-.bl.last{color:var(--amber);font-weight:600;margin-top:.5rem}
-.cursor{display:inline-block;width:8px;height:1em;background:var(--lime);
-  vertical-align:text-bottom;animation:blink 1.05s step-end infinite}
-@keyframes blink{50%{opacity:0}}
-
-h1{font-size:clamp(1.75rem,4.4vw,2.9rem);line-height:1.15;font-weight:600;
-  margin:clamp(1.8rem,4vw,2.6rem) 0 1rem;letter-spacing:-.02em}
-h1 .hl{color:var(--amber)}
-.lede{color:var(--muted);font-size:clamp(.95rem,1.7vw,1.05rem);max-width:66ch;margin:0 0 1.6rem}
-.acts{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem;
-  font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid var(--line-2);
-  transition:transform .2s var(--ease),background .2s,color .2s,border-color .2s}
-.btn:hover{transform:translateY(-2px)}
-.btn.pri{background:var(--amber);color:#080a0b;border-color:var(--amber)}
-.btn.pri:hover{box-shadow:0 10px 26px -12px var(--amber)}
-.btn.sec:hover{border-color:var(--lime);color:var(--lime)}
-
-/* ---------- dải số liệu kiểu bảng ---------- */
-.meters{border:1px solid var(--line);display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-.meter{padding:1rem 1.1rem;border-right:1px solid var(--line)}
-.meter:last-child{border-right:0}
-.meter b{display:block;font-size:1.6rem;font-weight:600;color:var(--lime);
-  font-variant-numeric:tabular-nums;line-height:1.2}
-.meter span{font-size:.74rem;color:var(--dim);letter-spacing:.04em}
-
-/* ---------- mục: dòng nhắc thay cho tiêu đề ---------- */
-section{padding:clamp(2.2rem,5vw,3.4rem) 0}
-.prompt{font-size:.86rem;color:var(--dim);margin:0 0 .5rem}
-.prompt b{color:var(--lime);font-weight:500}
-h2{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:600;margin:0 0 .7rem;
-  letter-spacing:-.01em}
-.sub{color:var(--muted);margin:0 0 1.6rem;max-width:70ch;font-size:.92rem}
-
-/* ---------- bảng daemon ---------- */
-.tbl{border:1px solid var(--line);overflow-x:auto}
-.tbl table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px}
-.tbl th{text-align:left;padding:.6rem .9rem;border-bottom:1px solid var(--line-2);
-  color:var(--dim);font-weight:500;font-size:.74rem;letter-spacing:.08em;
-  text-transform:uppercase;background:var(--pane-2)}
-.tbl td{padding:.62rem .9rem;border-bottom:1px solid var(--line);vertical-align:top}
-.tbl tr:last-child td{border-bottom:0}
-.tbl tbody tr{transition:background .2s}
-.tbl tbody tr:hover{background:var(--pane-2)}
-.tbl .id{color:var(--amber);white-space:nowrap}
-.tbl .nm{color:var(--text)}
-.tbl .rl{color:var(--muted)}
-.tag{display:inline-block;padding:.05rem .5rem;font-size:.7rem;border:1px solid;
-  white-space:nowrap}
-.tag.daemons{color:var(--amber);border-color:rgba(247,92,30,.4)}
-.tag.security{color:var(--danger);border-color:rgba(255,107,107,.4)}
-.tag.health{color:var(--lime);border-color:rgba(126,231,135,.4)}
-
-/* ---------- pane thư mục ---------- */
-.panes{display:grid;gap:1rem}
-.pane{border:1px solid var(--line);background:var(--pane)}
-.pane-h{display:flex;align-items:center;gap:.6rem;padding:.5rem .9rem;
-  border-bottom:1px solid var(--line);background:var(--pane-2);font-size:.78rem}
-.pane-h .dir{color:var(--lime)}
-.pane-h .ttl{color:var(--dim);margin-left:auto}
-.pane ul{list-style:none;margin:0;padding:.5rem 0}
-.pane li{display:flex;gap:.8rem;padding:.5rem .9rem;font-size:.85rem;
-  transition:background .2s}
-.pane li:hover{background:var(--pane-2)}
-.pane li::before{content:'├─';color:var(--dim);flex-shrink:0}
-.pane li:last-child::before{content:'└─'}
-.pane li b{color:var(--text);font-weight:600;flex-shrink:0;min-width:150px}
-.pane li em{font-style:normal;color:var(--muted)}
-
-/* ---------- công nghệ ---------- */
-.stack{display:flex;flex-wrap:wrap;gap:.4rem}
-.stack span{padding:.3rem .8rem;font-size:.8rem;border:1px solid var(--line-2);
-  color:var(--muted);transition:color .2s,border-color .2s}
-.stack span:hover{color:var(--lime);border-color:var(--lime)}
-
-/* ---------- cảnh báo ---------- */
-.warns{border:1px solid rgba(242,193,78,.28);background:rgba(242,193,78,.04)}
-.warn{padding:1rem 1.1rem;border-bottom:1px solid rgba(242,193,78,.14);
-  display:flex;gap:.8rem;font-size:.88rem}
-.warn:last-child{border-bottom:0}
-.warn::before{content:'!';color:var(--warn);font-weight:700;flex-shrink:0;
-  width:20px;height:20px;border:1px solid rgba(242,193,78,.45);
-  display:grid;place-items:center;font-size:.75rem}
-.warn b{display:block;color:var(--warn);font-weight:600;margin-bottom:.15rem}
-.warn em{font-style:normal;color:var(--muted)}
-
-/* ---------- hỏi đáp ---------- */
-details{border:1px solid var(--line);background:var(--pane);margin-bottom:.5rem}
-details[open]{border-color:var(--line-2)}
-summary{cursor:pointer;list-style:none;padding:.8rem 1rem;font-size:.88rem;
-  color:var(--text);display:flex;gap:.7rem}
-summary::-webkit-details-marker{display:none}
-summary::before{content:'?';color:var(--lime);flex-shrink:0}
-details[open] summary::before{content:'>'}
-details p{margin:0;padding:0 1rem .9rem 2.2rem;color:var(--muted);font-size:.86rem}
-
-/* ---------- kết ---------- */
-.end{border-top:1px solid var(--line);padding:clamp(2.5rem,6vw,4rem) 0;text-align:center}
-.end h2{margin-bottom:.6rem}
-.end p{color:var(--muted);margin:0 auto 1.6rem;max-width:52ch;font-size:.92rem}
-.end .acts{justify-content:center;margin-bottom:0}
-footer{border-top:1px solid var(--line);padding:1.4rem 0;font-size:.78rem;color:var(--dim)}
-.foot{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
-footer a{color:var(--muted);text-decoration:none;padding:.3rem 0}
-footer a:hover{color:var(--lime)}
-
-/* Vệt quét ngang cửa sổ terminal — gợi màn hình CRT đang làm tươi. */
-.term{position:relative;overflow:hidden}
-.term::after{content:'';position:absolute;left:0;right:0;height:38%;pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(126,231,135,.05),transparent);
-  animation:sweep 6.5s linear infinite}
-@keyframes sweep{0%{transform:translateY(-120%)}100%{transform:translateY(320%)}}
-
-/* Đèn trạng thái từng daemon, nhấp theo phòng ban lệch pha nhau. */
-.tbl .id{position:relative;padding-left:1.1rem}
-.tbl .id::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;
-  border-radius:50%;background:var(--lime);
-  animation:beat 2.6s ease-in-out infinite;animation-delay:calc(var(--i,0) * .22s)}
-.tbl tr[data-dept="security"] .id::before{background:var(--danger)}
-.tbl tr[data-dept="health"] .id::before{background:var(--warn)}
-@keyframes beat{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.72)}}
-
-/* Thanh tiến độ đọc trang, mảnh như dòng lệnh. */
-.prog{position:fixed;top:0;left:0;height:2px;width:100%;z-index:70;transform:scaleX(0);
-  transform-origin:0 50%;background:linear-gradient(90deg,var(--lime),var(--amber))}
-@supports (animation-timeline:scroll()){
-  .prog{animation:pgrow linear;animation-timeline:scroll(root block)}
-  @keyframes pgrow{to{transform:scaleX(1)}}
-}
-
-/* Con trỏ nhấp sau mỗi dòng nhắc của từng mục. */
-.prompt b::after{content:'';display:inline-block;width:7px;height:.95em;margin-left:.35rem;
-  background:var(--lime);vertical-align:text-bottom;animation:blink 1.05s step-end infinite}
-
-/* Luồng log chạy ở chân pane — chỉ đổi transform nên không gây vẽ lại layout. */
-.stream{overflow:hidden;height:1.6em;border-top:1px solid var(--line);
-  background:var(--pane-2);font-size:.76rem;color:var(--dim)}
-.stream ul{list-style:none;margin:0;padding:0;animation:roll2 12s steps(6) infinite}
-.stream li{height:1.6em;line-height:1.6em;padding-inline:.9rem;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis}
-@keyframes roll2{to{transform:translateY(-9.6em)}}
-
-.rise{opacity:0;transform:translateY(14px);
-  transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.rise.in{opacity:1;transform:none}
-@media (max-width:640px){
-  body{font-size:14px}
-  .acts{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
-  .term-body{font-size:.74rem}
-  .pane li{flex-direction:column;gap:.15rem}
-  .pane li b{min-width:0}
-}
-"""
-
-JS = """
-var io=new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{rootMargin:'0px 0px -8% 0px',threshold:.06});
-document.querySelectorAll('.rise').forEach(function(el){ io.observe(el); });
-
-// Chuỗi khởi động gõ dần. Không dùng setInterval dài — mỗi dòng một hẹn giờ
-// riêng, tính sẵn thời điểm, nên tab bị ẩn rồi hiện lại vẫn không lệch nhịp.
-document.querySelectorAll('.bl').forEach(function(el,i){
-  el.style.animationDelay=(0.25+i*0.16)+'s';
-});
-
-var cio=new IntersectionObserver(function(es){
-  es.forEach(function(e){
-    if(!e.isIntersecting) return;
-    cio.unobserve(e.target);
-    var el=e.target,to=+el.dataset.to,t0=0,dur=1000;
-    requestAnimationFrame(function step(t){
-      if(!t0) t0=t;
-      var p=Math.min((t-t0)/dur,1);
-      el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('vi-VN');
-      if(p<1) requestAnimationFrame(step);
-    });
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-to]').forEach(function(el){ cio.observe(el); });
-"""
-
-PAGE = Template("""<!DOCTYPE html>
-<html lang="vi">
+    html_content = f"""<!DOCTYPE html>
+<html lang="vi" class="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>$title</title>
-<meta name="description" content="$desc" />
-<meta name="author" content="Hà Đình Long" />
-<meta name="theme-color" content="#080a0b" />
-<link rel="canonical" href="$site/" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23080a0b'/><text x='5' y='22' font-family='monospace' font-size='16' fill='%237ee787'>&gt;_</text></svg>" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="OmniClaw" />
-<meta property="og:title" content="$title" />
-<meta property="og:description" content="$desc" />
-<meta property="og:url" content="$site/" />
-<meta property="og:image" content="$site/cover.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="600" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="$title" />
-<meta name="twitter:description" content="$desc" />
-<meta name="twitter:image" content="$site/cover.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
-<style>$css</style>
-<script type="application/ld+json">$jsonld</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniClaw — Cybernetic Kernel & 8-Daemon Autonomous Agent OS</title>
+  <meta name="description" content="Hệ điều hành agent độc lập và nhân zero-trust: 8 daemon tự hành, 578 kỹ năng đăng ký, 2.148 khối tri thức MemPalace ba tầng và tường lửa cô lập sandbox." />
+  <meta name="theme-color" content="#06090c" />
+
+  <!-- Canonical & Alternate Links -->
+  <link rel="canonical" href="{SITE}" />
+  <link rel="alternate" hreflang="vi" href="{SITE}/" />
+  <link rel="alternate" hreflang="en" href="{SITE}/?lang=en" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="OmniClaw — Cybernetic Kernel & 8-Daemon Autonomous Agent OS" />
+  <meta property="og:description" content="Quản trị 8 daemon tự hành, 14.879 tệp tin kiến trúc, 578 kỹ năng và hạ tầng zero-trust." />
+  <meta property="og:url" content="{SITE}" />
+  <meta property="og:image" content="{SITE}/assets/omniclaw_kernel_hero.webp" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Be Vietnam Pro & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }}
+
+    :root {{
+      --bg: #080a0b;
+      --bg-dark: #030507;
+      --pane: #0e1214;
+      --pane-2: #131a1d;
+      --line: #1e282c;
+      --line-2: #2b393e;
+      --text: #dfe7ea;
+      --muted: #8fa3aa;
+      --dim: #748a93;
+      --lime: #7ee787;
+      --amber: #f75c1e;
+      --emerald: #10b981;
+      --cyan: #00f2fe;
+      --warn: #f2c14e;
+      --danger: #ff6b6b;
+      --hot: #f97316;
+
+      --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --dur-fast: 0.15s;
+      --dur-norm: 0.3s;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    html {{
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }}
+
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15.5px;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }}
+
+    /* Cybernetic Phosphor Grid Background */
+    body::before {{
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      background-image:
+        linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 80%);
+    }}
+
+    body > * {{
+      position: relative;
+      z-index: 1;
+    }}
+
+    a {{
+      color: inherit;
+      text-decoration: none;
+    }}
+
+    :focus-visible {{
+      outline: 2px solid var(--lime);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }}
+
+    .wrap {{
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    h1, h2, h3, h4 {{
+      font-family: var(--font-heading);
+      letter-spacing: -0.025em;
+      font-weight: 800;
+      line-height: 1.2;
+    }}
+
+    /* Slate Top Command Bar */
+    .kernel-nav {{
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(6, 9, 12, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }}
+
+    .kernel-nav-inner {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    .brand-box {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }}
+
+    .led-cluster {{
+      display: flex;
+      gap: 5px;
+    }}
+    .led {{
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }}
+    .led-red {{ background: #ef4444; box-shadow: 0 0 6px #ef4444; }}
+    .led-yellow {{ background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }}
+    .led-green {{ background: #10b981; box-shadow: 0 0 6px #10b981; animation: pulseGlow 2s infinite; }}
+
+    @keyframes pulseGlow {{
+      50% {{ opacity: 0.4; }}
+    }}
+
+    .brand-title {{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }}
+
+    .brand-version {{
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--lime);
+      background: rgba(16, 185, 129, 0.1);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }}
+
+    .nav-links {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    .nav-link {{
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-link:hover {{
+      color: var(--lime);
+      background: rgba(16, 185, 129, 0.06);
+    }}
+
+    .nav-actions {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }}
+
+    .nav-icon-btn {{
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--line-2);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-icon-btn:hover {{
+      color: var(--lime);
+      border-color: var(--lime);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+      transform: translateY(-1px);
+    }}
+
+    .lang-toggle-btn {{
+      width: auto;
+      padding: 0 12px;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fdf9f3;
+    }}
+
+    .btn-cta {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--lime), #059669);
+      color: #030507;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+
+    .btn-cta:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
+    }}
+
+    /* HERO SECTION */
+    .hero-section {{
+      padding: 60px 0 30px;
+      position: relative;
+      overflow: hidden;
+    }}
+
+    .hero-section::before {{
+      content: '';
+      position: absolute;
+      inset: auto -20% -30% -20%;
+      height: 80%;
+      background: radial-gradient(50% 60% at 50% 100%, rgba(16, 185, 129, 0.15), transparent 75%);
+      pointer-events: none;
+    }}
+
+    .kernel-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 20px;
+      padding: 4px 12px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-full);
+    }}
+
+    .hero-title {{
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.08;
+      max-width: 21ch;
+      margin-bottom: 22px;
+    }}
+
+    .gradient-matrix {{
+      background: linear-gradient(135deg, var(--lime) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }}
+
+    .hero-desc {{
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      max-width: 68ch;
+      margin-bottom: 34px;
+      line-height: 1.7;
+    }}
+
+    .hero-acts {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }}
+
+    .btn-lg {{
+      padding: 12px 24px;
+      font-size: 15px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--dur-fast);
+    }}
+
+    .btn-kernel-pri {{
+      background: linear-gradient(135deg, var(--lime), #059669);
+      color: #030507;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }}
+    .btn-kernel-pri:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.5);
+    }}
+
+    .btn-kernel-sec {{
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-2);
+      color: var(--text);
+    }}
+    .btn-kernel-sec:hover {{
+      border-color: var(--lime);
+      color: var(--lime);
+      transform: translateY(-2px);
+    }}
+
+    /* Machine Gauges */
+    .gauges-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--pane);
+      margin-bottom: 70px;
+    }}
+    .gauge-item {{
+      padding: 20px 24px;
+      border-right: 1px solid var(--line);
+    }}
+    .gauge-item:last-child {{
+      border-right: 0;
+    }}
+    .gauge-val {{
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--lime);
+      line-height: 1.1;
+      font-family: var(--font-heading);
+      margin-bottom: 4px;
+    }}
+    .gauge-label {{
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }}
+
+    /* SECTION HEADERS */
+    .section-head {{
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 50px;
+    }}
+    .section-eyebrow {{
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--lime);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 12px;
+    }}
+    .section-title {{
+      font-size: clamp(1.8rem, 3.8vw, 2.7rem);
+      margin-bottom: 16px;
+    }}
+    .section-desc {{
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.7;
+    }}
+
+    /* ==========================================================================
+       1. INTERACTIVE CYBERNETIC KERNEL TERMINAL HUD
+       ========================================================================== */
+    .terminal-window {{
+      background: #080c10;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      margin-bottom: 90px;
+    }}
+
+    .terminal-header {{
+      background: #0d1318;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }}
+
+    .terminal-title {{
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+
+    .quick-cmd-pills {{
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }}
+    .cmd-pill {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--lime);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+    .cmd-pill:hover {{
+      background: var(--lime);
+      color: #030507;
+    }}
+
+    .terminal-body {{
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      min-height: 340px;
+      max-height: 480px;
+      overflow-y: auto;
+      color: #cbd5e1;
+    }}
+
+    .term-line {{
+      margin-bottom: 6px;
+      white-space: pre-wrap;
+    }}
+    .term-prompt {{
+      color: var(--lime);
+      font-weight: 700;
+    }}
+    .term-ok {{
+      color: var(--lime);
+      font-weight: 700;
+    }}
+    .term-warn {{
+      color: var(--warn);
+    }}
+    .term-dim {{
+      color: var(--dim);
+    }}
+
+    .terminal-input-row {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }}
+    .terminal-input {{
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      flex: 1;
+    }}
+
+    /* Live Telemetry Event Stream */
+    .stream-bar {{
+      background: #050709;
+      border-top: 1px solid var(--line);
+      padding: 10px 18px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }}
+    .stream-tag {{
+      color: var(--cyan);
+      font-weight: 700;
+      flex-shrink: 0;
+    }}
+    .stream-text {{
+      color: #cbd5e1;
+      white-space: nowrap;
+      animation: streamFade 0.4s ease;
+    }}
+
+    /* ==========================================================================
+       2. INTERACTIVE 8-DAEMON PULSE MATRIX
+       ========================================================================== */
+    .daemons-section {{
+      padding: 40px 0 90px;
+    }}
+    .daemon-filter-tabs {{
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }}
+    .daemon-tab-btn {{
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: var(--pane);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+    .daemon-tab-btn.active, .daemon-tab-btn:hover {{
+      background: var(--lime);
+      color: #030507;
+      border-color: var(--lime);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
+    }}
+
+    .daemons-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }}
+    .daemon-card {{
+      background: var(--pane);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all var(--dur-norm) var(--ease);
+      cursor: pointer;
+      position: relative;
+    }}
+    .daemon-card:hover, .daemon-card.active {{
+      border-color: var(--lime);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15);
+    }}
+    .daemon-card-head {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }}
+    .daemon-name {{
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--lime);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .daemon-dept-badge {{
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-2);
+      color: var(--muted);
+    }}
+    .daemon-alias {{
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }}
+    .daemon-desc {{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }}
+    .daemon-footer {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 10px;
+    }}
+
+    /* ==========================================================================
+       3. MEMPALACE 3-TIER BRAIN ARCHITECTURE
+       ========================================================================== */
+    .mempalace-section {{
+      padding: 40px 0 90px;
+    }}
+    .mempalace-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }}
+    @media (max-width: 900px) {{
+      .mempalace-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .mempalace-img-box {{
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }}
+    .mempalace-img {{
+      width: 100%;
+      height: auto;
+      display: block;
+    }}
+    .tier-cards-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }}
+    .tier-item {{
+      background: var(--pane);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all var(--dur-fast);
+    }}
+    .tier-item:hover {{
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }}
+    .tier-title {{
+      font-size: 15px;
+      font-weight: 700;
+      color: #fdf9f3;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .tier-sub {{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }}
+
+    /* ==========================================================================
+       4. ZERO-TRUST SANDBOX FIREWALL
+       ========================================================================== */
+    .firewall-section {{
+      padding: 40px 0 90px;
+    }}
+    .firewall-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }}
+    @media (max-width: 900px) {{
+      .firewall-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .rule-box {{
+      background: var(--pane);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--lime);
+    }}
+    .rule-title {{
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--lime);
+      margin-bottom: 4px;
+    }}
+    .rule-desc {{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }}
+
+    /* FAQ ACCORDION */
+    .faq-section {{
+      padding: 40px 0 90px;
+    }}
+    .faq-list {{
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }}
+    .faq-item {{
+      background: var(--pane);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color var(--dur-fast);
+    }}
+    .faq-item.open {{
+      border-color: var(--lime);
+    }}
+    .faq-question {{
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }}
+    .faq-answer {{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }}
+    .faq-item.open .faq-answer {{
+      padding-bottom: 16px;
+    }}
+
+    /* FOOTER */
+    .footer {{
+      border-top: 1px solid var(--line);
+      background: #030507;
+      padding: 50px 0 30px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--dim);
+    }}
+    .footer-links {{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: var(--muted);
+    }}
+    .footer-links a:hover {{
+      color: var(--lime);
+    }}
+  </style>
 </head>
 <body>
 
-<div class="prog" aria-hidden="true"></div>
+  <!-- Navigation Bar -->
+  <header class="kernel-nav" id="navbar">
+    <div class="kernel-nav-inner">
+      <div class="brand-box">
+        <div class="led-cluster">
+          <span class="led led-red"></span>
+          <span class="led led-yellow"></span>
+          <span class="led led-green"></span>
+        </div>
+        <a href="#hero" class="brand-title">OmniClaw</a>
+        <span class="brand-version">v{VERSION} KERNEL</span>
+      </div>
 
-<div class="top">
-  <div class="top-in">
-    <span class="leds"><i></i><i></i><i></i></span>
-    <span class="top-path">longleo@omniclaw:<b>~</b>$$</span>
-    <a href="https://github.com/$repo" target="_blank" rel="noopener">git clone ↗</a>
-  </div>
-</div>
+      <nav class="nav-links">
+        <a href="#terminal" class="nav-link" data-i18n="nav_terminal">Terminal CLI</a>
+        <a href="#daemons" class="nav-link" data-i18n="nav_daemons">8-Daemon Matrix</a>
+        <a href="#mempalace" class="nav-link" data-i18n="nav_mempalace">MemPalace</a>
+        <a href="#firewall" class="nav-link" data-i18n="nav_firewall">Zero-Trust</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+      </nav>
 
-<header class="boot">
-  <div class="wrap">
-    <div class="term">
-      <div class="term-bar">omniclaw · 8 daemon · zero-trust</div>
-      <div class="term-body">$boot<span class="cursor"></span></div>
-      <div class="stream" aria-hidden="true"><ul>$stream</ul></div>
+      <div class="nav-actions">
+        <!-- 1-Click Language Flag Toggle -->
+        <button class="nav-icon-btn lang-toggle-btn" id="langToggleBtn" aria-label="Toggle Language" title="Đổi ngôn ngữ (VI / EN)">
+          <span id="flagIcon">🇻🇳</span>
+          <span id="langText">VI</span>
+        </button>
+
+        <!-- GitHub Icon Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub Repository" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+
+        <!-- CTA Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="btn-cta" data-i18n="btn_github_explore">
+          <span style="font-family:var(--font-mono);">&gt;_</span>
+          <span>Khám phá Repo ↗</span>
+        </a>
+      </div>
     </div>
+  </header>
 
-    <h1>Agent ở đây <span class="hl">không có ý chí tự do</span></h1>
-    <p class="lede">
-      Mọi thứ chạy qua một pipeline cứng, tám daemon canh gác. Không phải mấy con agent
-      đóng vai nhân viên rồi tự quyết — mà là một tầng backend không né được, nằm dưới
-      mọi công cụ AI trên máy.
+  <main>
+  <!-- HERO SECTION -->
+  <section class="hero-section wrap" id="hero">
+    <div class="kernel-pill" data-i18n="hero_pill">KERNEL ACTIVE · ZERO-TRUST ENFORCED · 8 DAEMONS · 14,879 FILES</div>
+    <h1 class="hero-title" data-i18n="hero_title">
+      Hệ Điều Hành Agent Độc Lập & Nhân Zero-Trust<br />
+      <span class="gradient-matrix">Quản Trị 8 Daemon Tự Hành Và Trí Nhớ MemPalace Ba Tầng</span>
+    </h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      Hạ tầng điều phối agent chạy nền trong terminal, bảo vệ nghiêm ngặt bằng chính sách zero-trust: Khoá cổng mạng 127.0.0.1, phân luồng mã nguồn ngoại lai qua sandbox, và tự động vá lỗi hệ thống thời gian thực.
     </p>
-    <div class="acts">
-      <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem mã nguồn ↗</a>
-      <a class="btn sec" href="#daemon">Đọc kiến trúc daemon</a>
+
+    <div class="hero-acts">
+      <a href="#terminal" class="btn-lg btn-kernel-pri" data-i18n="hero_cta_terminal">
+        ⚡ Mở Terminal CLI Trực Tiếp
+      </a>
+      <a href="#daemons" class="btn-lg btn-kernel-sec" data-i18n="hero_cta_daemons">
+        🛡️ Khám Phá 8 Daemon Matrix
+      </a>
     </div>
 
-    <div class="meters">
-      <div class="meter"><b data-to="$n_daemons">0</b><span>DAEMON LÕI</span></div>
-      <div class="meter"><b data-to="$n_skills">0</b><span>KỸ NĂNG ĐÃ ĐĂNG KÝ</span></div>
-      <div class="meter"><b data-to="$n_knowledge">0</b><span>FILE TRI THỨC</span></div>
-      <div class="meter"><b data-to="$n_files">0</b><span>FILE TRONG REPO</span></div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="wrap" id="daemon">
-    <p class="prompt rise">$$ <b>omniclaw daemons --list</b></p>
-    <h2 class="rise">Tám trụ cột, ba phòng ban</h2>
-    <p class="sub rise">Mỗi daemon chỉ được làm đúng một việc và bị nhốt trong một phòng ban.
-      Con nào chạy script ngoài phạm vi của mình thì bộ điều phối chấm dứt phiên ngay —
-      đó là ý nghĩa của zero-trust ở đây.</p>
-    <div class="tbl rise">
-      <table>
-        <thead><tr><th>Mã node</th><th>Tên</th><th>Vai trò</th><th>Phòng ban</th></tr></thead>
-        <tbody>$daemons</tbody>
-      </table>
-    </div>
-  </section>
-
-  <section class="wrap">
-    <p class="prompt rise">$$ <b>tree -L 1</b></p>
-    <h2 class="rise">Ba thư mục, ba trách nhiệm</h2>
-    <div class="panes">$panes</div>
-  </section>
-
-  <section class="wrap">
-    <p class="prompt rise">$$ <b>cat DEPENDENCIES</b></p>
-    <h2 class="rise">Dựng bằng gì</h2>
-    <div class="stack rise">$stack</div>
-  </section>
-
-  <section class="wrap">
-    <p class="prompt rise">$$ <b>omniclaw doctor --honest</b></p>
-    <h2 class="rise">Bốn cảnh báo</h2>
-    <p class="sub rise">Đây là dự án cá nhân đang phát triển, không phải sản phẩm thương mại.</p>
-    <div class="warns rise">$limits</div>
-  </section>
-
-  <section class="wrap">
-    <p class="prompt rise">$$ <b>man omniclaw</b></p>
-    <h2 class="rise">Câu hỏi thường gặp</h2>
-    <div class="rise">$faq</div>
-  </section>
-
-  <section class="end">
-    <div class="wrap">
-      <h2 class="rise">Mã nguồn mở, đọc được toàn bộ</h2>
-      <p class="rise">Không có bản trả phí, không có phần đóng. Tất cả nằm trên GitHub.</p>
-      <div class="acts rise">
-        <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem trên GitHub ↗</a>
-        <a class="btn sec" href="$portfolio/#labs">Các dự án khác của Long Leo</a>
+    <!-- MACHINE GAUGES -->
+    <div class="gauges-grid">
+      <div class="gauge-item">
+        <div class="gauge-val">8/8</div>
+        <div class="gauge-label" data-i18n="g_1">Daemon tự hành đang chạy</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">14,879</div>
+        <div class="gauge-label" data-i18n="g_2">Tệp tin kiến trúc quản trị</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">578</div>
+        <div class="gauge-label" data-i18n="g_3">Kỹ năng thực thể đăng ký</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">2,148</div>
+        <div class="gauge-label" data-i18n="g_4">Khối tri thức MemPalace</div>
       </div>
     </div>
   </section>
-</main>
 
-<footer>
-  <div class="wrap foot">
-    <span>longleo@omniclaw · © 2026 Hà Đình Long</span>
-    <span><a href="$portfolio/">Portfolio</a> · <a href="https://github.com/$repo" target="_blank" rel="noopener">GitHub</a></span>
-  </div>
-</footer>
+  <!-- 1. INTERACTIVE CYBERNETIC KERNEL TERMINAL HUD -->
+  <section class="wrap" id="terminal">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="term_eyebrow">Interactive CLI Console</span>
+      <h2 class="section-title" data-i18n="term_title">Cửa Sổ Dòng Lệnh Kernel Trực Quan</h2>
+      <p class="section-desc" data-i18n="term_desc">Gõ các lệnh như <code>help</code>, <code>status</code>, <code>daemons</code>, <code>firewall</code>, <code>scan</code> hoặc bấm vào các nút lệnh gợi ý để kiểm tra hạ tầng.</p>
+    </div>
 
-<script>$js</script>
+    <div class="terminal-window">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <span style="color:var(--lime);">●</span>
+          <span>omniclaw@node-01: ~ (zsh / python3.11)</span>
+        </div>
+        <div class="quick-cmd-pills">
+          <button class="cmd-pill" data-cmd="help">help</button>
+          <button class="cmd-pill" data-cmd="status">status</button>
+          <button class="cmd-pill" data-cmd="daemons">daemons</button>
+          <button class="cmd-pill" data-cmd="firewall">firewall</button>
+          <button class="cmd-pill" data-cmd="clear">clear</button>
+        </div>
+      </div>
+
+      <div class="terminal-body" id="terminalBody">
+        <div class="term-line"><span class="term-prompt">$</span> omniclaw --boot --verbose</div>
+        <div class="term-line"><span class="term-dim">[00.012]</span> oma_architect   lập bản đồ hạ tầng node-01 ........ <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.045]</span> oap_pipeline    phân luồng đầu vào dữ liệu ........ <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.089]</span> oer_registry    nạp sổ đăng ký 578 kỹ năng ........ <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.120]</span> oiw_intake      chờ mã nguồn ngoại lai ............ <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.158]</span> osf_warden      dựng tường lửa biên sandbox ....... <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.190]</span> obd_harbor      khoá cổng mạng 127.0.0.1 (Strict) . <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.231]</span> ohd_healer      quét sức khoẻ hệ thống 0 lỗi ...... <span class="term-ok">OK</span></div>
+        <div class="term-line"><span class="term-dim">[00.270]</span> oa_academy      kiểm toán 2.148 khối tri thức ..... <span class="term-ok">OK</span></div>
+        <div class="term-line" style="color:var(--lime);font-weight:700;margin-top:8px;">✓ 8/8 DAEMON ĐANG CHẠY // ZERO-TRUST ACTIVE // KERNEL v{VERSION} SẴN SÀNG</div>
+        <div class="term-line" style="color:var(--dim);">Gõ 'help' để xem danh sách lệnh điều khiển.</div>
+
+        <div class="terminal-input-row">
+          <span class="term-prompt">&gt;</span>
+          <input type="text" id="terminalInput" class="terminal-input" placeholder="Nhập lệnh (ví dụ: status, daemons, firewall)..." autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Live Stream Bar -->
+      <div class="stream-bar">
+        <span class="stream-tag">LIVE TELEMETRY:</span>
+        <span class="stream-text" id="streamText">oer_registry: đăng ký thực thể mới: skill/vision-ocr [200 OK]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. INTERACTIVE 8-DAEMON PULSE MATRIX -->
+  <section class="wrap daemons-section" id="daemons">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="daemon_eyebrow">Autonomous Subsystems</span>
+      <h2 class="section-title" data-i18n="daemon_title">Ma Trận 8 Daemon Tự Hành Độc Lập</h2>
+      <p class="section-desc" data-i18n="daemon_desc">Tám daemon chia vào 3 phân hệ ranh giới cứng: Hạ tầng, An ninh và Sức khoẻ hệ thống, đảm bảo không có thực thể nào nắm giữ quyền lực tuyệt đối.</p>
+    </div>
+
+    <div class="daemon-filter-tabs">
+      <button class="daemon-tab-btn active" data-filter="all">Tất cả (8)</button>
+      <button class="daemon-tab-btn" data-filter="daemons">Hạ tầng & Phân luồng (5)</button>
+      <button class="daemon-tab-btn" data-filter="security">An ninh Zero-Trust (2)</button>
+      <button class="daemon-tab-btn" data-filter="health">Sức khoẻ & Tự vá (1)</button>
+    </div>
+
+    <div class="daemons-grid" id="daemonsGrid">
+      <div class="daemon-card" data-cat="daemons" data-daemon="oma_architect">
+        <div class="daemon-card-head"><span class="daemon-name">🗺️ oma_architect</span><span class="daemon-dept-badge">HẠ TẦNG</span></div>
+        <div class="daemon-alias">Map Architect</div>
+        <p class="daemon-desc">Vẽ bản đồ hạ tầng, định danh các node trong không gian máy chủ và cấp phát ID thực thể duy nhất.</p>
+        <div class="daemon-footer"><span>PID: 1042</span><span style="color:var(--lime);">● ACTIVE</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="daemons" data-daemon="oap_pipeline">
+        <div class="daemon-card-head"><span class="daemon-name">⚡ oap_pipeline</span><span class="daemon-dept-badge">HẠ TẦNG</span></div>
+        <div class="daemon-alias">Assimilation Pipeline</div>
+        <p class="daemon-desc">Phân luồng mọi dữ liệu đi vào hệ thống qua chuỗi kiểm định nghiêm ngặt trước khi nạp vào bộ nhớ.</p>
+        <div class="daemon-footer"><span>PID: 1048</span><span style="color:var(--lime);">● ACTIVE</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="daemons" data-daemon="oer_registry">
+        <div class="daemon-card-head"><span class="daemon-name">📖 oer_registry</span><span class="daemon-dept-badge">HẠ TẦNG</span></div>
+        <div class="daemon-alias">Ecosystem Registry</div>
+        <p class="daemon-desc">Lưu trữ và duy trì sổ đăng ký cho toàn bộ 578 kỹ năng và plugin hợp lệ trong hệ sinh thái.</p>
+        <div class="daemon-footer"><span>PID: 1055</span><span style="color:var(--lime);">● ACTIVE</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="daemons" data-daemon="oiw_intake">
+        <div class="daemon-card-head"><span class="daemon-name">📥 oiw_intake</span><span class="daemon-dept-badge">HẠ TẦNG</span></div>
+        <div class="daemon-alias">Intake Worker</div>
+        <p class="daemon-desc">Thu thập mã nguồn và gói module từ bên ngoài qua gateway kiểm dịch, ngăn chặn mã độc.</p>
+        <div class="daemon-footer"><span>PID: 1062</span><span style="color:var(--lime);">● ACTIVE</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="daemons" data-daemon="oa_academy">
+        <div class="daemon-card-head"><span class="daemon-name">🎓 oa_academy</span><span class="daemon-dept-badge">HẠ TẦNG</span></div>
+        <div class="daemon-alias">Academy Logic Audit</div>
+        <p class="daemon-desc">Kiểm toán logic mã nguồn, đánh giá năng lực và tự động tuyển dụng các agent con vào hệ thống.</p>
+        <div class="daemon-footer"><span>PID: 1070</span><span style="color:var(--lime);">● ACTIVE</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="security" data-daemon="osf_warden">
+        <div class="daemon-card-head"><span class="daemon-name">🛡️ osf_warden</span><span class="daemon-dept-badge" style="color:var(--danger);border-color:rgba(239,68,68,0.3);">AN NINH</span></div>
+        <div class="daemon-alias">Sandbox Firewall</div>
+        <p class="daemon-desc">Cách ly toàn bộ mã nguồn chưa qua kiểm duyệt vào môi trường sandbox không có quyền truy cập ổ đĩa.</p>
+        <div class="daemon-footer"><span>PID: 1084</span><span style="color:var(--danger);">● ZERO-TRUST</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="security" data-daemon="obd_harbor">
+        <div class="daemon-card-head"><span class="daemon-name">🔒 obd_harbor</span><span class="daemon-dept-badge" style="color:var(--danger);border-color:rgba(239,68,68,0.3);">AN NINH</span></div>
+        <div class="daemon-alias">Bridge Daemon</div>
+        <p class="daemon-desc">Khoá cứng toàn bộ cổng mạng ngoài, chỉ cho phép giao tiếp nội bộ 127.0.0.1 trừ khi được cấp token.</p>
+        <div class="daemon-footer"><span>PID: 1092</span><span style="color:var(--danger);">● PORT LOCK</span></div>
+      </div>
+
+      <div class="daemon-card" data-cat="health" data-daemon="ohd_healer">
+        <div class="daemon-card-head"><span class="daemon-name">💊 ohd_healer</span><span class="daemon-dept-badge" style="color:var(--warn);border-color:rgba(245,158,11,0.3);">SỨC KHOẺ</span></div>
+        <div class="daemon-alias">Health Daemon</div>
+        <p class="daemon-desc">Quét sức khoẻ định kỳ, dọn file rác tạm thời, tự động vá lỗi lint và khôi phục node bị treo.</p>
+        <div class="daemon-footer"><span>PID: 1105</span><span style="color:var(--warn);">● HEALER</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MEMPALACE 3-TIER BRAIN ARCHITECTURE -->
+  <section class="wrap mempalace-section" id="mempalace">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="mem_eyebrow">Cognitive Memory Palace</span>
+      <h2 class="section-title" data-i18n="mem_title">Trí Nhớ MemPalace Ba Tầng</h2>
+      <p class="section-desc" data-i18n="mem_desc">Ngữ cảnh sống qua nhiều phiên làm việc thay vì bốc hơi mỗi khi đóng cửa sổ terminal.</p>
+    </div>
+
+    <div class="mempalace-grid">
+      <div class="mempalace-img-box">
+        <img src="assets/omniclaw_mempalace.webp" class="mempalace-img" alt="MemPalace 3-Tier Neural Constellation" width="1280" height="720" />
+      </div>
+
+      <div class="tier-cards-wrap">
+        <div class="tier-item">
+          <div class="tier-title"><span style="color:var(--cyan);">01</span> Trí Nhớ Phiên (Episodic Context)</div>
+          <p class="tier-sub">Lưu trữ lịch sử hội thoại, các quyết định kiến trúc và kết quả thực thi theo từng phiên làm việc cụ thể.</p>
+        </div>
+
+        <div class="tier-item">
+          <div class="tier-title"><span style="color:var(--lime);">02</span> Đồ Thị Tri Thức (2.148 Knowledge Nodes)</div>
+          <p class="tier-sub">Toàn bộ 2.148 file tri thức được phân tích, lập chỉ mục và liên kết dạng đồ thị quan hệ để truy vấn tức thì.</p>
+        </div>
+
+        <div class="tier-item">
+          <div class="tier-title"><span style="color:var(--hot);">03</span> Sổ Đăng Ký Kỹ Năng (578 Skills)</div>
+          <p class="tier-sub">578 kỹ năng được tiêu chuẩn hoá thành thực thể có đăng ký và kiểm định, không phải script rời rạc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ZERO-TRUST SANDBOX FIREWALL -->
+  <section class="wrap firewall-section" id="firewall">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="fw_eyebrow">Zero-Trust Boundaries</span>
+      <h2 class="section-title" data-i18n="fw_title">Tường Lửa Biên & Kỷ Luật Hạ Tầng</h2>
+      <p class="section-desc" data-i18n="fw_desc">Bộ quy tắc bất khả xâm phạm bảo vệ an toàn cho máy chủ của lập trình viên.</p>
+    </div>
+
+    <div class="firewall-grid">
+      <div>
+        <div class="rule-box">
+          <div class="rule-title">LUẬT TOÀN CỤC (GLOBAL RULES)</div>
+          <p class="rule-desc">Bộ luật kế thừa ở phạm vi toàn máy, không cần cấu hình lặp lại cho từng dự án con.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-title">PIPELINE CỨNG (HARDENED ROUTING)</div>
+          <p class="rule-desc">Agent không tự ý quyết định đường đi; mọi tác vụ bắt buộc phải qua luồng kiểm tra cố định.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-title">BẢO VỆ GIT & COMMIT HYGIENE</div>
+          <p class="rule-desc">Tự động quét cache, dọn SQLite và làm sạch các file tạm trước khi đẩy mã nguồn lên Git.</p>
+        </div>
+
+        <div class="rule-box">
+          <div class="rule-title">KHOÁ CỔNG MẠNG 127.0.0.1</div>
+          <p class="rule-desc">Tuyệt đối cấm mở cổng 0.0.0.0 ra ngoài Internet; mọi kết nối phải được cấp phép tường minh.</p>
+        </div>
+      </div>
+
+      <div class="mempalace-img-box">
+        <img src="assets/omniclaw_firewall.webp" class="mempalace-img" alt="Zero-Trust Firewall Shield Matrix" width="1280" height="720" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section class="wrap faq-section" id="faq">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="faq_eyebrow">Clear Answers</span>
+      <h2 class="section-title" data-i18n="faq_title">Câu Hỏi Thường Gặp</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>OmniClaw khác gì một tập script tự động hoá thông thường?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Khác ở tầng cai quản và kỷ luật zero-trust. Script thông thường ai chạy lúc nào cũng được và không có ranh giới an ninh; ở OmniClaw, mọi luồng dữ liệu đều được 8 daemon giám sát, vượt quyền hoặc vi phạm cổng mạng là bị chấm dứt phiên ngay lập tức.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Vì sao lại phân chia thành 8 daemon riêng biệt?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Để không có bất kỳ agent hay daemon nào ôm quá nhiều quyền lực. Tám vai trò được chia thành 3 phòng ban độc lập: Hạ tầng, An ninh và Sức khoẻ hệ sinh thái, giúp hệ thống tự phục hồi và bảo mật tối đa.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Dự án này có phải bản clone của repo nào khác không?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Không. Trên GitHub có nhiều repo trùng tên do trào lưu, nhưng OmniClaw này do Long Leo tự tay thiết kế và viết 135 commit nguyên bản, không phải bản fork của bất kỳ ai.
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="#hero">Về đầu trang ↑</a>
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener">GitHub Repository ↗</a>
+        <a href="{PORTFOLIO}" target="_blank" rel="noopener">SEOSONA Portfolio ↗</a>
+      </div>
+      <p>© {VERSION} OmniClaw — Cybernetic Kernel & 8-Daemon Autonomous Agent OS.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // 1. Language Dictionary (VI / EN)
+    const I18N_DICT = {{
+      "vi": {{
+        "nav_terminal": "Terminal CLI",
+        "nav_daemons": "8-Daemon Matrix",
+        "nav_mempalace": "MemPalace",
+        "nav_firewall": "Zero-Trust",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "Khám phá Repo ↗",
+        "hero_pill": "KERNEL ACTIVE · ZERO-TRUST ENFORCED · 8 DAEMONS · 14,879 FILES",
+        "hero_title": "Hệ Điều Hành Agent Độc Lập & Nhân Zero-Trust<br><span class='gradient-matrix'>Quản Trị 8 Daemon Tự Hành Và Trí Nhớ MemPalace Ba Tầng</span>",
+        "hero_desc": "Hạ tầng điều phối agent chạy nền trong terminal, bảo vệ nghiêm ngặt bằng chính sách zero-trust: Khoá cổng mạng 127.0.0.1, phân luồng mã nguồn ngoại lai qua sandbox, và tự động vá lỗi hệ thống thời gian thực.",
+        "hero_cta_terminal": "⚡ Mở Terminal CLI Trực Tiếp",
+        "hero_cta_daemons": "🛡️ Khám Phá 8 Daemon Matrix",
+        "g_1": "Daemon tự hành đang chạy",
+        "g_2": "Tệp tin kiến trúc quản trị",
+        "g_3": "Kỹ năng thực thể đăng ký",
+        "g_4": "Khối tri thức MemPalace",
+        "term_eyebrow": "Interactive CLI Console",
+        "term_title": "Cửa Sổ Dòng Lệnh Kernel Trực Quan",
+        "term_desc": "Gõ các lệnh như help, status, daemons, firewall, scan hoặc bấm vào các nút lệnh gợi ý để kiểm tra hạ tầng.",
+        "daemon_eyebrow": "Autonomous Subsystems",
+        "daemon_title": "Ma Trận 8 Daemon Tự Hành Độc Lập",
+        "daemon_desc": "Tám daemon chia vào 3 phân hệ ranh giới cứng: Hạ tầng, An ninh và Sức khoẻ hệ thống, đảm bảo không có thực thể nào nắm giữ quyền lực tuyệt đối.",
+        "mem_eyebrow": "Cognitive Memory Palace",
+        "mem_title": "Trí Nhớ MemPalace Ba Tầng",
+        "mem_desc": "Ngữ cảnh sống qua nhiều phiên làm việc thay vì bốc hơi mỗi khi đóng cửa sổ terminal.",
+        "fw_eyebrow": "Zero-Trust Boundaries",
+        "fw_title": "Tường Lửa Biên & Kỷ Luật Hạ Tầng",
+        "fw_desc": "Bộ quy tắc bất khả xâm phạm bảo vệ an toàn cho máy chủ của lập trình viên.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Câu Hỏi Thường Gặp"
+      }},
+      "en": {{
+        "nav_terminal": "Terminal CLI",
+        "nav_daemons": "8-Daemon Matrix",
+        "nav_mempalace": "MemPalace",
+        "nav_firewall": "Zero-Trust",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "Explore Repo ↗",
+        "hero_pill": "KERNEL ACTIVE · ZERO-TRUST ENFORCED · 8 DAEMONS · 14,879 FILES",
+        "hero_title": "Autonomous Agent OS & Zero-Trust Kernel<br><span class='gradient-matrix'>Orchestrating 8 Autonomous Daemons & 3-Tier MemPalace</span>",
+        "hero_desc": "Background daemon orchestration infrastructure operating under strict zero-trust policies: Localhost port locks, sandboxed foreign intake, and autonomous real-time lint healing.",
+        "hero_cta_terminal": "⚡ Open Interactive CLI",
+        "hero_cta_daemons": "🛡️ Explore 8-Daemon Matrix",
+        "g_1": "Active Autonomous Daemons",
+        "g_2": "Managed Architecture Files",
+        "g_3": "Registered Skill Entities",
+        "g_4": "MemPalace Knowledge Nodes",
+        "term_eyebrow": "Interactive CLI Console",
+        "term_title": "Interactive Kernel Terminal Window",
+        "term_desc": "Type commands like help, status, daemons, firewall, scan or click prompt buttons to inspect subsystem health.",
+        "daemon_eyebrow": "Autonomous Subsystems",
+        "daemon_title": "8-Daemon Autonomous Subsystem Matrix",
+        "daemon_desc": "Eight decoupled daemons organized into three hard boundaries: Infrastructure, Security, and System Health.",
+        "mem_eyebrow": "Cognitive Memory Palace",
+        "mem_title": "3-Tier MemPalace Architecture",
+        "mem_desc": "Persistent multi-session cognitive context that never evaporates upon closing the terminal window.",
+        "fw_eyebrow": "Zero-Trust Boundaries",
+        "fw_title": "Zero-Trust Perimeter & Security Hygiene",
+        "fw_desc": "Inviolable infrastructure boundaries defending the developer workstation.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Frequently Asked Questions"
+      }}
+    }};
+
+    let currentLang = localStorage.getItem('omni_lang') || 'vi';
+
+    function setLanguage(lang) {{
+      currentLang = lang;
+      localStorage.setItem('omni_lang', lang);
+      document.documentElement.lang = lang;
+
+      const flagEl = document.getElementById('flagIcon');
+      const langTextEl = document.getElementById('langText');
+      if (flagEl) flagEl.textContent = lang === 'vi' ? '🇻🇳' : '🇬🇧';
+      if (langTextEl) langTextEl.textContent = lang === 'vi' ? 'VI' : 'EN';
+
+      const dict = I18N_DICT[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {{
+        const key = el.dataset.i18n;
+        if (dict[key]) el.innerHTML = dict[key];
+      }});
+    }}
+
+    document.getElementById('langToggleBtn')?.addEventListener('click', () => {{
+      const next = currentLang === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }});
+
+    // 2. Terminal Interactive CLI Simulation
+    const terminalBody = document.getElementById('terminalBody');
+    const terminalInput = document.getElementById('terminalInput');
+
+    function appendTermLine(text, className = '') {{
+      const div = document.createElement('div');
+      div.className = `term-line ${{className}}`;
+      div.innerHTML = text;
+      terminalBody.insertBefore(div, terminalBody.querySelector('.terminal-input-row'));
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }}
+
+    function executeCommand(cmd) {{
+      const cleanCmd = cmd.trim().toLowerCase();
+      appendTermLine(`<span class="term-prompt">&gt;</span> ${{cmd}}`);
+
+      if (!cleanCmd) return;
+
+      if (cleanCmd === 'help') {{
+        appendTermLine(`Danh sách lệnh có sẵn:
+  <span class="term-ok">status</span>     - Xem trạng thái tổng quan kernel
+  <span class="term-ok">daemons</span>    - Liệt kê 8 daemon và thông số PID
+  <span class="term-ok">firewall</span>   - Kiểm tra chính sách zero-trust
+  <span class="term-ok">mempalace</span>  - Thống kê 2.148 khối tri thức
+  <span class="term-ok">heal</span>       - Kích hoạt ohd_healer quét dọn hệ thống
+  <span class="term-ok">clear</span>      - Xoá màn hình terminal`);
+      }} else if (cleanCmd === 'status') {{
+        appendTermLine(`[KERNEL STATUS // v{VERSION}]
+  Uptime: 48h 12m 34s · Memory: 112MB / 16GB · Sockets: 8 Active
+  Zero-Trust Firewall: <span class="term-ok">ENFORCED (127.0.0.1 Only)</span>
+  Registered Skills: 578 · Knowledge Nodes: 2,148 · Files: 14,879`);
+      }} else if (cleanCmd === 'daemons') {{
+        appendTermLine(`[DAEMON MATRIX STATUS]
+  ● oma_architect   [PID: 1042] [PORT: 9001] [OK]
+  ● oap_pipeline    [PID: 1048] [PORT: 9002] [OK]
+  ● oer_registry    [PID: 1055] [PORT: 9003] [OK]
+  ● oiw_intake      [PID: 1062] [PORT: 9004] [OK]
+  ● oa_academy      [PID: 1070] [PORT: 9005] [OK]
+  ● osf_warden      [PID: 1084] [SANDBOX]   [OK]
+  ● obd_harbor      [PID: 1092] [LOCK: 127] [OK]
+  ● ohd_healer      [PID: 1105] [HEALTH]    [OK]`);
+      }} else if (cleanCmd === 'firewall') {{
+        appendTermLine(`<span class="term-warn">[ZERO-TRUST FIREWALL STATUS]</span>
+  Inbound Port: 127.0.0.1 (Strict Internal)
+  Outbound: Filtered via OSF Warden Sandbox
+  External Network Exposure: 0 Ports Open
+  Violations Blocked (last 24h): 14 attempts`);
+      }} else if (cleanCmd === 'mempalace') {{
+        appendTermLine(`[MEMPALACE 3-TIER STATS]
+  Tier 1 (Episodic): 42 Session Contexts
+  Tier 2 (Semantic): 2,148 Knowledge Files Indexed
+  Tier 3 (Procedural): 578 Skill Definitions Verified`);
+      }} else if (cleanCmd === 'heal') {{
+        appendTermLine(`[OHD_HEALER EXECUTING...]
+  Scanning workspace for temporary files...
+  Cleaned 124 cache blobs · Fixed 2 lint warnings · SQLite DB optimized.
+  <span class="term-ok">✓ System Health: 100% Optimal</span>`);
+      }} else if (cleanCmd === 'clear') {{
+        const lines = terminalBody.querySelectorAll('.term-line');
+        lines.forEach(l => l.remove());
+      }} else {{
+        appendTermLine(`omniclaw: command not found: ${{cleanCmd}}. Gõ 'help' để xem danh sách lệnh.`);
+      }}
+
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }}
+
+    terminalInput?.addEventListener('keydown', (e) => {{
+      if (e.key === 'Enter') {{
+        const val = terminalInput.value;
+        terminalInput.value = '';
+        executeCommand(val);
+      }}
+    }});
+
+    document.querySelectorAll('.cmd-pill').forEach(btn => {{
+      btn.addEventListener('click', function() {{
+        const c = this.dataset.cmd;
+        executeCommand(c);
+      }});
+    }});
+
+    // 3. Live Telemetry Stream Simulation
+    const streamMsgs = [
+      "oer_registry: đăng ký thực thể mới: skill/vision-ocr [200 OK]",
+      "osf_warden: cách ly gói chưa ký: 1 mục vào sandbox [ISOLATED]",
+      "ohd_healer: dọn 214 file tạm · vá 3 lỗi lint [RESOLVED]",
+      "obd_harbor: từ chối mở cổng 0.0.0.0:8080 — vi phạm luật [BLOCKED]",
+      "oiw_intake: thu thập xong 2 repo, chuyển sang OAP [PASS]",
+      "oa_academy: kiểm toán 18 kỹ năng · 17 đạt · 1 trả lại [AUDIT OK]"
+    ];
+    let streamIdx = 0;
+    setInterval(() => {{
+      streamIdx = (streamIdx + 1) % streamMsgs.length;
+      const el = document.getElementById('streamText');
+      if (el) {{
+        el.style.opacity = '0';
+        setTimeout(() => {{
+          el.textContent = streamMsgs[streamIdx];
+          el.style.opacity = '1';
+        }}, 200);
+      }}
+    }}, 3500);
+
+    // 4. Daemon Filter Tabs
+    const daemonTabs = document.querySelectorAll('.daemon-tab-btn');
+    daemonTabs.forEach(tab => {{
+      tab.addEventListener('click', function() {{
+        daemonTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const f = this.dataset.filter;
+
+        document.querySelectorAll('.daemon-card').forEach(card => {{
+          if (f === 'all' || card.dataset.cat === f) {{
+            card.style.display = 'block';
+          }} else {{
+            card.style.display = 'none';
+          }}
+        }});
+      }});
+    }});
+
+    // 5. FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {{
+      q.addEventListener('click', function() {{
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {{
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        }});
+        if (!isOpen) {{
+          item.classList.add('open');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + "px";
+        }}
+      }});
+    }});
+
+    // Initialize Language
+    setLanguage(currentLang);
+  </script>
 </body>
-</html>
-""")
+</html>"""
 
+    index_path = os.path.join(OUT, "index.html")
+    landing_index = os.path.join(OUT, "landing", "index.html")
+    os.makedirs(os.path.dirname(landing_index), exist_ok=True)
 
-def esc(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;")
-             .replace(">", "&gt;").replace('"', "&quot;"))
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    with open(landing_index, "w", encoding="utf-8") as f:
+        f.write(html_content)
 
-
-def build():
-    title = "OmniClaw của Long Leo — hệ điều hành agent 8 daemon cho Claude Code"
-    desc = ("Biến máy cá nhân thành dàn AI tự vận hành, cai quản bởi 8 daemon lõi theo mô "
-            "hình zero-trust. 578 kỹ năng đã đăng ký, MemPalace ba tầng, bảo vệ Git.")
-
-    boot = []
-    for cmd, out in BOOT:
-        if cmd:
-            boot.append(f'<div class="bl"><span class="p">$</span> '
-                        f'<span class="c">{esc(cmd)}</span></div>')
-        elif out.startswith("8/8"):
-            boot.append(f'<div class="bl last">{esc(out)}</div>')
-        else:
-            name, rest = out.split(" ", 1)
-            boot.append(f'<div class="bl"><span class="ok">[✓]</span> '
-                        f'<span class="c">{esc(name)}</span> {esc(rest)}</div>')
-
-    daemons = "".join(
-        f'<tr data-dept="{d}"><td class="id" style="--i:{i}">{esc(k)}</td>'
-        f'<td class="nm">{esc(n)}</td>'
-        f'<td class="rl">{esc(r)}</td><td><span class="tag {d}">{d}</span></td></tr>'
-        for i, (k, n, r, d) in enumerate(DAEMONS))
-    stream = "".join(f"<li>{esc(x)}</li>" for x in STREAM)
-
-    panes = "".join(
-        f'<div class="pane rise"><div class="pane-h"><span class="dir">{esc(path)}</span>'
-        f'<span class="ttl">{esc(label)}</span></div><ul>' +
-        "".join(f'<li><b>{esc(t)}</b><em>{esc(v)}</em></li>' for t, v in items) +
-        '</ul></div>'
-        for path, label, items in PANES)
-
-    stack = "".join(f"<span>{esc(t)}</span>" for t in STACK)
-    limits = "".join(
-        f'<div class="warn"><div><b>{esc(t)}</b><em>{esc(d)}</em></div></div>'
-        for t, d in LIMITS)
-    faq = "".join(
-        f'<details{" open" if i == 0 else ""}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
-        for i, (q, a) in enumerate(FAQ))
-
-    jsonld = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {"@type": "SoftwareSourceCode", "name": "OmniClaw", "description": desc,
-             "url": SITE + "/", "image": SITE + "/cover.jpg",
-             "codeRepository": f"https://github.com/{REPO}",
-             "programmingLanguage": STACK,
-             "author": {"@type": "Person", "name": "Hà Đình Long",
-                        "alternateName": "Long Leo", "url": PORTFOLIO + "/"}},
-            {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q,
-                 "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]},
-        ],
-    }, ensure_ascii=False)
-
-    return PAGE.substitute(
-        title=esc(title), desc=esc(desc), site=SITE, portfolio=PORTFOLIO, repo=REPO,
-        css=CSS, js=JS, jsonld=jsonld, boot="".join(boot), daemons=daemons,
-        panes=panes, stack=stack, limits=limits, faq=faq, stream=stream,
-        n_daemons=N_DAEMONS, n_skills=N_SKILLS, n_knowledge=N_KNOWLEDGE, n_files=N_FILES)
-
-
-def main():
-    d = os.path.join(OUT, "landing")
-    os.makedirs(d, exist_ok=True)
-    html = build()
-    io.open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(html)
-    shutil.copyfile(os.path.join(ROOT, "assets", "img", "labs", "omniclaw.jpg"),
-                    os.path.join(d, "cover.jpg"))
-    print(f"  {len(html) // 1024} KB  OmniClaw — hình thức terminal")
-    print(f"  {len(DAEMONS)} daemon · {len(PANES)} pane · {len(LIMITS)} cảnh báo · "
-          f"{len(FAQ)} câu hỏi · phông IBM Plex Mono")
-    print(f"\n{SITE}")
-
+    print(f"[OK] Da sinh OmniClaw Cybernetic Kernel Landing Page v3.8.2 tai: {index_path} ({len(html_content):,} bytes)")
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    generate_page()
