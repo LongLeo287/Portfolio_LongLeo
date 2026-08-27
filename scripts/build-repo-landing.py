@@ -48,6 +48,7 @@ OWNER = "LongLeo287"
 TARGETS = {
     "seosona-flow":     ("seosona-flow",     "seosona-flow"),
     "seosona-video-ai": ("SEOSONA-Video-AI", "seosona-video-ai"),
+    "omniclaw":         ("OmniClaw",         "omniclaw-longleo"),
     "seosona-os":       ("SEOSONA-OS",       "seosona-os"),
     "seosona-ux-ui":    ("SEOSONA-UX-UI",    "seosona-ux-ui"),
     "tiem-nuoc-nho":    ("Tiem_Nuoc_Nho_v5", "tiem-nuoc-nho"),
@@ -67,12 +68,10 @@ OVERSIZED = {"omniclaw"}   # vẫn giữ, dùng lại ngay khi bật lại TARGE
 CUSTOM = {
     "seosona-flow": "scripts/landing-seosona-flow.py",
     "tiem-nuoc-nho": "scripts/landing-tiem-nuoc-nho.py",
-    # Mỗi dự án một hình thức riêng — bản dùng chung landing-rich.py đã bỏ vì
-    # bốn trang sinh ra giống nhau 83% về cấu trúc và trùng thứ tự từng khối.
     "seosona-video-ai": "scripts/landing-seosona-video-ai.py",
+    "omniclaw": "scripts/landing-omniclaw.py",
     "seosona-os": "scripts/landing-seosona-os.py",
     "seosona-ux-ui": "scripts/landing-seosona-ux-ui.py",
-    # "omniclaw": "scripts/landing-omniclaw.py",   # tạm ngắt, xem TARGETS
 }
 
 
