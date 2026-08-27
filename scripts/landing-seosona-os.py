@@ -96,9 +96,28 @@ def generate_page():
       --radius-md: 12px;
       --radius-lg: 20px;
       --radius-full: 9999px;
-      --dur-fast: 0.15s;
-      --dur-norm: 0.3s;
-      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Impeccable Motion Tokens */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --spring-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-instant: 100ms;
+      --dur-fast: 180ms;
+      --dur-base: 280ms;
+      --dur-slow: 420ms;
+      --dur-deliberate: 650ms;
+      --dur-norm: var(--dur-base);
+      --ease: var(--ease-out);
+    }}
+
+    @media (prefers-reduced-motion: reduce) {{
+      *, *::before, *::after {{
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }}
     }}
 
     html {{

@@ -275,9 +275,18 @@ def generate_page():
       --radius-xl: 28px;
       --radius-full: 9999px;
 
-      --ease-hud: cubic-bezier(0.16, 1, 0.3, 1);
-      --dur-fast: 0.2s;
-      --dur-norm: 0.4s;
+      /* Impeccable Motion Tokens */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --spring-snappy: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --dur-instant: 100ms;
+      --dur-fast: 180ms;
+      --dur-base: 280ms;
+      --dur-slow: 420ms;
+      --dur-deliberate: 650ms;
+      --ease-hud: var(--ease-out);
+      --dur-norm: var(--dur-base);
     }}
 
     *, *::before, *::after {{
@@ -290,6 +299,15 @@ def generate_page():
       outline: 2px solid var(--cyan);
       outline-offset: 3px;
       border-radius: var(--radius-sm);
+    }}
+
+    @media (prefers-reduced-motion: reduce) {{
+      *, *::before, *::after {{
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }}
     }}
 
     html {{
