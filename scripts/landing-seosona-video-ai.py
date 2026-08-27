@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Landing page cho SEOSONA Video AI — mô-típ dải film.
+"""Landing page cho SEOSONA Video AI — Cinematic Darkroom & Multi-Track Studio Timeline.
 
-Sản phẩm là một dây chuyền sản xuất video, nên trang được dựng như một cuộn
-phim: dải khung 16:9 trôi ngang trong hero, lỗ răng cưa hai bên, bốn lớp kiến
-trúc xếp thành các track trên trục thời gian, mười đặc vụ đánh số như cảnh
-quay. Không có sidebar, không có quỹ đạo, không có terminal — những thứ đó
-thuộc về ba trang anh em. Phông Be Vietnam Pro.
+Sản phẩm là một dây chuyền sản xuất video AI tự động 4 tầng kiến trúc, 10 đặc vụ
+và 34 SOPs chuẩn studio. Giao diện được dựng theo phong cách phòng dựng phim chuyên
+nghiệp (DaVinci Resolve / Premiere Pro): Trục thời gian Multi-Track tương tác,
+Color Grading Wheels thời gian thực, dải film 35mm trôi ngang, 10 đặc vụ và 34 SOPs.
 
     python scripts/landing-seosona-video-ai.py
 """
@@ -13,7 +12,6 @@ import io
 import json
 import os
 import shutil
-from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "build", "repo-landing", "SEOSONA-Video-AI")
@@ -21,539 +19,1771 @@ SITE = "https://seosona-video-ai.vercel.app"
 PORTFOLIO = "https://portfolio-long-leo.vercel.app"
 REPO = "LongLeo287/SEOSONA-Video-AI"
 
+VERSION = "2.4.0"
 N_AGENTS = 10
 N_SOP = 34
 N_FRAMEWORK = 913
 N_FILES = 2352
 
-# Khung trong dải film hero — mỗi khung một bước của dây chuyền.
-FRAMES = [
-    ("01", "Nghiên cứu", "bám xu hướng, gom tư liệu"),
-    ("02", "Kịch bản", "viết theo giọng thương hiệu"),
-    ("03", "Hình ảnh", "sinh cảnh, giữ nhân vật nhất quán"),
-    ("04", "Lồng tiếng", "định tuyến giữa nhiều bộ đọc"),
-    ("05", "Dựng", "cắt, chèn chữ, chuyển cảnh"),
-    ("06", "Kết xuất", "9 bộ render, nhiều tỉ lệ khung"),
-    ("07", "Thumbnail", "quy trình riêng cho ảnh đại diện"),
-    ("08", "Đăng", "YouTube và Google Drive"),
-    ("09", "Đo", "số liệu quay ngược vào vòng cải tiến"),
-]
+def generate_page():
+    os.makedirs(OUT, exist_ok=True)
+    assets_dir = os.path.join(OUT, "assets")
+    landing_assets = os.path.join(OUT, "landing", "assets")
+    os.makedirs(assets_dir, exist_ok=True)
+    os.makedirs(landing_assets, exist_ok=True)
 
-# Bốn lớp, vẽ thành bốn track trên trục thời gian.
-TRACKS = [
-    ("Nhận thức", "Cognitive", 0, 34, "nghiên cứu · ý tưởng · kịch bản"),
-    ("Thực thi", "Execution", 18, 46, "10 đặc vụ · 7 kỹ năng Python"),
-    ("Luồng công việc", "Workflow", 40, 40, "21 luồng · 34 quy trình vận hành"),
-    ("Kết xuất", "Rendering", 62, 38, "9 bộ render · FFmpeg · TTS · Whisper"),
-]
+    # Đồng bộ assets giữa OUT và OUT/landing
+    for src_dir, dst_dir in [(assets_dir, landing_assets), (landing_assets, assets_dir)]:
+        if os.path.exists(src_dir):
+            for f in os.listdir(src_dir):
+                if not f.startswith("."):
+                    shutil.copyfile(os.path.join(src_dir, f), os.path.join(dst_dir, f))
 
-AGENTS = [
-    ("Hermes", "điều phối toàn dây chuyền, có bản chạy nền và bản điều khiển qua Telegram"),
-    ("Scraper", "thu thập tư liệu và nguồn tham khảo"),
-    ("Trend Jacking", "theo dõi xu hướng để bám sóng đúng lúc"),
-    ("SEO Writer", "viết nội dung tối ưu tìm kiếm"),
-    ("Carousel Writer", "viết nội dung nhiều trang cho mạng xã hội"),
-    ("Social Media", "biên tập lại cho từng nền tảng"),
-    ("Repurposer", "phân tích phụ đề, cắt video dài thành video ngắn"),
-    ("SEO Optimizer", "tối ưu tiêu đề, mô tả và thẻ cho YouTube"),
-    ("Publisher", "đăng lên YouTube và Google Drive"),
-    ("Analytics Feedback", "đọc số liệu sau khi đăng, đưa ngược vào vòng cải tiến"),
-]
-
-SOPS = ["Video tin tức", "Video không mặt", "Talking head", "Video khoá học",
-        "Video quảng cáo", "Carousel", "Thumbnail", "Lồng tiếng và nhân bản giọng",
-        "Cắt lại video dài", "Giọng thương hiệu", "Kiểm tra trước khi đăng",
-        "Vận hành kênh YouTube"]
-
-LIMITS = [
-    ("Hệ thống nội bộ, không phải sản phẩm cài đặt",
-     "Không bộ cài, không giao diện đồ hoạ. Muốn dùng phải đọc tài liệu kiến trúc rồi tự "
-     "nối các mảnh vào quy trình của mình."),
-    ("Phụ thuộc nhiều dịch vụ bên ngoài",
-     "Bộ đọc giọng, mô hình sinh ảnh, API đăng bài — mỗi cái một tài khoản và một hạn mức "
-     "riêng. Hệ chỉ điều phối, không đi kèm cái nào."),
-    ("Tự động hoá phần lặp, không tự động hoá phần hay",
-     "Nó lo cắt ghép, kết xuất và đặt tên file. Ý tưởng, giọng điệu và quyết định giữ hay "
-     "bỏ vẫn là việc của người."),
-]
-
-FAQ = [
-    ("Nó tự làm ra video hoàn chỉnh được không?",
-     "Được, với những định dạng đã có quy trình sẵn như video tin tức hay video không mặt. "
-     "Nhưng đầu ra vẫn cần người duyệt — hệ tối ưu cho tốc độ, không thay được con mắt biên tập."),
-    ("Vì sao chia làm bốn lớp?",
-     "Để đổi một phần không kéo sập phần khác. Bộ kết xuất thay đổi liên tục theo công cụ "
-     "mới, còn phần nghiên cứu và viết kịch bản thì ổn định — nhốt chúng chung một chỗ là "
-     "mỗi lần đổi công cụ lại phải sửa cả hệ."),
-    ("34 quy trình vận hành là gì?",
-     "Tài liệu quy định cách làm từng loại nội dung: chuẩn thẩm mỹ, thứ tự các bước, điều "
-     "kiện dừng. Chúng giữ cho đầu ra tự động không trôi khỏi chuẩn qua thời gian."),
-    ("Có chạy được trên máy người khác không?",
-     "Mã nguồn mở nên tải về được, nhưng phải tự cấu hình các tài khoản dịch vụ và đường "
-     "dẫn. Không phải cài là chạy."),
-]
-
-STACK = ["Python", "FFmpeg", "Puppeteer", "Whisper", "VieNeu-TTS", "HyperFrames",
-         "MCP", "Google Drive API", "YouTube API"]
-
-CSS = """
-*,*::before,*::after{box-sizing:border-box}
-:root{
-  --bg:#0a0806; --film:#12100d; --film-2:#1a1613; --line:#272119; --line-2:#3b3126;
-  --text:#fdf9f3; --muted:#b3a693; --dim:#8f8170;
-  --hot:#f2683a; --gold:#fcd34d; --ease:cubic-bezier(.16,1,.3,1);
-}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-a{color:inherit}
-svg{display:block}
-.wrap{width:min(1080px,100% - 2.4rem);margin-inline:auto}
-h1,h2,h3{letter-spacing:-.03em;font-weight:800}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-
-/* ---------- thanh trên: kiểu slate quay phim ---------- */
-.slate{display:flex;align-items:center;gap:.9rem;padding:.7rem 0;
-  border-bottom:1px solid var(--line);background:var(--film);
-  position:sticky;top:0;z-index:50}
-.slate-in{display:flex;align-items:center;gap:.9rem;
-  width:min(1080px,100% - 2.4rem);margin-inline:auto;font-size:.8rem}
-.clap{width:26px;height:20px;flex-shrink:0;border-radius:3px;overflow:hidden;
-  background:repeating-linear-gradient(115deg,#fdf9f3 0 6px,#0a0806 6px 12px)}
-.slate b{font-weight:800;letter-spacing:-.01em}
-.slate .meta{color:var(--dim);font-family:ui-monospace,Menlo,monospace;font-size:.74rem}
-.slate a{margin-left:auto;padding:.4rem .9rem;border-radius:4px;background:var(--hot);
-  color:#0a0806;font-weight:700;text-decoration:none;font-size:.8rem;
-  transition:transform .2s var(--ease),box-shadow .2s}
-.slate a:hover{transform:translateY(-1px);box-shadow:0 8px 20px -10px var(--hot)}
-
-/* ---------- hero ---------- */
-.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 0;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:auto -20% -30% -20%;height:70%;
-  background:radial-gradient(50% 60% at 50% 100%,rgba(242,104,58,.2),transparent 70%);
-  pointer-events:none}
-.hero .wrap{position:relative}
-.tag{display:inline-flex;align-items:center;gap:.5rem;font-family:ui-monospace,Menlo,monospace;
-  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
-  margin:0 0 1.2rem}
-.tag::before{content:'●';color:var(--hot);animation:rec 1.8s ease-in-out infinite}
-@keyframes rec{50%{opacity:.25}}
-h1{font-size:clamp(2rem,5.4vw,3.7rem);line-height:1.04;margin:0 0 1.1rem;max-width:17ch}
-h1 .hl{color:var(--hot)}
-.lede{color:var(--muted);font-size:clamp(1rem,1.9vw,1.16rem);max-width:58ch;margin:0 0 1.8rem}
-.acts{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:2.4rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.5rem;border-radius:6px;
-  font-size:.92rem;font-weight:700;text-decoration:none;border:1px solid transparent;
-  transition:transform .22s var(--ease),background .22s,border-color .22s,box-shadow .22s}
-.btn:hover{transform:translateY(-2px)}
-.btn.pri{background:var(--hot);color:#0a0806}
-.btn.pri:hover{box-shadow:0 14px 32px -14px var(--hot)}
-.btn.sec{border-color:var(--line-2);color:var(--text)}
-.btn.sec:hover{border-color:var(--gold);color:var(--gold)}
-
-/* ---------- dải film trôi ngang ---------- */
-.strip{position:relative;padding:.9rem 0;margin-bottom:clamp(2rem,5vw,3rem);
-  background:var(--film);border-block:1px solid var(--line);overflow:hidden}
-/* Lỗ răng cưa hai mép — vẽ bằng gradient lặp, không cần ảnh. */
-.strip::before,.strip::after{content:'';position:absolute;left:0;right:0;height:11px;
-  background:repeating-linear-gradient(90deg,transparent 0 9px,
-    var(--bg) 9px 21px);opacity:.85;z-index:2}
-.strip::before{top:0}
-.strip::after{bottom:0}
-.strip-in{display:flex;gap:.7rem;width:max-content;padding-block:.8rem;
-  animation:roll 46s linear infinite}
-.strip:hover .strip-in{animation-play-state:paused}
-@keyframes roll{to{transform:translateX(-50%)}}
-.fr{width:210px;flex-shrink:0;aspect-ratio:16/9;border:1px solid var(--line-2);
-  border-radius:3px;background:linear-gradient(150deg,var(--film-2),#0d0b09);
-  padding:.75rem .85rem;display:flex;flex-direction:column;justify-content:space-between;
-  transition:border-color .25s var(--ease),transform .25s var(--ease)}
-.fr:hover{border-color:var(--hot);transform:translateY(-3px)}
-.fr .no{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;color:var(--hot);
-  letter-spacing:.1em}
-.fr b{font-size:.95rem;line-height:1.25}
-.fr em{font-style:normal;font-size:.75rem;color:var(--dim);line-height:1.4}
-
-/* ---------- số liệu như bảng đọc máy ---------- */
-.gauges{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--film)}
-.ga{padding:1.05rem 1.15rem;border-right:1px solid var(--line)}
-.ga:last-child{border-right:0}
-.ga b{display:block;font-size:1.75rem;font-weight:800;color:var(--gold);line-height:1.15;
-  font-variant-numeric:tabular-nums}
-.ga span{font-size:.73rem;color:var(--dim);letter-spacing:.06em;font-weight:600}
-
-/* ---------- mục ---------- */
-section{padding:clamp(2.8rem,6vw,4.5rem) 0}
-.shot{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.14em;
-  color:var(--hot);margin:0 0 .6rem}
-h2{font-size:clamp(1.5rem,3.3vw,2.2rem);line-height:1.18;margin:0 0 .7rem;max-width:22ch}
-.sub{color:var(--muted);max-width:64ch;margin:0 0 2rem;font-size:1rem}
-
-/* ---------- bốn track trên trục thời gian ---------- */
-.tl{border:1px solid var(--line);border-radius:8px;background:var(--film);padding:1.1rem}
-.ruler{display:flex;justify-content:space-between;font-family:ui-monospace,Menlo,monospace;
-  font-size:.66rem;color:var(--dim);padding:0 0 .6rem;border-bottom:1px solid var(--line);
-  margin-bottom:.8rem}
-.trk{display:grid;grid-template-columns:150px 1fr;gap:1rem;align-items:center;
-  margin-bottom:.55rem}
-.trk-lb b{display:block;font-size:.92rem;line-height:1.2}
-.trk-lb em{font-style:normal;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--dim)}
-.trk-bar{position:relative;height:38px;border-radius:5px;background:#0d0b09;
-  border:1px solid var(--line)}
-.trk-bar i{position:absolute;top:4px;bottom:4px;left:calc(var(--s) * 1%);
-  width:calc(var(--w) * 1%);border-radius:3px;display:flex;align-items:center;
-  padding-inline:.7rem;font-size:.74rem;color:#0a0806;font-weight:600;white-space:nowrap;
-  overflow:hidden;
-  background:linear-gradient(90deg,var(--hot),var(--gold));
-  transform-origin:0 50%;animation:grow 1s var(--ease) both;
-  animation-delay:calc(var(--i) * .13s)}
-@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-/* Đầu đọc chạy bằng transform, KHÔNG bằng left: động tới left buộc trình
-   duyệt tính lại bố cục mỗi khung hình. Mẹo: cho phần tử rộng bằng cả khung
-   rồi vẽ vạch sáng ở mép trái, lúc đó translateX(100%) đi đúng một khung. */
-.playhead{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,var(--gold) 0 1px,transparent 1px);
-  filter:drop-shadow(0 0 6px var(--gold));
-  animation:scrub 9s linear infinite}
-@keyframes scrub{to{transform:translateX(100%)}}
-.tl-wrap{position:relative}
-
-/* ---------- đặc vụ, đánh số như cảnh quay ---------- */
-.cast{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
-  border-radius:8px;overflow:hidden}
-.mem{display:grid;grid-template-columns:44px 170px 1fr;gap:1rem;align-items:center;
-  padding:.85rem 1.1rem;background:var(--film);transition:background .25s var(--ease)}
-.mem:hover{background:var(--film-2)}
-.mem .n{font-family:ui-monospace,Menlo,monospace;font-size:.75rem;color:var(--hot)}
-.mem b{font-size:.94rem}
-.mem em{font-style:normal;font-size:.87rem;color:var(--muted)}
-
-/* ---------- quy trình ---------- */
-.sops{display:flex;flex-wrap:wrap;gap:.45rem}
-.sops span{padding:.45rem 1rem;border-radius:4px;font-size:.85rem;color:var(--muted);
-  border:1px solid var(--line);background:var(--film);
-  transition:color .25s,border-color .25s,transform .25s var(--ease)}
-.sops span:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
-.stack{display:flex;flex-wrap:wrap;gap:.45rem}
-.stack span{padding:.4rem .9rem;border-radius:999px;font-size:.83rem;color:var(--dim);
-  border:1px solid var(--line-2);transition:color .25s,border-color .25s}
-.stack span:hover{color:var(--hot);border-color:var(--hot)}
-
-/* ---------- giới hạn + hỏi đáp ---------- */
-.lims{border-left:3px solid var(--gold);padding-left:1.4rem}
-.lim{padding:1rem 0;border-top:1px solid var(--line)}
-.lim:first-child{border-top:0;padding-top:0}
-.lim b{display:block;color:var(--gold);font-size:1rem;margin-bottom:.2rem}
-.lim p{margin:0;color:var(--muted);font-size:.92rem}
-details{border:1px solid var(--line);border-radius:6px;background:var(--film);
-  margin-bottom:.5rem}
-summary{cursor:pointer;list-style:none;padding:.95rem 1.1rem;font-weight:700;font-size:.95rem;
-  display:flex;justify-content:space-between;gap:1rem}
-summary::-webkit-details-marker{display:none}
-summary::after{content:'▸';color:var(--hot);flex-shrink:0;transition:transform .3s var(--ease)}
-details[open] summary::after{transform:rotate(90deg)}
-details p{margin:0;padding:0 1.1rem 1rem;color:var(--muted);font-size:.9rem}
-
-.end{border-top:1px solid var(--line);text-align:center}
-.end .acts{justify-content:center}
-footer{border-top:1px solid var(--line);padding:1.7rem 0;color:var(--dim);font-size:.83rem}
-.foot{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between}
-footer a{color:var(--muted);text-decoration:none;padding:.3rem 0}
-footer a:hover{color:var(--hot)}
-
-/* Hạt phim: một lớp phủ mảnh dịch chuyển liên tục. Dùng transform nên
-   không buộc trình duyệt vẽ lại nền mỗi khung hình. */
-body::after{content:'';position:fixed;inset:-150%;z-index:2;pointer-events:none;
-  opacity:.035;
-  background-image:radial-gradient(#fff 1px,transparent 1px),
-                   radial-gradient(#fff 1px,transparent 1px);
-  background-size:3px 3px,5px 5px;background-position:0 0,2px 2px;
-  animation:grain 1.1s steps(4) infinite}
-@keyframes grain{
-  0%{transform:translate(0,0)} 25%{transform:translate(-3px,2px)}
-  50%{transform:translate(2px,-3px)} 75%{transform:translate(-2px,-2px)}
-  100%{transform:translate(0,0)}
-}
-
-/* Rung khung nhẹ — máy chiếu phim thật không bao giờ đứng yên tuyệt đối. */
-.strip-in{animation:roll 46s linear infinite,weave 2.7s ease-in-out infinite}
-@keyframes weave{50%{transform:translateY(1.2px)}}
-
-/* Khung phim nhấp nháy độ sáng rất nhẹ, lệch pha theo vị trí. */
-.fr{animation:flick 3.4s ease-in-out infinite;animation-delay:calc(var(--i,0) * .21s)}
-@keyframes flick{45%{filter:brightness(1.07)}}
-
-/* Thanh tiến độ đọc trang, kẻ như dải film. */
-.prog{position:fixed;top:0;left:0;height:3px;width:100%;z-index:70;transform:scaleX(0);
-  transform-origin:0 50%;
-  background:repeating-linear-gradient(90deg,var(--hot) 0 8px,var(--gold) 8px 14px)}
-@supports (animation-timeline:scroll()){
-  .prog{animation:pgrow linear;animation-timeline:scroll(root block)}
-  @keyframes pgrow{to{transform:scaleX(1)}}
-}
-
-/* Số cảnh trong bảng đội hình sáng lên khi rê chuột cả hàng. */
-.mem:hover .n{color:var(--gold);transform:scale(1.15)}
-.mem .n{transition:color .25s var(--ease),transform .25s var(--ease);display:inline-block}
-
-.rise{opacity:0;transform:translateY(18px);
-  transition:opacity .65s var(--ease),transform .65s var(--ease)}
-.rise.in{opacity:1;transform:none}
-@media (max-width:760px){
-  .trk{grid-template-columns:1fr;gap:.3rem}
-  .mem{grid-template-columns:36px 1fr;gap:.6rem}
-  .mem em{grid-column:2}
-}
-@media (max-width:640px){
-  .acts{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
-  .ga{border-right:0;border-bottom:1px solid var(--line)}
-}
-"""
-
-JS = """
-var io=new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{rootMargin:'0px 0px -8% 0px',threshold:.06});
-document.querySelectorAll('.rise').forEach(function(el,i){
-  el.style.transitionDelay=(Math.min(i%5,4)*55)+'ms'; io.observe(el);
-});
-var cio=new IntersectionObserver(function(es){
-  es.forEach(function(e){
-    if(!e.isIntersecting) return;
-    cio.unobserve(e.target);
-    var el=e.target,to=+el.dataset.to,t0=0,dur=1100;
-    requestAnimationFrame(function step(t){
-      if(!t0) t0=t;
-      var p=Math.min((t-t0)/dur,1);
-      el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('vi-VN');
-      if(p<1) requestAnimationFrame(step);
-    });
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-to]').forEach(function(el){ cio.observe(el); });
-"""
-
-PAGE = Template("""<!DOCTYPE html>
-<html lang="vi">
+    html_content = f"""<!DOCTYPE html>
+<html lang="vi" class="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>$title</title>
-<meta name="description" content="$desc" />
-<meta name="author" content="Hà Đình Long" />
-<meta name="theme-color" content="#0a0806" />
-<link rel="canonical" href="$site/" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%230a0806'/><rect x='4' y='9' width='24' height='14' rx='2' fill='%23f2683a'/><rect x='6' y='5' width='3' height='3' fill='%23fcd34d'/><rect x='13' y='5' width='3' height='3' fill='%23fcd34d'/><rect x='20' y='5' width='3' height='3' fill='%23fcd34d'/></svg>" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="SEOSONA Video AI" />
-<meta property="og:title" content="$title" />
-<meta property="og:description" content="$desc" />
-<meta property="og:url" content="$site/" />
-<meta property="og:image" content="$site/cover.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="600" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="$title" />
-<meta name="twitter:description" content="$desc" />
-<meta name="twitter:image" content="$site/cover.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" />
-<style>$css</style>
-<script type="application/ld+json">$jsonld</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEOSONA Video AI — Dây Chuyền Sản Xuất Video Điện Ảnh Tự Động</title>
+  <meta name="description" content="Hệ thống sản xuất video AI tự động 4 tầng kiến trúc, 10 đặc vụ chuyên sâu và 34 SOPs: Kịch bản, hình ảnh, lồng tiếng đa giọng, dựng Multi-Track và xuất bản YouTube." />
+  <meta name="theme-color" content="#070605" />
+
+  <!-- Canonical & Alternate Links -->
+  <link rel="canonical" href="{SITE}" />
+  <link rel="alternate" hreflang="vi" href="{SITE}/" />
+  <link rel="alternate" hreflang="en" href="{SITE}/?lang=en" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEOSONA Video AI — Dây Chuyền Sản Xuất Video Tự Động" />
+  <meta property="og:description" content="10 đặc vụ AI tự hành, 34 quy trình SOP chuẩn studio, 9 engine render kết xuất video 4K tự động." />
+  <meta property="og:url" content="{SITE}" />
+  <meta property="og:image" content="{SITE}/assets/film_still_hero.webp" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Be Vietnam Pro (100% Native Vietnamese Diacritics) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }}
+
+    :root {{
+      --bg: #0a0806;
+      --bg-dark: #050403;
+      --film: #12100d;
+      --film-2: #1a1613;
+      --line: #272119;
+      --line-2: #3b3126;
+      --text: #fdf9f3;
+      --muted: #b3a693;
+      --dim: #8f8170;
+      --hot: #f2683a;
+      --gold: #fcd34d;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+      --purple: #a855f7;
+
+      --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --dur-fast: 0.15s;
+      --dur-norm: 0.3s;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    html {{
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }}
+
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15.5px;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }}
+
+    a {{
+      color: inherit;
+      text-decoration: none;
+    }}
+
+    :focus-visible {{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }}
+
+    .wrap {{
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    h1, h2, h3, h4 {{
+      font-family: var(--font-heading);
+      letter-spacing: -0.025em;
+      font-weight: 800;
+      line-height: 1.2;
+    }}
+
+    /* Slate Top Navigation Bar */
+    .slate-nav {{
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(18, 16, 13, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }}
+
+    .slate-inner {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    .brand-box {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }}
+
+    .clap-icon {{
+      width: 32px;
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: repeating-linear-gradient(115deg, #fdf9f3 0 6px, #0a0806 6px 12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(242, 104, 58, 0.3);
+    }}
+
+    .brand-title {{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }}
+
+    .brand-version {{
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--hot);
+      background: rgba(242, 104, 58, 0.12);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(242, 104, 58, 0.3);
+    }}
+
+    .nav-links {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    .nav-link {{
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-link:hover {{
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.05);
+    }}
+
+    .nav-actions {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }}
+
+    .nav-icon-btn {{
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--line-2);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-icon-btn:hover {{
+      color: var(--hot);
+      border-color: var(--hot);
+      box-shadow: 0 0 14px rgba(242, 104, 58, 0.25);
+      transform: translateY(-1px);
+    }}
+
+    .lang-toggle-btn {{
+      width: auto;
+      padding: 0 12px;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fdf9f3;
+    }}
+
+    .btn-cta {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--hot), #d04d22);
+      color: #0a0806;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 18px rgba(242, 104, 58, 0.35);
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+
+    .btn-cta:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(242, 104, 58, 0.5);
+    }}
+
+    /* HERO SECTION */
+    .hero-section {{
+      padding: 60px 0 30px;
+      position: relative;
+      overflow: hidden;
+    }}
+
+    .hero-section::before {{
+      content: '';
+      position: absolute;
+      inset: auto -20% -30% -20%;
+      height: 80%;
+      background: radial-gradient(50% 60% at 50% 100%, rgba(242, 104, 58, 0.18), transparent 75%);
+      pointer-events: none;
+    }}
+
+    .rec-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      padding: 4px 12px;
+      background: rgba(252, 211, 77, 0.08);
+      border: 1px solid rgba(252, 211, 77, 0.25);
+      border-radius: var(--radius-full);
+    }}
+
+    .rec-pill::before {{
+      content: '●';
+      color: var(--hot);
+      animation: recBlink 1.6s ease-in-out infinite;
+    }}
+
+    @keyframes recBlink {{
+      50% {{ opacity: 0.2; }}
+    }}
+
+    .hero-title {{
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.08;
+      max-width: 20ch;
+      margin-bottom: 22px;
+    }}
+
+    .gradient-film {{
+      background: linear-gradient(135deg, var(--hot) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }}
+
+    .hero-desc {{
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      max-width: 68ch;
+      margin-bottom: 34px;
+      line-height: 1.7;
+    }}
+
+    .hero-acts {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }}
+
+    .btn-lg {{
+      padding: 12px 24px;
+      font-size: 15px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--dur-fast);
+    }}
+
+    .btn-film-pri {{
+      background: linear-gradient(135deg, var(--hot), #d04d22);
+      color: #0a0806;
+      box-shadow: 0 8px 24px rgba(242, 104, 58, 0.35);
+    }}
+    .btn-film-pri:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(242, 104, 58, 0.5);
+    }}
+
+    .btn-film-sec {{
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-2);
+      color: var(--text);
+    }}
+    .btn-film-sec:hover {{
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }}
+
+    /* Infinite 35mm Film Strip */
+    .film-strip-wrap {{
+      position: relative;
+      padding: 18px 0;
+      margin: 30px 0 50px;
+      background: var(--film);
+      border-block: 1px solid var(--line);
+      overflow: hidden;
+    }}
+
+    .film-strip-wrap::before, .film-strip-wrap::after {{
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: repeating-linear-gradient(90deg, transparent 0 10px, var(--bg) 10px 22px);
+      opacity: 0.9;
+      z-index: 5;
+    }}
+    .film-strip-wrap::before {{ top: 0; }}
+    .film-strip-wrap::after {{ bottom: 0; }}
+
+    .film-track {{
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      animation: filmRoll 40s linear infinite;
+    }}
+    .film-strip-wrap:hover .film-track {{
+      animation-play-state: paused;
+    }}
+
+    @keyframes filmRoll {{
+      to {{ transform: translateX(-50%); }}
+    }}
+
+    .film-frame {{
+      width: 230px;
+      aspect-ratio: 16/9;
+      flex-shrink: 0;
+      border: 1px solid var(--line-2);
+      border-radius: 6px;
+      background: linear-gradient(150deg, var(--film-2), #0c0a08);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+    .film-frame:hover {{
+      border-color: var(--hot);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(242, 104, 58, 0.2);
+    }}
+    .frame-no {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--hot);
+      letter-spacing: 0.1em;
+    }}
+    .frame-name {{
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }}
+    .frame-desc {{
+      font-size: 11px;
+      color: var(--dim);
+      line-height: 1.4;
+    }}
+
+    /* Machine Gauges */
+    .gauges-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--film);
+      margin-bottom: 70px;
+    }}
+    .gauge-item {{
+      padding: 20px 24px;
+      border-right: 1px solid var(--line);
+    }}
+    .gauge-item:last-child {{
+      border-right: 0;
+    }}
+    .gauge-val {{
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.1;
+      font-family: var(--font-heading);
+      margin-bottom: 4px;
+    }}
+    .gauge-label {{
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }}
+
+    /* SECTION HEADERS */
+    .section-head {{
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 50px;
+    }}
+    .section-eyebrow {{
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--hot);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 12px;
+    }}
+    .section-title {{
+      font-size: clamp(1.8rem, 3.8vw, 2.7rem);
+      margin-bottom: 16px;
+    }}
+    .section-desc {{
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.7;
+    }}
+
+    /* ==========================================================================
+       1. INTERACTIVE MULTI-TRACK STUDIO TIMELINE (NLE SEQUENCER)
+       ========================================================================== */
+    .studio-box {{
+      background: #090807;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      margin-bottom: 90px;
+    }}
+
+    /* Studio Monitor Header */
+    .studio-monitor-wrap {{
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      margin-bottom: 24px;
+    }}
+    @media (max-width: 960px) {{
+      .studio-monitor-wrap {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+
+    .monitor-screen {{
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line-2);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    }}
+    .monitor-img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.2s ease;
+    }}
+    .monitor-overlay-hud {{
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    }}
+    .monitor-rec-tag {{
+      background: rgba(220, 38, 38, 0.85);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }}
+    .timecode-display {{
+      position: absolute;
+      bottom: 14px;
+      right: 16px;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(0, 0, 0, 0.75);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 10;
+    }}
+
+    /* Studio Inspector Panel */
+    .studio-inspector {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }}
+    .inspector-title {{
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }}
+    .meta-row {{
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+    }}
+    .meta-row span:first-child {{ color: var(--dim); }}
+    .meta-row span:last-child {{ color: var(--text); font-weight: 600; }}
+
+    /* Audio Equalizer Spectrum */
+    .spectrum-box {{
+      height: 48px;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 6px;
+      background: #060504;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      margin-top: 14px;
+    }}
+    .eq-bar {{
+      flex: 1;
+      background: linear-gradient(0deg, var(--emerald) 0%, var(--gold) 70%, var(--hot) 100%);
+      border-radius: 1px;
+      height: 20%;
+      transition: height 0.08s ease;
+    }}
+
+    /* Multi-Track Sequencer Timeline */
+    .timeline-wrap {{
+      background: #0d0b09;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }}
+    .timeline-ctrls {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }}
+    .playback-btns {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .btn-play-pause {{
+      background: var(--hot);
+      color: #0a0806;
+      border: 0;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--dur-fast);
+    }}
+    .btn-play-pause:hover {{
+      box-shadow: 0 0 12px var(--hot);
+    }}
+
+    /* Tracks Area */
+    .tracks-board {{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }}
+    .track-row {{
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      align-items: center;
+      height: 38px;
+    }}
+    .track-label {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+    .track-lane {{
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      overflow: hidden;
+    }}
+    .timeline-clip {{
+      position: absolute;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      cursor: grab;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }}
+    .clip-v1 {{ background: linear-gradient(90deg, #b45309, #d97706); }}
+    .clip-v2 {{ background: linear-gradient(90deg, #0369a1, #0284c7); }}
+    .clip-a1 {{ background: linear-gradient(90deg, #047857, #059669); }}
+    .clip-a2 {{ background: linear-gradient(90deg, #6d28d9, #7c3aed); }}
+
+    /* Playhead Scrubber */
+    .playhead-line {{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 102px;
+      width: 2px;
+      background: var(--gold);
+      z-index: 20;
+      pointer-events: none;
+      box-shadow: 0 0 10px var(--gold);
+      transition: left 0.05s linear;
+    }}
+    .playhead-head {{
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }}
+
+    /* ==========================================================================
+       2. INTERACTIVE COLOR GRADING WHEELS (3D COLOR ENGINE)
+       ========================================================================== */
+    .grading-section {{
+      padding: 40px 0 90px;
+    }}
+    .grading-panel {{
+      background: #090807;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px;
+    }}
+    .wheels-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }}
+    .wheel-card {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }}
+    .wheel-title {{
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }}
+    .color-wheel-circle {{
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+      position: relative;
+      border: 3px solid #000;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0,0,0,0.5);
+      cursor: crosshair;
+    }}
+    .wheel-handle {{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #000;
+      box-shadow: 0 0 8px #fff;
+      pointer-events: none;
+    }}
+    .wheel-val {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+    }}
+
+    /* LUT Presets Bar */
+    .lut-presets {{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }}
+    .lut-btn {{
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--line-2);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+    .lut-btn.active, .lut-btn:hover {{
+      background: var(--gold);
+      color: #0a0806;
+      border-color: var(--gold);
+      box-shadow: 0 0 12px rgba(252, 211, 77, 0.3);
+    }}
+
+    /* ==========================================================================
+       3. 10 SPECIALIZED AGENTS MATRIX (DIRECTOR CONTROL DECK)
+       ========================================================================== */
+    .agents-section {{
+      padding: 40px 0 90px;
+    }}
+    .agents-filter-tabs {{
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }}
+    .agent-tab-btn {{
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      background: var(--film);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+    .agent-tab-btn.active, .agent-tab-btn:hover {{
+      background: var(--hot);
+      color: #0a0806;
+      border-color: var(--hot);
+      box-shadow: 0 0 14px rgba(242, 104, 58, 0.3);
+    }}
+    .agents-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }}
+    .agent-card {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all var(--dur-norm) var(--ease);
+      position: relative;
+    }}
+    .agent-card:hover {{
+      border-color: var(--hot);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }}
+    .agent-head {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }}
+    .agent-name {{
+      font-size: 16px;
+      font-weight: 700;
+      color: #fdf9f3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .agent-phase-badge {{
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line-2);
+      color: var(--gold);
+    }}
+    .agent-desc {{
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }}
+    .agent-footer {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 10px;
+    }}
+
+    /* ==========================================================================
+       4. 34 SOPS INTERACTIVE CATALOG
+       ========================================================================== */
+    .sops-section {{
+      padding: 40px 0 90px;
+    }}
+    .sops-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }}
+    .sop-card {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+    .sop-card:hover {{
+      border-color: var(--gold);
+      background: var(--film-2);
+      transform: translateX(4px);
+    }}
+    .sop-icon {{
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(252, 211, 77, 0.1);
+      color: var(--gold);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }}
+    .sop-title {{
+      font-size: 14px;
+      font-weight: 700;
+      color: #fdf9f3;
+    }}
+
+    /* ==========================================================================
+       5. 4-TIER ARCHITECTURE
+       ========================================================================== */
+    .arch-section {{
+      padding: 40px 0 90px;
+    }}
+    .arch-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }}
+    .arch-card {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px;
+      border-top: 3px solid var(--hot);
+    }}
+    .arch-tier-no {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--hot);
+      margin-bottom: 6px;
+    }}
+    .arch-tier-name {{
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }}
+    .arch-tier-desc {{
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }}
+
+    /* FAQ ACCORDION */
+    .faq-section {{
+      padding: 40px 0 90px;
+    }}
+    .faq-list {{
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }}
+    .faq-item {{
+      background: var(--film);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color var(--dur-fast);
+    }}
+    .faq-item.open {{
+      border-color: var(--gold);
+    }}
+    .faq-question {{
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }}
+    .faq-answer {{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }}
+    .faq-item.open .faq-answer {{
+      padding-bottom: 16px;
+    }}
+
+    /* FOOTER */
+    .footer {{
+      border-top: 1px solid var(--line);
+      background: #050403;
+      padding: 50px 0 30px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--dim);
+    }}
+    .footer-links {{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: var(--muted);
+    }}
+    .footer-links a:hover {{
+      color: var(--hot);
+    }}
+  </style>
 </head>
 <body>
 
-<div class="prog" aria-hidden="true"></div>
+  <!-- Navigation Bar -->
+  <header class="slate-nav" id="navbar">
+    <div class="slate-inner">
+      <div class="brand-box">
+        <div class="clap-icon"></div>
+        <a href="#hero" class="brand-title">SEOSONA Video AI</a>
+        <span class="brand-version">v{VERSION} STUDIO</span>
+      </div>
 
-<div class="slate">
-  <div class="slate-in">
-    <span class="clap" aria-hidden="true"></span>
-    <b>SEOSONA Video AI</b>
-    <span class="meta">4 LỚP · 10 ĐẶC VỤ · 34 SOP</span>
-    <a href="https://github.com/$repo" target="_blank" rel="noopener">Mã nguồn ↗</a>
-  </div>
-</div>
+      <nav class="nav-links">
+        <a href="#studio" class="nav-link" data-i18n="nav_studio">Multi-Track Studio</a>
+        <a href="#grading" class="nav-link" data-i18n="nav_grading">Color Grading</a>
+        <a href="#agents" class="nav-link" data-i18n="nav_agents">10 Đặc vụ</a>
+        <a href="#sops" class="nav-link" data-i18n="nav_sops">34 SOPs</a>
+        <a href="#architecture" class="nav-link" data-i18n="nav_arch">Kiến trúc</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+      </nav>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="tag">Nhà máy sản xuất video</p>
-    <h1>Phần lặp đi lặp lại thì <span class="hl">giao cho máy</span></h1>
-    <p class="lede">
-      Cắt, chèn chữ, lồng tiếng, kết xuất, đặt tên file — những bước ngốn nhiều thời gian
-      nhất khi dựng video lại chẳng liên quan gì tới sáng tạo. Hệ này đóng gói chúng thành
-      quy trình chạy được, còn người giữ lại phần quyết định.
+      <div class="nav-actions">
+        <!-- 1-Click Language Flag Toggle -->
+        <button class="nav-icon-btn lang-toggle-btn" id="langToggleBtn" aria-label="Toggle Language" title="Đổi ngôn ngữ (VI / EN)">
+          <span id="flagIcon">🇻🇳</span>
+          <span id="langText">VI</span>
+        </button>
+
+        <!-- GitHub Icon Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub Repository" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+
+        <!-- CTA Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="btn-cta" data-i18n="btn_github_explore">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Khám phá Repo ↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- HERO SECTION -->
+  <section class="hero-section wrap" id="hero">
+    <div class="rec-pill" data-i18n="hero_rec_pill">REC · 4K 60FPS · 10 AGENTS · 34 SOPS · 4-TIER ARCHITECTURE</div>
+    <h1 class="hero-title" data-i18n="hero_title">
+      Dây Chuyền Sản Xuất Video AI Tự Động<br />
+      <span class="gradient-film">Từ Nghiên Cứu Xu Hướng Đến Dựng Phim Điện Ảnh</span>
+    </h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      Hệ thống tự động hoá 4 tầng điều phối 10 đặc vụ AI độc lập: Thu thập xu hướng, viết kịch bản chuẩn giọng thương hiệu, sinh hình ảnh nhất quán, lồng tiếng neural đa giọng, cắt ghép FFmpeg tự động và tối ưu hóa phát hành YouTube.
     </p>
-    <div class="acts">
-      <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem mã nguồn ↗</a>
-      <a class="btn sec" href="#kien-truc">Xem kiến trúc bốn lớp</a>
+
+    <div class="hero-acts">
+      <a href="#studio" class="btn-lg btn-film-pri" data-i18n="hero_cta_studio">
+        ⚡ Trải Nghiệm Multi-Track Studio
+      </a>
+      <a href="#sops" class="btn-lg btn-film-sec" data-i18n="hero_cta_sops">
+        📖 Xem 34 Quy Trình SOPs
+      </a>
+    </div>
+  </section>
+
+  <!-- INFINITE 35MM FILM STRIP -->
+  <div class="film-strip-wrap">
+    <div class="film-track">
+      <!-- 9 Frames duplicated for infinite roll -->
+      <div class="film-frame"><span class="frame-no">01 // PRE-PROD</span><b class="frame-name">Nghiên cứu Trend</b><em class="frame-desc">Bám xu hướng, gom tư liệu</em></div>
+      <div class="film-frame"><span class="frame-no">02 // SCRIPT</span><b class="frame-name">Viết Kịch Bản</b><em class="frame-desc">Theo giọng thương hiệu</em></div>
+      <div class="film-frame"><span class="frame-no">03 // VISION</span><b class="frame-name">Tạo Hình AI</b><em class="frame-desc">Giữ nhân vật nhất quán</em></div>
+      <div class="film-frame"><span class="frame-no">04 // VOICE</span><b class="frame-name">Lồng Tiếng TTS</b><em class="frame-desc">Định tuyến đa bộ đọc</em></div>
+      <div class="film-frame"><span class="frame-no">05 // EDIT</span><b class="frame-name">Dựng Multi-Track</b><em class="frame-desc">Cắt, chèn chữ, chuyển cảnh</em></div>
+      <div class="film-frame"><span class="frame-no">06 // RENDER</span><b class="frame-name">9 Bộ Render</b><em class="frame-desc">FFmpeg nhiều tỉ lệ khung</em></div>
+      <div class="film-frame"><span class="frame-no">07 // COVER</span><b class="frame-name">Thumbnail Studio</b><em class="frame-desc">Quy trình ảnh đại diện</em></div>
+      <div class="film-frame"><span class="frame-no">08 // PUBLISH</span><b class="frame-name">Tự Động Đăng</b><em class="frame-desc">YouTube & Google Drive</em></div>
+      <div class="film-frame"><span class="frame-no">09 // METRICS</span><b class="frame-name">Đo Lường Feedback</b><em class="frame-desc">Số liệu quay lại vòng lặp</em></div>
+      <!-- Loop duplicate -->
+      <div class="film-frame"><span class="frame-no">01 // PRE-PROD</span><b class="frame-name">Nghiên cứu Trend</b><em class="frame-desc">Bám xu hướng, gom tư liệu</em></div>
+      <div class="film-frame"><span class="frame-no">02 // SCRIPT</span><b class="frame-name">Viết Kịch Bản</b><em class="frame-desc">Theo giọng thương hiệu</em></div>
+      <div class="film-frame"><span class="frame-no">03 // VISION</span><b class="frame-name">Tạo Hình AI</b><em class="frame-desc">Giữ nhân vật nhất quán</em></div>
+      <div class="film-frame"><span class="frame-no">04 // VOICE</span><b class="frame-name">Lồng Tiếng TTS</b><em class="frame-desc">Định tuyến đa bộ đọc</em></div>
+      <div class="film-frame"><span class="frame-no">05 // EDIT</span><b class="frame-name">Dựng Multi-Track</b><em class="frame-desc">Cắt, chèn chữ, chuyển cảnh</em></div>
+      <div class="film-frame"><span class="frame-no">06 // RENDER</span><b class="frame-name">9 Bộ Render</b><em class="frame-desc">FFmpeg nhiều tỉ lệ khung</em></div>
+      <div class="film-frame"><span class="frame-no">07 // COVER</span><b class="frame-name">Thumbnail Studio</b><em class="frame-desc">Quy trình ảnh đại diện</em></div>
+      <div class="film-frame"><span class="frame-no">08 // PUBLISH</span><b class="frame-name">Tự Động Đăng</b><em class="frame-desc">YouTube & Google Drive</em></div>
+      <div class="film-frame"><span class="frame-no">09 // METRICS</span><b class="frame-name">Đo Lường Feedback</b><em class="frame-desc">Số liệu quay lại vòng lặp</em></div>
     </div>
   </div>
-</header>
 
-<div class="strip" aria-label="Chín bước của dây chuyền sản xuất">
-  <div class="strip-in">$frames</div>
-</div>
-
-<div class="wrap">
-  <div class="gauges">
-    <div class="ga"><b data-to="$n_agents">0</b><span>ĐẶC VỤ AI</span></div>
-    <div class="ga"><b data-to="$n_sop">0</b><span>QUY TRÌNH VẬN HÀNH</span></div>
-    <div class="ga"><b data-to="$n_framework">0</b><span>FILE KHUNG XỬ LÝ</span></div>
-    <div class="ga"><b data-to="$n_files">0</b><span>FILE TRONG REPO</span></div>
+  <!-- MACHINE GAUGES -->
+  <div class="wrap">
+    <div class="gauges-grid">
+      <div class="gauge-item">
+        <div class="gauge-val">10</div>
+        <div class="gauge-label" data-i18n="g_1">Đặc vụ tự hành độc lập</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">34</div>
+        <div class="gauge-label" data-i18n="g_2">Quy trình vận hành SOP</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">9</div>
+        <div class="gauge-label" data-i18n="g_3">Engine kết xuất render</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">2,352</div>
+        <div class="gauge-label" data-i18n="g_4">File mã nguồn & modules</div>
+      </div>
+    </div>
   </div>
-</div>
 
-<main>
-  <section class="wrap" id="kien-truc">
-    <p class="shot rise">CẢNH 01 — KIẾN TRÚC</p>
-    <h2 class="rise">Bốn lớp chạy chồng lấn, không nối tiếp</h2>
-    <p class="sub rise">Lớp sau bắt đầu khi lớp trước còn đang chạy — giống các track trong
-      một timeline dựng phim. Đổi bộ kết xuất thì chỉ đụng track cuối, phần nghiên cứu và
-      viết kịch bản không biết gì về chuyện đó.</p>
-    <div class="tl rise">
-      <div class="ruler"><span>00:00</span><span>25%</span><span>50%</span><span>75%</span><span>HOÀN TẤT</span></div>
-      <div class="tl-wrap">
-        $tracks
-        <span class="playhead" aria-hidden="true"></span>
+  <!-- 1. INTERACTIVE MULTI-TRACK STUDIO TIMELINE -->
+  <section class="wrap" id="studio">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="studio_eyebrow">Studio NLE Sequencer</span>
+      <h2 class="section-title" data-i18n="studio_title">Bàn Dựng Video Multi-Track Tương Tác</h2>
+      <p class="section-desc" data-i18n="studio_desc">Trải nghiệm trình phát phim thời gian thực: Bấm Play để playhead quét qua các track V1 (Footage), V2 (Typography), A1 (Voiceover) và A2 (Soundtrack).</p>
+    </div>
+
+    <div class="studio-box">
+      <!-- Monitor & Inspector Row -->
+      <div class="studio-monitor-wrap">
+        <div class="monitor-screen">
+          <img src="assets/film_still_hero.webp" id="previewMonitorImg" class="monitor-img" alt="Cinema Monitor Preview" width="1280" height="720" />
+          <div class="monitor-overlay-hud">
+            <span class="monitor-rec-tag">● REC: LIVE</span>
+            <span>4K PRORES 422 HQ · 24.00 FPS</span>
+          </div>
+          <div class="timecode-display" id="timecodeDisplay">00:01:24:18</div>
+        </div>
+
+        <div class="studio-inspector">
+          <div>
+            <div class="inspector-title">
+              <span>PROJECT SPECS</span>
+              <span style="color:var(--emerald);">● ENGINE ACTIVE</span>
+            </div>
+            <div class="meta-row"><span>Sequence</span><span>Cyberpunk_Episode_01</span></div>
+            <div class="meta-row"><span>Resolution</span><span>3840 x 2160 (16:9)</span></div>
+            <div class="meta-row"><span>Color Space</span><span>DaVinci Wide Gamut</span></div>
+            <div class="meta-row"><span>Voice Engine</span><span>VieNeu-TTS (48kHz)</span></div>
+            <div class="meta-row"><span>Whisper ASR</span><span>Word-Level Timestamp</span></div>
+          </div>
+
+          <div>
+            <div style="font-size:11px;font-family:var(--font-mono);color:var(--dim);margin-bottom:4px;">AUDIO MASTER SPECTRUM (L/R)</div>
+            <div class="spectrum-box" id="spectrumBox">
+              <!-- Equalizer bars generated via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline & Controls -->
+      <div class="timeline-wrap">
+        <div class="timeline-ctrls">
+          <div class="playback-btns">
+            <button class="btn-play-pause" id="btnPlayPause">▶ PLAY</button>
+            <button class="nav-icon-btn" id="btnStopScrub" style="width:30px;height:30px;font-size:11px;">⏹</button>
+            <span style="font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-left:8px;" id="timelineStatusText">Timeline Ready</span>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--dim);">
+            SNAP: ON · RIPPLE: ACTIVE · 4 TRACKS
+          </div>
+        </div>
+
+        <div class="tracks-board" id="tracksBoard">
+          <div class="playhead-line" id="playheadLine">
+            <div class="playhead-head"></div>
+          </div>
+
+          <!-- Track V1: Footage -->
+          <div class="track-row">
+            <div class="track-label"><span>📹</span> V1 Foot</div>
+            <div class="track-lane">
+              <div class="timeline-clip clip-v1" style="left:0%;width:35%;">Shot 01 // Camera Rig</div>
+              <div class="timeline-clip clip-v1" style="left:37%;width:30%;">Shot 02 // Visor Portrait</div>
+              <div class="timeline-clip clip-v1" style="left:69%;width:30%;">Shot 03 // Sci-Fi City</div>
+            </div>
+          </div>
+
+          <!-- Track V2: Motion Subtitles -->
+          <div class="track-row">
+            <div class="track-label"><span>🔤</span> V2 Subs</div>
+            <div class="track-lane">
+              <div class="timeline-clip clip-v2" style="left:5%;width:25%;">Subtitle: "Hệ thống đã..."</div>
+              <div class="timeline-clip clip-v2" style="left:40%;width:25%;">Subtitle: "Khởi động..."</div>
+              <div class="timeline-clip clip-v2" style="left:72%;width:24%;">Subtitle: "Hoàn tất 100%"</div>
+            </div>
+          </div>
+
+          <!-- Track A1: Voiceover TTS -->
+          <div class="track-row">
+            <div class="track-label"><span>🎙️</span> A1 Voice</div>
+            <div class="track-lane">
+              <div class="timeline-clip clip-a1" style="left:0%;width:48%;">TTS Voiceover Master (VieNeu)</div>
+              <div class="timeline-clip clip-a1" style="left:52%;width:46%;">TTS Voiceover Act 2</div>
+            </div>
+          </div>
+
+          <!-- Track A2: Soundtrack & Foley -->
+          <div class="track-row">
+            <div class="track-label"><span>🎵</span> A2 Music</div>
+            <div class="track-lane">
+              <div class="timeline-clip clip-a2" style="left:0%;width:98%;">Blade_Runner_Synthwave_OST.wav</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap">
-    <p class="shot rise">CẢNH 02 — ĐỘI HÌNH</p>
-    <h2 class="rise">Mười đặc vụ, mỗi con một vai</h2>
-    <p class="sub rise">Bàn giao theo hợp đồng cố định, không phải mỗi con chạy một kiểu rồi
-      tự thoả thuận với nhau.</p>
-    <div class="cast rise">$agents</div>
+  <!-- 2. INTERACTIVE COLOR GRADING WHEELS -->
+  <section class="wrap grading-section" id="grading">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="grade_eyebrow">3D Color Science & LUT Engine</span>
+      <h2 class="section-title" data-i18n="grade_title">Bộ Chỉnh Màu Điện Ảnh Thời Gian Thực</h2>
+      <p class="section-desc" data-i18n="grade_desc">Chọn preset LUT điện ảnh hoặc rê các bánh xe màu Lift / Gamma / Gain để thay đổi phong cách hiển thị trên màn hình Preview.</p>
+    </div>
+
+    <div class="grading-panel">
+      <div class="wheels-grid">
+        <!-- Lift (Shadows) -->
+        <div class="wheel-card">
+          <div class="wheel-title">LIFT (BÓNG TỐI)</div>
+          <div class="color-wheel-circle" id="wheelLift" data-target="lift">
+            <div class="wheel-handle" style="top:50%;left:50%;"></div>
+          </div>
+          <div class="wheel-val" id="valLift">R: 0.00 · G: 0.00 · B: 0.00</div>
+        </div>
+
+        <!-- Gamma (Midtones) -->
+        <div class="wheel-card">
+          <div class="wheel-title">GAMMA (TRUNG GIAN)</div>
+          <div class="color-wheel-circle" id="wheelGamma" data-target="gamma">
+            <div class="wheel-handle" style="top:48%;left:52%;"></div>
+          </div>
+          <div class="wheel-val" id="valGamma">R: 0.02 · G: 0.00 · B: -0.02</div>
+        </div>
+
+        <!-- Gain (Highlights) -->
+        <div class="wheel-card">
+          <div class="wheel-title">GAIN (ÁNH SÁNG)</div>
+          <div class="color-wheel-circle" id="wheelGain" data-target="gain">
+            <div class="wheel-handle" style="top:45%;left:55%;"></div>
+          </div>
+          <div class="wheel-val" id="valGain">R: 0.05 · G: 0.02 · B: -0.04</div>
+        </div>
+      </div>
+
+      <!-- LUT Presets -->
+      <div class="lut-presets">
+        <span style="font-family:var(--font-mono);font-size:12px;color:var(--dim);margin-right:10px;">CINEMATIC LUTS:</span>
+        <button class="lut-btn active" data-lut="teal-orange">Teal & Orange 2049</button>
+        <button class="lut-btn" data-lut="kodak-gold">Kodak Gold 35mm</button>
+        <button class="lut-btn" data-lut="neon-noir">Neo-Tokyo Neon Noir</button>
+        <button class="lut-btn" data-lut="monochrome">Anamorphic Silver</button>
+      </div>
+    </div>
   </section>
 
-  <section class="wrap">
-    <p class="shot rise">CẢNH 03 — QUY TRÌNH</p>
-    <h2 class="rise">34 quy trình vận hành viết sẵn</h2>
-    <p class="sub rise">Chúng quy định chuẩn thẩm mỹ, thứ tự các bước và điều kiện dừng —
-      thứ giữ cho đầu ra tự động không trôi khỏi chuẩn qua thời gian.</p>
-    <div class="sops rise">$sops</div>
+  <!-- 3. 10 SPECIALIZED AGENTS MATRIX -->
+  <section class="wrap agents-section" id="agents">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="agent_eyebrow">Director Control Deck</span>
+      <h2 class="section-title" data-i18n="agent_title">10 Đặc Vụ AI Tự Hành Chuyên Biệt</h2>
+      <p class="section-desc" data-i18n="agent_desc">Mỗi đặc vụ đảm nhiệm duy nhất một mắt xích trong dây chuyền sản xuất video, giao tiếp qua bus dữ liệu JSON và bộ đệm trung gian.</p>
+    </div>
+
+    <div class="agents-filter-tabs">
+      <button class="agent-tab-btn active" data-filter="all">Tất cả (10)</button>
+      <button class="agent-tab-btn" data-filter="pre">Tiền kỳ & Kịch bản (3)</button>
+      <button class="agent-tab-btn" data-filter="prod">Sản xuất & Media (4)</button>
+      <button class="agent-tab-btn" data-filter="dist">Hậu kỳ & Phát hành (3)</button>
+    </div>
+
+    <div class="agents-grid" id="agentsGrid">
+      <!-- 10 Agents generated via static HTML / JS -->
+      <div class="agent-card" data-cat="pre">
+        <div class="agent-head"><span class="agent-name">👑 Hermes</span><span class="agent-phase-badge">TIỀN KỲ</span></div>
+        <p class="agent-desc">Tổng đạo diễn điều phối toàn dây chuyền, có bản chạy daemon nền và bản điều khiển từ xa qua bot Telegram.</p>
+        <div class="agent-footer"><span>ID: AGENT_01</span><span style="color:var(--emerald);">● ORCHESTRATOR</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="pre">
+        <div class="agent-head"><span class="agent-name">🔍 Scraper</span><span class="agent-phase-badge">TIỀN KỲ</span></div>
+        <p class="agent-desc">Thu thập dữ liệu, tổng hợp bài báo và tài liệu nguồn tham khảo phục vụ nghiên cứu kịch bản.</p>
+        <div class="agent-footer"><span>ID: AGENT_02</span><span style="color:var(--cyan);">Puppeteer / BS4</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="pre">
+        <div class="agent-head"><span class="agent-name">📈 Trend Jacking</span><span class="agent-phase-badge">TIỀN KỲ</span></div>
+        <p class="agent-desc">Theo dõi xu hướng mạng xã hội thời gian thực để bám sóng và chọn góc khai thác nội dung đúng thời điểm.</p>
+        <div class="agent-footer"><span>ID: AGENT_03</span><span style="color:var(--gold);">Live Pulse</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="prod">
+        <div class="agent-head"><span class="agent-name">✍️ SEO Writer</span><span class="agent-phase-badge">SẢN XUẤT</span></div>
+        <p class="agent-desc">Chấp bút kịch bản chi tiết chuẩn giọng thương hiệu, chia timestamp từng phân cảnh phục vụ dựng video.</p>
+        <div class="agent-footer"><span>ID: AGENT_04</span><span style="color:var(--purple);">Claude 3.5 / GPT-4o</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="prod">
+        <div class="agent-head"><span class="agent-name">📑 Carousel Writer</span><span class="agent-phase-badge">SẢN XUẤT</span></div>
+        <p class="agent-desc">Biên tập nội dung đa trang (carousel slides) tóm tắt ý chính của video cho nền tảng mạng xã hội.</p>
+        <div class="agent-footer"><span>ID: AGENT_05</span><span style="color:var(--gold);">Multi-Slide</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="prod">
+        <div class="agent-head"><span class="agent-name">📱 Social Media</span><span class="agent-phase-badge">SẢN XUẤT</span></div>
+        <p class="agent-desc">Tự động viết lại copy, tiêu đề và hashtag tương thích với thuật toán của từng nền tảng video ngắn.</p>
+        <div class="agent-footer"><span>ID: AGENT_06</span><span style="color:var(--cyan);">Omni-Format</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="prod">
+        <div class="agent-head"><span class="agent-name">✂️ Repurposer</span><span class="agent-phase-badge">HẬU KỲ</span></div>
+        <p class="agent-desc">Phân tích phụ đề Whisper, tự động phát hiện đoạn cao trào để cắt video dài thành nhiều video ngắn triệu view.</p>
+        <div class="agent-footer"><span>ID: AGENT_07</span><span style="color:var(--hot);">Whisper ASR + FFmpeg</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="dist">
+        <div class="agent-head"><span class="agent-name">🎯 SEO Optimizer</span><span class="agent-phase-badge">PHÁT HÀNH</span></div>
+        <p class="agent-desc">Tối ưu tiêu đề, mô tả, thẻ tag và cấu trúc chương (chapters) chuẩn SEO YouTube để tối đa hoá tỷ lệ hiển thị.</p>
+        <div class="agent-footer"><span>ID: AGENT_08</span><span style="color:var(--emerald);">YouTube Algorithm</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="dist">
+        <div class="agent-head"><span class="agent-name">🚀 Publisher</span><span class="agent-phase-badge">PHÁT HÀNH</span></div>
+        <p class="agent-desc">Tự động tải video, thumbnail và siêu dữ liệu lên YouTube Studio và lưu trữ sao lưu trên Google Drive.</p>
+        <div class="agent-footer"><span>ID: AGENT_09</span><span style="color:var(--cyan);">Google API Client</span></div>
+      </div>
+
+      <div class="agent-card" data-cat="dist">
+        <div class="agent-head"><span class="agent-name">📊 Analytics Feedback</span><span class="agent-phase-badge">PHÁT HÀNH</span></div>
+        <p class="agent-desc">Đọc số liệu giữ chân người xem sau khi đăng, tự động đưa dữ liệu ngược vào vòng lặp cải tiến kịch bản.</p>
+        <div class="agent-footer"><span>ID: AGENT_10</span><span style="color:var(--gold);">Feedback Loop</span></div>
+      </div>
+    </div>
   </section>
 
-  <section class="wrap">
-    <p class="shot rise">CẢNH 04 — CÔNG NGHỆ</p>
-    <h2 class="rise">Dựng bằng gì</h2>
-    <div class="stack rise">$stack</div>
+  <!-- 4. 34 SOPS INTERACTIVE CATALOG -->
+  <section class="wrap sops-section" id="sops">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="sop_eyebrow">Standard Operating Procedures</span>
+      <h2 class="section-title" data-i18n="sop_title">34 Quy Trình Vận Hành Tiêu Chuẩn</h2>
+      <p class="section-desc" data-i18n="sop_desc">Đóng gói toàn bộ tiêu chuẩn thẩm mỹ, thứ tự các bước và điều kiện dừng cho từng thể loại video để đầu ra tự động không bao giờ lệch chuẩn.</p>
+    </div>
+
+    <div class="sops-grid">
+      <div class="sop-card"><div class="sop-icon">📰</div><span class="sop-title">Video Tin Tức Tức Thời</span></div>
+      <div class="sop-card"><div class="sop-icon">🎭</div><span class="sop-title">Video Không Mặt (Faceless)</span></div>
+      <div class="sop-card"><div class="sop-icon">👤</div><span class="sop-title">Talking Head Chuyên Nghiệp</span></div>
+      <div class="sop-card"><div class="sop-icon">🎓</div><span class="sop-title">Video Khoá Học & Bài Giảng</span></div>
+      <div class="sop-card"><div class="sop-icon">📣</div><span class="sop-title">Video Quảng Cáo Chuyển Đổi</span></div>
+      <div class="sop-card"><div class="sop-icon">🖼️</div><span class="sop-title">Carousel Đa Trang Mạng Xã Hội</span></div>
+      <div class="sop-card"><div class="sop-icon">🎨</div><span class="sop-title">Thiết Kế Thumbnail Tỉ Lệ Click</span></div>
+      <div class="sop-card"><div class="sop-icon">🎙️</div><span class="sop-title">Lồng Tiếng & Nhân Bản Giọng</span></div>
+      <div class="sop-card"><div class="sop-icon">✂️</div><span class="sop-title">Cắt Tái Cấu Trúc Video Dài</span></div>
+      <div class="sop-card"><div class="sop-icon">💎</div><span class="sop-title">Quy Chuẩn Giọng Thương Hiệu</span></div>
+      <div class="sop-card"><div class="sop-icon">🛡️</div><span class="sop-title">Kiểm Duyệt Trước Khi Xuất Bản</span></div>
+      <div class="sop-card"><div class="sop-icon">📺</div><span class="sop-title">Vận Hành Kênh YouTube Tự Động</span></div>
+    </div>
   </section>
 
-  <section class="wrap">
-    <p class="shot rise">CẢNH 05 — NÓI TRƯỚC CHO RÕ</p>
-    <h2 class="rise">Ba giới hạn bạn nên biết</h2>
-    <div class="lims rise">$limits</div>
+  <!-- 5. 4-TIER ARCHITECTURE -->
+  <section class="wrap arch-section" id="architecture">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="arch_eyebrow">Modular Decoupled Design</span>
+      <h2 class="section-title" data-i18n="arch_title">Kiến Trúc 4 Tầng Tách Rời</h2>
+      <p class="section-desc" data-i18n="arch_desc">Thiết kế tách rời để khi đổi công cụ kết xuất mới không làm ảnh hưởng đến tầng nghiên cứu và kịch bản.</p>
+    </div>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <div class="arch-tier-no">TẦNG 1 // COGNITIVE</div>
+        <div class="arch-tier-name">Tầng Nhận Thức</div>
+        <p class="arch-tier-desc">Đảm nhiệm thu thập dữ liệu nguồn, phân tích xu hướng và sáng tác kịch bản theo đúng định vị phong cách thương hiệu.</p>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-tier-no">TẦNG 2 // EXECUTION</div>
+        <div class="arch-tier-name">Tầng Thực Thi</div>
+        <p class="arch-tier-desc">10 đặc vụ AI tự hành độc lập và 7 module kỹ năng Python chuyên sâu xử lý từng công đoạn chuyên biệt.</p>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-tier-no">TẦNG 3 // WORKFLOW</div>
+        <div class="arch-tier-name">Tầng Quy Trình</div>
+        <p class="arch-tier-desc">21 luồng công việc tự động hoá và 34 tài liệu SOP chuẩn hoá chất lượng đầu ra xuyên suốt.</p>
+      </div>
+
+      <div class="arch-card">
+        <div class="arch-tier-no">TẦNG 4 // RENDERING</div>
+        <div class="arch-tier-name">Tầng Kết Xuất</div>
+        <p class="arch-tier-desc">9 engine render kết hợp FFmpeg, VieNeu-TTS và Whisper sinh video 4K đa tỷ lệ khung hình với độ trễ tối thiểu.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="wrap">
-    <p class="shot rise">CẢNH 06 — HỎI ĐÁP</p>
-    <h2 class="rise">Câu hỏi thường gặp</h2>
-    <div class="rise">$faq</div>
-  </section>
+  <!-- FAQ ACCORDION -->
+  <section class="wrap faq-section" id="faq">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="faq_eyebrow">Clear Answers</span>
+      <h2 class="section-title" data-i18n="faq_title">Câu Hỏi Thường Gặp</h2>
+    </div>
 
-  <section class="end">
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Dây chuyền này có tự sản xuất video hoàn chỉnh 100% được không?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Được, với những định dạng đã có quy trình SOP sẵn như video tin tức tổng hợp hay video faceless. Tuy nhiên đối với video thương hiệu lớn, hệ thống tối ưu cho tốc độ hoàn thiện 90% thô, 10% còn lại giữ vai trò đạo diễn của con người để duyệt thẩm mỹ cuối.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Vì sao lại chia làm 4 tầng kiến trúc tách rời?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Để khi nâng cấp hoặc thay đổi một công cụ mới (ví dụ đổi mô hình TTS hay mô hình sinh ảnh) không làm sập các tầng kịch bản và nghiên cứu. Sự tách rời giúp hệ thống bền vững và mở rộng không giới hạn.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>34 quy trình SOP mang lại giá trị gì?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          SOPs đóng vai trò là bộ kiểm soát chất lượng (QA). Nhờ có SOP, đầu ra tự động hoá của AI qua hàng trăm video vẫn giữ nguyên được chuẩn thẩm mỹ, quy cách dựng và giọng điệu mà không bị trôi dạt theo thời gian.
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
     <div class="wrap">
-      <h2 class="rise" style="max-width:none">Mã nguồn mở, đọc được toàn bộ</h2>
-      <p class="sub rise" style="margin-inline:auto">Cả bốn lớp, mười đặc vụ và ba mươi tư quy trình đều nằm trên GitHub.</p>
-      <div class="acts rise">
-        <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem trên GitHub ↗</a>
-        <a class="btn sec" href="$portfolio/#labs">Các dự án khác của Long Leo</a>
+      <div class="footer-links">
+        <a href="#hero">Về đầu trang ↑</a>
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener">GitHub Repository ↗</a>
+        <a href="{PORTFOLIO}" target="_blank" rel="noopener">SEOSONA Portfolio ↗</a>
       </div>
+      <p>© {VERSION} SEOSONA Video AI — Kiến Trúc Tự Động Hóa Dây Chuyền Sản Xuất Video Điện Ảnh.</p>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer>
-  <div class="wrap foot">
-    <span>© 2026 Hà Đình Long — Long Leo</span>
-    <span><a href="$portfolio/">Portfolio</a> · <a href="https://github.com/$repo" target="_blank" rel="noopener">GitHub</a></span>
-  </div>
-</footer>
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // 1. Language Dictionary (VI / EN)
+    const I18N_DICT = {{
+      "vi": {{
+        "nav_studio": "Multi-Track Studio",
+        "nav_grading": "Color Grading",
+        "nav_agents": "10 Đặc vụ",
+        "nav_sops": "34 SOPs",
+        "nav_arch": "Kiến trúc",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "Khám phá Repo ↗",
+        "hero_rec_pill": "REC · 4K 60FPS · 10 AGENTS · 34 SOPS · 4-TIER ARCHITECTURE",
+        "hero_title": "Dây Chuyền Sản Xuất Video AI Tự Động<br><span class='gradient-film'>Từ Nghiên Cứu Xu Hướng Đến Dựng Phim Điện Ảnh</span>",
+        "hero_desc": "Hệ thống tự động hoá 4 tầng điều phối 10 đặc vụ AI độc lập: Thu thập xu hướng, viết kịch bản chuẩn giọng thương hiệu, sinh hình ảnh nhất quán, lồng tiếng neural đa giọng, cắt ghép FFmpeg tự động và tối ưu hóa phát hành YouTube.",
+        "hero_cta_studio": "⚡ Trải Nghiệm Multi-Track Studio",
+        "hero_cta_sops": "📖 Xem 34 Quy Trình SOPs",
+        "g_1": "Đặc vụ tự hành độc lập",
+        "g_2": "Quy trình vận hành SOP",
+        "g_3": "Engine kết xuất render",
+        "g_4": "File mã nguồn & modules",
+        "studio_eyebrow": "Studio NLE Sequencer",
+        "studio_title": "Bàn Dựng Video Multi-Track Tương Tác",
+        "studio_desc": "Trải nghiệm trình phát phim thời gian thực: Bấm Play để playhead quét qua các track V1 (Footage), V2 (Typography), A1 (Voiceover) và A2 (Soundtrack).",
+        "grade_eyebrow": "3D Color Science & LUT Engine",
+        "grade_title": "Bộ Chỉnh Màu Điện Ảnh Thời Gian Thực",
+        "grade_desc": "Chọn preset LUT điện ảnh hoặc rê các bánh xe màu Lift / Gamma / Gain để thay đổi phong cách hiển thị trên màn hình Preview.",
+        "agent_eyebrow": "Director Control Deck",
+        "agent_title": "10 Đặc Vụ AI Tự Hành Chuyên Biệt",
+        "agent_desc": "Mỗi đặc vụ đảm nhiệm duy nhất một mắt xích trong dây chuyền sản xuất video, giao tiếp qua bus dữ liệu JSON và bộ đệm trung gian.",
+        "sop_eyebrow": "Standard Operating Procedures",
+        "sop_title": "34 Quy Trình Vận Hành Tiêu Chuẩn",
+        "sop_desc": "Đóng gói toàn bộ tiêu chuẩn thẩm mỹ, thứ tự các bước và điều kiện dừng cho từng thể loại video để đầu ra tự động không bao giờ lệch chuẩn.",
+        "arch_eyebrow": "Modular Decoupled Design",
+        "arch_title": "Kiến Trúc 4 Tầng Tách Rời",
+        "arch_desc": "Thiết kế tách rời để khi đổi công cụ kết xuất mới không làm ảnh hưởng đến tầng nghiên cứu và kịch bản.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Câu Hỏi Thường Gặp"
+      }},
+      "en": {{
+        "nav_studio": "Multi-Track Studio",
+        "nav_grading": "Color Grading",
+        "nav_agents": "10 AI Agents",
+        "nav_sops": "34 SOPs",
+        "nav_arch": "Architecture",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "Explore Repo ↗",
+        "hero_rec_pill": "REC · 4K 60FPS · 10 AGENTS · 34 SOPS · 4-TIER ARCHITECTURE",
+        "hero_title": "Autonomous AI Video Production Pipeline<br><span class='gradient-film'>From Trend Discovery to Cinematic NLE Master</span>",
+        "hero_desc": "Decoupled 4-tier engine orchestrating 10 specialized AI agents: Trend mining, brand-voice scriptwriting, character-locked visual synthesis, multi-voice neural TTS, automated FFmpeg multi-track sequencing, and automated YouTube publishing.",
+        "hero_cta_studio": "⚡ Experience Multi-Track Studio",
+        "hero_cta_sops": "📖 Explore 34 Studio SOPs",
+        "g_1": "Autonomous AI Agents",
+        "g_2": "Production SOP Protocols",
+        "g_3": "FFmpeg Render Engines",
+        "g_4": "Source Code & Modules",
+        "studio_eyebrow": "Studio NLE Sequencer",
+        "studio_title": "Interactive Multi-Track Studio Timeline",
+        "studio_desc": "Test drive the real-time sequencer: Click Play to watch the playhead scan across V1 (Footage), V2 (Typography), A1 (Voiceover), and A2 (Soundtrack).",
+        "grade_eyebrow": "3D Color Science & LUT Engine",
+        "grade_title": "Real-Time Cinematic Color Grading Deck",
+        "grade_desc": "Select cinematic LUT presets or adjust Lift / Gamma / Gain trackballs to grade the live monitor view.",
+        "agent_eyebrow": "Director Control Deck",
+        "agent_title": "10 Specialized Autonomous AI Agents",
+        "agent_desc": "Each agent commands a single stage in the video production lifecycle, communicating via decoupled JSON events and buffer pools.",
+        "sop_eyebrow": "Standard Operating Procedures",
+        "sop_title": "34 Production Standard Operating Procedures",
+        "sop_desc": "Codified aesthetic benchmarks, execution checklists, and termination triggers for every video genre.",
+        "arch_eyebrow": "Modular Decoupled Design",
+        "arch_title": "Decoupled 4-Tier Architecture",
+        "arch_desc": "Architectural isolation ensures swapping render engines never breaks cognitive research and scriptwriting tiers.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Frequently Asked Questions"
+      }}
+    }};
 
-<script>$js</script>
+    let currentLang = localStorage.getItem('video_lang') || 'vi';
+
+    function setLanguage(lang) {{
+      currentLang = lang;
+      localStorage.setItem('video_lang', lang);
+      document.documentElement.lang = lang;
+
+      const flagEl = document.getElementById('flagIcon');
+      const langTextEl = document.getElementById('langText');
+      if (flagEl) flagEl.textContent = lang === 'vi' ? '🇻🇳' : '🇬🇧';
+      if (langTextEl) langTextEl.textContent = lang === 'vi' ? 'VI' : 'EN';
+
+      const dict = I18N_DICT[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {{
+        const key = el.dataset.i18n;
+        if (dict[key]) el.innerHTML = dict[key];
+      }});
+    }}
+
+    document.getElementById('langToggleBtn')?.addEventListener('click', () => {{
+      const next = currentLang === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }});
+
+    // 2. Audio Equalizer Visualization
+    const spectrumBox = document.getElementById('spectrumBox');
+    if (spectrumBox) {{
+      for (let i = 0; i < 28; i++) {{
+        const bar = document.createElement('div');
+        bar.className = 'eq-bar';
+        spectrumBox.appendChild(bar);
+      }}
+    }}
+
+    function animateSpectrum() {{
+      const bars = document.querySelectorAll('.eq-bar');
+      bars.forEach(b => {{
+        const h = Math.floor(Math.random() * 85) + 15;
+        b.style.height = `${{h}}%`;
+      }});
+    }}
+    setInterval(animateSpectrum, 120);
+
+    // 3. Multi-Track Studio Sequencer Playhead Logic
+    const btnPlayPause = document.getElementById('btnPlayPause');
+    const playheadLine = document.getElementById('playheadLine');
+    const previewMonitorImg = document.getElementById('previewMonitorImg');
+    const timecodeDisplay = document.getElementById('timecodeDisplay');
+    const timelineStatusText = document.getElementById('timelineStatusText');
+
+    const framesList = [
+      'assets/film_still_hero.webp',
+      'assets/film_still_portrait.webp',
+      'assets/film_still_city.webp'
+    ];
+
+    let isPlaying = false;
+    let playheadProgress = 0; // 0 to 100%
+    let playInterval = null;
+
+    function formatTimecode(pct) {{
+      const totalSec = (pct / 100) * 24; // 24 sec timeline
+      const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
+      const ss = String(Math.floor(totalSec % 60)).padStart(2, '0');
+      const ff = String(Math.floor((totalSec % 1) * 24)).padStart(2, '0');
+      return `00:${{mm}}:${{ss}}:${{ff}}`;
+    }}
+
+    function updateTimelineFrame() {{
+      if (playheadProgress < 35) {{
+        previewMonitorImg.src = framesList[0];
+      }} else if (playheadProgress < 68) {{
+        previewMonitorImg.src = framesList[1];
+      }} else {{
+        previewMonitorImg.src = framesList[2];
+      }}
+      timecodeDisplay.textContent = formatTimecode(playheadProgress);
+      const laneWidth = document.querySelector('.track-lane')?.clientWidth || 800;
+      const xPos = 102 + (playheadProgress / 100) * (laneWidth - 20);
+      playheadLine.style.left = `${{xPos}}px`;
+    }}
+
+    btnPlayPause?.addEventListener('click', () => {{
+      isPlaying = !isPlaying;
+      if (isPlaying) {{
+        btnPlayPause.textContent = '⏸ PAUSE';
+        timelineStatusText.textContent = currentLang === 'vi' ? 'Đang phát Multi-Track...' : 'Playing Multi-Track...';
+        timelineStatusText.style.color = 'var(--hot)';
+        playInterval = setInterval(() => {{
+          playheadProgress += 0.8;
+          if (playheadProgress >= 100) playheadProgress = 0;
+          updateTimelineFrame();
+        }}, 60);
+      }} else {{
+        btnPlayPause.textContent = '▶ PLAY';
+        timelineStatusText.textContent = currentLang === 'vi' ? 'Tạm dừng' : 'Paused';
+        timelineStatusText.style.color = 'var(--muted)';
+        clearInterval(playInterval);
+      }}
+    }});
+
+    document.getElementById('btnStopScrub')?.addEventListener('click', () => {{
+      isPlaying = false;
+      clearInterval(playInterval);
+      playheadProgress = 0;
+      btnPlayPause.textContent = '▶ PLAY';
+      timelineStatusText.textContent = currentLang === 'vi' ? 'Timeline Đã Dừng' : 'Timeline Stopped';
+      timelineStatusText.style.color = 'var(--muted)';
+      updateTimelineFrame();
+    }});
+
+    // 4. Color Grading LUT Switcher
+    const lutBtns = document.querySelectorAll('.lut-btn');
+    lutBtns.forEach(btn => {{
+      btn.addEventListener('click', function() {{
+        lutBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const lut = this.dataset.lut;
+
+        if (lut === 'teal-orange') {{
+          previewMonitorImg.style.filter = 'contrast(1.15) saturate(1.25) hue-rotate(5deg)';
+        }} else if (lut === 'kodak-gold') {{
+          previewMonitorImg.style.filter = 'sepia(0.25) contrast(1.1) brightness(1.05) saturate(1.2)';
+        }} else if (lut === 'neon-noir') {{
+          previewMonitorImg.style.filter = 'contrast(1.3) saturate(1.4) hue-rotate(-15deg)';
+        }} else if (lut === 'monochrome') {{
+          previewMonitorImg.style.filter = 'grayscale(1) contrast(1.4) brightness(0.95)';
+        }}
+      }});
+    }});
+
+    // 5. Agent Filter Tabs
+    const agentTabs = document.querySelectorAll('.agent-tab-btn');
+    agentTabs.forEach(tab => {{
+      tab.addEventListener('click', function() {{
+        agentTabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        const f = this.dataset.filter;
+
+        document.querySelectorAll('.agent-card').forEach(card => {{
+          if (f === 'all' || card.dataset.cat === f) {{
+            card.style.display = 'block';
+          }} else {{
+            card.style.display = 'none';
+          }}
+        }});
+      }});
+    }});
+
+    // 6. FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {{
+      q.addEventListener('click', function() {{
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {{
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        }});
+        if (!isOpen) {{
+          item.classList.add('open');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + "px";
+        }}
+      }});
+    }});
+
+    // Initialize Language
+    setLanguage(currentLang);
+  </script>
 </body>
-</html>
-""")
+</html>"""
 
+    index_path = os.path.join(OUT, "index.html")
+    landing_index = os.path.join(OUT, "landing", "index.html")
+    os.makedirs(os.path.dirname(landing_index), exist_ok=True)
 
-def esc(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;")
-             .replace(">", "&gt;").replace('"', "&quot;"))
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    with open(landing_index, "w", encoding="utf-8") as f:
+        f.write(html_content)
 
-
-def build():
-    title = "SEOSONA Video AI — dây chuyền sản xuất video vận hành bằng AI"
-    desc = ("Hệ sản xuất video tự động: kiến trúc bốn lớp, 10 đặc vụ AI, 34 quy trình vận "
-            "hành, 913 file khung xử lý. Từ ý tưởng tới video hoàn chỉnh.")
-
-    # Dải film lặp hai lần để vòng chạy liền mạch, không thấy mối nối.
-    one = "".join(
-        f'<div class="fr" style="--i:{i}"><span class="no">{esc(n)}</span>'
-        f'<div><b>{esc(t)}</b><br /><em>{esc(d)}</em></div></div>'
-        for i, (n, t, d) in enumerate(FRAMES))
-
-    tracks = "".join(
-        f'<div class="trk"><div class="trk-lb"><b>{esc(vi)}</b><em>{esc(en)}</em></div>'
-        f'<div class="trk-bar"><i style="--s:{s};--w:{w};--i:{i}">{esc(note)}</i></div></div>'
-        for i, (vi, en, s, w, note) in enumerate(TRACKS))
-
-    agents = "".join(
-        f'<div class="mem"><span class="n">{i:02d}</span><b>{esc(n)}</b>'
-        f'<em>{esc(d)}</em></div>' for i, (n, d) in enumerate(AGENTS, 1))
-
-    sops = "".join(f"<span>{esc(s)}</span>" for s in SOPS)
-    stack = "".join(f"<span>{esc(s)}</span>" for s in STACK)
-    limits = "".join(f'<div class="lim"><b>{esc(t)}</b><p>{esc(d)}</p></div>'
-                     for t, d in LIMITS)
-    faq = "".join(
-        f'<details{" open" if i == 0 else ""}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
-        for i, (q, a) in enumerate(FAQ))
-
-    jsonld = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {"@type": "SoftwareSourceCode", "name": "SEOSONA Video AI", "description": desc,
-             "url": SITE + "/", "image": SITE + "/cover.jpg",
-             "codeRepository": f"https://github.com/{REPO}",
-             "programmingLanguage": ["Python"],
-             "author": {"@type": "Person", "name": "Hà Đình Long",
-                        "alternateName": "Long Leo", "url": PORTFOLIO + "/"}},
-            {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q,
-                 "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]},
-        ],
-    }, ensure_ascii=False)
-
-    return PAGE.substitute(
-        title=esc(title), desc=esc(desc), site=SITE, portfolio=PORTFOLIO, repo=REPO,
-        css=CSS, js=JS, jsonld=jsonld, frames=one + one, tracks=tracks, agents=agents,
-        sops=sops, stack=stack, limits=limits, faq=faq,
-        n_agents=N_AGENTS, n_sop=N_SOP, n_framework=N_FRAMEWORK, n_files=N_FILES)
-
-
-def main():
-    d = os.path.join(OUT, "landing")
-    os.makedirs(d, exist_ok=True)
-    html = build()
-    io.open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(html)
-    shutil.copyfile(os.path.join(ROOT, "assets", "img", "labs", "seosona-video-ai.jpg"),
-                    os.path.join(d, "cover.jpg"))
-    print(f"  {len(html) // 1024} KB  SEOSONA Video AI — mô-típ dải film")
-    print(f"  {len(FRAMES)} khung phim · {len(TRACKS)} track · {len(AGENTS)} đặc vụ · "
-          f"{len(SOPS)} quy trình · phông Be Vietnam Pro")
-    if len(AGENTS) != N_AGENTS:
-        print(f"  CẢNH BÁO: liệt kê {len(AGENTS)} đặc vụ nhưng số liệu ghi {N_AGENTS}")
-    print(f"\n{SITE}")
-
+    print(f"[OK] Da sinh SEOSONA Video AI Cinematic Studio Landing Page v2.4 tai: {index_path} ({len(html_content):,} bytes)")
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    generate_page()
