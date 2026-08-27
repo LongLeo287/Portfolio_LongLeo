@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Landing page cho SEOSONA OS — bố cục hướng tâm.
+"""Landing page cho SEOSONA OS — Radial Celestial Core & Neural Constellation.
 
-Sản phẩm là một bộ não trung tâm mà mọi công cụ AI nối vào. Nên trang không có
-hero căn trái như trang bán hàng thông thường: mọi thứ xoay quanh một lõi ở
-giữa. Vòng quỹ đạo quay chậm, các tầng trí nhớ là vòng tròn đồng tâm, các năng
-lực xếp dọc theo một trục giữa lệch trái phải xen kẽ.
-
-Không có bảng, không có terminal, không có dải film — những thứ đó thuộc về ba
-trang anh em. Phông Lexend, khác cả bốn trang kia.
+SEOSONA OS là bộ não trung tâm điều phối toàn bộ các công cụ AI và dự án vệ tinh.
+Trang được dựng theo phong cách Celestial Radial Galaxy: Hệ quỹ đạo hướng tâm
+tương tác, 3 vòng tròn trí nhớ đồng tâm, 5 trụ cột chỉ huy dọc trục vũ trụ và
+hệ thống kết nối MCP thời gian thực.
 
     python scripts/landing-seosona-os.py
 """
@@ -15,7 +12,6 @@ import io
 import json
 import os
 import shutil
-from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "build", "repo-landing", "SEOSONA-OS")
@@ -23,492 +19,1084 @@ SITE = "https://seosona-os.vercel.app"
 PORTFOLIO = "https://portfolio-long-leo.vercel.app"
 REPO = "LongLeo287/SEOSONA-OS"
 
+VERSION = "4.1.0"
 N_KNOWLEDGE = 2422
 N_MEMORY = 3560
 N_CORE = 159
 N_FILES = 8763
 
-TOOLS = ["Claude Code", "Cursor", "Codex", "Windsurf", "Aider"]
-SATELLITES = [("Video AI", "dây chuyền sản xuất video"), ("Content", "nội dung và SRT"),
-              ("UX-UI", "hệ thống thiết kế"), ("Flow", "tự động hoá trình duyệt")]
+def generate_page():
+    os.makedirs(OUT, exist_ok=True)
+    assets_dir = os.path.join(OUT, "assets")
+    landing_assets = os.path.join(OUT, "landing", "assets")
+    os.makedirs(assets_dir, exist_ok=True)
+    os.makedirs(landing_assets, exist_ok=True)
 
-# Ba tầng trí nhớ, vẽ thành ba vòng đồng tâm.
-RINGS = [
-    ("Lõi", "1_CORE", f"{N_CORE} file", "bộ luật và cấu hình gốc, thứ được tiêm vào mọi công cụ"),
-    ("Tri thức", "2_KNOWLEDGE", f"{N_KNOWLEDGE} file", "đã phân tích và lập chỉ mục, truy vấn bằng ngôn ngữ tự nhiên"),
-    ("Bộ nhớ", "3_MEMORY", f"{N_MEMORY} file", "ngữ cảnh dài hạn theo từng dự án, sống qua nhiều phiên"),
-]
+    # Đồng bộ assets giữa OUT và OUT/landing
+    for src_dir, dst_dir in [(assets_dir, landing_assets), (landing_assets, assets_dir)]:
+        if os.path.exists(src_dir):
+            for f in os.listdir(src_dir):
+                if not f.startswith("."):
+                    shutil.copyfile(os.path.join(src_dir, f), os.path.join(dst_dir, f))
 
-# Năm năng lực, xếp dọc trục giữa lệch trái phải xen kẽ.
-SPINE = [
-    ("Cai quản", "Một bản doctrine duy nhất được tiêm vào Claude Code, Cursor, Codex, "
-     "Windsurf và Aider. Viết một lần, không phải dạy lại từng công cụ."),
-    ("Ghi nhớ", "Kho tri thức mở ra cho agent qua một MCP server tìm kiếm ngữ nghĩa. "
-     "Hỏi bằng câu tự nhiên thay vì phải biết trước tên file."),
-    ("Tự lớn lên", "Pipeline kéo repo bên ngoài về, đọc, đánh giá, và chỉ giữ lại thứ "
-     "thực sự dùng được — biến chúng thành kỹ năng gọi được, không cần người chép tay."),
-    ("Hành động", "Tầng định tuyến tự chọn đúng kỹ năng cho từng việc rồi thực thi. "
-     "Thao tác không hoàn tác được — xoá file, đẩy commit, gọi API tính tiền — phải qua cổng riêng."),
-    ("Chỉ huy", "Bốn dự án vệ tinh nối ngược về đây và dùng chung tri thức lúc chạy, "
-     "nên sửa một chỗ là cả bốn đổi theo."),
-]
-
-LIMITS = [
-    ("Cài đặt không nhẹ nhàng",
-     "Hạ tầng cho máy làm việc của một người, không phải ứng dụng bấm là chạy. Phải cấu "
-     "hình đường dẫn, khoá API và từng công cụ AI muốn nối vào."),
-    ("Kho tri thức là của một người",
-     "2.422 file kia phản ánh cách làm việc và lĩnh vực của Long Leo. Người khác dùng "
-     "được phần khung, nhưng nội dung phải tự nuôi."),
-    ("Càng nhiều công cụ càng nhiều điểm gãy",
-     "Mỗi công cụ AI đổi định dạng cấu hình là một chỗ phải sửa. Đó là cái giá của việc "
-     "bắc cầu qua năm hệ khác nhau."),
-]
-
-FAQ = [
-    ("Khác gì với việc tự viết file quy tắc cho từng công cụ?",
-     "Khác ở chỗ chỉ có một bản. Viết riêng cho từng công cụ thì sau vài tháng chúng lệch "
-     "nhau, và không ai nhớ bản nào mới nhất."),
-    ("Trí nhớ được lưu thế nào?",
-     "Ba tầng đồng tâm: lõi luật, kho tri thức đã phân tích, và bộ nhớ dài hạn theo dự án. "
-     "Agent truy vấn qua MCP chứ không đọc thẳng file."),
-    ("Tự học nghĩa là sao?",
-     "Có pipeline nạp repo bên ngoài về, phân tích, và biến phần hữu ích thành kỹ năng "
-     "gọi được — hoàn toàn tự động."),
-    ("Chạy trên hệ điều hành nào?",
-     "Windows, macOS và Linux. Cần Python 3.11 trở lên và Node 18 trở lên."),
-]
-
-STACK = ["Python 3.11+", "Node.js 18+", "MCP", "Tìm kiếm ngữ nghĩa", "Đồ thị tri thức",
-         "SQLite", "Windows · macOS · Linux"]
-
-CSS = """
-*,*::before,*::after{box-sizing:border-box}
-:root{
-  --bg:#0b0a08; --panel:#151209; --panel-2:#1d180e; --line:#2a2318; --line-2:#3d3320;
-  --text:#faf7ef; --muted:#b0a692; --dim:#8a7f6b;
-  --gold:#f0a63c; --amber:#fcd34d; --ease:cubic-bezier(.16,1,.3,1);
-}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:'Lexend',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  text-align:center;
-}
-/* Vòng tròn đồng tâm phía sau — nhắc lại ý "mọi thứ xoay quanh một lõi". */
-body::before{
-  content:'';position:fixed;left:50%;top:14%;width:min(190vw,1500px);aspect-ratio:1;
-  transform:translateX(-50%);z-index:0;pointer-events:none;opacity:.5;
-  background:
-    radial-gradient(circle,transparent 0 17%,rgba(240,166,60,.09) 17% 17.25%,transparent 17.25%),
-    radial-gradient(circle,transparent 0 27%,rgba(240,166,60,.07) 27% 27.2%,transparent 27.2%),
-    radial-gradient(circle,transparent 0 38%,rgba(240,166,60,.05) 38% 38.15%,transparent 38.15%),
-    radial-gradient(circle,rgba(240,166,60,.11),transparent 46%);
-}
-body>*{position:relative;z-index:1}
-img{max-width:100%;height:auto;display:block}
-a{color:inherit}
-svg{display:block}
-.wrap{width:min(980px,100% - 2.4rem);margin-inline:auto}
-h1,h2,h3{letter-spacing:-.028em;font-weight:600}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
-
-/* ---------- điều hướng gọn, căn giữa ---------- */
-.nav{padding:1.1rem 0;display:flex;justify-content:center;gap:1.4rem;font-size:.85rem}
-.nav a{display:inline-block;padding:.45rem .3rem;color:var(--muted);
-  text-decoration:none;transition:color .25s var(--ease)}
-.nav a:hover{color:var(--amber)}
-.nav .gh{color:var(--text);font-weight:600}
-
-/* ---------- hero hướng tâm ---------- */
-.hero{padding:clamp(1.5rem,4vw,3rem) 0 clamp(2.5rem,6vw,4rem)}
-.kick{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--gold);margin:0 0 1.4rem}
-h1{font-size:clamp(2rem,5.2vw,3.5rem);line-height:1.08;margin:0 auto 1.2rem;max-width:16ch}
-h1 .hl{background:linear-gradient(100deg,var(--gold),var(--amber));
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.lede{color:var(--muted);font-size:clamp(1rem,1.9vw,1.15rem);max-width:56ch;
-  margin:0 auto 2rem}
-.acts{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin-bottom:2.6rem}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;border-radius:999px;
-  font-size:.92rem;font-weight:600;text-decoration:none;border:1px solid transparent;
-  transition:transform .25s var(--ease),background .25s,border-color .25s,box-shadow .25s}
-.btn:hover{transform:translateY(-2px)}
-.btn.pri{background:var(--gold);color:#0b0a08}
-.btn.pri:hover{box-shadow:0 14px 34px -14px var(--gold)}
-.btn.sec{border-color:var(--line-2);color:var(--text)}
-.btn.sec:hover{border-color:var(--gold);background:rgba(240,166,60,.07)}
-
-/* ---------- sơ đồ quỹ đạo ---------- */
-.orbit{position:relative;width:min(560px,100%);aspect-ratio:1;margin:0 auto}
-.ring{position:absolute;inset:0;border:1px dashed var(--line-2);border-radius:50%;
-  animation:spin 46s linear infinite}
-.ring.r2{inset:13%;animation-duration:34s;animation-direction:reverse;
-  border-style:solid;border-color:var(--line)}
-.ring.r3{inset:26%;animation-duration:26s;border-color:rgba(240,166,60,.18)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.node{position:absolute;left:50%;top:50%;width:0;height:0;
-  transform:rotate(var(--a)) translateY(calc(var(--r) * -1))}
-.node span{position:absolute;left:50%;top:50%;translate:-50% -50%;
-  transform:rotate(calc(var(--a) * -1));white-space:nowrap;
-  padding:.42rem .9rem;border-radius:999px;font-size:.8rem;font-weight:500;
-  background:var(--panel-2);border:1px solid var(--line-2);color:var(--muted);
-  transition:color .25s var(--ease),border-color .25s var(--ease)}
-.node span:hover{color:var(--text);border-color:var(--gold)}
-/* Nhãn quay ngược lại đúng bằng góc của quỹ đạo nên luôn nằm ngang, dù vòng
-   ngoài đang xoay. Không có mẹo này thì chữ lộn ngược ở nửa dưới. */
-.orbit-wrap{position:absolute;inset:0;animation:spin 46s linear infinite}
-.core{position:absolute;left:50%;top:50%;translate:-50% -50%;
-  width:min(46%,240px);aspect-ratio:1;border-radius:50%;display:grid;
-  place-content:center;gap:.15rem;
-  background:radial-gradient(circle at 34% 30%,var(--amber),var(--gold) 58%,#b8720f);
-  color:#1a1206;box-shadow:0 0 90px -12px rgba(240,166,60,.55)}
-.core b{font-size:clamp(1rem,2.6vw,1.35rem);font-weight:700;letter-spacing:-.02em}
-.core em{font-style:normal;font-size:.72rem;opacity:.86;font-weight:600}
-
-/* ---------- ba vòng trí nhớ ---------- */
-section{padding:clamp(2.8rem,6vw,4.5rem) 0}
-h2{font-size:clamp(1.45rem,3.2vw,2.1rem);line-height:1.22;margin:0 auto .8rem;max-width:22ch}
-.sub{color:var(--muted);max-width:60ch;margin:0 auto 2.4rem;font-size:1rem}
-.rings{display:grid;gap:.8rem;max-width:760px;margin-inline:auto}
-.rg{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:center;
-  text-align:left;padding:1.2rem 1.5rem;border-radius:999px;
-  border:1px solid var(--line);background:var(--panel);
-  transition:border-color .3s var(--ease),transform .3s var(--ease)}
-.rg:nth-child(1){width:100%}
-.rg:nth-child(2){width:94%;margin-inline:auto}
-.rg:nth-child(3){width:88%;margin-inline:auto}
-.rg:hover{border-color:var(--gold);transform:scale(1.015)}
-.rg .disc{width:38px;height:38px;border-radius:50%;flex-shrink:0;
-  background:radial-gradient(circle at 35% 30%,var(--amber),var(--gold));
-  opacity:calc(1 - var(--i) * .26)}
-.rg b{display:block;font-size:1rem}
-.rg code{font-size:.74rem;color:var(--gold);font-family:ui-monospace,Menlo,monospace}
-.rg em{font-style:normal;display:block;font-size:.88rem;color:var(--muted);margin-top:.15rem}
-.rg .cnt{margin-left:auto;font-size:.8rem;color:var(--dim);white-space:nowrap}
-
-/* ---------- trục giữa, lệch trái phải ---------- */
-.spine{position:relative;max-width:820px;margin-inline:auto;padding-top:.5rem}
-.spine::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
-  background:linear-gradient(var(--gold),var(--line),transparent);opacity:.45}
-.sp{position:relative;width:calc(50% - 2.2rem);padding:1.3rem 1.5rem;margin-bottom:1.1rem;
-  border:1px solid var(--line);border-radius:16px;background:var(--panel);text-align:left;
-  transition:border-color .3s var(--ease),transform .3s var(--ease)}
-.sp:hover{border-color:var(--gold);transform:translateY(-3px)}
-.sp:nth-child(odd){margin-right:auto}
-.sp:nth-child(even){margin-left:auto}
-.sp::after{content:'';position:absolute;top:1.9rem;width:11px;height:11px;border-radius:50%;
-  background:var(--gold);box-shadow:0 0 0 4px var(--bg)}
-.sp:nth-child(odd)::after{right:-2.75rem}
-.sp:nth-child(even)::after{left:-2.75rem}
-.sp b{display:block;font-size:1.05rem;margin-bottom:.35rem}
-.sp p{margin:0;font-size:.92rem;color:var(--muted)}
-
-/* ---------- vệ tinh ---------- */
-.sats{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));
-  max-width:820px;margin-inline:auto}
-.sat{padding:1.2rem 1rem;border-radius:16px;border:1px dashed var(--line-2);
-  background:var(--panel);transition:border-color .3s var(--ease),transform .3s var(--ease)}
-.sat:hover{border-color:var(--gold);border-style:solid;transform:translateY(-3px)}
-.sat b{display:block;font-size:.98rem}
-.sat em{font-style:normal;font-size:.82rem;color:var(--muted)}
-
-/* ---------- công nghệ ---------- */
-.stack{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;max-width:700px;
-  margin-inline:auto}
-.stack span{padding:.42rem 1rem;border-radius:999px;font-size:.84rem;color:var(--muted);
-  border:1px solid var(--line);background:var(--panel);
-  transition:color .25s,border-color .25s,transform .25s var(--ease)}
-.stack span:hover{color:var(--text);border-color:var(--gold);transform:translateY(-2px)}
-
-/* ---------- giới hạn + hỏi đáp ---------- */
-.lims{max-width:760px;margin-inline:auto;text-align:left}
-.lim{padding:1.2rem 0;border-top:1px solid var(--line)}
-.lim:first-child{border-top:0}
-.lim b{display:block;color:var(--amber);font-size:1rem;margin-bottom:.25rem}
-.lim p{margin:0;color:var(--muted);font-size:.92rem}
-.faq{max-width:760px;margin-inline:auto;text-align:left}
-details{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;padding:1.05rem .2rem;font-weight:600;font-size:.97rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem}
-summary::-webkit-details-marker{display:none}
-summary::after{content:'+';color:var(--gold);font-size:1.2rem;flex-shrink:0;
-  transition:transform .3s var(--ease)}
-details[open] summary::after{transform:rotate(45deg)}
-details p{margin:0;padding:0 .2rem 1.1rem;color:var(--muted);font-size:.91rem}
-
-/* ---------- kết ---------- */
-.end{border-top:1px solid var(--line)}
-footer{border-top:1px solid var(--line);padding:1.8rem 0;color:var(--dim);font-size:.84rem}
-footer a{color:var(--muted);text-decoration:none;padding:.3rem}
-footer a:hover{color:var(--gold)}
-
-/* Sóng lan ra từ lõi — nhắc lại ý mọi thứ toả ra từ một trung tâm. */
-.orbit::before,.orbit::after{content:'';position:absolute;left:50%;top:50%;
-  width:46%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;
-  border:1px solid rgba(240,166,60,.5);pointer-events:none;
-  animation:wave 4.6s ease-out infinite}
-.orbit::after{animation-delay:2.3s}
-@keyframes wave{
-  0%{transform:scale(1);opacity:.55}
-  100%{transform:scale(2.15);opacity:0}
-}
-/* Lõi thở nhẹ — biên độ nhỏ để không thành thứ gây khó chịu khi đọc. */
-.core{animation:breathe 5.5s ease-in-out infinite}
-@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.035)}}
-
-/* Chấm trên trục sáng dần khi cuộn tới, thay vì sáng sẵn từ đầu. */
-.sp::after{background:var(--line-2);transition:background .5s var(--ease),
-  box-shadow .5s var(--ease)}
-.sp.in::after{background:var(--gold);box-shadow:0 0 0 4px var(--bg),0 0 16px -2px var(--gold)}
-
-/* Thanh tiến độ đọc trang. */
-.prog{position:fixed;top:0;left:0;height:2px;width:100%;z-index:70;transform:scaleX(0);
-  transform-origin:0 50%;background:linear-gradient(90deg,var(--gold),var(--amber))}
-@supports (animation-timeline:scroll()){
-  .prog{animation:pgrow linear;animation-timeline:scroll(root block)}
-  @keyframes pgrow{to{transform:scaleX(1)}}
-}
-
-/* Vệ tinh trôi nhẹ, lệch pha nhau. */
-.sat{animation:float 6s ease-in-out infinite;animation-delay:calc(var(--i) * .7s)}
-@keyframes float{50%{transform:translateY(-5px)}}
-
-.rise{opacity:0;transform:translateY(20px);
-  transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rise.in{opacity:1;transform:none}
-@media (max-width:760px){
-  .spine::before{left:11px}
-  /* Phải trừ đúng phần lề trái, để 100% là tràn ra ngoài đúng bằng lề đó. */
-  .sp{width:calc(100% - 2.2rem);margin-left:2.2rem!important;margin-right:0!important}
-  .sp::after{left:-2.75rem!important;right:auto!important}
-  .rg{border-radius:16px;width:100%!important}
-  .rg .cnt{margin-left:0}
-}
-@media (max-width:640px){
-  .acts{flex-direction:column;align-items:stretch}
-  .btn{justify-content:center}
-  .rg{grid-template-columns:1fr}
-  .rg .disc{display:none}
-}
-"""
-
-JS = """
-var io=new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{rootMargin:'0px 0px -8% 0px',threshold:.06});
-document.querySelectorAll('.rise').forEach(function(el,i){
-  el.style.transitionDelay=(Math.min(i%5,4)*60)+'ms'; io.observe(el);
-});
-var cio=new IntersectionObserver(function(es){
-  es.forEach(function(e){
-    if(!e.isIntersecting) return;
-    cio.unobserve(e.target);
-    var el=e.target,to=+el.dataset.to,t0=0,dur=1100;
-    requestAnimationFrame(function step(t){
-      if(!t0) t0=t;
-      var p=Math.min((t-t0)/dur,1);
-      el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('vi-VN');
-      if(p<1) requestAnimationFrame(step);
-    });
-  });
-},{threshold:.5});
-document.querySelectorAll('[data-to]').forEach(function(el){ cio.observe(el); });
-"""
-
-PAGE = Template("""<!DOCTYPE html>
-<html lang="vi">
+    html_content = f"""<!DOCTYPE html>
+<html lang="vi" class="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>$title</title>
-<meta name="description" content="$desc" />
-<meta name="author" content="Hà Đình Long" />
-<meta name="theme-color" content="#0b0a08" />
-<link rel="canonical" href="$site/" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='none' stroke='%233d3320'/><circle cx='16' cy='16' r='9' fill='none' stroke='%23f0a63c' stroke-opacity='.5'/><circle cx='16' cy='16' r='5' fill='%23f0a63c'/></svg>" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="SEOSONA OS" />
-<meta property="og:title" content="$title" />
-<meta property="og:description" content="$desc" />
-<meta property="og:url" content="$site/" />
-<meta property="og:image" content="$site/cover.jpg" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="600" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="$title" />
-<meta name="twitter:description" content="$desc" />
-<meta name="twitter:image" content="$site/cover.jpg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300..700&display=swap" />
-<style>$css</style>
-<script type="application/ld+json">$jsonld</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEOSONA OS — Bộ Não Trung Tâm & Hệ Điều Hành Tri Thức Hướng Tâm</title>
+  <meta name="description" content="Bộ não trung tâm điều phối 5 công cụ AI và 4 dự án vệ tinh: 1 bản doctrine duy nhất, 3 tầng trí nhớ đồng tâm và MCP Server tìm kiếm ngữ nghĩa." />
+  <meta name="theme-color" content="#0b0a08" />
+
+  <!-- Canonical & Alternate Links -->
+  <link rel="canonical" href="{SITE}" />
+  <link rel="alternate" hreflang="vi" href="{SITE}/" />
+  <link rel="alternate" hreflang="en" href="{SITE}/?lang=en" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SEOSONA OS — Bộ Não Trung Tâm & Hệ Điều Hành Tri Thức Hướng Tâm" />
+  <meta property="og:description" content="1 bản doctrine duy nhất, 2.422 file tri thức, 3.560 khối bộ nhớ và hệ thống quỹ đạo MCP kết nối toàn diện." />
+  <meta property="og:url" content="{SITE}" />
+  <meta property="og:image" content="{SITE}/assets/seosona_os_core.webp" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & Be Vietnam Pro & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after {{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }}
+
+    :root {{
+      --bg: #0b0a08;
+      --bg-dark: #050403;
+      --panel: #151209;
+      --panel-2: #1d180e;
+      --line: #2a2318;
+      --line-2: #3d3320;
+      --text: #faf7ef;
+      --muted: #b0a692;
+      --dim: #8a7f6b;
+      --gold: #f0a63c;
+      --amber: #fcd34d;
+      --cyan: #00f2fe;
+      --emerald: #10b981;
+
+      --font-display: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --dur-fast: 0.15s;
+      --dur-norm: 0.3s;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }}
+
+    html {{
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }}
+
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15.5px;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+    }}
+
+    /* Concentric Celestial Background Rings */
+    body::before {{
+      content: '';
+      position: fixed;
+      left: 50%;
+      top: 14%;
+      width: min(190vw, 1500px);
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.55;
+      background:
+        radial-gradient(circle, transparent 0 17%, rgba(240, 166, 60, 0.09) 17% 17.25%, transparent 17.25%),
+        radial-gradient(circle, transparent 0 27%, rgba(240, 166, 60, 0.07) 27% 27.2%, transparent 27.2%),
+        radial-gradient(circle, transparent 0 38%, rgba(240, 166, 60, 0.05) 38% 38.15%, transparent 38.15%),
+        radial-gradient(circle, rgba(240, 166, 60, 0.12), transparent 48%);
+    }}
+
+    body > * {{
+      position: relative;
+      z-index: 1;
+    }}
+
+    a {{
+      color: inherit;
+      text-decoration: none;
+    }}
+
+    :focus-visible {{
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }}
+
+    .wrap {{
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    h1, h2, h3, h4 {{
+      font-family: var(--font-heading);
+      letter-spacing: -0.025em;
+      font-weight: 800;
+      line-height: 1.2;
+    }}
+
+    /* Celestial Slate Navigation Bar */
+    .celestial-nav {{
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(11, 10, 8, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }}
+
+    .celestial-nav-inner {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: min(1200px, 100% - 2.8rem);
+      margin-inline: auto;
+    }}
+
+    .brand-box {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }}
+
+    .star-icon {{
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: #0b0a08;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 0 12px rgba(240, 166, 60, 0.5);
+    }}
+
+    .brand-title {{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }}
+
+    .brand-version {{
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--gold);
+      background: rgba(240, 166, 60, 0.12);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(240, 166, 60, 0.3);
+    }}
+
+    .nav-links {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }}
+
+    .nav-link {{
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: var(--radius-sm);
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-link:hover {{
+      color: var(--amber);
+      background: rgba(240, 166, 60, 0.08);
+    }}
+
+    .nav-actions {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }}
+
+    .nav-icon-btn {{
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--line-2);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--dur-fast);
+    }}
+
+    .nav-icon-btn:hover {{
+      color: var(--amber);
+      border-color: var(--gold);
+      box-shadow: 0 0 14px rgba(240, 166, 60, 0.25);
+      transform: translateY(-1px);
+    }}
+
+    .lang-toggle-btn {{
+      width: auto;
+      padding: 0 12px;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fdf9f3;
+    }}
+
+    .btn-cta {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: #0b0a08;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 18px rgba(240, 166, 60, 0.35);
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+
+    .btn-cta:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(240, 166, 60, 0.5);
+    }}
+
+    /* HERO SECTION */
+    .hero-section {{
+      padding: 60px 0 30px;
+      position: relative;
+    }}
+
+    .celestial-pill {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+      padding: 4px 14px;
+      background: rgba(240, 166, 60, 0.1);
+      border: 1px solid rgba(240, 166, 60, 0.25);
+      border-radius: var(--radius-full);
+    }}
+
+    .hero-title {{
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      line-height: 1.08;
+      max-width: 20ch;
+      margin: 0 auto 22px;
+    }}
+
+    .gradient-celestial {{
+      background: linear-gradient(135deg, var(--gold) 0%, var(--amber) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }}
+
+    .hero-desc {{
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      max-width: 68ch;
+      margin: 0 auto 34px;
+      line-height: 1.7;
+    }}
+
+    .hero-acts {{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }}
+
+    .btn-lg {{
+      padding: 12px 24px;
+      font-size: 15px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--dur-fast);
+    }}
+
+    .btn-celestial-pri {{
+      background: linear-gradient(135deg, var(--gold), var(--amber));
+      color: #0b0a08;
+      box-shadow: 0 8px 24px rgba(240, 166, 60, 0.35);
+    }}
+    .btn-celestial-pri:hover {{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(240, 166, 60, 0.5);
+    }}
+
+    .btn-celestial-sec {{
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-2);
+      color: var(--text);
+    }}
+    .btn-celestial-sec:hover {{
+      border-color: var(--gold);
+      color: var(--amber);
+      transform: translateY(-2px);
+    }}
+
+    /* Machine Gauges */
+    .gauges-grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--panel);
+      margin-bottom: 70px;
+    }}
+    .gauge-item {{
+      padding: 20px 24px;
+      border-right: 1px solid var(--line);
+    }}
+    .gauge-item:last-child {{
+      border-right: 0;
+    }}
+    .gauge-val {{
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1.1;
+      font-family: var(--font-heading);
+      margin-bottom: 4px;
+    }}
+    .gauge-label {{
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }}
+
+    /* SECTION HEADERS */
+    .section-head {{
+      text-align: center;
+      max-width: 740px;
+      margin: 0 auto 50px;
+    }}
+    .section-eyebrow {{
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 12px;
+    }}
+    .section-title {{
+      font-size: clamp(1.8rem, 3.8vw, 2.7rem);
+      margin-bottom: 16px;
+    }}
+    .section-desc {{
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.7;
+    }}
+
+    /* ==========================================================================
+       1. INTERACTIVE RADIAL GALAXY ORBIT SYSTEM
+       ========================================================================== */
+    .orbit-section {{
+      padding: 40px 0 90px;
+    }}
+    .orbit-container {{
+      position: relative;
+      width: min(600px, 100%);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+    }}
+
+    .orbit-ring {{
+      position: absolute;
+      inset: 0;
+      border: 1px dashed var(--line-2);
+      border-radius: 50%;
+      animation: orbitSpin 48s linear infinite;
+    }}
+    .orbit-ring.r2 {{
+      inset: 16%;
+      animation-duration: 32s;
+      animation-direction: reverse;
+      border-style: solid;
+      border-color: rgba(240, 166, 60, 0.2);
+    }}
+    .orbit-ring.r3 {{
+      inset: 32%;
+      animation-duration: 22s;
+      border-color: rgba(252, 211, 77, 0.25);
+    }}
+
+    @keyframes orbitSpin {{
+      to {{ transform: rotate(360deg); }}
+    }}
+
+    .orbit-sun-core {{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--amber) 0%, var(--gold) 60%, #b45309 100%);
+      box-shadow: 0 0 50px rgba(240, 166, 60, 0.8), inset 0 0 20px #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 800;
+      color: #0b0a08;
+      z-index: 10;
+      text-align: center;
+      line-height: 1.2;
+      animation: corePulse 3s ease-in-out infinite;
+    }}
+
+    @keyframes corePulse {{
+      0%, 100% {{ transform: scale(1); opacity: 0.95; }}
+      50% {{ transform: scale(1.08); opacity: 1; }}
+    }}
+
+    .orbit-node {{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      transform: rotate(var(--a)) translateY(calc(var(--r) * -1));
+    }}
+    .orbit-node-pill {{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      translate: -50% -50%;
+      transform: rotate(calc(var(--a) * -1));
+      white-space: nowrap;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--panel-2);
+      border: 1px solid var(--line-2);
+      color: var(--muted);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      transition: all var(--dur-fast);
+      cursor: pointer;
+    }}
+    .orbit-node-pill:hover {{
+      color: #0b0a08;
+      background: var(--amber);
+      border-color: var(--amber);
+      box-shadow: 0 0 16px var(--amber);
+    }}
+
+    /* ==========================================================================
+       2. 3 CONCENTRIC MEMORY SPHERES
+       ========================================================================== */
+    .rings-section {{
+      padding: 40px 0 90px;
+    }}
+    .rings-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }}
+    @media (max-width: 900px) {{
+      .rings-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .rings-img-box {{
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }}
+    .rings-img {{
+      width: 100%;
+      height: auto;
+      display: block;
+    }}
+
+    .rings-cards-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }}
+    .ring-card {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all var(--dur-fast);
+      border-left: 3px solid var(--gold);
+    }}
+    .ring-card:hover {{
+      border-color: var(--amber);
+      background: var(--panel-2);
+      transform: translateX(4px);
+    }}
+    .ring-card-head {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }}
+    .ring-title {{
+      font-size: 16px;
+      font-weight: 700;
+      color: #fdf9f3;
+    }}
+    .ring-badge {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--amber);
+      background: rgba(240, 166, 60, 0.12);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }}
+    .ring-desc {{
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }}
+
+    /* ==========================================================================
+       3. 5 PILLARS OF AUTONOMOUS GOVERNANCE (SPINE)
+       ========================================================================== */
+    .spine-section {{
+      padding: 40px 0 90px;
+    }}
+    .spine-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }}
+    @media (max-width: 900px) {{
+      .spine-grid {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .spine-cards-wrap {{
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+    }}
+    .spine-card {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all var(--dur-fast);
+    }}
+    .spine-card:hover {{
+      border-color: var(--gold);
+      transform: translateX(4px);
+    }}
+    .spine-title {{
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--amber);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }}
+    .spine-desc {{
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }}
+
+    /* FAQ ACCORDION */
+    .faq-section {{
+      padding: 40px 0 90px;
+    }}
+    .faq-list {{
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }}
+    .faq-item {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color var(--dur-fast);
+    }}
+    .faq-item.open {{
+      border-color: var(--gold);
+    }}
+    .faq-question {{
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }}
+    .faq-answer {{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding: 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }}
+    .faq-item.open .faq-answer {{
+      padding-bottom: 16px;
+    }}
+
+    /* FOOTER */
+    .footer {{
+      border-top: 1px solid var(--line);
+      background: #050403;
+      padding: 50px 0 30px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--dim);
+    }}
+    .footer-links {{
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: var(--muted);
+    }}
+    .footer-links a:hover {{
+      color: var(--amber);
+    }}
+  </style>
 </head>
 <body>
 
-<div class="prog" aria-hidden="true"></div>
+  <!-- Navigation Bar -->
+  <header class="celestial-nav" id="navbar">
+    <div class="celestial-nav-inner">
+      <div class="brand-box">
+        <div class="star-icon">✧</div>
+        <a href="#hero" class="brand-title">SEOSONA OS</a>
+        <span class="brand-version">v{VERSION} CORE</span>
+      </div>
 
-<nav class="nav">
-  <a href="#tri-nho">Trí nhớ</a>
-  <a href="#nang-luc">Năng lực</a>
-  <a href="#ve-tinh">Vệ tinh</a>
-  <a href="#hoi-dap">Hỏi đáp</a>
-  <a class="gh" href="https://github.com/$repo" target="_blank" rel="noopener">GitHub ↗</a>
-</nav>
+      <nav class="nav-links">
+        <a href="#orbit" class="nav-link" data-i18n="nav_orbit">Radial Orbit</a>
+        <a href="#rings" class="nav-link" data-i18n="nav_rings">3 Tầng Trí Nhớ</a>
+        <a href="#spine" class="nav-link" data-i18n="nav_spine">5 Trụ Cột</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+      </nav>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="kick">Bộ não trung tâm</p>
-    <h1>Đổi công cụ AI mà <span class="hl">không mất trí nhớ</span></h1>
-    <p class="lede">
-      Cursor, Claude Code, Codex, Windsurf, Aider — mỗi cái một bộ luật, một bộ nhớ, và
-      quên sạch sau mỗi phiên. SEOSONA OS đặt một bộ não chung phía dưới tất cả.
+      <div class="nav-actions">
+        <!-- 1-Click Language Flag Toggle -->
+        <button class="nav-icon-btn lang-toggle-btn" id="langToggleBtn" aria-label="Toggle Language" title="Đổi ngôn ngữ (VI / EN)">
+          <span id="flagIcon">🇻🇳</span>
+          <span id="langText">VI</span>
+        </button>
+
+        <!-- GitHub Icon Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="nav-icon-btn" aria-label="GitHub Repository" title="GitHub Repository">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+
+        <!-- CTA Button -->
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener" class="btn-cta" data-i18n="btn_github_explore">
+          <span>✧ Khám phá Repo ↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- HERO SECTION -->
+  <section class="hero-section wrap" id="hero">
+    <div class="celestial-pill" data-i18n="hero_pill">RADIAL CELESTIAL CORE · 2,422 KNOWLEDGE · 3,560 MEMORY · 159 CORE RULES</div>
+    <h1 class="hero-title" data-i18n="hero_title">
+      Bộ Não Trung Tâm Điều Phối Hệ Sinh Thái AI<br />
+      <span class="gradient-celestial">Một Bản Doctrine Duy Nhất Cho Mọi Công Cụ & Dự Án Vệ Tinh</span>
+    </h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      Hạ tầng tri thức hướng tâm: Tiêm quy chuẩn và bộ nhớ dài hạn vào Claude Code, Cursor, Codex, Windsurf và Aider. Một nguồn chân lý duy nhất giúp toàn bộ các dự án AI vận hành đồng bộ và tự động tiến hoá.
     </p>
-    <div class="acts">
-      <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem mã nguồn ↗</a>
-      <a class="btn sec" href="#tri-nho">Ba tầng trí nhớ</a>
+
+    <div class="hero-acts">
+      <a href="#orbit" class="btn-lg btn-celestial-pri" data-i18n="hero_cta_orbit">
+        ✧ Khám Phá Lõi Trung Tâm
+      </a>
+      <a href="#rings" class="btn-lg btn-celestial-sec" data-i18n="hero_cta_rings">
+        🪐 Xem 3 Tầng Trí Nhớ
+      </a>
     </div>
 
-    <div class="orbit" role="img" aria-label="Sơ đồ: bộ não SEOSONA OS ở tâm, năm công cụ AI trên quỹ đạo quanh nó">
-      <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
-      <div class="orbit-wrap">$nodes</div>
-      <div class="core"><b>SEOSONA OS</b><em>một luật · một trí nhớ</em></div>
-    </div>
-  </div>
-</header>
-
-<main>
-  <section class="wrap" id="tri-nho">
-    <h2 class="rise">Trí nhớ xếp thành ba vòng đồng tâm</h2>
-    <p class="sub rise">Càng vào trong càng ít thay đổi. Lõi là bộ luật, ngoài cùng là bộ nhớ
-      dự án — thứ sinh ra và mất đi liên tục.</p>
-    <div class="rings">$rings</div>
-  </section>
-
-  <section class="wrap" id="nang-luc">
-    <h2 class="rise">Năm việc bộ não này làm</h2>
-    <div class="spine">$spine</div>
-  </section>
-
-  <section class="wrap" id="ve-tinh">
-    <h2 class="rise">Bốn dự án vệ tinh</h2>
-    <p class="sub rise">Chúng không tự nuôi tri thức riêng. Tất cả nối ngược về đây và truy
-      vấn lúc chạy, nên sửa một chỗ là cả bốn đổi theo.</p>
-    <div class="sats">$sats</div>
-  </section>
-
-  <section class="wrap">
-    <h2 class="rise">Dựng bằng gì</h2>
-    <div class="stack rise">$stack</div>
-  </section>
-
-  <section class="wrap">
-    <h2 class="rise">Ba giới hạn bạn nên biết</h2>
-    <p class="sub rise">Đây là dự án cá nhân đang phát triển, không phải sản phẩm thương mại.</p>
-    <div class="lims rise">$limits</div>
-  </section>
-
-  <section class="wrap" id="hoi-dap">
-    <h2 class="rise">Câu hỏi thường gặp</h2>
-    <div class="faq rise">$faq</div>
-  </section>
-
-  <section class="end">
-    <div class="wrap">
-      <h2 class="rise">Mã nguồn mở, đọc được toàn bộ</h2>
-      <p class="sub rise">Giấy phép MIT. Chạy trên Windows, macOS và Linux.</p>
-      <div class="acts rise">
-        <a class="btn pri" href="https://github.com/$repo" target="_blank" rel="noopener">Xem trên GitHub ↗</a>
-        <a class="btn sec" href="$portfolio/#labs">Các dự án khác của Long Leo</a>
+    <!-- MACHINE GAUGES -->
+    <div class="gauges-grid">
+      <div class="gauge-item">
+        <div class="gauge-val">{N_CORE}</div>
+        <div class="gauge-label" data-i18n="g_1">Quy tắc & cấu hình lõi</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">{N_KNOWLEDGE:,}</div>
+        <div class="gauge-label" data-i18n="g_2">Tệp tri thức phân tích</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">{N_MEMORY:,}</div>
+        <div class="gauge-label" data-i18n="g_3">Khối bộ nhớ dài hạn</div>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-val">{N_FILES:,}</div>
+        <div class="gauge-label" data-i18n="g_4">Tổng tệp tin hệ sinh thái</div>
       </div>
     </div>
   </section>
-</main>
 
-<footer>
-  <div class="wrap">
-    © 2026 Hà Đình Long — Long Leo ·
-    <a href="$portfolio/">Portfolio</a> ·
-    <a href="https://github.com/$repo" target="_blank" rel="noopener">GitHub</a>
-  </div>
-</footer>
+  <!-- 1. INTERACTIVE RADIAL GALAXY ORBIT SYSTEM -->
+  <section class="wrap orbit-section" id="orbit">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="orbit_eyebrow">Radial Constellation Hub</span>
+      <h2 class="section-title" data-i18n="orbit_title">Hệ Thống Quỹ Đạo Hướng Tâm Tương Tác</h2>
+      <p class="section-desc" data-i18n="orbit_desc">Mọi công cụ lập trình AI và dự án vệ tinh xoay quanh Lõi SEOSONA OS ở giữa. Nhãn node tự động xoay ngược góc để luôn giữ trạng thái nằm ngang.</p>
+    </div>
 
-<script>$js</script>
+    <div class="orbit-container">
+      <!-- Orbit Rings -->
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring r2"></div>
+      <div class="orbit-ring r3"></div>
+
+      <!-- Sun Core -->
+      <div class="orbit-sun-core">
+        <div>
+          <div>SEOSONA</div>
+          <div style="font-size:10px;font-weight:700;">OS CORE</div>
+        </div>
+      </div>
+
+      <!-- Outer Ring: 5 AI Tools -->
+      <div class="orbit-node" style="--a:0deg; --r:260px;"><div class="orbit-node-pill">⚡ Claude Code</div></div>
+      <div class="orbit-node" style="--a:72deg; --r:260px;"><div class="orbit-node-pill">🧠 Cursor IDE</div></div>
+      <div class="orbit-node" style="--a:144deg; --r:260px;"><div class="orbit-node-pill">💻 Codex AI</div></div>
+      <div class="orbit-node" style="--a:216deg; --r:260px;"><div class="orbit-node-pill">🌊 Windsurf</div></div>
+      <div class="orbit-node" style="--a:288deg; --r:260px;"><div class="orbit-node-pill">🛠️ Aider CLI</div></div>
+
+      <!-- Inner Ring: 4 Satellite Projects -->
+      <div class="orbit-node" style="--a:45deg; --r:170px;"><div class="orbit-node-pill" style="color:var(--cyan);border-color:rgba(0,242,254,0.3);">🌊 Flow</div></div>
+      <div class="orbit-node" style="--a:135deg; --r:170px;"><div class="orbit-node-pill" style="color:#f97316;border-color:rgba(249,115,22,0.3);">📹 Video AI</div></div>
+      <div class="orbit-node" style="--a:225deg; --r:170px;"><div class="orbit-node-pill" style="color:#60a5fa;border-color:rgba(96,165,250,0.3);">🎨 UX-UI</div></div>
+      <div class="orbit-node" style="--a:315deg; --r:170px;"><div class="orbit-node-pill" style="color:var(--emerald);border-color:rgba(16,185,129,0.3);">🛡️ OmniClaw</div></div>
+    </div>
+  </section>
+
+  <!-- 2. 3 CONCENTRIC MEMORY SPHERES -->
+  <section class="wrap rings-section" id="rings">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="rings_eyebrow">Concentric Memory Architecture</span>
+      <h2 class="section-title" data-i18n="rings_title">3 Tầng Trí Nhớ Đồng Tâm</h2>
+      <p class="section-desc" data-i18n="rings_desc">Cấu trúc 3 lớp bảo toàn ngữ cảnh: Lõi quy tắc gốc, kho tri thức truy vấn ngôn ngữ tự nhiên và bộ nhớ dự án dài hạn.</p>
+    </div>
+
+    <div class="rings-grid">
+      <div class="rings-img-box">
+        <img src="assets/seosona_os_rings.webp" class="rings-img" alt="3 Concentric Memory Spheres" width="1280" height="720" />
+      </div>
+
+      <div class="rings-cards-wrap">
+        <div class="ring-card">
+          <div class="ring-card-head">
+            <span class="ring-title">TẦNG 1: LÕI (1_CORE)</span>
+            <span class="ring-badge">159 Files</span>
+          </div>
+          <p class="ring-desc">Bộ luật toàn cục và cấu hình gốc — thứ được tự động tiêm vào mọi công cụ AI khi khởi động phiên làm việc.</p>
+        </div>
+
+        <div class="ring-card">
+          <div class="ring-card-head">
+            <span class="ring-title">TẦNG 2: TRI THỨC (2_KNOWLEDGE)</span>
+            <span class="ring-badge">2,422 Files</span>
+          </div>
+          <p class="ring-desc">Toàn bộ kho tài liệu chuyên sâu đã được phân tích, lập chỉ mục và mở ra qua MCP server tìm kiếm ngữ nghĩa.</p>
+        </div>
+
+        <div class="ring-card">
+          <div class="ring-card-head">
+            <span class="ring-title">TẦNG 3: BỘ NHỚ (3_MEMORY)</span>
+            <span class="ring-badge">3,560 Files</span>
+          </div>
+          <p class="ring-desc">Ngữ cảnh dài hạn theo từng dự án, duy trì liên tục qua nhiều phiên làm việc mà không bị xoá sạch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 5 PILLARS OF AUTONOMOUS GOVERNANCE -->
+  <section class="wrap spine-section" id="spine">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="spine_eyebrow">Pillars of Governance</span>
+      <h2 class="section-title" data-i18n="spine_title">5 Trụ Cột Năng Lực Cốt Lõi</h2>
+      <p class="section-desc" data-i18n="spine_desc">Kiến trúc trục giữa liên kết mọi hành vi của agent vào một chuẩn mực duy nhất.</p>
+    </div>
+
+    <div class="spine-grid">
+      <div class="spine-cards-wrap">
+        <div class="spine-card">
+          <div class="spine-title"><span>🏛️</span> 01. Cai Quản (Unified Doctrine)</div>
+          <p class="spine-desc">Một bản doctrine duy nhất tiêm vào 5 công cụ AI. Viết một lần, không bao giờ phải dạy lại từng công cụ riêng lẻ.</p>
+        </div>
+
+        <div class="spine-card">
+          <div class="spine-title"><span>🧠</span> 02. Ghi Nhớ (Semantic Memory)</div>
+          <p class="spine-desc">Truy vấn tri thức bằng câu tự nhiên qua MCP Server thay vì phải nhớ chính xác tên và đường dẫn file.</p>
+        </div>
+
+        <div class="spine-card">
+          <div class="spine-title"><span>🌱</span> 03. Tự Lớn Lên (Autonomous Ingestion)</div>
+          <p class="spine-desc">Pipeline tự động nạp repo bên ngoài, phân tích và biến phần hữu ích thành kỹ năng gọi được mà không cần chép tay.</p>
+        </div>
+
+        <div class="spine-card">
+          <div class="spine-title"><span>⚡</span> 04. Hành Động (Gated Execution)</div>
+          <p class="spine-desc">Tự định tuyến đúng kỹ năng; các tác vụ không thể hoàn tác (xoá file, đẩy git, gọi API tốn phí) đều qua cổng kiểm duyệt.</p>
+        </div>
+
+        <div class="spine-card">
+          <div class="spine-title"><span>👑</span> 05. Chỉ Huy (Command Satellite)</div>
+          <p class="spine-desc">Bốn dự án vệ tinh nối ngược về đây dùng chung tri thức, sửa một chỗ là toàn bộ hệ thống tự động đồng bộ.</p>
+        </div>
+      </div>
+
+      <div class="rings-img-box">
+        <img src="assets/seosona_os_spine.webp" class="rings-img" alt="5 Pillars Celestial Neural Spine" width="1280" height="720" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ ACCORDION -->
+  <section class="wrap faq-section" id="faq">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="faq_eyebrow">Clear Answers</span>
+      <h2 class="section-title" data-i18n="faq_title">Câu Hỏi Thường Gặp</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>SEOSONA OS khác gì việc tự viết file quy tắc riêng cho từng công cụ?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Khác ở chỗ chỉ có một nguồn chân lý duy nhất. Nếu viết riêng cho từng công cụ, sau vài tháng chúng sẽ lệch nhau và không ai biết bản nào là mới nhất. SEOSONA OS tiêm tự động một bản quy chuẩn gốc vào mọi IDE.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Trí nhớ được lưu trữ và truy vấn như thế nào?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Trí nhớ lưu theo 3 tầng đồng tâm: Lõi quy tắc, kho tri thức đã lập chỉ mục và bộ nhớ dài hạn theo dự án. Agent truy vấn qua giao thức MCP tìm kiếm ngữ nghĩa thay vì đọc trực tiếp file.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Khả năng tự lớn lên (Autonomous Growth) hoạt động ra sao?</span>
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Hệ thống có pipeline tự động kéo các repo mã nguồn chất lượng cao về, phân tích cú pháp, trích xuất các mẫu thiết kế và tự động đóng gói thành các kỹ năng (skills) có thể gọi được ngay.
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="#hero">Về đầu trang ↑</a>
+        <a href="https://github.com/{REPO}" target="_blank" rel="noopener">GitHub Repository ↗</a>
+        <a href="{PORTFOLIO}" target="_blank" rel="noopener">SEOSONA Portfolio ↗</a>
+      </div>
+      <p>© {VERSION} SEOSONA OS — Bộ Não Trung Tâm & Hệ Điều Hành Tri Thức Hướng Tâm.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // 1. Language Dictionary (VI / EN)
+    const I18N_DICT = {{
+      "vi": {{
+        "nav_orbit": "Radial Orbit",
+        "nav_rings": "3 Tầng Trí Nhớ",
+        "nav_spine": "5 Trụ Cột",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "✧ Khám phá Repo ↗",
+        "hero_pill": "RADIAL CELESTIAL CORE · 2,422 KNOWLEDGE · 3,560 MEMORY · 159 CORE RULES",
+        "hero_title": "Bộ Não Trung Tâm Điều Phối Hệ Sinh Thái AI<br><span class='gradient-celestial'>Một Bản Doctrine Duy Nhất Cho Mọi Công Cụ & Dự Án Vệ Tinh</span>",
+        "hero_desc": "Hạ tầng tri thức hướng tâm: Tiêm quy chuẩn và bộ nhớ dài hạn vào Claude Code, Cursor, Codex, Windsurf và Aider. Một nguồn chân lý duy nhất giúp toàn bộ các dự án AI vận hành đồng bộ và tự động tiến hoá.",
+        "hero_cta_orbit": "✧ Khám Phá Lõi Trung Tâm",
+        "hero_cta_rings": "🪐 Xem 3 Tầng Trí Nhớ",
+        "g_1": "Quy tắc & cấu hình lõi",
+        "g_2": "Tệp tri thức phân tích",
+        "g_3": "Khối bộ nhớ dài hạn",
+        "g_4": "Tổng tệp tin hệ sinh thái",
+        "orbit_eyebrow": "Radial Constellation Hub",
+        "orbit_title": "Hệ Thống Quỹ Đạo Hướng Tâm Tương Tác",
+        "orbit_desc": "Mọi công cụ lập trình AI và dự án vệ tinh xoay quanh Lõi SEOSONA OS ở giữa. Nhãn node tự động xoay ngược góc để luôn giữ trạng thái nằm ngang.",
+        "rings_eyebrow": "Concentric Memory Architecture",
+        "rings_title": "3 Tầng Trí Nhớ Đồng Tâm",
+        "rings_desc": "Cấu trúc 3 lớp bảo toàn ngữ cảnh: Lõi quy tắc gốc, kho tri thức truy vấn ngôn ngữ tự nhiên và bộ nhớ dự án dài hạn.",
+        "spine_eyebrow": "Pillars of Governance",
+        "spine_title": "5 Trụ Cột Năng Lực Cốt Lõi",
+        "spine_desc": "Kiến trúc trục giữa liên kết mọi hành vi của agent vào một chuẩn mực duy nhất.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Câu Hỏi Thường Gặp"
+      }},
+      "en": {{
+        "nav_orbit": "Radial Orbit",
+        "nav_rings": "3-Tier Memory",
+        "nav_spine": "5 Pillars",
+        "nav_faq": "FAQ",
+        "btn_github_explore": "✧ Explore Repo ↗",
+        "hero_pill": "RADIAL CELESTIAL CORE · 2,422 KNOWLEDGE · 3,560 MEMORY · 159 CORE RULES",
+        "hero_title": "Central Cognitive Brain & Radial AI OS<br><span class='gradient-celestial'>Unified Doctrine Powering All Tools & Satellites</span>",
+        "hero_desc": "Centric knowledge infrastructure: Injecting standardized doctrine and long-term memory into Claude Code, Cursor, Codex, Windsurf, and Aider. A single source of truth synchronizing the entire AI ecosystem.",
+        "hero_cta_orbit": "✧ Explore Celestial Core",
+        "hero_cta_rings": "🪐 View 3-Tier Memory",
+        "g_1": "Core Rules & Doctrine",
+        "g_2": "Indexed Knowledge Docs",
+        "g_3": "Long-Term Memory Blocks",
+        "g_4": "Managed Ecosystem Files",
+        "orbit_eyebrow": "Radial Constellation Hub",
+        "orbit_title": "Interactive Radial Orbit Constellation",
+        "orbit_desc": "All AI tools and satellite projects revolve around the central SEOSONA OS core with counter-rotated auto-leveling labels.",
+        "rings_eyebrow": "Concentric Memory Architecture",
+        "rings_title": "3 Concentric Memory Spheres",
+        "rings_desc": "Three nested layers of context retention: Core rules, natural-language queried knowledge, and long-term project memory.",
+        "spine_eyebrow": "Pillars of Governance",
+        "spine_title": "5 Core Governance Pillars",
+        "spine_desc": "Central neural spine anchoring all autonomous agent operations to a single immutable standard.",
+        "faq_eyebrow": "Clear Answers",
+        "faq_title": "Frequently Asked Questions"
+      }}
+    }};
+
+    let currentLang = localStorage.getItem('os_lang') || 'vi';
+
+    function setLanguage(lang) {{
+      currentLang = lang;
+      localStorage.setItem('os_lang', lang);
+      document.documentElement.lang = lang;
+
+      const flagEl = document.getElementById('flagIcon');
+      const langTextEl = document.getElementById('langText');
+      if (flagEl) flagEl.textContent = lang === 'vi' ? '🇻🇳' : '🇬🇧';
+      if (langTextEl) langTextEl.textContent = lang === 'vi' ? 'VI' : 'EN';
+
+      const dict = I18N_DICT[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {{
+        const key = el.dataset.i18n;
+        if (dict[key]) el.innerHTML = dict[key];
+      }});
+    }}
+
+    document.getElementById('langToggleBtn')?.addEventListener('click', () => {{
+      const next = currentLang === 'vi' ? 'en' : 'vi';
+      setLanguage(next);
+    }});
+
+    // 2. FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {{
+      q.addEventListener('click', function() {{
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {{
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+        }});
+        if (!isOpen) {{
+          item.classList.add('open');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + "px";
+        }}
+      }});
+    }});
+
+    // Initialize Language
+    setLanguage(currentLang);
+  </script>
 </body>
-</html>
-""")
+</html>"""
 
+    index_path = os.path.join(OUT, "index.html")
+    landing_index = os.path.join(OUT, "landing", "index.html")
+    os.makedirs(os.path.dirname(landing_index), exist_ok=True)
 
-def esc(s):
-    return (s.replace("&", "&amp;").replace("<", "&lt;")
-             .replace(">", "&gt;").replace('"', "&quot;"))
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    with open(landing_index, "w", encoding="utf-8") as f:
+        f.write(html_content)
 
-
-def build():
-    title = "SEOSONA OS — bộ não chung cho mọi công cụ AI trên máy"
-    desc = ("Một bộ luật, một trí nhớ dùng chung cho Claude Code, Cursor, Codex, Windsurf "
-            "và Aider. 2.422 file tri thức, 3.560 file bộ nhớ, tự học thêm qua pipeline.")
-
-    step = 360 / len(TOOLS)
-    nodes = "".join(
-        f'<div class="node" style="--a:{i * step:.1f}deg;--r:42%">'
-        f'<span>{esc(t)}</span></div>' for i, t in enumerate(TOOLS))
-
-    rings = "".join(
-        f'<div class="rg rise" style="--i:{i}"><span class="disc"></span>'
-        f'<div><b>{esc(n)}</b> <code>{esc(path)}</code><em>{esc(d)}</em></div>'
-        f'<span class="cnt">{esc(cnt)}</span></div>'
-        for i, (n, path, cnt, d) in enumerate(RINGS))
-
-    spine = "".join(
-        f'<div class="sp rise"><b>{esc(t)}</b><p>{esc(d)}</p></div>' for t, d in SPINE)
-
-    sats = "".join(
-        f'<div class="sat rise" style="--i:{i}"><b>{esc(n)}</b><em>{esc(d)}</em></div>'
-        for i, (n, d) in enumerate(SATELLITES))
-
-    stack = "".join(f"<span>{esc(t)}</span>" for t in STACK)
-    limits = "".join(f'<div class="lim"><b>{esc(t)}</b><p>{esc(d)}</p></div>'
-                     for t, d in LIMITS)
-    faq = "".join(
-        f'<details{" open" if i == 0 else ""}><summary>{esc(q)}</summary><p>{esc(a)}</p></details>'
-        for i, (q, a) in enumerate(FAQ))
-
-    jsonld = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {"@type": "SoftwareSourceCode", "name": "SEOSONA OS", "description": desc,
-             "url": SITE + "/", "image": SITE + "/cover.jpg",
-             "codeRepository": f"https://github.com/{REPO}",
-             "programmingLanguage": ["Python", "Node.js"],
-             "author": {"@type": "Person", "name": "Hà Đình Long",
-                        "alternateName": "Long Leo", "url": PORTFOLIO + "/"}},
-            {"@type": "FAQPage", "mainEntity": [
-                {"@type": "Question", "name": q,
-                 "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]},
-        ],
-    }, ensure_ascii=False)
-
-    return PAGE.substitute(
-        title=esc(title), desc=esc(desc), site=SITE, portfolio=PORTFOLIO, repo=REPO,
-        css=CSS, js=JS, jsonld=jsonld, nodes=nodes, rings=rings, spine=spine,
-        sats=sats, stack=stack, limits=limits, faq=faq)
-
-
-def main():
-    d = os.path.join(OUT, "landing")
-    os.makedirs(d, exist_ok=True)
-    html = build()
-    io.open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(html)
-    shutil.copyfile(os.path.join(ROOT, "assets", "img", "labs", "seosona-os.jpg"),
-                    os.path.join(d, "cover.jpg"))
-    print(f"  {len(html) // 1024} KB  SEOSONA OS — bố cục hướng tâm")
-    print(f"  {len(TOOLS)} công cụ trên quỹ đạo · {len(RINGS)} vòng trí nhớ · "
-          f"{len(SPINE)} mục trên trục · {len(SATELLITES)} vệ tinh · phông Lexend")
-    print(f"\n{SITE}")
-
+    print(f"[OK] Da sinh SEOSONA OS Celestial Core Landing Page v4.1 tai: {index_path} ({len(html_content):,} bytes)")
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    generate_page()
