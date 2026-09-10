@@ -4254,5 +4254,31 @@ def generate_page():
     with open(os.path.join(landing_dir, "vercel.json"), "w", encoding="utf-8") as f:
         json.dump(inner_vercel, f, indent=2)
 
+# --- CỔNG CHẶN ---------------------------------------------------------------
+# Bản redesign trong "Portfolio redesign scope/dist" đã thay toàn bộ 8 trang và
+# đang chạy trên Vercel. Script này ghi vào ĐÚNG đường dẫn đó, nên chạy nhầm là
+# bản redesign biến mất không một lời cảnh báo, rồi lần đẩy kế tiếp âm thầm đưa
+# bản cũ lên production.
+#
+# Muốn thật sự dùng lại bản cũ thì thêm --force.
+def _cong_chan():
+    import sys
+    if "--force" in sys.argv:
+        return
+    print(__doc__.strip().splitlines()[0])
+    print()
+    print("DUNG LAI. Script nay se ghi de ban redesign dang chay tren Vercel.")
+    print()
+    print("  Ban dang chay:  Portfolio redesign scope/dist/  (8 trang, co api/)")
+    print("  Script nay sinh: ban landing cu thang 8/2026")
+    print()
+    print("Neu that su muon quay ve ban cu:  python " +
+          __file__.replace("\\", "/").split("/")[-1] + " --force")
+    raise SystemExit(2)
+
+
+_cong_chan()
+
+
 if __name__ == "__main__":
     generate_page()
