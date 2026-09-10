@@ -1,0 +1,14 @@
+{
+  "name": "SEOSONA",
+  "slug": "seosona",
+  "tagline": "Website SEOSONA",
+  "repo": "https://github.com/LongLeo287/SEOSONA",
+  "portfolio": "https://portfolio-long-leo.vercel.app",
+  "lead": {
+    "title": "Theo dõi bản phát hành",
+    "field": "email",
+    "endpoint": "/api/lead"
+  },
+  "updated": "2026-09-10",
+  "note": "Đọc lúc chạy, không nhúng vào HTML — sửa file này là trang đổi theo mà không cần dựng lại."
+}

@@ -70,25 +70,26 @@ def api(path, method=None, payload=None, check=True):
 
 
 def local_files(base):
-    """Mọi file cần đẩy. Quét toàn bộ thư mục landing, assets và gallery."""
-    names = ["index.html", "landing/index.html", "landing/cover.jpg", "landing/vercel.json",
-             "vercel.json", ".vercelignore"]
-    
-    # Quét mọi thư mục media / assets
-    for folder in ["landing/gallery", "gallery", "landing/assets", "assets"]:
-        p_dir = os.path.join(base, folder.replace("/", os.sep))
-        if os.path.isdir(p_dir):
-            for f in os.listdir(p_dir):
-                if not f.startswith("."):
-                    names.append(folder + "/" + f)
-                    
-    names = sorted(list(set(names)))
+    """Mọi file trong thư mục landing/, quét đệ quy.
+
+    Trước đây liệt kê tay một danh sách cố định. Bản redesign thêm api/,
+    data/, deploy-shim.js, webgl-stage.js, cover.jpg — liệt kê tay là chắc chắn
+    sót, mà sót api/ thì form trên trang gửi đi đâu cũng 404.
+    """
+    root = os.path.join(base, "landing")
     out = []
-    for n in names:
-        p = os.path.join(base, n.replace("/", os.sep))
-        if os.path.exists(p) and os.path.isfile(p):
-            out.append((n, open(p, "rb").read()))
-    return out
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames if d not in (".git", "__pycache__")]
+        for fn in sorted(filenames):
+            full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, base).replace(os.sep, "/")
+            out.append((rel, open(full, "rb").read()))
+    # vercel.json và .vercelignore nằm ở gốc repo, không trong landing/
+    for extra in ("vercel.json", ".vercelignore"):
+        p = os.path.join(base, extra)
+        if os.path.exists(p):
+            out.append((extra, open(p, "rb").read()))
+    return sorted(out)
 
 
 def remote_blob(repo, path):
