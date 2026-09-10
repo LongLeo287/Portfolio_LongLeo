@@ -76,14 +76,19 @@ def local_files(base):
     data/, deploy-shim.js, webgl-stage.js, cover.jpg — liệt kê tay là chắc chắn
     sót, mà sót api/ thì form trên trang gửi đi đâu cũng 404.
     """
-    root = os.path.join(base, "landing")
     out = []
-    for dirpath, dirnames, filenames in os.walk(root):
-        dirnames[:] = [d for d in dirnames if d not in (".git", "__pycache__")]
-        for fn in sorted(filenames):
-            full = os.path.join(dirpath, fn)
-            rel = os.path.relpath(full, base).replace(os.sep, "/")
-            out.append((rel, open(full, "rb").read()))
+    # landing/ là phần tĩnh; api/ ở GỐC repo là serverless function — Vercel chỉ
+    # nhận function từ gốc, đặt trong landing/ thì /api/lead luôn 404.
+    for sub in ("landing", "api"):
+        root = os.path.join(base, sub)
+        if not os.path.isdir(root):
+            continue
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [d for d in dirnames if d not in (".git", "__pycache__")]
+            for fn in sorted(filenames):
+                full = os.path.join(dirpath, fn)
+                rel = os.path.relpath(full, base).replace(os.sep, "/")
+                out.append((rel, open(full, "rb").read()))
     # vercel.json và .vercelignore nằm ở gốc repo, không trong landing/
     for extra in ("vercel.json", ".vercelignore"):
         p = os.path.join(base, extra)
