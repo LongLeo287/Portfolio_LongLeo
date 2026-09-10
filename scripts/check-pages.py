@@ -10,7 +10,10 @@ thứ bậc tiêu đề, neo chết, id trùng, alt, rel=noopener, độ dài me
 
 Tương phản màu nằm ở scripts/check-contrast.py.
 """
+import base64
+import gzip
 import io
+import json
 import os
 import re
 import sys
@@ -25,7 +28,60 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.join(ROOT, "build", "repo-landing")
 
 
-def check(name, s):
+# --- giải nén gói bundler ------------------------------------------------------
+# Trang thật không nằm thẳng trong index.html. Bộ đóng gói giữ khung HTML dưới
+# dạng chuỗi JSON trong <script type="__bundler/template">, còn CSS/JS thì gzip
+# rồi base64 trong "__bundler/manifest". Đọc file thô là đo nhầm: ngày
+# 10/09/2026 bộ kiểm này báo "0 thẻ h1" trên cả 6 trang trong khi template có
+# đúng 1 — bảy lỗi ma. Một bộ kiểm báo lỗi giả còn tệ hơn không có bộ kiểm.
+#
+# Ngoài ra deploy-shim.js chèn thêm style lúc chạy (:focus-visible, nút lên
+# đầu trang), nên phải gộp nó vào phần "tài nguyên" mới nhìn đúng.
+def giai_nen(path):
+    """Trả về (khung_html, tai_nguyen_css_js)."""
+    raw = io.open(path, encoding="utf-8").read()
+
+    m = re.search(r'<script[^>]*type="__bundler/template"[^>]*>(.*?)</script>',
+                  raw, re.S)
+    if not m:
+        khung = raw            # trang tĩnh thường, không qua bộ đóng gói
+    else:
+        # Giữ luôn phần <head> của lớp bọc: canonical/og:* nằm ở đó, không nằm
+        # trong template.
+        head = raw[:raw.find("</head>") + 7] if "</head>" in raw else ""
+        try:
+            khung = head + json.loads(m.group(1).strip())
+        except ValueError:
+            khung = raw
+
+    tai_nguyen = []
+    m = re.search(r'<script[^>]*type="__bundler/manifest"[^>]*>(.*?)</script>',
+                  raw, re.S)
+    if m:
+        try:
+            muc = json.loads(m.group(1).strip())
+        except ValueError:
+            muc = {}
+        for e in (muc.values() if isinstance(muc, dict) else []):
+            if not isinstance(e, dict) or "text" not in (e.get("mime") or ""):
+                continue
+            d = e.get("data") or ""
+            try:
+                b = base64.b64decode(d)
+                if e.get("compressed"):
+                    b = gzip.decompress(b)
+                tai_nguyen.append(b.decode("utf-8", "replace"))
+            except Exception:
+                pass       # một tài nguyên hỏng không nên làm hỏng cả lần kiểm
+
+    shim = os.path.join(os.path.dirname(path), "deploy-shim.js")
+    if os.path.exists(shim):
+        tai_nguyen.append(io.open(shim, encoding="utf-8").read())
+
+    return khung, chr(10).join(tai_nguyen)
+
+
+def check(name, s, tai_nguyen=""):
     loi, canh = [], []
 
     # --- thứ bậc tiêu đề ---
@@ -91,7 +147,7 @@ def check(name, s):
             loi.append(f"thiếu {tag}")
 
     # --- focus + landmark ---
-    if ":focus-visible" not in s:
+    if ":focus-visible" not in s + tai_nguyen:
         loi.append("không có style :focus-visible")
     if "<main" not in s:
         canh.append("không có thẻ <main>")
@@ -99,7 +155,25 @@ def check(name, s):
         canh.append("không có thẻ <footer>")
 
     # --- animation đụng layout ---
-    for kf in re.finditer(r"@keyframes\s+([\w-]+)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", s):
+    # Bỏ qua animation chỉ chạy dưới html.sc-dc-streaming: đó là trạng thái của
+    # công cụ soạn thảo lúc nội dung đang chảy về, lớp này không bao giờ có mặt
+    # trên bản phát hành. Đo trên trang thật ngày 10/09/2026: className rỗng,
+    # 0 phần tử .sc-placeholder. Báo lỗi cho CSS không bao giờ chạy là báo ma.
+    het = s + tai_nguyen
+    tro = set()
+    for rule in re.finditer(r"([^{}]+)\{([^{}]*)\}", het):
+        ten = re.findall(r"animation(?:-name)?\s*:[^;]*?([\w-]+)", rule.group(2))
+        for t in ten:
+            if "sc-dc-streaming" not in rule.group(1):
+                tro.discard(t)
+                continue
+            tro.add(t)
+
+    for kf in re.finditer(r"@keyframes\s+([\w-]+)\s*\{((?:[^{}]|\{[^{}]*\})*)\}", het):
+        if kf.group(1) in tro:
+            canh.append(f"@keyframes {kf.group(1)} chỉ chạy khi soạn thảo "
+                        f"(html.sc-dc-streaming) — không chạy trên bản phát hành")
+            continue
         body = kf.group(2)
         hit = re.findall(r"(?<![-\w])(width|height|top|left|right|bottom|margin|padding|"
                          r"background-position|box-shadow)\s*:", body)
@@ -112,8 +186,8 @@ def check(name, s):
         "KB": len(s) // 1024,
         "tiêu đề": len(hs),
         "ảnh": len(imgs),
-        "keyframes": len(re.findall(r"@keyframes", s)),
-        "vô hạn": len(re.findall(r"infinite", s)),
+        "keyframes": len(re.findall(r"@keyframes", s + tai_nguyen)),
+        "vô hạn": len(re.findall(r"infinite", s + tai_nguyen)),
     }
     return loi, canh, so
 
@@ -127,7 +201,8 @@ def main():
         f = os.path.join(BASE, d, "landing", "index.html")
         if not os.path.exists(f):
             continue
-        loi, canh, so = check(d, io.open(f, encoding="utf-8").read())
+        khung, tai_nguyen = giai_nen(f)
+        loi, canh, so = check(d, khung, tai_nguyen)
         tong_loi += len(loi)
         head = " · ".join(f"{v} {k}" for k, v in so.items())
         print(f"\n{'LỖI' if loi else 'OK '}  {d}")
