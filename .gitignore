@@ -51,13 +51,20 @@ Thumbs.db
 .idea/
 .claude/
 
-# Landing page sinh ra cho từng repo — nguồn là scripts/build-repo-landing.py,
-# bản thật nằm trong chính repo của dự án đó chứ không phải ở đây.
+# Bản chép tạm để đẩy đi. Nguồn là landing/, chép sang đây bằng
+# scripts/stage-landing.py, rồi scripts/push-repo-landing.py đẩy vào repo của
+# từng dự án. Ghi đè mỗi lần chạy — đừng sửa gì trong đây.
 build/
 __pycache__/
 *.pyc
 
-# Gói redesign tải về, không phải mã nguồn của repo này. Cùng loại với build/:
-# dựng sẵn, dùng làm nguồn để đẩy sang landing của 6 repo kia. Commit 425dfd3
-# đã lỡ đưa 74 file vào repo ngày 10/09/2026 — gỡ ra ngày 11/09.
+# Thư mục tải về ban đầu. Nội dung đã gộp vào landing/ ngày 11/09/2026, đối
+# chiếu khớp từng byte cả 70 file. Giữ ignore để không tồn tại hai bản song
+# song rồi sửa nhầm bản không ai đọc. landing/ là nguồn duy nhất.
+# Xoá được thư mục này bất cứ lúc nào.
 Portfolio redesign scope/
+
+# Hai file tham chiếu 2,9 MB của công cụ soạn thảo (bản audit + bản
+# design-system, HTML còn nguyên cú pháp {{ }} chưa dựng). Không cần để dựng
+# hay để phát hành, nên không đưa vào repo.
+docs/landing/_tai-lieu/

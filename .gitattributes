@@ -1,0 +1,16 @@
+# landing/ là gói phát hành, phải giữ nguyên từng byte.
+#
+# 68 trong 70 file đang dùng LF thuần. Trên Windows, Git mặc định đổi sang CRLF
+# khi checkout — bản trên máy này thì không sao vì file đã nằm sẵn, nhưng ai
+# clone mới về rồi chạy scripts/stage-landing.py là đẩy lại TOÀN BỘ file chỉ vì
+# khác kiểu xuống dòng: sáu repo mỗi repo một commit rác, sáu lần deploy, và
+# diff không nói lên điều gì.
+#
+# -text tắt hẳn việc quy đổi, file ra sao thì giữ vậy.
+landing/** -text
+
+# Ảnh bìa là nhị phân, đừng đụng vào.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary

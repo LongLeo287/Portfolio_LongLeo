@@ -500,7 +500,36 @@ VERCELIGNORE = """# Chỉ giữ lại thư mục landing/ trong bản phát hàn
 """
 
 
+def _cong_chan():
+    """Chan bo sinh cu ghi de ban redesign.
+
+    Ham nay CHI duoc goi trong main(), khong goi luc import: script
+    push-repo-landing.py import module nay de lay TARGETS, chan o muc module
+    la hong luon duong ong day.
+
+    Bo sinh nay dung template Python de SINH RA trang landing cu, ghi thang
+    vao build/repo-landing/ — dung cho ma scripts/stage-landing.py chep ban
+    redesign vao. Chay nham la ban dang chay tren Vercel bi thay bang ban
+    thang 8/2026, va lan day ke tiep am tham dua no len production.
+
+    Ban redesign khong sinh lai duoc bang script: no do cong cu soan thao
+    xuat ra, HTML that nam nen trong <script type="__bundler/template">.
+    """
+    import sys
+    if "--force" in sys.argv:
+        return
+    print("DUNG LAI. Script nay sinh ban landing CU va ghi de ban redesign.")
+    print()
+    print("  Dang chay:  landing/  ->  scripts/stage-landing.py  ->  build/")
+    print("  Script nay: sinh ban cu thang 8/2026 thang vao build/")
+    print()
+    print("Muon dung ban landing moi:  python scripts/stage-landing.py --ghi")
+    print("That su muon quay ve ban cu: python scripts/build-repo-landing.py --force")
+    raise SystemExit(2)
+
+
 def main():
+    _cong_chan()
     labs = load_labs()
     # Dọn từng thư mục con thay vì xoá cả OUT — trên Windows chỉ cần một
     # tiến trình đang đứng trong OUT là rmtree ném PermissionError.

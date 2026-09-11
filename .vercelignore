@@ -1,0 +1,17 @@
+# Vercel phục vụ nguyên gốc repo này, nên mọi thứ không chặn đều tải về được
+# từ Internet. Đo ngày 11/09/2026: /scripts/push-repo-landing.py trả 200.
+# Không có bí mật nào trong đó (script xác thực qua gh CLI, không nhúng token),
+# nhưng mã dựng không việc gì phải nằm trên tên miền portfolio.
+#
+# Quan trọng hơn: landing/ là NGUỒN của tám trang, không phải trang để phát
+# hành ở đây. Không chặn thì cả tám lên sóng tại /landing/<slug>/ — kể cả
+# landing/portfolio/ và landing/seosona/ là hai cái Long đã quyết không phát
+# hành. Tám trang đó phát hành qua repo riêng của từng dự án, bằng
+# scripts/stage-landing.py rồi scripts/push-repo-landing.py.
+
+/landing/
+/scripts/
+/docs/
+/build/
+/scratch/
+/Portfolio redesign scope/
