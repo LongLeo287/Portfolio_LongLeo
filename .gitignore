@@ -56,3 +56,8 @@ Thumbs.db
 build/
 __pycache__/
 *.pyc
+
+# Gói redesign tải về, không phải mã nguồn của repo này. Cùng loại với build/:
+# dựng sẵn, dùng làm nguồn để đẩy sang landing của 6 repo kia. Commit 425dfd3
+# đã lỡ đưa 74 file vào repo ngày 10/09/2026 — gỡ ra ngày 11/09.
+Portfolio redesign scope/
