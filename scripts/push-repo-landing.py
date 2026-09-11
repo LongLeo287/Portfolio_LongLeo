@@ -4,7 +4,7 @@
 Không clone repo nào — mấy repo kia nặng hàng trăm MB, clone chỉ để thêm vài
 file là phí.
 
-    python scripts/build-repo-landing.py     # sinh trước
+    python scripts/stage-landing.py --ghi    # chép nguồn sang build/
     python scripts/push-repo-landing.py      # xem sẽ làm gì (mặc định)
     python scripts/push-repo-landing.py --push   # đẩy thật
 
@@ -42,8 +42,8 @@ MSG = "Cập nhật landing page"
 
 
 def load_targets():
-    path = os.path.join(ROOT, "scripts", "build-repo-landing.py")
-    spec = importlib.util.spec_from_file_location("build_repo_landing", path)
+    path = os.path.join(ROOT, "scripts", "stage-landing.py")
+    spec = importlib.util.spec_from_file_location("stage_landing", path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod.TARGETS

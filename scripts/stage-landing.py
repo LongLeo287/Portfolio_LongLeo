@@ -26,14 +26,18 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "landing")
 OUT = os.path.join(ROOT, "build", "repo-landing")
 
-# slug trong landing/  ->  tên repo trên GitHub
-REPO = {
-    "omniclaw": "OmniClaw",
-    "seosona-flow": "seosona-flow",
-    "seosona-os": "SEOSONA-OS",
-    "seosona-ux-ui": "SEOSONA-UX-UI",
-    "seosona-video-ai": "SEOSONA-Video-AI",
-    "tiem-nuoc-nho": "Tiem_Nuoc_Nho_v5",
+# slug trong landing/  ->  (tên repo GitHub, tên project trên Vercel)
+#
+# Bảng này trước nằm trong scripts/build-repo-landing.py và
+# scripts/push-repo-landing.py phải import cả bộ sinh cũ chỉ để lấy sáu dòng
+# dữ liệu. Bộ sinh đó đã bỏ ngày 11/09/2026, bảng chuyển về đây.
+TARGETS = {
+    "omniclaw": ("OmniClaw", "omniclaw-longleo"),
+    "seosona-flow": ("seosona-flow", "seosona-flow"),
+    "seosona-os": ("SEOSONA-OS", "seosona-os"),
+    "seosona-ux-ui": ("SEOSONA-UX-UI", "seosona-ux-ui"),
+    "seosona-video-ai": ("SEOSONA-Video-AI", "seosona-video-ai"),
+    "tiem-nuoc-nho": ("Tiem_Nuoc_Nho_v5", "tiem-nuoc-nho"),
 }
 
 # Hai trang có gói sẵn nhưng cố ý KHÔNG phát hành:
@@ -57,7 +61,8 @@ def chep(ghi):
         if slug in KHONG_PHAT_HANH:
             print("  %-18s bo qua — co y khong phat hanh" % slug)
             continue
-        repo = REPO.get(slug)
+        muc = TARGETS.get(slug)
+        repo = muc[0] if muc else None
         if not repo:
             print("  %-18s KHONG BIET day vao repo nao" % slug)
             continue
