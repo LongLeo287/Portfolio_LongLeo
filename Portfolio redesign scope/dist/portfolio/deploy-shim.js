@@ -5,6 +5,242 @@
 (function () {
   'use strict';
 
+  /* ---------- Nối sang bảy trang con + gỡ liên kết chết ----------
+     Trang này nói suốt về "bảy trang con thừa hưởng gì" mà không có đường dẫn
+     nào sang chúng: đo ngày 10/09/2026, 0 lần xuất hiện seosona-os,
+     seosona-flow, seosona-ux-ui, seosona-video-ai, tiem-nuoc-nho, omniclaw.
+     Liên kết nội bộ duy nhất trỏ tới "Design System 8 Landing Page.dc.html",
+     file không có trong gói.
+
+     Phần thêm vào theo đúng ba quy tắc mục Motion của chính trang: chỉ động
+     transform/opacity, không transition: all, gọi tên từng thuộc tính. */
+  (function () {
+    var TRANG = [
+      { ten: 'SEOSONA OS', mo: 'Bộ não trung tâm và hệ điều hành tri thức',
+        url: 'https://seosona-os.vercel.app' },
+      { ten: 'SEOSONA Flow', mo: 'Tiện ích Chrome sinh ảnh và video AI',
+        url: 'https://seosona-flow.vercel.app' },
+      { ten: 'SEOSONA UX-UI', mo: 'Hệ thống thiết kế — token, component, quy tắc',
+        url: 'https://seosona-ux-ui.vercel.app' },
+      { ten: 'SEOSONA Video AI', mo: 'Nhà máy sản xuất video tự động',
+        url: 'https://seosona-video-ai.vercel.app' },
+      { ten: 'Tiệm Nước Nhỏ', mo: 'Ứng dụng POS cho quán nước nhỏ',
+        url: 'https://tiem-nuoc-nho.vercel.app' },
+      { ten: 'OmniClaw', mo: 'Hệ điều hành tám daemon cho Claude Code',
+        url: 'https://github.com/LongLeo287/OmniClaw', chuaChay: true }
+    ];
+
+    var CSS = [
+      '#lk-bay-trang{padding:72px 0;border-top:1px solid rgba(255,255,255,.08)}',
+      '#lk-bay-trang .lk-trong{max-width:1120px;margin:0 auto;padding:0 24px}',
+      '#lk-bay-trang .lk-nhan{font:600 12px/1 "Space Grotesk",sans-serif;',
+      'letter-spacing:.14em;color:#ff7a00;margin:0 0 14px}',
+      '#lk-bay-trang h2{font:600 clamp(26px,3.4vw,38px)/1.15 "Space Grotesk",sans-serif;',
+      'color:rgb(250,250,249);margin:0 0 10px}',
+      '#lk-bay-trang .lk-dan{font:400 17px/1.6 Archivo,sans-serif;',
+      'color:rgb(168,162,158);margin:0 0 34px;max-width:60ch}',
+      '#lk-bay-trang .lk-luoi{display:grid;gap:14px;',
+      'grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}',
+      '#lk-bay-trang .lk-the{display:block;text-decoration:none;background:#262220;',
+      'border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:20px 20px 18px;',
+            'transition-property:transform,opacity,border-color,background-color;',
+      'transition-duration:420ms,420ms,180ms,180ms;',
+      'transition-timing-function:cubic-bezier(.16,1,.3,1)}',
+      /* Thẻ hiện sẵn. Chỉ khi JS xác nhận IntersectionObserver dùng được thì mới
+   chủ động ẩn để chạy reveal — không bao giờ để hiệu ứng quyết định việc
+   nội dung có nhìn thấy hay không. */
+      '#lk-bay-trang .lk-the.lk-an{opacity:0;transform:translateY(14px)}',
+      '#lk-bay-trang .lk-the:hover,#lk-bay-trang .lk-the:focus-visible{',
+      'transform:translateY(-4px);border-color:rgba(255,122,0,.55);background:#2d2825}',
+      '#lk-bay-trang .lk-the:focus-visible{outline:2px solid #ff7a00;outline-offset:3px}',
+      '#lk-bay-trang .lk-ten{display:flex;align-items:center;gap:9px;',
+      'font:600 18px/1.3 "Space Grotesk",sans-serif;color:rgb(250,250,249);margin:0 0 7px}',
+      '#lk-bay-trang .lk-cham{width:8px;height:8px;border-radius:50%;flex:0 0 8px;',
+      'background:#ff7a00}',
+      '#lk-bay-trang .lk-cham.lk-tat{background:transparent;',
+      'border:1.5px solid rgb(168,162,158)}',
+      '#lk-bay-trang .lk-mo{font:400 14.5px/1.55 Archivo,sans-serif;',
+      'color:rgb(168,162,158);margin:0 0 12px}',
+      '#lk-bay-trang .lk-di{font:500 13px/1 Archivo,sans-serif;color:#ff7a00}',
+      '#lk-bay-trang .lk-di.lk-cho{color:rgb(168,162,158)}',
+      '#lk-bay-trang .lk-hang{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:30px;',
+      'padding-top:22px;border-top:1px solid rgba(255,255,255,.08)}',
+      '#lk-bay-trang .lk-hang a{font:500 14.5px/1 Archivo,sans-serif;color:rgb(250,250,249);',
+      'text-decoration:none;border-bottom:1px solid rgba(255,122,0,.5);padding-bottom:3px;',
+      'transition-property:color,border-color;transition-duration:180ms;',
+      'transition-timing-function:cubic-bezier(.16,1,.3,1)}',
+      '#lk-bay-trang .lk-hang a:hover{color:#ff7a00;border-color:#ff7a00}',
+      '#lk-bay-trang .lk-hang a:focus-visible{outline:2px solid #ff7a00;outline-offset:3px}',
+      '@media (prefers-reduced-motion:reduce){',
+      '#lk-bay-trang .lk-the,#lk-bay-trang .lk-the.lk-an',
+      '{opacity:1;transform:none;transition-duration:.12s}}'
+    ].join('');
+
+    function themCss() {
+      if (document.getElementById('lk-bay-trang-css')) return;
+      var st = document.createElement('style');
+      st.id = 'lk-bay-trang-css';
+      st.textContent = CSS;
+      document.head.appendChild(st);
+    }
+
+    function dungKhoi() {
+      var sec = document.createElement('section');
+      sec.id = 'lk-bay-trang';
+
+      var trong = document.createElement('div');
+      trong.className = 'lk-trong';
+
+      var nhan = document.createElement('p');
+      nhan.className = 'lk-nhan';
+      nhan.textContent = 'BẢY TRANG CON';
+      trong.appendChild(nhan);
+
+      var h = document.createElement('h2');
+      h.textContent = 'Vào xem trực tiếp';
+      trong.appendChild(h);
+
+      var dan = document.createElement('p');
+      dan.className = 'lk-dan';
+      dan.textContent = 'Nền, cặp phông, thang bán kính và chuyển động đặc '
+        + 'trưng — bốn thứ mà bảng trên giao cho mỗi trang tự quyết.';
+      trong.appendChild(dan);
+
+      var luoi = document.createElement('div');
+      luoi.className = 'lk-luoi';
+
+      TRANG.forEach(function (t, i) {
+        var a = document.createElement('a');
+        a.className = 'lk-the';
+        a.href = t.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.style.transitionDelay = (i * 55) + 'ms, ' + (i * 55) + 'ms, 0ms, 0ms';
+
+        var ten = document.createElement('p');
+        ten.className = 'lk-ten';
+        var cham = document.createElement('span');
+        cham.className = 'lk-cham' + (t.chuaChay ? ' lk-tat' : '');
+        cham.setAttribute('aria-hidden', 'true');
+        ten.appendChild(cham);
+        ten.appendChild(document.createTextNode(t.ten));
+        a.appendChild(ten);
+
+        var mo = document.createElement('p');
+        mo.className = 'lk-mo';
+        mo.textContent = t.mo;
+        a.appendChild(mo);
+
+        var di = document.createElement('p');
+        di.className = 'lk-di' + (t.chuaChay ? ' lk-cho' : '');
+        di.textContent = t.chuaChay ? 'Chưa phát hành — xem mã nguồn ↗'
+                                    : 'Mở trang ↗';
+        a.appendChild(di);
+
+        /* Người dùng trình đọc màn hình cần biết trạng thái, không chỉ nhìn chấm. */
+        a.setAttribute('aria-label', t.ten + ' — ' + t.mo + '. '
+          + (t.chuaChay ? 'Chưa phát hành, liên kết dẫn tới mã nguồn.'
+                        : 'Mở trang trong tab mới.'));
+        luoi.appendChild(a);
+      });
+
+      trong.appendChild(luoi);
+
+      var hang = document.createElement('div');
+      hang.className = 'lk-hang';
+      [['Trang chủ portfolio', 'https://portfolio-long-leo.vercel.app/'],
+       ['CV', '/cv.html'],
+       ['Mã nguồn trên GitHub', 'https://github.com/LongLeo287']
+      ].forEach(function (x) {
+        var a = document.createElement('a');
+        a.textContent = x[0];
+        a.href = x[1];
+        if (x[1].indexOf('http') === 0) { a.target = '_blank'; a.rel = 'noopener'; }
+        hang.appendChild(a);
+      });
+      trong.appendChild(hang);
+
+      sec.appendChild(trong);
+      return sec;
+    }
+
+    /* Reveal là phần cộng thêm, không phải điều kiện để thấy nội dung.
+       Đo trong khung xem trước: IntersectionObserver không bắn lần nào kể cả
+       với phần tử đang trong khung nhìn. Nếu để CSS ẩn sẵn rồi chờ IO gỡ ra
+       thì gặp môi trường như vậy là cả khối liên kết biến mất.
+       Nên: chỉ ẩn khi đã chắc IO dùng được, và vẫn đặt hẹn giờ gỡ ẩn phòng
+       khi IO có mặt mà không bao giờ bắn. */
+    function hienDan(sec) {
+      var the = [].slice.call(sec.querySelectorAll('.lk-the'));
+      var giam = false;
+      try {
+        giam = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      } catch (e) { /* trình duyệt cũ: coi như không giảm */ }
+      if (giam || !('IntersectionObserver' in window)) return;
+
+      the.forEach(function (t) { t.classList.add('lk-an'); });
+
+      var ob = new IntersectionObserver(function (mucs) {
+        mucs.forEach(function (m) {
+          if (!m.isIntersecting) return;
+          m.target.classList.remove('lk-an');
+          ob.unobserve(m.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      the.forEach(function (t) { ob.observe(t); });
+
+      /* Lưới an toàn: dù IO im lặng, sau 2,5 giây mọi thẻ vẫn phải hiện. */
+      setTimeout(function () {
+        the.forEach(function (t) { t.classList.remove('lk-an'); });
+        ob.disconnect();
+      }, 2500);
+    }
+
+    function goLienKetChet() {
+      var ds = document.querySelectorAll('a[href]');
+      for (var i = 0; i < ds.length; i++) {
+        var h = ds[i].getAttribute('href') || '';
+        if (h.indexOf('.dc.html') === -1) continue;
+        /* Giữ lại chữ, chỉ bỏ vai trò liên kết — xoá hẳn là mất một câu. */
+        var span = document.createElement('span');
+        span.textContent = ds[i].textContent;
+        ds[i].parentNode.replaceChild(span, ds[i]);
+      }
+    }
+
+    function themNav() {
+      var nav = document.querySelector('nav');
+      if (!nav || nav.querySelector('a[href="#lk-bay-trang"]')) return;
+      var moc = nav.querySelector('a[href="#lien-he"]');
+      if (!moc) return;
+      var a = document.createElement('a');
+      a.href = '#lk-bay-trang';
+      a.textContent = 'Bảy trang';
+      a.className = moc.className;
+      moc.parentNode.insertBefore(a, moc);
+    }
+
+    function chay() {
+      goLienKetChet();
+      if (document.getElementById('lk-bay-trang')) return true;
+      var heMe = document.getElementById('he-me');
+      if (!heMe) return false;
+      themCss();
+      var sec = dungKhoi();
+      heMe.parentNode.insertBefore(sec, heMe.nextSibling);
+      hienDan(sec);
+      themNav();
+      return true;
+    }
+
+    if (!chay()) {
+      var n = 0;
+      var h = setInterval(function () {
+        if (chay() || ++n > 30) clearInterval(h);
+      }, 200);
+    }
+  })();
+
   /* ---------- Nâng tương phản cho nhãn số thứ tự ----------
      Đo ngày 10/09/2026 trên seosona-os: 5 số 01-05 cỡ 30px, rgb(36,26,61)
      trên nền rgb(22,15,41) = 1.14:1, gần như vô hình. Mục đó tên là "Năm
