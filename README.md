@@ -5,7 +5,7 @@
 **Quay dựng · Motion Graphic · Thiết kế đồ họa · UI/UX**
 Hành trình sáng tạo từ 2019 · Tân Phú, TP. Hồ Chí Minh
 
-[**Xem live →**](https://portfolio-long-leo.vercel.app) · [Xem CV](https://portfolio-long-leo.vercel.app/cv.html) · [English](https://portfolio-long-leo.vercel.app/?lang=en)
+[**Xem live →**](https://portfolio-longleo.vercel.app) · [Xem CV](https://portfolio-longleo.vercel.app/cv.html) · [English](https://portfolio-longleo.vercel.app/?lang=en)
 
 [![YouTube](https://img.shields.io/badge/YouTube-@LongLeo287-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/@LongLeo287)
 [![Facebook](https://img.shields.io/badge/Facebook-LongLeo97-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/LongLeo97)
@@ -505,7 +505,7 @@ Chuỗi giao diện nằm trong object `translations` ở `app.js`; nội dung d
 
 Thứ tự ưu tiên: **`?lang=` trên URL → `localStorage` → `vi`**
 
-Nghĩa là `https://portfolio-long-leo.vercel.app/?lang=en` là link chia sẻ được, và đã khai báo `hreflang`.
+Nghĩa là `https://portfolio-longleo.vercel.app/?lang=en` là link chia sẻ được, và đã khai báo `hreflang`.
 
 > Lớp i18n ghi đè `innerHTML` của mọi phần tử `[data-i18n]`. Hiệu ứng tách chữ tiêu đề tạo ra các `<span>` bên trong chính những phần tử đó, nên `app.js` phải gọi lại `refreshTextReveal()` sau mỗi lần dịch — nếu không, hiệu ứng biến mất im lặng.
 

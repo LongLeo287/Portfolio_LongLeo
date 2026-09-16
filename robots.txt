@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /scratch/
 
-Sitemap: https://portfolio-long-leo.vercel.app/sitemap.xml
+Sitemap: https://portfolio-longleo.vercel.app/sitemap.xml

@@ -15,7 +15,7 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://portfolio-long-leo.vercel.app"
+SITE = "https://portfolio-longleo.vercel.app"
 VER = "1.90"
 
 # Chỉ hai trang này còn nằm trong portfolio. Sáu dự án kia đã có landing

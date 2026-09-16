@@ -248,7 +248,7 @@
 
       var hang = document.createElement('div');
       hang.className = 'lk-hang';
-      [['Trang chủ portfolio', 'https://portfolio-long-leo.vercel.app/'],
+      [['Trang chủ portfolio', 'https://portfolio-longleo.vercel.app/'],
        ['CV', '/cv.html'],
        ['Mã nguồn trên GitHub', 'https://github.com/LongLeo287']
       ].forEach(function (x) {
@@ -590,7 +590,7 @@
      <head> của lớp bọc bị xoá sạch: title thành rỗng, mất lang, mất canonical,
      mất og:*. Bộ quét của Facebook/Zalo không chạy JS nên chúng đọc lớp bọc
      tĩnh (đã vá riêng); đoạn này lo cho trình duyệt và thanh tiêu đề. */
-  var META = {"title": "Hà Đình Long — Quay dựng · Motion · Đồ hoạ · UI/UX", "description": "Portfolio của Hà Đình Long — quay dựng, motion, đồ hoạ và UI/UX. 174 dự án, mã nguồn mở, không framework.", "url": "https://portfolio-long-leo.vercel.app", "image": "https://portfolio-long-leo.vercel.app/cover.jpg"};
+  var META = {"title": "Hà Đình Long — Quay dựng · Motion · Đồ hoạ · UI/UX", "description": "Portfolio của Hà Đình Long — quay dựng, motion, đồ hoạ và UI/UX. 174 dự án, mã nguồn mở, không framework.", "url": "https://portfolio-longleo.vercel.app", "image": "https://portfolio-longleo.vercel.app/cover.jpg"};
 
   function setMeta(sel, attr, key, val) {
     var el = document.head.querySelector(sel);
