@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tiem-nuoc-nho.vercel.app/sitemap.xml

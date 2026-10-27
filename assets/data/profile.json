@@ -1,0 +1,258 @@
+{
+  "identity": {
+    "name": "Hà Đình Long",
+    "alternateName": "Long Leo",
+    "location": {
+      "vi": "Tân Phú, Hồ Chí Minh",
+      "en": "Tan Phu, Ho Chi Minh City"
+    }
+  },
+  "titles": {
+    "primary": "VIDEO EDITOR / MOTION GRAPHICS / POST-PRODUCTION",
+    "short": {
+      "vi": "Video Editor / Motion Graphics / Post-Production",
+      "en": "Video Editor / Motion Graphics / Post-Production"
+    }
+  },
+  "bio": {
+    "vi": "Video Editor chuyên sản xuất và hậu kỳ video cho sản phẩm công nghệ, đào tạo và truyền thông đa phương tiện — từ ý tưởng, quay phim đến hoàn thiện hình ảnh, âm thanh và nhịp dựng.",
+    "en": "Video Editor focused on video production and post-production for technology, training and multimedia communication — from concept and filming to picture, sound and pacing."
+  },
+  "contact": {
+    "phone": "0906 964 451",
+    "phoneHref": "tel:0906964451",
+    "email": "Longdragon287@gmail.com",
+    "emailHref": "mailto:Longdragon287@gmail.com",
+    "facebook": "https://www.facebook.com/LongLeo97",
+    "youtube": "https://www.youtube.com/@LongLeo287",
+    "github": "https://github.com/LongLeo287"
+  },
+  "skills": {
+    "workflows": [
+      "Video / Post",
+      "Editing",
+      "Pacing",
+      "Color Grading",
+      "Audio Synchronization",
+      "Motion Graphics",
+      "Visual Effects",
+      "Thumbnail Design",
+      "Camerawork",
+      "Script",
+      "Review",
+      "Unboxing",
+      "Training Video"
+    ],
+    "software": [
+      "Premiere Pro",
+      "After Effects",
+      "Photoshop",
+      "Illustrator",
+      "CapCut"
+    ]
+  },
+  "strengths": [
+    {
+      "title": {
+        "vi": "Tư duy thẩm mỹ",
+        "en": "Visual judgment"
+      },
+      "description": {
+        "vi": "Cân bằng hình ảnh, âm thanh và mục tiêu truyền thông.",
+        "en": "Balance visuals, sound and communication goals."
+      }
+    },
+    {
+      "title": {
+        "vi": "Quy trình tối ưu",
+        "en": "Efficient workflow"
+      },
+      "description": {
+        "vi": "Tổ chức quy trình từ concept, quay, dựng đến hậu kỳ hoàn chỉnh.",
+        "en": "Organize the workflow from concept and filming to final post-production."
+      }
+    },
+    {
+      "title": {
+        "vi": "Đa năng",
+        "en": "Cross-disciplinary"
+      },
+      "description": {
+        "vi": "Kết hợp video, motion, thiết kế hình ảnh và UI/UX.",
+        "en": "Combine video, motion, visual design and UI/UX."
+      }
+    }
+  ],
+  "specialties": [
+    {
+      "title": {
+        "vi": "Video & Hậu kỳ",
+        "en": "Video & Post-Production"
+      },
+      "description": {
+        "vi": "Dựng phim, pacing, chỉnh màu và đồng bộ âm thanh.",
+        "en": "Editing, pacing, color grading and audio synchronization."
+      }
+    },
+    {
+      "title": {
+        "vi": "Motion & Hình ảnh",
+        "en": "Motion & Visuals"
+      },
+      "description": {
+        "vi": "Motion graphics, visual effects, thumbnail và key visual.",
+        "en": "Motion graphics, visual effects, thumbnails and key visuals."
+      }
+    },
+    {
+      "title": {
+        "vi": "Sản xuất nội dung",
+        "en": "Content Production"
+      },
+      "description": {
+        "vi": "Concept, kịch bản, quay phim và review sản phẩm.",
+        "en": "Concepts, scripts, filming and product reviews."
+      }
+    }
+  ],
+  "experience": [
+    {
+      "company": "SEOSONA",
+      "role": {
+        "vi": "Nhân viên Media",
+        "en": "Media Specialist"
+      },
+      "start": "06/2026",
+      "end": "10/2026",
+      "logo": "assets/img/logos/seosona.png",
+      "description": {
+        "vi": [
+          "Quay dựng, biên tập và hậu kỳ video phục vụ truyền thông, quảng bá thương hiệu.",
+          "Thiết kế hình ảnh, banner, poster cho các nền tảng truyền thông."
+        ],
+        "en": [
+          "Film, edit and post-produce videos for communication and brand promotion.",
+          "Design visual assets, banners and posters for communication platforms."
+        ]
+      }
+    },
+    {
+      "company": "Vua2Hand",
+      "role": {
+        "vi": "Nhân viên Media",
+        "en": "Media Specialist"
+      },
+      "start": "03/2025",
+      "end": "05/2026",
+      "logo": "assets/img/logos/vua2hand.png",
+      "description": {
+        "vi": [
+          "Lên ý tưởng kịch bản, trực tiếp quay và dựng các sản phẩm video chất lượng cao về thiết bị âm thanh và công nghệ.",
+          "Quản lý nội dung YouTube và mạng xã hội; thiết kế thumbnail, tối ưu tiêu đề và mô tả."
+        ],
+        "en": [
+          "Develop scripts, film and edit high-quality videos about audio equipment and technology.",
+          "Manage YouTube and social content; design thumbnails and optimize titles and descriptions."
+        ]
+      }
+    },
+    {
+      "company": "MyGear",
+      "role": {
+        "vi": "Nhân viên Media",
+        "en": "Media Specialist"
+      },
+      "start": "05/2024",
+      "end": "02/2025",
+      "logo": "assets/img/logos/mygear.png",
+      "description": {
+        "vi": [
+          "Thiết kế landing page, tối ưu giao diện website và trực tiếp quay dựng, hậu kỳ video.",
+          "Thiết kế banner, poster, hình ảnh quảng cáo và xây dựng kịch bản truyền thông."
+        ],
+        "en": [
+          "Design landing pages, optimize website interfaces and produce, edit and post-produce videos.",
+          "Design banners, posters and campaign visuals while developing media scripts."
+        ]
+      }
+    },
+    {
+      "company": "Vie Production",
+      "role": {
+        "vi": "Video Editor Freelance",
+        "en": "Freelance Video Editor"
+      },
+      "start": "11/2023",
+      "end": "05/2024",
+      "logo": "assets/img/logos/vie.png",
+      "description": {
+        "vi": [
+          "Xử lý file thô, cắt ghép, chỉnh màu và đồng bộ âm thanh.",
+          "Kiểm soát pacing, hiệu ứng, chuyển cảnh và trao đổi trực tiếp với khách hàng."
+        ],
+        "en": [
+          "Process raw footage, edit, color grade and synchronize audio.",
+          "Control pacing, effects and transitions while working directly with clients."
+        ]
+      }
+    },
+    {
+      "company": "Topskills",
+      "role": {
+        "vi": "Nhân viên Media",
+        "en": "Media Specialist"
+      },
+      "start": "03/2022",
+      "end": "11/2023",
+      "logo": "assets/img/logos/topskills.png",
+      "description": {
+        "vi": [
+          "Trực tiếp quay, dựng và biên tập video chất lượng cao.",
+          "Chụp ảnh, thiết kế banner/poster và phối hợp xây dựng kịch bản."
+        ],
+        "en": [
+          "Film, edit and produce high-quality videos.",
+          "Photograph, design banners/posters and collaborate on scripts."
+        ]
+      }
+    },
+    {
+      "company": "Thế Giới In Ấn",
+      "role": {
+        "vi": "Nhân viên Media",
+        "en": "Media Specialist"
+      },
+      "start": "10/2018",
+      "end": "08/2020",
+      "logo": "assets/img/logos/thegioiinan.png",
+      "description": {
+        "vi": [
+          "Chụp ảnh, quay phim và chỉnh sửa hình ảnh/video sản phẩm.",
+          "Thiết kế ấn phẩm truyền thông, hỗ trợ UI/UX website và ứng dụng Motion Graphic."
+        ],
+        "en": [
+          "Photograph, film and edit product images and videos.",
+          "Design communication assets, support website UI/UX and apply motion graphics."
+        ]
+      }
+    }
+  ],
+  "education": [
+    {
+      "school": "Arena Multimedia",
+      "major": {
+        "vi": "Multimedia",
+        "en": "Multimedia"
+      },
+      "start": "05/2015",
+      "end": "09/2019",
+      "description": {
+        "vi": "Tốt nghiệp ngành Multimedia, tập trung vào quay dựng video, thiết kế đồ họa, motion graphics và quy trình sản xuất nội dung.",
+        "en": "Graduated in Multimedia with a focus on video production, graphic design, motion graphics and content production workflows."
+      }
+    }
+  ],
+  "brand": {
+    "seosonaLogo": "assets/img/logos/seosona.png"
+  }
+}

@@ -1,0 +1,330 @@
+/* SEOSONA OS — knowledge operating system visual layer.
+   Doctrine, memory, routing and satellites stay in the existing semantic DOM. */
+html.os-redesign {
+  --os-bg: #100b1f;
+  --os-bg-2: #17102c;
+  --os-panel: rgba(29, 21, 53, .84);
+  --os-line: #34275a;
+  --os-text: #f4efff;
+  --os-muted: #c7bddf;
+  --os-soft: #9485b2;
+  --os-purple: #bca3ff;
+  --os-cyan: #7be8d2;
+  --os-gold: #f5c15f;
+  background: var(--os-bg) !important;
+  color-scheme: dark;
+}
+
+html.os-redesign body {
+  min-width: 320px;
+  background:
+    linear-gradient(rgba(188,163,255,.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(188,163,255,.032) 1px, transparent 1px),
+    radial-gradient(circle at 80% 0, rgba(123,232,210,.1), transparent 30rem),
+    radial-gradient(circle at 12% 25%, rgba(188,163,255,.1), transparent 28rem),
+    var(--os-bg) !important;
+  background-size: 46px 46px, 46px 46px, auto, auto, auto !important;
+}
+
+html.os-redesign body > div {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+  color: var(--os-text) !important;
+}
+
+html.os-redesign body > div::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 720px;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(circle at 50% 0, rgba(188,163,255,.16), transparent 44%);
+}
+
+html.os-redesign body > div > header {
+  background: rgba(16,11,31,.76) !important;
+  border-bottom-color: rgba(188,163,255,.26) !important;
+  box-shadow: 0 14px 34px rgba(0,0,0,.2);
+}
+
+html.os-redesign body > div > header > div,
+html.os-redesign body > div > main > section > div,
+html.os-redesign body > div > footer > div {
+  max-width: 1240px !important;
+}
+
+html.os-redesign body > div > header a,
+html.os-redesign body > div > footer a {
+  color: var(--os-muted) !important;
+  border-radius: 5px;
+  transition: color .2s ease, background .2s ease;
+}
+
+html.os-redesign body > div > header a:hover,
+html.os-redesign body > div > header a:focus-visible,
+html.os-redesign body > div > footer a:hover,
+html.os-redesign body > div > footer a:focus-visible {
+  color: var(--os-cyan) !important;
+  background: rgba(123,232,210,.08);
+  text-decoration: none;
+}
+
+html.os-redesign body > div > header nav button {
+  color: var(--os-muted) !important;
+  border-color: var(--os-line) !important;
+  background: transparent !important;
+}
+
+html.os-redesign body > div > header nav button[aria-pressed="true"] {
+  color: var(--os-bg) !important;
+  background: var(--os-cyan) !important;
+}
+
+html.os-redesign body > div > main > section {
+  position: relative;
+  padding-top: clamp(78px, 10vw, 148px) !important;
+  padding-bottom: clamp(78px, 10vw, 148px) !important;
+}
+
+html.os-redesign body > div > main > section > div {
+  position: relative;
+}
+
+html.os-redesign body > div > main > section:not(:first-child)::before {
+  position: absolute;
+  top: 0;
+  left: max(24px, calc(50% - 620px));
+  right: max(24px, calc(50% - 620px));
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, var(--os-line), transparent);
+}
+
+html.os-redesign body > div > main h1 {
+  max-width: 920px;
+  font-size: clamp(3rem, 8.3vw, 7.1rem) !important;
+  line-height: .92 !important;
+  letter-spacing: -.075em !important;
+  text-wrap: balance;
+  color: var(--os-text) !important;
+}
+
+html.os-redesign body > div > main h2 {
+  max-width: 760px;
+  font-size: clamp(2rem, 4.7vw, 4.3rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.06em !important;
+  text-wrap: balance;
+  color: var(--os-text) !important;
+}
+
+html.os-redesign body > div > main h3 {
+  color: var(--os-text) !important;
+}
+
+html.os-redesign body > div > main p,
+html.os-redesign body > div > main li {
+  color: var(--os-muted) !important;
+}
+
+/* Hero = the brain's control plane, with a quiet command-console tilt. */
+html.os-redesign body > div > main > section:first-child {
+  min-height: min(840px, calc(100vh - 58px));
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+html.os-redesign body > div > main > section:first-child::after {
+  position: absolute;
+  top: 14%;
+  right: -7%;
+  width: min(52vw, 660px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(123,232,210,.2);
+  border-radius: 50%;
+  box-shadow: 0 0 0 34px rgba(123,232,210,.025), 0 0 0 68px rgba(123,232,210,.018);
+  content: "";
+  pointer-events: none;
+}
+
+html.os-redesign [data-tilt] {
+  position: relative;
+  border: 1px solid rgba(188,163,255,.42) !important;
+  background: linear-gradient(145deg, rgba(29,21,53,.96), rgba(16,11,31,.82)) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.025), 0 28px 70px rgba(0,0,0,.24);
+}
+
+html.os-redesign [data-tilt]::after {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  color: rgba(123,232,210,.68);
+  font: 10px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .15em;
+  content: "OMNI-BRAIN / ONLINE";
+  pointer-events: none;
+}
+
+/* The three named sections form the page's system map. */
+html.os-redesign #quy-dao,
+html.os-redesign #tri-nho,
+html.os-redesign #tru-cot,
+html.os-redesign #gioi-han,
+html.os-redesign #faq {
+  scroll-margin-top: 82px;
+}
+
+html.os-redesign #quy-dao > div > div,
+html.os-redesign #tri-nho > div > div,
+html.os-redesign #tru-cot > div > div,
+html.os-redesign #gioi-han > div > div,
+html.os-redesign #faq > div > div {
+  border-color: rgba(188,163,255,.24) !important;
+  background: linear-gradient(145deg, rgba(29,21,53,.84), rgba(16,11,31,.68)) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.16);
+}
+
+html.os-redesign #quy-dao > div > div:hover,
+html.os-redesign #tri-nho > div > div:hover,
+html.os-redesign #tru-cot > div > div:hover,
+html.os-redesign #gioi-han > div > div:hover {
+  border-color: rgba(123,232,210,.56) !important;
+  transform: translateY(-4px);
+}
+
+html.os-redesign #quy-dao > div > div::before,
+html.os-redesign #tri-nho > div > div::before,
+html.os-redesign #tru-cot > div > div::before {
+  display: block;
+  margin-bottom: 15px;
+  color: rgba(123,232,210,.7);
+  font: 10px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .16em;
+}
+
+html.os-redesign #quy-dao > div > div::before { content: "ROUTING / 01"; }
+html.os-redesign #tri-nho > div > div::before { content: "MEMORY LAYERS / 02"; }
+html.os-redesign #tru-cot > div > div::before { content: "CORE MODULE / 03"; }
+
+html.os-redesign #quy-dao strong,
+html.os-redesign #tri-nho strong,
+html.os-redesign #tru-cot strong {
+  color: var(--os-cyan) !important;
+}
+
+html.os-redesign #gioi-han > div > div {
+  border-left: 2px solid var(--os-gold) !important;
+}
+
+html.os-redesign #gioi-han > div > div::after {
+  display: block;
+  margin-top: 18px;
+  color: rgba(245,193,95,.62);
+  font: 10px/1 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .15em;
+  content: "KNOWN SEAM / HONEST LIMIT";
+}
+
+html.os-redesign #faq > div > div {
+  overflow: hidden;
+}
+
+html.os-redesign #faq button {
+  color: var(--os-text) !important;
+  background: transparent !important;
+}
+
+html.os-redesign #faq button:hover,
+html.os-redesign #faq button:focus-visible {
+  color: var(--os-cyan) !important;
+}
+
+html.os-redesign body > div > main form {
+  border-color: rgba(123,232,210,.32) !important;
+  background: linear-gradient(145deg, rgba(29,21,53,.92), rgba(16,11,31,.8)) !important;
+  box-shadow: 0 22px 60px rgba(0,0,0,.24);
+}
+
+html.os-redesign body > div > main input,
+html.os-redesign body > div > main textarea,
+html.os-redesign body > div > main select {
+  color: var(--os-text) !important;
+  border-color: var(--os-line) !important;
+  background: rgba(16,11,31,.72) !important;
+}
+
+html.os-redesign body > div > main button[type="submit"] {
+  color: var(--os-bg) !important;
+  background: var(--os-cyan) !important;
+  border-color: var(--os-cyan) !important;
+  box-shadow: 0 8px 24px rgba(123,232,210,.14);
+}
+
+html.os-redesign body > div > main button[type="submit"]:hover,
+html.os-redesign body > div > main button[type="submit"]:focus-visible {
+  background: #a0f5e2 !important;
+  transform: translateY(-2px);
+}
+
+html.os-redesign body > div > footer {
+  background: rgba(6,4,14,.9) !important;
+  border-top-color: rgba(188,163,255,.28) !important;
+}
+
+html.os-redesign body > div > footer p {
+  color: var(--os-soft) !important;
+}
+
+@media (max-width: 760px) {
+  html.os-redesign body > div > header > div {
+    padding-inline: 18px !important;
+  }
+
+  html.os-redesign body > div > header nav {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  html.os-redesign body > div > main > section > div,
+  html.os-redesign body > div > footer > div {
+    padding-inline: 18px !important;
+  }
+
+  html.os-redesign body > div > main > section:first-child {
+    min-height: 720px;
+  }
+
+  html.os-redesign body > div > main > section:first-child::after {
+    top: 34%;
+    right: -42%;
+    width: 118vw;
+    opacity: .5;
+  }
+
+  html.os-redesign body > div > main h1 {
+    font-size: clamp(2.8rem, 15vw, 5.2rem) !important;
+  }
+
+  html.os-redesign body > div > main h2 {
+    font-size: clamp(2rem, 12vw, 3.8rem) !important;
+  }
+
+  html.os-redesign [data-tilt] {
+    min-height: 250px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.os-redesign *,
+  html.os-redesign *::before,
+  html.os-redesign *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

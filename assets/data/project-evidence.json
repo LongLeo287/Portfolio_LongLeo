@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "catalog": "portfolio-project-evidence",
+  "purpose": "Read-only local-source provenance for child landing-page claims. This is maintainer metadata, not runtime content.",
+  "verifiedAt": "2026-10-17",
+  "entries": [
+    {
+      "slug": "omniclaw",
+      "architecture": "live-runtime",
+      "sourceRepo": "D:/LongLeo/Omni/OmniClaw",
+      "remote": "https://github.com/LongLeo287/OmniClaw.git",
+      "sourceFiles": ["README.md", "README-vn.md", "brain/registry/version.json", "brain/agents/activation_status.json", "core/docs/SOP_V5.md"],
+      "documentedClaims": ["OmniClaw 5.0 describes an eight-daemon OAP system", "MemPalace is documented as a three-layer memory architecture", "Claude Code CLI and Google Antigravity are named integrations", "the bootstrap CLI is for local diagnostics and path discovery"],
+      "contentLimits": ["Do not present all eight daemons as independently implemented or healthy without runtime evidence", "Do not imply the UI or REMOTE service is auto-provisioned"],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "seosona-os",
+      "architecture": "spatial-3d",
+      "sourceRepo": "D:/LongLeo/SEOSONA AI/SEOSONA OS",
+      "remote": "https://github.com/LongLeo287/SEOSONA-OS.git",
+      "sourceFiles": ["README.md", "README-vi.md", "seosona.project.json", ".mcp.json", "1_CORE", "2_KNOWLEDGE", "3_MEMORY"],
+      "documentedClaims": ["SEOSONA OS is a personal AI operating system", "SOUL doctrine, knowledge MCP, UAP ingestion, skill routing and guarded dispatch are core concepts", "Video, Content, UX-UI and Flow are named satellites", "the vector index is rebuilt on first query rather than shipped"],
+      "contentLimits": ["Counts such as 280+ skills and 3,000+ knowledge items are documented snapshots, not live health metrics", "Do not claim every daemon or connector is running from repository presence alone"],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "seosona-flow",
+      "architecture": "workflow-canvas",
+      "sourceRepo": "D:/LongLeo/SEOSONA AI/SEOSONA Flow/SEOSONA Flow",
+      "remote": null,
+      "sourceFiles": ["README.md", "manifest.json", "src/core/RuntimeMode.js", "src/core/ApiClient.js", "background.js", "content_scripts/content.js"],
+      "documentedClaims": ["SEOSONA Flow is a Manifest V3 Chrome extension", "version 1.1.37 is documented", "batch prompts, workflow automation, auto-download and Image-to-Prompt are supported concepts", "Google Flow, ChatGPT, Gemini and Grok adapters are named", "local/offline mode is the default and backend requests are blocked in that mode"],
+      "contentLimits": ["Automation depends on authenticated provider tabs and live DOM selectors", "The repository documents no build or automated test step for the unpacked extension"],
+      "derivedEvidence": [{"tool": "REA", "repository": "https://github.com/morluto/rea", "evidenceId": "ev_0b6ab896be111d9d59c1c9cbf041a7c1faa2f65459f9da66558f1a65d534a7f6", "scope": ["manifest.json", "src/core/RuntimeMode.js", "src/core/ApiClient.js", "background.js"], "limits": "Static selected-file analysis; 171 files were unselected and runtime reachability was not proved"}],
+      "confidence": "source-observed-and-documented"
+    },
+    {
+      "slug": "seosona-ux-ui",
+      "architecture": "design-workbench",
+      "sourceRepo": "D:/LongLeo/SEOSONA AI/SEOSONA UX-UI",
+      "remote": "https://github.com/LongLeo287/seosona-ux-ui.git",
+      "sourceFiles": ["README.md", "seosona.project.json", "4_LIBRARY", "scripts/build.js", "scripts/seosona-project.mjs"],
+      "documentedClaims": ["version 1.0.0 is documented", "the library is framework-agnostic and built around HTML, CSS tokens and vanilla JavaScript", "the library documents 30+ accessible components", "motion uses anime.js and IntersectionObserver", "a GitHub Pages showcase and build/doctor commands are provided"],
+      "contentLimits": ["Component count and showcase status are repository documentation snapshots", "Do not claim a specific component is production-ready without checking its source and generated showcase"],
+      "derivedEvidence": [{"tool": "REA", "repository": "https://github.com/morluto/rea", "evidenceId": "ev_2567f0698ae02065379a0dd753d26b97abada2a95a89a7e0a077bf497f26d599", "scope": ["package.json", "scripts/build.js", "scripts/seosona-project.mjs"], "limits": "Static selected-file analysis; 802 files were unselected and runtime reachability was not proved"}],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "seosona-video-ai",
+      "architecture": "media-timeline",
+      "sourceRepo": "D:/LongLeo/SEOSONA AI/SEOSONA Video",
+      "remote": "https://github.com/LongLeo287/SEOSONA-Video-AI.git",
+      "sourceFiles": ["README.md", "ARCHITECTURE.md", "STRUCTURE.md", "seosona.project.json", "5_FRAMEWORK", "6_SOP", "7_ASSETS"],
+      "documentedClaims": ["the project presents a HyperFrames-driven autonomous video production factory", "the documentation names 10 AI agents, 7 Python-native skills, 21 workflows and 9 graphics frameworks", "FFmpeg, Puppeteer, Whisper/PhoWhisper and VieNeu-TTS are named tools/models", "the repository documents integration with SEOSONA OS"],
+      "contentLimits": ["The counts are documentation claims and must not be rendered as live throughput", "A production result requires an input asset, provider/model availability and the relevant workflow"],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "tiem-nuoc-nho",
+      "architecture": "product-mockup",
+      "sourceRepo": "D:/LongLeo/PROJECT AI/Tiem_Nuoc_Nho_v5",
+      "remote": "https://github.com/LongLeo287/Tiem_Nuoc_Nho_v5.git",
+      "sourceFiles": ["README.md", "metadata.json", "package.json", "src/App.tsx", "src/components/Cart.tsx", "gas/DashboardService.js", "gas/FinanceService.js"],
+      "documentedClaims": ["the product is a POS for a small beverage shop", "the stack is React 19, TypeScript, Vite, Tailwind CSS v4, Framer Motion and Lucide", "Google Apps Script and Google Sheets are described as the serverless backend/data store", "responsive mobile and desktop/tablet modes, order history, VietQR and AI assistant integration are documented"],
+      "contentLimits": ["The README is product documentation; backend deployment and live payment behavior still require runtime verification", "Do not present demo data or QR artwork as a real payment transaction"],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "seosona",
+      "architecture": "editorial-narrative",
+      "sourceRepo": "D:/LongLeo/SEOSONA AI/Website SEOSONA",
+      "remote": "https://github.com/LongLeo287/SEOSONA.git",
+      "sourceFiles": ["README.md", "package.json", "app", "components", "content", "data"],
+      "documentedClaims": ["the repo is a Next.js App Router rebuild of seosona.com", "SEO redirects, content hub, case studies, service pages, metadata, sitemap, schema and Core Web Vitals are stated goals", "the current stack includes Next.js, TypeScript, Tailwind and motion libraries"],
+      "contentLimits": ["The README says hosting is not locked and production deploy is not assumed", "Legacy content is explicitly filtered for spam/shortcode risk"],
+      "confidence": "documented-plus-local-source"
+    },
+    {
+      "slug": "portfolio",
+      "architecture": "motion-narrative",
+      "sourceRepo": "D:/OrcaWorkspaces/Portfolio_LongLeo",
+      "remote": "https://github.com/LongLeo287/Portfolio_LongLeo.git",
+      "sourceFiles": ["AGENTS.md", "docs/ORCA-WORKSPACE.md", "assets/data/projects.json", "index.html", "assets/js/app.js", "assets/css/tokens.css"],
+      "documentedClaims": ["the portfolio is a static HTML/CSS/vanilla JavaScript site", "assets/data/projects.json is the runtime source of truth for portfolio items", "the portfolio preserves bilingual behavior and a dark/amber visual system", "the repository currently catalogs 100+ portfolio records"],
+      "contentLimits": ["Most catalog records are media/design items rather than full product case studies", "Do not infer product behavior from a thumbnail title without a linked source repository or case-study evidence"],
+      "confidence": "workspace-source-observed"
+    },
+    {
+      "slug": "anibox",
+      "architecture": "tv-interface",
+      "sourceRepo": "D:/LongLeo/Ani/AniBox",
+      "remote": "https://github.com/LongLeo287/AniBox.git",
+      "sourceFiles": ["README.md", "settings.gradle", "app/src/main", "docs/architecture.md"],
+      "documentedClaims": ["AniBox is an Android TV media UX focused on TV-first layout, D-pad navigation, playback, subtitle/audio UX and metadata presentation", "Media3, MPV compatibility fallback and WebView are named playback surfaces", "AniSub is an optional companion for on-device subtitle translation and voice-over"],
+      "contentLimits": ["AniBox explicitly does not host, package or distribute media libraries", "AniSub coverage differs by player and OCR is documented as imperfect", "This remains an external-only portfolio card until a dedicated landing source is approved"],
+      "confidence": "source-observed-and-documented"
+    }
+  ]
+}

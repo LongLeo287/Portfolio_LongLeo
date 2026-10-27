@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://omniclaw-longleo.vercel.app/sitemap.xml

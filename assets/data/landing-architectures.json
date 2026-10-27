@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "catalog": "landing-page-studio-architectures",
+  "generatedAt": "2026-10-17",
+  "purpose": "Blueprints for distinct child landing pages in the Open Source section. Each recipe chooses a visual surface, data contract, motion model and fallback before implementation.",
+  "globalContract": {
+    "runtime": "HTML/CSS/vanilla JS by default; use a project-owned runtime only when the landing page needs it.",
+    "httpOnly": true,
+    "initialBudget": {
+      "cssKbGzip": 30,
+      "jsKbGzip": 32,
+      "requests": 24
+    },
+    "responsiveMatrix": [320, 360, 390, 414, 768, 834, 1024, 1280, 1440, 1920],
+    "motionModes": ["full", "balanced", "lite", "static"],
+    "hardConstraints": ["prefers-reduced-motion", "Save-Data", "no-horizontal-overflow", "keyboard-accessible-controls"]
+  },
+  "architectures": [
+    {
+      "id": "product-mockup",
+      "label": {"vi": "Mockup sản phẩm", "en": "Product mockup"},
+      "visualSurface": "HTML/CSS/SVG device frames",
+      "bestFor": ["POS", "browser extension", "mobile app", "remote control"],
+      "composition": ["hero promise", "device pair", "feature rail", "data or QR card", "workflow proof", "FAQ"],
+      "dataContract": {
+        "static": "A small JSON fixture for screen states, product metrics and labels.",
+        "live": "Optional same-origin endpoint for availability or demo mode; never block the first paint."
+      },
+      "assetPolicy": {
+        "preferred": ["CSS frame", "inline SVG", "responsive WebP"],
+        "avoid": ["full-page screenshot as the only product explanation", "unbounded GIF"],
+        "fallback": "Show the key screen as semantic HTML when image or WebGL fails."
+      },
+      "motion": {
+        "full": "Pointer parallax on fine pointers and short transform/opacity reveals.",
+        "static": "Keep screens side by side or stacked with no autoplay movement."
+      },
+      "resourceIds": ["mdn-pointer-events", "web-dev-images", "mdn-svg", "w3c-svg-accessibility", "w3c-html-dialog-technique"],
+      "budget": {"initialCssKbGzip": 8, "initialJsKbGzip": 6, "mediaRequests": 8},
+      "examples": ["tiem-nuoc-nho", "seosona-flow"]
+    },
+    {
+      "id": "workflow-canvas",
+      "label": {"vi": "Canvas workflow", "en": "Workflow canvas"},
+      "visualSurface": "SVG node graph with readable HTML labels",
+      "bestFor": ["automation", "AI agents", "pipeline", "orchestration"],
+      "composition": ["problem statement", "animated graph", "node groups", "before/after flow", "limits", "CTA"],
+      "dataContract": {
+        "static": "Nodes are an array with id, group, input, output and status fields.",
+        "live": "A read-only status snapshot may refresh on demand; do not stream every node by default."
+      },
+      "assetPolicy": {
+        "preferred": ["inline SVG paths", "CSS grid texture", "small icon sprites"],
+        "avoid": ["canvas-only labels", "layout-changing animation"],
+        "fallback": "Render the same nodes as an ordered list with status text."
+      },
+      "motion": {
+        "full": "Transform-only pulses along edges and staged node reveals.",
+        "static": "Use numbered groups and visible arrows; remove loops and shimmer."
+      },
+      "resourceIds": ["mdn-pointer-events", "mdn-svg", "mdn-reduced-motion", "mdn-request-animation-frame", "web-dev-long-tasks"],
+      "budget": {"initialCssKbGzip": 10, "initialJsKbGzip": 8, "mediaRequests": 4},
+      "examples": ["seosona-flow"]
+    },
+    {
+      "id": "data-dashboard",
+      "label": {"vi": "Dashboard dữ liệu", "en": "Data dashboard"},
+      "visualSurface": "Semantic KPI cards, tables and progressive charts",
+      "bestFor": ["analytics", "monitoring", "quality metrics", "operations"],
+      "composition": ["metric headline", "KPI strip", "trend chart", "filterable table", "insight callouts", "data notes"],
+      "dataContract": {
+        "static": "Versioned fixture with units, timestamps, source and null-state fields.",
+        "live": "Fetch same-origin JSON with timeout, stale timestamp and empty/error states; SSE/WebSocket is opt-in."
+      },
+      "assetPolicy": {
+        "preferred": ["CSS bars", "SVG charts", "accessible HTML table"],
+        "avoid": ["chart image without a table", "color-only status", "auto-refresh without pause"],
+        "fallback": "The table and text summary remain the source of truth when chart code is unavailable."
+      },
+      "motion": {
+        "full": "Animate chart entry once and highlight changed values with a short transition.",
+        "static": "Render the final values immediately and announce updates in a polite live region."
+      },
+      "resourceIds": ["web-vitals", "mdn-performance-observer", "web-dev-long-tasks", "web-dev-content-visibility", "mdn-reduced-motion"],
+      "budget": {"initialCssKbGzip": 9, "initialJsKbGzip": 10, "mediaRequests": 2},
+      "examples": ["seosona-os", "omniclaw"]
+    },
+    {
+      "id": "media-timeline",
+      "label": {"vi": "Timeline media", "en": "Media timeline"},
+      "visualSurface": "Filmstrip, chapter rail and lazy media facades",
+      "bestFor": ["video automation", "editing workflow", "case study", "production pipeline"],
+      "composition": ["reel hook", "timeline hero", "chapter cards", "media proof", "toolchain", "delivery CTA"],
+      "dataContract": {
+        "static": "Chapters contain timecode, title, poster, tool and outcome.",
+        "live": "Media metadata may load after intent; never autoplay third-party video on first paint."
+      },
+      "assetPolicy": {
+        "preferred": ["poster WebP", "native video facade", "responsive thumbnails"],
+        "avoid": ["unbounded background video", "third-party iframe before intent"],
+        "fallback": "Poster, transcript and external watch link replace video playback."
+      },
+      "motion": {
+        "full": "Scrub-like transform motion and chapter reveal; pause when hidden.",
+        "static": "Use a still filmstrip and visible chapter navigation."
+      },
+      "resourceIds": ["ffmpeg", "opentimelineio", "youtube-player-parameters", "web-dev-images", "mdn-page-visibility"],
+      "budget": {"initialCssKbGzip": 9, "initialJsKbGzip": 8, "mediaRequests": 6},
+      "examples": ["seosona-video-ai"]
+    },
+    {
+      "id": "spatial-3d",
+      "label": {"vi": "Không gian 3D", "en": "Spatial 3D"},
+      "visualSurface": "Progressive WebGL scene with DOM labels",
+      "bestFor": ["system map", "product explorer", "visual identity", "interactive architecture"],
+      "composition": ["semantic hero", "3D focus object", "DOM chapter rail", "capability cards", "technical fallback"],
+      "dataContract": {
+        "static": "Scene manifest lists objects, labels, camera presets and interaction targets.",
+        "live": "Live state is a small overlay or status endpoint; it must not be required to render the scene."
+      },
+      "assetPolicy": {
+        "preferred": ["small GLB", "procedural geometry", "compressed textures"],
+        "avoid": ["large uncompressed model", "canvas-only navigation", "WebGL as the only content"],
+        "fallback": "Replace the scene with an SVG/HTML map and the same labels."
+      },
+      "motion": {
+        "full": "Pointer camera parallax and short camera transitions on fine pointers.",
+        "static": "Freeze camera, show the DOM map and preserve keyboard navigation."
+      },
+      "resourceIds": ["three-js", "react-three-fiber", "mdn-pointer-events", "mdn-reduced-motion", "mdn-request-animation-frame"],
+      "budget": {"initialCssKbGzip": 8, "initialJsKbGzip": 12, "mediaRequests": 5},
+      "examples": ["seosona-os"]
+    },
+    {
+      "id": "live-runtime",
+      "label": {"vi": "Runtime live", "en": "Live runtime"},
+      "visualSurface": "Terminal/status console with server-backed states",
+      "bestFor": ["daemon", "API", "deployment", "agent system", "health monitor"],
+      "composition": ["system promise", "status strip", "event log", "health endpoint", "architecture map", "lead CTA"],
+      "dataContract": {
+        "static": "Boot with an honest fixture and expose its timestamp/source.",
+        "live": "Same-origin endpoint, timeout, schema validation, stale badge and human-readable error state."
+      },
+      "assetPolicy": {
+        "preferred": ["text and CSS", "inline SVG status marks", "small diagnostic icons"],
+        "avoid": ["fake live values without timestamp", "secret or public credential in HTML"],
+        "fallback": "Show last-known data as stale and keep the architecture explanation usable."
+      },
+      "motion": {
+        "full": "Capped log reveal and status pulse; pause polling when hidden.",
+        "static": "Use a stable snapshot with explicit last-updated text."
+      },
+      "resourceIds": ["mdn-server-sent-events", "mdn-websockets", "mdn-performance-observer", "mdn-page-visibility", "mdn-csp", "owasp-asvs", "web-vitals"],
+      "budget": {"initialCssKbGzip": 7, "initialJsKbGzip": 7, "mediaRequests": 2},
+      "examples": ["omniclaw"]
+    },
+    {
+      "id": "design-workbench",
+      "label": {"vi": "Workbench design system", "en": "Design-system workbench"},
+      "visualSurface": "Token inspector, component states and live controls",
+      "bestFor": ["UI kit", "component library", "brand system", "design QA"],
+      "composition": ["principles", "token panel", "component gallery", "state matrix", "responsive preview", "usage rules"],
+      "dataContract": {
+        "static": "Tokens and component variants are plain JSON; examples declare state and expected behavior.",
+        "live": "Controls update the preview locally; persistence is optional and must be explicit."
+      },
+      "assetPolicy": {
+        "preferred": ["CSS custom properties", "inline SVG", "semantic controls"],
+        "avoid": ["screenshot-only component docs", "hover-only state demos"],
+        "fallback": "Print token values and state descriptions beside every visual sample."
+      },
+      "motion": {
+        "full": "Small state transitions and view transitions when supported.",
+        "static": "Switch states instantly and retain focus."
+      },
+      "resourceIds": ["nexu-open-design", "material-foundations", "carbon-design-overview", "mdn-view-transition", "ui-ux-pro-max-skill"],
+      "budget": {"initialCssKbGzip": 12, "initialJsKbGzip": 7, "mediaRequests": 2},
+      "examples": ["seosona-ux-ui"]
+    },
+    {
+      "id": "editorial-narrative",
+      "label": {"vi": "Editorial + data story", "en": "Editorial data story"},
+      "visualSurface": "Long-form narrative with image chapters and evidence blocks",
+      "bestFor": ["agency site", "portfolio case study", "brand story", "research narrative"],
+      "composition": ["editorial hero", "chapter index", "image story", "evidence block", "quote or metric", "closing CTA"],
+      "dataContract": {
+        "static": "Content entries include title, dek, image sources, caption, alt and source credit.",
+        "live": "Optional related-project feed loaded after the primary narrative is readable."
+      },
+      "assetPolicy": {
+        "preferred": ["responsive WebP/AVIF", "CSS art direction", "captioned SVG diagrams"],
+        "avoid": ["hero image without dimensions", "decorative image carrying essential copy"],
+        "fallback": "Text and captions remain complete if every image is unavailable."
+      },
+      "motion": {
+        "full": "Scroll-linked chapter emphasis and image reveal within a bounded budget.",
+        "static": "Use active chapter styling without parallax or scrub."
+      },
+      "resourceIds": ["web-dev-images", "typography-vietnamese-qa", "google-fonts-api", "mdn-reduced-motion", "web-dev-content-visibility"],
+      "budget": {"initialCssKbGzip": 8, "initialJsKbGzip": 5, "mediaRequests": 10},
+      "examples": ["seosona"]
+    },
+    {
+      "id": "motion-narrative",
+      "label": {"vi": "Narrative chuyển động", "en": "Motion narrative"},
+      "visualSurface": "Scroll-driven sections with a native DOM reading order",
+      "bestFor": ["personal portfolio", "creative reel", "interactive case study"],
+      "composition": ["kinetic hero", "chapter rail", "work carousel", "skills wall", "contact finale"],
+      "dataContract": {
+        "static": "Content stays in semantic HTML or a versioned catalog; motion never owns the copy.",
+        "live": "Portfolio items can refresh from a same-origin JSON catalog without replacing the page shell."
+      },
+      "assetPolicy": {
+        "preferred": ["responsive images", "native video facades", "CSS scroll timelines"],
+        "avoid": ["animation that hides content", "large runtime loaded before first paint"],
+        "fallback": "Native scroll, static hero and accessible carousel controls remain complete."
+      },
+      "motion": {
+        "full": "Scroll-linked reveals, bounded kinetic bands and one active media slide.",
+        "static": "Keep section order, focus states and media controls while removing decorative loops."
+      },
+      "resourceIds": ["mdn-view-transition", "mdn-request-animation-frame", "mdn-reduced-motion", "web-dev-content-visibility", "web-vitals"],
+      "budget": {"initialCssKbGzip": 12, "initialJsKbGzip": 10, "mediaRequests": 10},
+      "examples": ["portfolio"]
+    },
+    {
+      "id": "tv-interface",
+      "label": {"vi": "TV interface", "en": "TV interface"},
+      "visualSurface": "Remote-first rows, focus rings and media shelves",
+      "bestFor": ["Android TV", "media library", "remote control", "living-room product"],
+      "composition": ["remote-first hero", "content shelves", "focus state demo", "subtitle/accessibility proof", "release CTA"],
+      "dataContract": {
+        "static": "Shelf fixture includes title, poster, metadata, subtitle and focus order.",
+        "live": "Release metadata may refresh independently from the visual shell."
+      },
+      "assetPolicy": {
+        "preferred": ["poster derivatives", "SVG focus chrome", "lazy shelves"],
+        "avoid": ["tiny touch-only controls", "autoplaying media wall"],
+        "fallback": "Keyboard arrows and semantic buttons reproduce the remote flow."
+      },
+      "motion": {
+        "full": "Focus-scale and shelf movement with a short duration.",
+        "static": "Use a visible focus ring and no continuous shelf motion."
+      },
+      "resourceIds": ["mdn-pointer-events", "web-dev-images", "mdn-reduced-motion", "w3c-aria-dialog-modal", "web-vitals"],
+      "budget": {"initialCssKbGzip": 9, "initialJsKbGzip": 6, "mediaRequests": 8},
+      "examples": ["anibox"]
+    }
+  ]
+}

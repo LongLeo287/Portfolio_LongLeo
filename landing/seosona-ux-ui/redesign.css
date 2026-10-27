@@ -1,0 +1,234 @@
+/* SEOSONA UX-UI — design-workbench visual system.
+   The specimen data stays in the landing source; this layer makes the page
+   read like a real library/workbench instead of a feature list. */
+
+html.ux-redesign {
+  background: var(--u-bg, #080c15);
+  color-scheme: dark;
+}
+
+html.ux-redesign body,
+html.ux-redesign body > div {
+  background: var(--u-bg, #080c15) !important;
+  color: var(--u-text, #f4f7fb) !important;
+}
+
+html.ux-redesign body > div {
+  position: relative;
+}
+
+html.ux-redesign body > div::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(111, 143, 189, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(111, 143, 189, .035) 1px, transparent 1px),
+    radial-gradient(circle at 76% 6%, color-mix(in srgb, var(--u-accent, #5da9ff) 18%, transparent), transparent 29%);
+  background-size: 40px 40px, 40px 40px, auto;
+  mask-image: linear-gradient(to bottom, black, rgba(0,0,0,.35) 72%, transparent);
+}
+
+html.ux-redesign header {
+  background: color-mix(in srgb, var(--u-bg, #080c15) 88%, transparent) !important;
+  border-bottom-color: color-mix(in srgb, var(--u-line, #26354a) 78%, transparent) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .2) !important;
+  backdrop-filter: blur(20px) saturate(1.2) !important;
+}
+
+html.ux-redesign header > div {
+  max-width: 1280px !important;
+  min-height: 72px !important;
+}
+
+html.ux-redesign header a {
+  color: var(--u-muted, #aab8cb) !important;
+  transition: color .2s ease, transform .2s ease !important;
+}
+
+html.ux-redesign header a:hover,
+html.ux-redesign header a:focus-visible {
+  color: var(--u-accent, #5da9ff) !important;
+}
+
+html.ux-redesign main {
+  position: relative;
+  isolation: isolate;
+  padding-top: 24px;
+}
+
+html.ux-redesign main > section {
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(22px, 5vw, 76px) !important;
+  padding-right: clamp(22px, 5vw, 76px) !important;
+}
+
+html.ux-redesign main > section:first-child {
+  position: relative;
+  padding-top: clamp(48px, 7vw, 90px) !important;
+  padding-bottom: clamp(40px, 6vw, 76px) !important;
+}
+
+html.ux-redesign main > section:first-child::before {
+  position: absolute;
+  inset: 18px clamp(16px, 3vw, 48px) 0;
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--u-line, #26354a) 80%, transparent);
+  border-radius: 28px;
+  content: "";
+  background: linear-gradient(140deg, color-mix(in srgb, var(--u-panel, #121a28) 92%, white 8%), var(--u-bg2, #0d1420));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .22), inset 0 1px rgba(255,255,255,.035);
+}
+
+html.ux-redesign main > section:first-child > div {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.ux-redesign .ux-hero h1 {
+  max-width: 11ch !important;
+  color: var(--u-text, #f4f7fb) !important;
+  font-size: clamp(43px, 7vw, 86px) !important;
+  line-height: .97 !important;
+  letter-spacing: -.065em !important;
+  text-wrap: balance !important;
+}
+
+html.ux-redesign .ux-hero p {
+  max-width: 52ch !important;
+  color: var(--u-muted, #aab8cb) !important;
+  font-size: clamp(17px, 2vw, 20px) !important;
+  line-height: 1.62 !important;
+}
+
+html.ux-redesign main > section:first-child [data-gl-hero] {
+  opacity: .86;
+  filter: saturate(1.08) contrast(1.03);
+}
+
+html.ux-redesign main > section:first-child > div:last-child,
+html.ux-redesign #token > div:nth-child(2),
+html.ux-redesign #chu > div:nth-child(2),
+html.ux-redesign #component > div:nth-child(2) {
+  border-color: color-mix(in srgb, var(--u-line, #26354a) 82%, transparent) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 20px 52px rgba(0, 0, 0, .18) !important;
+}
+
+html.ux-redesign main > section:not(:first-child) {
+  padding-top: clamp(72px, 10vw, 140px) !important;
+}
+
+html.ux-redesign main > section:not(:first-child) h2 {
+  max-width: 17ch !important;
+  color: var(--u-text, #f4f7fb) !important;
+  font-size: clamp(30px, 4.6vw, 56px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.055em !important;
+  text-wrap: balance !important;
+}
+
+html.ux-redesign main > section:not(:first-child) > div:first-child p {
+  color: var(--u-muted, #aab8cb) !important;
+}
+
+html.ux-redesign main > section:nth-child(2) {
+  padding-top: clamp(32px, 5vw, 68px) !important;
+}
+
+html.ux-redesign main > section:nth-child(2) [style*="border-top:2px"] {
+  border-color: var(--u-line, #26354a) !important;
+  border-top-color: var(--u-accent, #5da9ff) !important;
+  border-radius: 14px !important;
+  background: var(--u-panel, #121a28) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .16) !important;
+  transition: transform .25s ease, border-color .25s ease, background-color .25s ease !important;
+}
+
+html.ux-redesign main > section:nth-child(2) [style*="border-top:2px"]:hover {
+  border-top-color: var(--u-accent, #5da9ff) !important;
+  transform: translateY(-5px);
+}
+
+html.ux-redesign #token,
+html.ux-redesign #component,
+html.ux-redesign #gioi-han,
+html.ux-redesign #faq {
+  position: relative;
+}
+
+html.ux-redesign #token::before,
+html.ux-redesign #component::before {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--u-accent, #5da9ff);
+  content: "LIBRARY SPEC / 01";
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+html.ux-redesign #component::before {
+  content: "COMPONENT SPECIMENS / 03";
+}
+
+html.ux-redesign #gioi-han::before {
+  display: block;
+  margin-bottom: 20px;
+  color: #f59e0b;
+  content: "KNOWN LIMITS / 05";
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+html.ux-redesign #component > div [style*="border-radius:8px"],
+html.ux-redesign #gioi-han > div [style*="border-left:2px"],
+html.ux-redesign #faq > div [style*="border-radius:8px"] {
+  border-color: var(--u-line, #26354a) !important;
+  background: color-mix(in srgb, var(--u-panel, #121a28) 86%, transparent) !important;
+  transition: transform .22s ease, border-color .22s ease !important;
+}
+
+html.ux-redesign #component > div [style*="border-radius:8px"]:hover {
+  border-color: color-mix(in srgb, var(--u-accent, #5da9ff) 65%, transparent) !important;
+  transform: translateY(-3px);
+}
+
+html.ux-redesign main > section:last-child > div {
+  border-color: var(--u-accent, #5da9ff) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .22) !important;
+}
+
+html.ux-redesign footer {
+  margin-top: clamp(72px, 10vw, 140px) !important;
+  border-top-color: var(--u-line, #26354a) !important;
+  background: color-mix(in srgb, var(--u-bg, #080c15) 75%, black 25%) !important;
+}
+
+@media (max-width: 760px) {
+  html.ux-redesign main { padding-top: 10px; }
+  html.ux-redesign main > section:first-child::before { border-radius: 22px; }
+  html.ux-redesign .ux-hero h1 { max-width: 10ch !important; }
+  html.ux-redesign main > section:not(:first-child) h2 { max-width: 14ch !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.ux-redesign *,
+  html.ux-redesign *::before,
+  html.ux-redesign *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

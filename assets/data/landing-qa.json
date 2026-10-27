@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-22",
+  "scope": "static-source-audit",
+  "browserTarget": "3b097077",
+  "entries": [
+    {"slug": "omniclaw", "architecture": "live-runtime", "domain": "https://omniclaw-longleo.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "FAIL", "mediaStatus": "PASS", "liveEvidence": {"root": 404, "health": 404, "robots": 404, "sitemap": 404}},
+    {"slug": "seosona-flow", "architecture": "workflow-canvas", "domain": "https://seosona-flow.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "PARTIAL", "mediaStatus": "BLOCKED", "liveEvidence": {"root": 200, "health": 200, "robots": 404, "sitemap": 404, "commit": "b08b24fad1aa57b49536c1f40646008cb4df2d0e", "healthAt": "2026-10-22T14:18:03.745Z"}},
+    {"slug": "seosona-os", "architecture": "spatial-3d", "domain": "https://seosona-os.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "PARTIAL", "mediaStatus": "PASS", "liveEvidence": {"root": 200, "health": 200, "robots": 404, "sitemap": 404, "commit": "4fd50b1281e8cd978866b6b4556242605cabf708", "healthAt": "2026-10-22T14:18:04.253Z"}},
+    {"slug": "seosona-ux-ui", "architecture": "design-workbench", "domain": "https://seosona-ux-ui.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "PARTIAL", "mediaStatus": "PASS", "liveEvidence": {"root": 200, "health": 200, "robots": 404, "sitemap": 404, "commit": "d77287ef7a1130dc451acac0f4159764cc782355", "healthAt": "2026-10-22T14:18:05.146Z"}},
+    {"slug": "seosona-video-ai", "architecture": "media-timeline", "domain": "https://seosona-video-ai.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "PARTIAL", "mediaStatus": "BLOCKED", "liveEvidence": {"root": 200, "health": 200, "robots": 404, "sitemap": 404, "commit": "6fdeb90d405fe95f57c4d702f756e06ca24c75bf", "healthAt": "2026-10-22T14:18:06.096Z"}},
+    {"slug": "tiem-nuoc-nho", "architecture": "product-mockup", "domain": "https://tiem-nuoc-nho.vercel.app/", "scope": "publishable", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "PARTIAL", "mediaStatus": "PASS", "liveEvidence": {"root": 200, "health": 200, "robots": 404, "sitemap": 404, "commit": "864df65f9b1ba966e78f87b815c7057e59be7ee1", "healthAt": "2026-10-22T14:18:06.642Z"}},
+    {"slug": "seosona", "architecture": "editorial-narrative", "domain": "https://seosona.vercel.app/", "scope": "local-only", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "NOT APPLICABLE", "mediaStatus": "PASS"},
+    {"slug": "portfolio", "architecture": "motion-narrative", "domain": "https://portfolio-longleo.vercel.app/", "scope": "local-only", "staticStatus": "PASS", "browserStatus": "BLOCKED", "liveStatus": "NOT APPLICABLE", "mediaStatus": "PASS"},
+    {"slug": "anibox", "architecture": "tv-interface", "domain": "https://aniboxvn.vercel.app/", "scope": "external-only", "staticStatus": "NOT VERIFIED", "browserStatus": "NOT RUN", "liveStatus": "NOT VERIFIED", "mediaStatus": "NOT APPLICABLE"}
+  ]
+}

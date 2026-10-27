@@ -1,0 +1,278 @@
+/* Tiệm Nước Nhỏ — pilot visual system
+   This is an enhancement layer over the generated landing template. It keeps
+   the semantic DOM/content intact while giving the page the same editorial
+   finish as the main LongLeo portfolio. */
+
+html.tn-redesign {
+  background: #efe9e1;
+  color-scheme: light;
+}
+
+html.tn-redesign body {
+  background: #efe9e1 !important;
+  color: #241b17 !important;
+}
+
+html.tn-redesign body > div {
+  background: #efe9e1 !important;
+  color: #241b17 !important;
+}
+
+html.tn-redesign header {
+  background: rgba(239, 233, 225, .86) !important;
+  border-bottom: 1px solid rgba(75, 52, 42, .12) !important;
+  box-shadow: 0 8px 30px rgba(47, 31, 24, .06) !important;
+  backdrop-filter: blur(22px) saturate(1.15) !important;
+}
+
+html.tn-redesign header > div {
+  max-width: 1280px !important;
+  min-height: 72px !important;
+}
+
+html.tn-redesign header a {
+  color: #5c4a43 !important;
+  transition: color .2s ease, background-color .2s ease, transform .2s ease !important;
+}
+
+html.tn-redesign header a:hover,
+html.tn-redesign header a:focus-visible {
+  color: #b01f26 !important;
+}
+
+html.tn-redesign main {
+  position: relative;
+  isolation: isolate;
+  padding-top: 24px;
+}
+
+html.tn-redesign main::before {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 700px;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(92, 74, 67, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 74, 67, .055) 1px, transparent 1px),
+    radial-gradient(circle at 73% 8%, rgba(201, 37, 44, .12), transparent 32%);
+  background-size: 42px 42px, 42px 42px, auto;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+html.tn-redesign main > section:first-child {
+  position: relative;
+  max-width: 1280px !important;
+  min-height: min(690px, calc(100vh - 100px));
+  margin: 0 auto !important;
+  padding: clamp(72px, 9vw, 132px) clamp(24px, 5vw, 76px) clamp(52px, 6vw, 86px) !important;
+  border: 1px solid rgba(75, 52, 42, .12) !important;
+  border-radius: 34px !important;
+  background: linear-gradient(118deg, #f8f4ef 0%, #efe6dc 62%, #ead7cb 100%) !important;
+  box-shadow: 0 32px 90px rgba(47, 31, 24, .13) !important;
+  overflow: hidden;
+}
+
+html.tn-redesign main > section:first-child::before {
+  position: absolute;
+  right: -8%;
+  top: -25%;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(201, 37, 44, .14);
+  border-radius: 50%;
+  content: "";
+  box-shadow: 0 0 0 36px rgba(201, 37, 44, .035), 0 0 0 72px rgba(201, 37, 44, .025);
+  pointer-events: none;
+}
+
+html.tn-redesign main > section:first-child > div {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+}
+
+html.tn-redesign .tn-hero {
+  max-width: 650px !important;
+}
+
+html.tn-redesign .tn-hero h1 {
+  max-width: 11ch !important;
+  color: #241b17 !important;
+  font-size: clamp(42px, 7vw, 82px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.065em !important;
+  text-wrap: balance !important;
+}
+
+html.tn-redesign .tn-hero p {
+  max-width: 52ch !important;
+  color: #6b554b !important;
+  font-size: clamp(16px, 1.8vw, 19px) !important;
+  line-height: 1.65 !important;
+}
+
+html.tn-redesign .tn-phone {
+  min-height: clamp(360px, 48vw, 560px) !important;
+  filter: drop-shadow(0 30px 32px rgba(55, 31, 23, .2));
+}
+
+html.tn-redesign main > section:not(:first-child) {
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  padding-left: clamp(24px, 5vw, 76px) !important;
+  padding-right: clamp(24px, 5vw, 76px) !important;
+}
+
+html.tn-redesign main > section:not(:first-child) h2 {
+  max-width: 18ch !important;
+  color: #241b17 !important;
+  font-size: clamp(30px, 4.5vw, 54px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance !important;
+}
+
+html.tn-redesign main > section:not(:first-child) h3 {
+  color: #30221d !important;
+  letter-spacing: -.025em !important;
+}
+
+html.tn-redesign #dong-bo,
+html.tn-redesign #thanh-toan,
+html.tn-redesign #dung-thu {
+  position: relative;
+}
+
+html.tn-redesign #dong-bo > div,
+html.tn-redesign #thanh-toan > div,
+html.tn-redesign #dung-thu > div {
+  position: relative;
+  border-radius: 26px !important;
+}
+
+html.tn-redesign #dong-bo > div {
+  padding: clamp(24px, 4vw, 52px) !important;
+  background: #2a211d !important;
+  border-color: #2a211d !important;
+  box-shadow: 0 24px 60px rgba(47, 31, 24, .16) !important;
+}
+
+html.tn-redesign #dong-bo h2,
+html.tn-redesign #dong-bo h3,
+html.tn-redesign #dong-bo p {
+  color: #fff9f2 !important;
+}
+
+html.tn-redesign #dong-bo [style*="border-radius:16px"],
+html.tn-redesign #tinh-nang [style*="border-radius:14px"],
+html.tn-redesign #thanh-toan [style*="border-radius:16px"],
+html.tn-redesign #gioi-han [style*="border-radius:14px"] {
+  border-color: rgba(75, 52, 42, .14) !important;
+  box-shadow: 0 14px 36px rgba(47, 31, 24, .07) !important;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease !important;
+}
+
+html.tn-redesign #tinh-nang [style*="border-radius:14px"]:hover,
+html.tn-redesign #gioi-han [style*="border-radius:14px"]:hover {
+  border-color: rgba(201, 37, 44, .32) !important;
+  box-shadow: 0 20px 48px rgba(47, 31, 24, .12) !important;
+  transform: translateY(-4px);
+}
+
+html.tn-redesign #tinh-nang [style*="border-radius:14px"] p,
+html.tn-redesign #gioi-han [style*="border-radius:14px"] p,
+html.tn-redesign #faq p {
+  color: #6b554b !important;
+}
+
+html.tn-redesign #thanh-toan > div {
+  padding: clamp(24px, 4vw, 52px) !important;
+  background: #e5d6ca !important;
+  border-color: rgba(75, 52, 42, .12) !important;
+}
+
+html.tn-redesign #gioi-han {
+  padding-top: clamp(80px, 10vw, 140px) !important;
+}
+
+html.tn-redesign #gioi-han::before {
+  display: block;
+  margin: 0 0 22px;
+  color: #b01f26;
+  content: "THẬT, KHÔNG PHÓNG ĐẠI";
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+html.tn-redesign #dung-thu > div {
+  background: #c9252c !important;
+  border-color: #c9252c !important;
+  box-shadow: 0 24px 60px rgba(176, 31, 38, .24) !important;
+}
+
+html.tn-redesign #dung-thu h2,
+html.tn-redesign #dung-thu h3,
+html.tn-redesign #dung-thu p,
+html.tn-redesign #dung-thu label {
+  color: #fff !important;
+}
+
+html.tn-redesign footer {
+  background: #241b17 !important;
+  border-top-color: #3c2b24 !important;
+}
+
+html.tn-redesign footer a,
+html.tn-redesign footer p {
+  color: #d9c7bb !important;
+}
+
+@media (max-width: 720px) {
+  html.tn-redesign main { padding-top: 12px; }
+  html.tn-redesign header > div {
+    min-height: 64px !important;
+    gap: 8px !important;
+    padding: 10px 18px !important;
+  }
+  html.tn-redesign header nav {
+    width: 100% !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 2px !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  html.tn-redesign header nav::-webkit-scrollbar { display: none; }
+  html.tn-redesign header nav a,
+  html.tn-redesign header nav button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  html.tn-redesign header nav [role="group"] {
+    margin-left: 4px !important;
+    flex: 0 0 auto;
+  }
+  html.tn-redesign main > section:first-child {
+    min-height: 0;
+    border-radius: 22px !important;
+    padding-top: 70px !important;
+  }
+  html.tn-redesign .tn-hero h1 { max-width: 10ch !important; }
+  html.tn-redesign main > section:not(:first-child) h2 { max-width: 14ch !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.tn-redesign *,
+  html.tn-redesign *::before,
+  html.tn-redesign *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

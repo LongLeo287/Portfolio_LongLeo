@@ -1,0 +1,249 @@
+/* OmniClaw — control-room visual system.
+   Keeps the truthful terminal/daemon content intact while giving the page a
+   clearer case-study hierarchy and a more finished product surface. */
+
+html.oc-redesign {
+  background: #04120c;
+  color-scheme: dark;
+}
+
+html.oc-redesign body,
+html.oc-redesign body > div {
+  background: #04120c !important;
+  color: #e8fff2 !important;
+}
+
+html.oc-redesign body > div {
+  position: relative;
+}
+
+html.oc-redesign body > div::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(126, 231, 135, .03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 231, 135, .03) 1px, transparent 1px),
+    radial-gradient(circle at 82% 8%, rgba(245, 92, 30, .12), transparent 26%),
+    radial-gradient(circle at 10% 72%, rgba(126, 231, 135, .08), transparent 25%);
+  background-size: 46px 46px, 46px 46px, auto, auto;
+  mask-image: linear-gradient(to bottom, black, rgba(0,0,0,.38) 72%, transparent);
+}
+
+html.oc-redesign header {
+  background: rgba(4, 18, 12, .82) !important;
+  border-bottom: 1px solid rgba(126, 231, 135, .14) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .2) !important;
+  backdrop-filter: blur(20px) saturate(1.15) !important;
+}
+
+html.oc-redesign header > div {
+  max-width: 1280px !important;
+  min-height: 72px !important;
+}
+
+html.oc-redesign header a {
+  color: #9fd8b8 !important;
+  transition: color .2s ease, transform .2s ease !important;
+}
+
+html.oc-redesign header a:hover,
+html.oc-redesign header a:focus-visible {
+  color: #f5c542 !important;
+}
+
+html.oc-redesign header a[href*="github.com"] {
+  color: #04120c !important;
+  background: #7ee787 !important;
+}
+
+html.oc-redesign header a[href*="github.com"]:hover,
+html.oc-redesign header a[href*="github.com"]:focus-visible {
+  color: #04120c !important;
+  background: #b2f5b8 !important;
+}
+
+html.oc-redesign main {
+  position: relative;
+  isolation: isolate;
+  padding-top: 24px;
+}
+
+html.oc-redesign main > section {
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(22px, 5vw, 76px) !important;
+  padding-right: clamp(22px, 5vw, 76px) !important;
+}
+
+html.oc-redesign main > section:first-child {
+  position: relative;
+  padding-top: clamp(54px, 8vw, 100px) !important;
+  padding-bottom: clamp(46px, 7vw, 84px) !important;
+}
+
+html.oc-redesign main > section:first-child::before {
+  position: absolute;
+  inset: 18px clamp(16px, 3vw, 48px) 0;
+  z-index: -1;
+  border: 1px solid rgba(20, 67, 46, .72);
+  border-radius: 30px;
+  content: "";
+  background: linear-gradient(140deg, rgba(8, 37, 26, .86), rgba(4, 18, 12, .58));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .2), inset 0 1px rgba(255,255,255,.025);
+}
+
+html.oc-redesign main > section:first-child > div {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html.oc-redesign main > section:first-child h1 {
+  max-width: 11ch !important;
+  color: #effff4 !important;
+  font-size: clamp(43px, 7vw, 88px) !important;
+  line-height: .96 !important;
+  letter-spacing: -.065em !important;
+  text-wrap: balance !important;
+}
+
+html.oc-redesign main > section:first-child p {
+  color: #9fd8b8 !important;
+}
+
+html.oc-redesign main > section:first-child p:first-of-type {
+  max-width: 54ch !important;
+  color: #e8fff2 !important;
+  font-size: clamp(17px, 2vw, 21px) !important;
+  line-height: 1.6 !important;
+}
+
+html.oc-redesign main > section:first-child > div:last-child {
+  border-color: #14432e !important;
+  border-radius: 18px;
+  background: rgba(4, 18, 12, .72) !important;
+}
+
+html.oc-redesign main > section:not(:first-child) {
+  padding-top: clamp(72px, 10vw, 140px) !important;
+}
+
+html.oc-redesign main > section:not(:first-child) h2 {
+  max-width: 17ch !important;
+  color: #effff4 !important;
+  font-size: clamp(30px, 4.6vw, 56px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.055em !important;
+  text-wrap: balance !important;
+}
+
+html.oc-redesign main > section:not(:first-child) > div:first-child p {
+  color: #9fd8b8 !important;
+}
+
+html.oc-redesign main > section:nth-child(2) {
+  padding-top: clamp(34px, 5vw, 72px) !important;
+}
+
+html.oc-redesign main > section:nth-child(2) [style*="border-top:2px"] {
+  border-color: #14432e !important;
+  border-top-color: #7ee787 !important;
+  border-radius: 14px !important;
+  background: rgba(8, 37, 26, .9) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .16) !important;
+  transition: transform .25s ease, border-color .25s ease, background-color .25s ease !important;
+}
+
+html.oc-redesign main > section:nth-child(2) [style*="border-top:2px"]:hover {
+  border-top-color: #f5c542 !important;
+  background: #0b3222 !important;
+  transform: translateY(-5px);
+}
+
+html.oc-redesign #daemon > div:nth-child(2) > div,
+html.oc-redesign #cach-chay > div:nth-child(2) > div,
+html.oc-redesign #tinh-nang > div:nth-child(2) > div {
+  border-color: #14432e !important;
+  border-radius: 16px !important;
+  background: rgba(8, 37, 26, .76) !important;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .14) !important;
+}
+
+html.oc-redesign #daemon > div:nth-child(2) > div:hover,
+html.oc-redesign #tinh-nang > div:nth-child(2) > div:hover {
+  border-color: rgba(126, 231, 135, .55) !important;
+  transform: translateY(-4px);
+}
+
+html.oc-redesign #daemon,
+html.oc-redesign #cach-chay,
+html.oc-redesign #gioi-han,
+html.oc-redesign #faq {
+  position: relative;
+}
+
+html.oc-redesign #daemon::before,
+html.oc-redesign #gioi-han::before {
+  display: block;
+  margin-bottom: 20px;
+  color: #7ee787;
+  content: "SYSTEM REGISTRY / 01";
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+html.oc-redesign #gioi-han::before {
+  color: #f75c1e;
+  content: "KNOWN LIMITS / 04";
+}
+
+html.oc-redesign #gioi-han > div [style*="border-left:2px"],
+html.oc-redesign #faq > div [style*="border-radius:10px"] {
+  border-color: #14432e !important;
+  border-radius: 12px !important;
+  background: rgba(8, 37, 26, .72) !important;
+  transition: border-color .2s ease, transform .2s ease !important;
+}
+
+html.oc-redesign #gioi-han > div [style*="border-left:2px"]:hover {
+  border-color: rgba(247, 92, 30, .7) !important;
+  transform: translateY(-3px);
+}
+
+html.oc-redesign main > section:last-child > div {
+  border-color: #7ee787 !important;
+  border-radius: 22px !important;
+  background: linear-gradient(135deg, #08251a, #071d13) !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .22) !important;
+}
+
+html.oc-redesign footer {
+  margin-top: clamp(72px, 10vw, 140px) !important;
+  border-top-color: #14432e !important;
+  background: #020a06 !important;
+}
+
+@media (max-width: 760px) {
+  html.oc-redesign main { padding-top: 10px; }
+  html.oc-redesign main > section:first-child::before { border-radius: 22px; }
+  html.oc-redesign main > section:first-child h1 { max-width: 10ch !important; }
+  html.oc-redesign main > section:not(:first-child) h2 { max-width: 14ch !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.oc-redesign *,
+  html.oc-redesign *::before,
+  html.oc-redesign *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

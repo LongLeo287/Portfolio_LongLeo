@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "catalog": "landing-page-studio-fixtures",
+  "demoOnly": true,
+  "purpose": "Small, safe fixtures for prototyping child landing pages before connecting a live endpoint or real product data.",
+  "fixtures": {
+    "product-mockup": {
+      "status": "ready",
+      "screens": [
+        {"id": "overview", "title": "Overview", "state": "default"},
+        {"id": "checkout", "title": "Checkout", "state": "success"}
+      ],
+      "proof": {"label": "Offline-first", "value": "0 ms server dependency"}
+    },
+    "workflow-canvas": {
+      "status": "ready",
+      "nodes": [
+        {"id": "input", "group": "source", "label": "Input", "status": "done"},
+        {"id": "render", "group": "process", "label": "Render", "status": "running"},
+        {"id": "deliver", "group": "output", "label": "Deliver", "status": "queued"}
+      ]
+    },
+    "data-dashboard": {
+      "updatedAt": "2026-10-17T00:00:00Z",
+      "source": "demo-fixture",
+      "status": "live",
+      "metrics": [
+        {"id": "jobs", "label": "Jobs processed", "value": 1284, "unit": "jobs", "delta": 12.4, "status": "up"},
+        {"id": "latency", "label": "Median latency", "value": 842, "unit": "ms", "delta": -8.2, "status": "down"}
+      ],
+      "series": [{"id": "throughput", "label": "Throughput", "points": [42, 51, 48, 67, 72, 81]}],
+      "rows": [{"label": "Primary queue", "value": "Healthy", "timestamp": "2026-10-17T00:00:00Z"}]
+    },
+    "media-timeline": {
+      "chapters": [
+        {"id": "hook", "timecode": "00:00", "title": "Hook", "poster": "assets/img/labs/portfolio-480.webp", "tool": "Premiere"},
+        {"id": "proof", "timecode": "00:18", "title": "Proof", "poster": "assets/img/labs/seosona-video-ai-480.webp", "tool": "FFmpeg"}
+      ]
+    },
+    "spatial-3d": {
+      "model": "demo-core.glb",
+      "quality": "balanced",
+      "objects": [{"id": "core", "label": "Core", "role": "focus"}],
+      "cameraPresets": [{"id": "hero", "position": [0, 1, 4], "target": [0, 0, 0]}],
+      "fallback": "svg-map"
+    },
+    "live-runtime": {
+      "source": "demo-fixture",
+      "updatedAt": "2026-10-17T00:00:00Z",
+      "status": "live",
+      "region": "local",
+      "events": [{"timestamp": "2026-10-17T00:00:00Z", "level": "info", "message": "Runtime ready"}]
+    },
+    "design-workbench": {
+      "tokens": {"accent": "#F59E0B", "radius": "20px", "duration": "240ms"},
+      "components": [{"id": "button", "name": "Button", "states": ["default", "hover", "focus", "disabled"]}]
+    },
+    "editorial-narrative": {
+      "chapters": [{"id": "context", "title": "Context", "dek": "Why this system exists.", "image": "assets/img/labs/seosona-480.webp", "alt": "Editorial chapter preview"}],
+      "evidence": [{"label": "Source", "value": "Project notes", "timestamp": "2026-10-17"}]
+    },
+    "motion-narrative": {
+      "chapters": ["intro", "work", "systems", "contact"],
+      "activeSlide": 0,
+      "motionMode": "balanced"
+    },
+    "tv-interface": {
+      "focusIndex": 0,
+      "shelves": [{"id": "featured", "title": "Featured", "items": [{"id": "one", "title": "Demo title", "poster": "assets/img/labs/anibox.svg", "subtitle": "Vietnamese subtitles"}]}]
+    }
+  }
+}
